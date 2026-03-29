@@ -1,0 +1,33 @@
+key: zenodo2025-formal-methods-comparison
+title: "Evaluating Formal Methods for Verifying Security Protocols: A Case Study of Tamarin, AVISPA, and ProVerif"
+authors:
+  - "Author TBD"
+year: 2025
+abstract: "This paper presents a comparative evaluation of formal methods for verifying security protocols, focusing on Tamarin, AVISPA, and ProVerif tools through case studies."
+url: "https://zenodo.org/records/16959462"
+venue: "Journal of Theoretical and Applied Information Technology"
+source: "zenodo"
+categories:
+  - "Formal Methods"
+  - "Comparative Study"
+  - "Protocol Verification"
+keywords:
+  - "formal methods"
+  - "Tamarin"
+  - "AVISPA"
+  - "ProVerif"
+  - "protocol verification"
+  - "comparative study"
+paper_type: "survey_review"
+ai_annotations:
+  relevance_notes: "Highly relevant for understanding different formal verification approaches, particularly Tamarin vs other tools for protocol verification."
+  summary: "Comparative evaluation of formal verification tools for security protocols"
+  methodology: "Comparative analysis, case studies, tool evaluation"
+  key_contributions:
+    - "Formal methods comparison"
+    - "Tool evaluation methodology"
+    - "Protocol verification best practices"
+  tags:
+    - "vector3-tamarin-prover"
+    - "comparative-study"
+    - "formal-methods"

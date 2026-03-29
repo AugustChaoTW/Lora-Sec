@@ -280,10 +280,16 @@ main(int argc, char* argv[])
     uint32_t packetId = 0;
     auto trafficPairs = TrafficPairs(topology);
 
+    // Delay data traffic start to allow route convergence (linear: 60s, tree: 100s, grid: 80s)
+    uint32_t dataStartSec = 120;
+    
     for (uint32_t sec = 1; sec <= durationSec; ++sec)
     {
         Simulator::Schedule(Seconds(sec), [sec, &routing]() { routing.HelloBroadcast(sec); });
 
+        // Start data traffic only after route convergence
+        if (sec >= dataStartSec)
+        {
         Simulator::Schedule(Seconds(sec),
                             [sec, &routing, &attacker, &config, usePatch]() {
                                 if (!attacker.ShouldAttackAt(sec))
@@ -336,6 +342,7 @@ main(int argc, char* argv[])
                                 metrics.generated += 1;
                                 StepForwardPacket(routing, attacker, config, p, metrics, sec);
                             });
+        }
 
         if (samplePeriodSec > 0 && sec % samplePeriodSec == 0)
         {

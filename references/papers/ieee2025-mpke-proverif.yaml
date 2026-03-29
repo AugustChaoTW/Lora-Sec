@@ -1,0 +1,32 @@
+key: ieee2025-mpke-proverif
+title: "Formal Analysis of MPKE Protocol in Wireless Mesh Network Using ProVerif"
+authors:
+  - "Author TBD"
+year: 2025
+abstract: "This paper presents formal analysis of the MPKE (Multi-Party Key Exchange) protocol in wireless mesh networks using ProVerif, identifying security properties and potential vulnerabilities."
+url: "https://ieeexplore.ieee.org/document/10957235/"
+venue: "IEEE Conference Publication"
+source: "ieee"
+categories:
+  - "Formal Verification"
+  - "Mesh Networks"
+  - "Key Exchange"
+keywords:
+  - "MPKE protocol"
+  - "ProVerif"
+  - "formal analysis"
+  - "wireless mesh"
+  - "key exchange"
+paper_type: "theoretical_diagnostic"
+ai_annotations:
+  relevance_notes: "Highly relevant for formal verification of mesh network protocols, providing ProVerif-based analysis methodology."
+  summary: "ProVerif-based formal analysis of MPKE protocol in wireless mesh networks"
+  methodology: "Formal verification using ProVerif, protocol analysis"
+  key_contributions:
+    - "MPKE protocol formal analysis"
+    - "ProVerif methodology for mesh networks"
+    - "Security property verification"
+  tags:
+    - "vector3-tamarin-prover"
+    - "formal-verification"
+    - "proverif"

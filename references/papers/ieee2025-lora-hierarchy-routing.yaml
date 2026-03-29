@@ -1,0 +1,32 @@
+key: ieee2025-lora-hierarchy-routing
+title: "A Hierarchy-Based Dynamic Routing Protocol for LoRa Mesh Networks"
+authors:
+  - "Author TBD"
+year: 2025
+abstract: "This paper presents a hierarchy-based dynamic routing protocol specifically designed for LoRa mesh networks, addressing scalability and energy efficiency challenges in large-scale deployments."
+url: "https://ieeexplore.ieee.org/document/10211537/"
+venue: "IEEE Conference Publication"
+source: "ieee"
+categories:
+  - "LoRa Mesh"
+  - "Routing Protocol"
+  - "Hierarchy-based"
+keywords:
+  - "LoRa mesh"
+  - "hierarchy-based routing"
+  - "dynamic routing"
+  - "scalability"
+  - "energy efficiency"
+paper_type: "application_system"
+ai_annotations:
+  relevance_notes: "Extremely relevant - directly addresses LoRa mesh routing protocols with hierarchy-based approach."
+  summary: "Hierarchy-based dynamic routing protocol for LoRa mesh networks"
+  methodology: "Hierarchical routing design, dynamic protocol implementation"
+  key_contributions:
+    - "Hierarchy-based LoRa mesh routing"
+    - "Dynamic routing protocol design"
+    - "Scalability improvements for LoRa mesh"
+  tags:
+    - "vector2-mesh-routing"
+    - "lora-mesh"
+    - "hierarchy-routing"

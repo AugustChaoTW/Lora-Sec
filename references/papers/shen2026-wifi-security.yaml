@@ -1,0 +1,34 @@
+key: shen2026-wifi-security
+title: "WCDCAnalyzer: Scalable Security Analysis of Wi-Fi Certified Device Connectivity Protocols"
+authors:
+  - "Zilin Shen"
+  - "Imtiaz Karim"
+  - "Elisa Bertino"
+year: 2026
+abstract: "This paper presents WCDCAnalyzer, a scalable security analysis framework for Wi-Fi Certified Device Connectivity protocols, identifying vulnerabilities and proposing security enhancements."
+url: "https://www.ndss-symposium.org/ndss-paper/wcdcanalyzer-scalable-security-analysis-of-wi-fi-certified-device-connectivity-protocols/"
+venue: "NDSS 2026"
+source: "ndss"
+categories:
+  - "Wi-Fi Security"
+  - "Protocol Analysis"
+  - "Scalable Security"
+keywords:
+  - "Wi-Fi security"
+  - "device connectivity"
+  - "protocol analysis"
+  - "scalable analysis"
+  - "vulnerability discovery"
+paper_type: "application_system"
+ai_annotations:
+  relevance_notes: "Relevant for understanding scalable security analysis methodologies applicable to LoRa mesh protocol analysis."
+  summary: "Scalable security analysis framework for Wi-Fi device connectivity protocols"
+  methodology: "Scalable analysis framework, vulnerability discovery, protocol testing"
+  key_contributions:
+    - "Scalable Wi-Fi protocol analysis"
+    - "Device connectivity security assessment"
+    - "Automated vulnerability discovery"
+  tags:
+    - "vector4-breaking-repairing"
+    - "scalable-analysis"
+    - "wifi-security"

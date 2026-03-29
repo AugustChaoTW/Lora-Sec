@@ -1,0 +1,35 @@
+key: basin2025-tamarin-book
+title: "Modeling and Analyzing Security Protocols with Tamarin: A Comprehensive Guide"
+authors:
+  - "David Basin"
+  - "Cas Cremers"
+  - "Jannik Dreier"
+  - "Ralf Sasse"
+year: 2025
+abstract: "This comprehensive guide presents modeling and analysis of security protocols using Tamarin prover, covering theoretical foundations, practical applications, and case studies."
+url: "https://link.springer.com/book/10.1007/978-3-031-90936-8"
+venue: "Springer Book"
+source: "springer"
+categories:
+  - "Tamarin Prover"
+  - "Security Protocols"
+  - "Formal Methods"
+keywords:
+  - "Tamarin prover"
+  - "security protocols"
+  - "formal modeling"
+  - "protocol analysis"
+  - "verification methodology"
+paper_type: "survey_review"
+ai_annotations:
+  relevance_notes: "Essential reference for Tamarin-based verification - comprehensive guide covering methodology applicable to LoRa mesh protocol verification."
+  summary: "Comprehensive guide to Tamarin prover for security protocol analysis"
+  methodology: "Formal modeling, protocol analysis, verification techniques"
+  key_contributions:
+    - "Comprehensive Tamarin methodology"
+    - "Security protocol modeling guide"
+    - "Formal verification best practices"
+  tags:
+    - "vector3-tamarin-prover"
+    - "comprehensive-guide"
+    - "methodology"

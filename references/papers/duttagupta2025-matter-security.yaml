@@ -1,0 +1,36 @@
+key: duttagupta2025-matter-security
+title: "What's the Matter? An In-Depth Security Analysis of the Matter Protocol"
+authors:
+  - "Sayon Duttagupta"
+  - "Arman Kolozyan"
+  - "Georgio Nicolas"
+  - "Bart Preneel"
+  - "Dave Singelée"
+year: 2025
+abstract: "This paper presents an in-depth security analysis of the Matter protocol, identifying vulnerabilities and proposing security enhancements for IoT device interoperability."
+url: "https://eprint.iacr.org/2025/1268.pdf"
+venue: "IACR Cryptology ePrint Archive"
+source: "iacr"
+categories:
+  - "Protocol Security"
+  - "IoT Security"
+  - "Matter Protocol"
+keywords:
+  - "Matter protocol"
+  - "security analysis"
+  - "IoT"
+  - "protocol vulnerabilities"
+  - "device interoperability"
+paper_type: "empirical_study"
+ai_annotations:
+  relevance_notes: "Relevant for understanding protocol security analysis methodologies that can be applied to LoRa mesh protocols."
+  summary: "Comprehensive security analysis of Matter protocol with vulnerability identification"
+  methodology: "Protocol analysis, vulnerability assessment, security testing"
+  key_contributions:
+    - "Matter protocol security analysis"
+    - "Vulnerability identification methodology"
+    - "Security enhancement proposals"
+  tags:
+    - "vector1-lorawan-security"
+    - "protocol-analysis"
+    - "vulnerability-assessment"

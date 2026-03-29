@@ -1,0 +1,32 @@
+key: ieee2025-lorawan-jamming-ids
+title: "Network Intrusion Detection System for Jamming Attack in LoRaWAN Join Procedure"
+authors:
+  - "Author TBD"
+year: 2025
+abstract: "This paper presents a network intrusion detection system specifically designed to detect jamming attacks during the LoRaWAN join procedure, addressing a critical vulnerability in network initialization."
+url: "https://ieeexplore.ieee.org/document/8422721/"
+venue: "IEEE Conference Publication"
+source: "ieee"
+categories:
+  - "LoRaWAN Security"
+  - "Jamming Attack"
+  - "Join Procedure"
+keywords:
+  - "LoRaWAN"
+  - "jamming attack"
+  - "join procedure"
+  - "intrusion detection"
+  - "network security"
+paper_type: "application_system"
+ai_annotations:
+  relevance_notes: "Highly relevant for LoRaWAN security - jamming attacks during join procedure are critical vulnerabilities in mesh network initialization."
+  summary: "IDS for jamming attacks in LoRaWAN join procedure"
+  methodology: "Jamming detection, join procedure analysis, intrusion detection"
+  key_contributions:
+    - "LoRaWAN join procedure security"
+    - "Jamming attack detection"
+    - "Network initialization protection"
+  tags:
+    - "vector1-lorawan-security"
+    - "jamming-attack"
+    - "join-procedure"

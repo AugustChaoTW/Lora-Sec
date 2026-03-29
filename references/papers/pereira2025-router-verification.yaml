@@ -1,0 +1,40 @@
+key: pereira2025-router-verification
+title: "Protocols to Code: Formal Verification of a Secure Next-Generation Internet Router"
+authors:
+  - "João Pereira"
+  - "Tobias Klenze"
+  - "Sofia Giampietro"
+  - "Markus Limbeck"
+  - "Dionysios Spiliopoulos"
+  - "Felix Wolf"
+  - "Marco Eilers"
+  - "Christoph Sprenger"
+  - "David Basin"
+year: 2025
+abstract: "This paper presents formal verification of a secure next-generation internet router, bridging the gap between protocol specifications and implementation code through formal methods."
+url: "https://ethz.ch/content/dam/ethz/special-interest/infk/inst-infsec/information-security-group-dam/research/publications/pub2025/CCS_scigloo.pdf"
+venue: "ACM CCS 2025"
+source: "acm"
+categories:
+  - "Formal Verification"
+  - "Router Security"
+  - "Protocol Implementation"
+keywords:
+  - "formal verification"
+  - "router security"
+  - "protocol implementation"
+  - "code verification"
+  - "network security"
+paper_type: "application_system"
+ai_annotations:
+  relevance_notes: "Highly relevant for formal verification of routing protocols, providing methodologies applicable to LoRa mesh routing verification."
+  summary: "Formal verification of secure router implementation from protocol to code"
+  methodology: "Formal methods, protocol-to-code verification, security analysis"
+  key_contributions:
+    - "Protocol-to-code verification methodology"
+    - "Secure router formal verification"
+    - "Implementation security guarantees"
+  tags:
+    - "vector3-tamarin-prover"
+    - "formal-verification"
+    - "router-security"

@@ -1,0 +1,32 @@
+key: shelby2026-zero-trust-iot
+title: "Zero Trust for Multi-RAT IoT: Trust Boundary Management in Heterogeneous Wireless Network Environments"
+authors:
+  - "Jonathan Shelby"
+year: 2026
+abstract: "This paper presents a zero trust architecture for multi-RAT IoT environments, addressing trust boundary management in heterogeneous wireless networks including LoRa, WiFi, and cellular technologies."
+url: "https://arxiv.org/html/2602.08989v1"
+venue: "arXiv preprint"
+source: "arxiv"
+categories:
+  - "Zero Trust"
+  - "Multi-RAT IoT"
+  - "Wireless Security"
+keywords:
+  - "zero trust"
+  - "multi-RAT"
+  - "IoT"
+  - "trust boundary"
+  - "heterogeneous networks"
+paper_type: "theoretical_diagnostic"
+ai_annotations:
+  relevance_notes: "Highly relevant for LoRa mesh security as it addresses trust management in heterogeneous wireless environments including LoRa."
+  summary: "Zero trust architecture for multi-RAT IoT with focus on trust boundary management"
+  methodology: "Theoretical framework with practical implementation guidelines"
+  key_contributions:
+    - "Zero trust model for multi-RAT IoT"
+    - "Trust boundary management framework"
+    - "Heterogeneous wireless network security"
+  tags:
+    - "vector1-lorawan-security"
+    - "zero-trust"
+    - "multi-rat"

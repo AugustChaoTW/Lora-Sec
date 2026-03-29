@@ -1,0 +1,34 @@
+key: cve2025-meshtastic-entropy
+title: "CVE-2025-52464: Insufficient Entropy in Meshtastic LoRa Mesh Networking - Key Duplication Vulnerability"
+authors:
+  - "Security Research Community"
+year: 2025
+abstract: "This CVE report documents a critical security vulnerability in Meshtastic LoRa mesh networking solution (versions 2.5.0 to 2.6.11) where insufficient entropy in key generation leads to repeated public and private keypairs, allowing message decryption and node hijacking."
+url: "https://www.cvedetails.com/cve/CVE-2025-52464/"
+doi: "CVE-2025-52464"
+venue: "CVE Database"
+source: "cve"
+categories:
+  - "LoRa Security"
+  - "Cryptographic Vulnerability"
+  - "Mesh Networking"
+keywords:
+  - "CVE-2025-52464"
+  - "Meshtastic"
+  - "LoRa mesh"
+  - "insufficient entropy"
+  - "key duplication"
+  - "cryptographic flaw"
+paper_type: "empirical_study"
+ai_annotations:
+  relevance_notes: "Extremely relevant - real-world LoRa mesh security vulnerability demonstrating cryptographic flaws in mesh networking implementations."
+  summary: "Critical LoRa mesh vulnerability: insufficient entropy causing key duplication"
+  methodology: "Vulnerability analysis, cryptographic assessment, security impact evaluation"
+  key_contributions:
+    - "Real-world LoRa mesh vulnerability documentation"
+    - "Cryptographic entropy analysis"
+    - "Security impact assessment for mesh networks"
+  tags:
+    - "vector1-lorawan-security"
+    - "cve-analysis"
+    - "cryptographic-vulnerability"

@@ -1,0 +1,32 @@
+key: zenodo2025-manet-routing-attacks
+title: "Securing MANETs Against Routing Attacks: A Comprehensive Study on Black Hole and Related Threats"
+authors:
+  - "Author TBD"
+year: 2025
+abstract: "This paper presents a comprehensive study on securing mobile ad hoc networks against routing attacks, with focus on black hole attacks and related threats in wireless mesh environments."
+url: "https://zenodo.org/records/17016615"
+venue: "International Journal of Scientific Research and Engineering Development"
+source: "zenodo"
+categories:
+  - "MANET Security"
+  - "Routing Attacks"
+  - "Comprehensive Study"
+keywords:
+  - "MANET security"
+  - "routing attacks"
+  - "black hole"
+  - "wireless mesh"
+  - "threat analysis"
+paper_type: "survey_review"
+ai_annotations:
+  relevance_notes: "Highly relevant comprehensive survey of routing attacks in wireless mesh networks, directly applicable to LoRa mesh security analysis."
+  summary: "Comprehensive study of MANET routing attacks and security measures"
+  methodology: "Survey methodology, threat analysis, security evaluation"
+  key_contributions:
+    - "Comprehensive routing attack taxonomy"
+    - "MANET security analysis"
+    - "Threat mitigation strategies"
+  tags:
+    - "vector2-mesh-routing"
+    - "comprehensive-study"
+    - "routing-attacks"

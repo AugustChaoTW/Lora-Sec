@@ -1,0 +1,32 @@
+key: repetto2025-lorawan-drone-attack
+title: "Flying Drones to Locate Cyber-Attackers in LoRaWAN Metropolitan Networks"
+authors:
+  - "Matteo Repetto"
+year: 2025
+abstract: "This paper presents a novel approach to locate cyber-attackers in LoRaWAN metropolitan networks using flying drones. The work addresses security vulnerabilities in large-scale LoRaWAN deployments and proposes a drone-based detection system for identifying malicious activities."
+url: "https://arxiv.org/abs/2509.15725"
+venue: "arXiv preprint"
+source: "arxiv"
+categories:
+  - "LoRaWAN Security"
+  - "Attack Detection" 
+  - "Drone-based Security"
+keywords:
+  - "LoRaWAN"
+  - "cyber-attack"
+  - "drone"
+  - "metropolitan networks"
+  - "security"
+paper_type: "application_system"
+ai_annotations:
+  relevance_notes: "Directly relevant to LoRaWAN security research. Provides practical attack detection methods for metropolitan-scale deployments."
+  summary: "Novel drone-based approach for locating cyber-attackers in LoRaWAN networks"
+  methodology: "Drone-based detection system with localization algorithms"
+  key_contributions:
+    - "Drone-based cyber-attack detection for LoRaWAN"
+    - "Metropolitan network security analysis"
+    - "Practical localization algorithms"
+  tags:
+    - "vector1-lorawan-security"
+    - "attack-detection"
+    - "practical-security"

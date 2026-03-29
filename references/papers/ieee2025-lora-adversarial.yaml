@@ -1,0 +1,32 @@
+key: ieee2025-lora-adversarial
+title: "Adversarial Attack and Defense for LoRa Device Identification and Authentication via Deep Learning"
+authors:
+  - "Author TBD"
+year: 2025
+abstract: "This paper presents adversarial attack and defense mechanisms for LoRa device identification and authentication using deep learning techniques, addressing AI-based security threats."
+url: "https://ieeexplore.ieee.org/document/10918982/"
+venue: "IEEE Journals & Magazine"
+source: "ieee"
+categories:
+  - "LoRa Security"
+  - "Adversarial ML"
+  - "Device Authentication"
+keywords:
+  - "LoRa"
+  - "adversarial attack"
+  - "deep learning"
+  - "device identification"
+  - "authentication"
+paper_type: "application_system"
+ai_annotations:
+  relevance_notes: "Relevant for understanding AI-based attacks and defenses in LoRa networks, applicable to mesh network device authentication security."
+  summary: "Adversarial ML attacks and defenses for LoRa device authentication"
+  methodology: "Deep learning, adversarial attacks, defense mechanisms"
+  key_contributions:
+    - "Adversarial attacks on LoRa authentication"
+    - "Deep learning-based defenses"
+    - "Device identification security"
+  tags:
+    - "vector4-breaking-repairing"
+    - "adversarial-ml"
+    - "device-authentication"

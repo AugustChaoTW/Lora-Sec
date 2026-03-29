@@ -1,0 +1,32 @@
+key: ieee2025-lorawan-key-verification
+title: "Extensive Security Verification of the LoRaWAN Key-Establishment: Insecurities & Patches"
+authors:
+  - "Author TBD"
+year: 2025
+abstract: "This paper presents extensive security verification of LoRaWAN key-establishment mechanisms, identifying insecurities and proposing patches to address discovered vulnerabilities."
+url: "https://ieeexplore.ieee.org/document/9230413/"
+venue: "IEEE Conference Publication"
+source: "ieee"
+categories:
+  - "LoRaWAN Security"
+  - "Key Establishment"
+  - "Security Verification"
+keywords:
+  - "LoRaWAN"
+  - "key establishment"
+  - "security verification"
+  - "vulnerabilities"
+  - "security patches"
+paper_type: "empirical_study"
+ai_annotations:
+  relevance_notes: "Extremely relevant - demonstrates the 'breaking and repairing' paradigm for LoRaWAN key establishment."
+  summary: "Extensive security verification of LoRaWAN key establishment with vulnerability patches"
+  methodology: "Security verification, vulnerability analysis, patch development"
+  key_contributions:
+    - "LoRaWAN key establishment verification"
+    - "Vulnerability identification and patching"
+    - "Security verification methodology"
+  tags:
+    - "vector4-breaking-repairing"
+    - "lorawan-security"
+    - "key-establishment"

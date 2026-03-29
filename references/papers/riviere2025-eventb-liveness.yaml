@@ -1,0 +1,35 @@
+key: riviere2025-eventb-liveness
+title: "Formalising Liveness Properties in Event-B with the Reflexive EB4EB Framework"
+authors:
+  - "Peter Riviere"
+  - "Neeraj Kumar Singh"
+  - "Yamine Aït-Ameur"
+  - "Guillaume Dupont"
+year: 2025
+abstract: "This paper presents a framework for formalising liveness properties in Event-B using the reflexive EB4EB framework, enabling verification of temporal properties in formal specifications."
+url: "https://hal.science/hal-04046949v1/file/Formalising_%20Liveness_Properties_in_Event_B_with_th_Reflexive_EB4EB_Framework.pdf"
+venue: "HAL Archive"
+source: "hal"
+categories:
+  - "Event-B"
+  - "Liveness Properties"
+  - "Formal Methods"
+keywords:
+  - "Event-B"
+  - "liveness properties"
+  - "EB4EB framework"
+  - "temporal properties"
+  - "formal verification"
+paper_type: "theoretical_diagnostic"
+ai_annotations:
+  relevance_notes: "Relevant for advanced Event-B verification techniques, particularly for liveness properties in protocol verification."
+  summary: "Event-B framework for liveness property verification"
+  methodology: "Event-B extension, reflexive framework, liveness property formalization"
+  key_contributions:
+    - "EB4EB framework for liveness properties"
+    - "Event-B temporal property verification"
+    - "Reflexive formal specification"
+  tags:
+    - "vector3-tamarin-prover"
+    - "event-b"
+    - "liveness-properties"

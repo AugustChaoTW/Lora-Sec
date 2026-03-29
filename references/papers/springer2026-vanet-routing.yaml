@@ -1,0 +1,32 @@
+key: springer2026-vanet-routing
+title: "Intrusion-Resilient Intelligent Routing in VANETs Using Dynamic Optimization"
+authors:
+  - "Author TBD"
+year: 2026
+abstract: "This paper presents intrusion-resilient intelligent routing mechanisms for VANETs using dynamic optimization techniques to counter routing attacks in mobile ad-hoc networks."
+url: "https://link.springer.com/article/10.1007/s42979-026-04768-1"
+venue: "SN Computer Science"
+source: "springer"
+categories:
+  - "VANET Security"
+  - "Routing Security"
+  - "Dynamic Optimization"
+keywords:
+  - "VANET"
+  - "intrusion-resilient"
+  - "routing"
+  - "dynamic optimization"
+  - "mobile ad-hoc"
+paper_type: "application_system"
+ai_annotations:
+  relevance_notes: "Highly relevant for mesh routing security as VANETs share similar challenges with LoRa mesh networks in terms of dynamic topology and routing attacks."
+  summary: "Intrusion-resilient routing for VANETs with dynamic optimization against attacks"
+  methodology: "Dynamic optimization algorithms for routing security"
+  key_contributions:
+    - "Intrusion-resilient routing mechanisms"
+    - "Dynamic optimization for mobile networks"
+    - "Attack-resistant routing protocols"
+  tags:
+    - "vector2-mesh-routing"
+    - "intrusion-resilient"
+    - "dynamic-routing"

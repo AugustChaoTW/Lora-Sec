@@ -1,0 +1,32 @@
+key: springer2026-blockchain-ids
+title: "A blockchain-driven intrusion detection model for secure communication in IoT-WSN mesh architectures"
+authors:
+  - "Author TBD"
+year: 2026
+abstract: "This paper presents a blockchain-driven intrusion detection model for secure communication in IoT-WSN mesh architectures, combining blockchain technology with intrusion detection for enhanced security."
+url: "https://link.springer.com/article/10.1007/s12083-026-02195-w"
+venue: "Peer-to-Peer Networking and Applications"
+source: "springer"
+categories:
+  - "Blockchain Security"
+  - "IoT-WSN Mesh"
+  - "Intrusion Detection"
+keywords:
+  - "blockchain"
+  - "intrusion detection"
+  - "IoT-WSN"
+  - "mesh architecture"
+  - "secure communication"
+paper_type: "application_system"
+ai_annotations:
+  relevance_notes: "Relevant for mesh network security with blockchain-based intrusion detection, applicable to LoRa mesh security enhancement."
+  summary: "Blockchain-driven intrusion detection for IoT-WSN mesh networks"
+  methodology: "Blockchain integration, intrusion detection, mesh network security"
+  key_contributions:
+    - "Blockchain-based IDS for mesh networks"
+    - "IoT-WSN security enhancement"
+    - "Distributed intrusion detection"
+  tags:
+    - "vector2-mesh-routing"
+    - "blockchain-security"
+    - "intrusion-detection"

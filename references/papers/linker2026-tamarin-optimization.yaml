@@ -1,0 +1,32 @@
+key: linker2026-tamarin-optimization
+title: "Rule Variant Restrictions for the Tamarin Prover"
+authors:
+  - "Felix Linker"
+year: 2026
+abstract: "This paper introduces optimization techniques for the Tamarin prover that reduce search space through rule variant restrictions, improving verification performance for complex protocols."
+url: "https://eprint.iacr.org/2026/230"
+venue: "IACR Cryptology ePrint Archive"
+source: "iacr"
+categories:
+  - "Formal Verification"
+  - "Tamarin Prover"
+  - "Protocol Verification"
+keywords:
+  - "Tamarin prover"
+  - "formal verification"
+  - "optimization"
+  - "rule variants"
+  - "search space reduction"
+paper_type: "theoretical_diagnostic"
+ai_annotations:
+  relevance_notes: "Directly relevant for Tamarin-based verification of LoRa mesh protocols, providing optimization techniques for complex protocol verification."
+  summary: "Tamarin prover optimization through rule variant restrictions"
+  methodology: "Formal methods optimization, search space reduction techniques"
+  key_contributions:
+    - "Tamarin prover optimization techniques"
+    - "Rule variant restriction methods"
+    - "Search space reduction for protocol verification"
+  tags:
+    - "vector3-tamarin-prover"
+    - "formal-verification"
+    - "optimization"

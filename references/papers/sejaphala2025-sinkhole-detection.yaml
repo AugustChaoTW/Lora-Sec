@@ -1,0 +1,34 @@
+key: sejaphala2025-sinkhole-detection
+title: "Hop Count-Based Detection Scheme for Sinkhole Attack"
+authors:
+  - "L. C. Sejaphala"
+  - "V. Malele"
+  - "F. Lugayizi"
+year: 2025
+abstract: "This paper presents a hop count-based detection scheme for sinkhole attacks in wireless networks, providing a novel approach to identify and mitigate routing-based attacks."
+url: "https://link.springer.com/chapter/10.1007/978-3-031-96380-3_1"
+venue: "Springer Conference Proceedings"
+source: "springer"
+categories:
+  - "Sinkhole Attack"
+  - "Attack Detection"
+  - "Wireless Security"
+keywords:
+  - "sinkhole attack"
+  - "hop count"
+  - "detection scheme"
+  - "wireless networks"
+  - "routing security"
+paper_type: "application_system"
+ai_annotations:
+  relevance_notes: "Highly relevant for mesh routing security - sinkhole attacks are a major threat to distance-vector routing protocols like those used in LoRa mesh."
+  summary: "Hop count-based sinkhole attack detection for wireless networks"
+  methodology: "Hop count analysis, attack detection algorithms, security evaluation"
+  key_contributions:
+    - "Hop count-based sinkhole detection"
+    - "Wireless network security enhancement"
+    - "Routing attack mitigation"
+  tags:
+    - "vector2-mesh-routing"
+    - "sinkhole-attack"
+    - "attack-detection"

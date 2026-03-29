@@ -1,0 +1,32 @@
+key: springer2026-adr-mobility
+title: "A robust hybrid adaptive data rate mechanism for high-mobility LoRaWAN IoT networks"
+authors:
+  - "Author TBD"
+year: 2026
+abstract: "This paper presents a robust hybrid adaptive data rate mechanism specifically designed for high-mobility LoRaWAN IoT networks, addressing challenges in dynamic network conditions."
+url: "https://link.springer.com/article/10.1186/s44147-026-00955-2"
+venue: "Journal of Engineering and Applied Science"
+source: "springer"
+categories:
+  - "LoRaWAN"
+  - "Adaptive Data Rate"
+  - "High Mobility"
+keywords:
+  - "LoRaWAN"
+  - "adaptive data rate"
+  - "high mobility"
+  - "IoT networks"
+  - "hybrid mechanism"
+paper_type: "application_system"
+ai_annotations:
+  relevance_notes: "Relevant for understanding ADR mechanisms in dynamic LoRaWAN environments, applicable to mesh network mobility challenges."
+  summary: "Hybrid ADR mechanism for high-mobility LoRaWAN networks"
+  methodology: "Hybrid algorithm design, mobility analysis, performance evaluation"
+  key_contributions:
+    - "Hybrid ADR mechanism for mobility"
+    - "High-mobility LoRaWAN optimization"
+    - "Dynamic network adaptation"
+  tags:
+    - "vector1-lorawan-security"
+    - "adr-mechanism"
+    - "mobility"

@@ -1,0 +1,32 @@
+key: ieee2025-blackhole-optimization
+title: "Detection of Black Hole Attacks in Mobile Ad Hoc Networks Using Optimization-Based Routing Algorithms"
+authors:
+  - "Author TBD"
+year: 2025
+abstract: "This paper presents optimization-based routing algorithms for detecting black hole attacks in mobile ad hoc networks, providing enhanced security through intelligent routing decisions."
+url: "https://ieeexplore.ieee.org/iel8/10548017/10548035/10548688.pdf"
+venue: "IEEE Conference Publication"
+source: "ieee"
+categories:
+  - "Black Hole Attack"
+  - "MANET Security"
+  - "Optimization Algorithms"
+keywords:
+  - "black hole attack"
+  - "mobile ad hoc networks"
+  - "optimization algorithms"
+  - "routing security"
+  - "attack detection"
+paper_type: "application_system"
+ai_annotations:
+  relevance_notes: "Relevant for mesh routing security - black hole attacks are common in distance-vector routing and applicable to LoRa mesh networks."
+  summary: "Optimization-based black hole attack detection in MANETs"
+  methodology: "Optimization algorithms, routing security, attack detection"
+  key_contributions:
+    - "Optimization-based attack detection"
+    - "MANET security enhancement"
+    - "Intelligent routing algorithms"
+  tags:
+    - "vector2-mesh-routing"
+    - "blackhole-attack"
+    - "optimization"

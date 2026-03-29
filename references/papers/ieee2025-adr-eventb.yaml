@@ -1,0 +1,32 @@
+key: ieee2025-adr-eventb
+title: "Formal Validation of ADR Protocol in LoraWan Network Using Event-B"
+authors:
+  - "Author TBD"
+year: 2025
+abstract: "This paper presents formal validation of the Adaptive Data Rate (ADR) protocol in LoRaWAN networks using Event-B methodology, providing formal specifications and verification of protocol properties."
+url: "https://ieeexplore.ieee.org/document/10356677/"
+venue: "IEEE Conference Publication"
+source: "ieee"
+categories:
+  - "Formal Verification"
+  - "Event-B"
+  - "LoRaWAN ADR"
+keywords:
+  - "Event-B"
+  - "formal validation"
+  - "ADR protocol"
+  - "LoRaWAN"
+  - "formal specification"
+paper_type: "theoretical_diagnostic"
+ai_annotations:
+  relevance_notes: "Extremely relevant - demonstrates Event-B formal verification applied to LoRaWAN protocols, directly applicable to our research."
+  summary: "Event-B formal validation of LoRaWAN ADR protocol"
+  methodology: "Event-B formal specification, refinement, proof obligations"
+  key_contributions:
+    - "Event-B specification of ADR protocol"
+    - "Formal validation methodology for LoRaWAN"
+    - "Protocol property verification"
+  tags:
+    - "vector1-lorawan-security"
+    - "event-b"
+    - "formal-validation"

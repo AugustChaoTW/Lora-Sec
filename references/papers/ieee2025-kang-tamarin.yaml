@@ -1,0 +1,32 @@
+key: ieee2025-kang-tamarin
+title: "Formal Analysis of Kang et al.'s Authentication Protocol using Tamarin-Prover"
+authors:
+  - "Author TBD"
+year: 2025
+abstract: "This paper presents formal analysis of Kang et al.'s authentication protocol using Tamarin-Prover, demonstrating the application of formal verification to authentication mechanisms."
+url: "https://ieeexplore.ieee.org/document/9631852/"
+venue: "IEEE Conference Publication"
+source: "ieee"
+categories:
+  - "Formal Verification"
+  - "Tamarin Prover"
+  - "Authentication Protocol"
+keywords:
+  - "Tamarin prover"
+  - "formal analysis"
+  - "authentication protocol"
+  - "security verification"
+  - "protocol analysis"
+paper_type: "theoretical_diagnostic"
+ai_annotations:
+  relevance_notes: "Relevant for Tamarin-based protocol verification methodology, providing case study for authentication protocol analysis."
+  summary: "Tamarin-based formal analysis of authentication protocol"
+  methodology: "Tamarin prover, formal specification, security property verification"
+  key_contributions:
+    - "Tamarin-based authentication analysis"
+    - "Formal verification methodology"
+    - "Security property validation"
+  tags:
+    - "vector3-tamarin-prover"
+    - "authentication-protocol"
+    - "formal-analysis"

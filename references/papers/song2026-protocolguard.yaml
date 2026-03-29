@@ -1,0 +1,34 @@
+key: song2026-protocolguard
+title: "ProtocolGuard: Detecting Protocol Non-compliance Bugs via LLM-guided Static Analysis and Dynamic Verification"
+authors:
+  - "Xiangpu Song"
+  - "Longjia Pei"
+  - "Jianliang Wu"
+year: 2026
+abstract: "This paper presents ProtocolGuard, a system for detecting protocol non-compliance bugs using LLM-guided static analysis combined with dynamic verification techniques."
+url: "https://www.ndss-symposium.org/ndss-paper/protocolguard-detecting-protocol-non-compliance-bugs-via-llm-guided-static-analysis-and-dynamic-verification/"
+venue: "NDSS 2026"
+source: "ndss"
+categories:
+  - "Protocol Security"
+  - "Bug Detection"
+  - "Static Analysis"
+keywords:
+  - "protocol bugs"
+  - "static analysis"
+  - "dynamic verification"
+  - "LLM-guided"
+  - "non-compliance"
+paper_type: "application_system"
+ai_annotations:
+  relevance_notes: "Highly relevant for discovering protocol vulnerabilities in LoRa mesh implementations through automated analysis techniques."
+  summary: "LLM-guided protocol bug detection with static and dynamic analysis"
+  methodology: "LLM-guided static analysis, dynamic verification, bug detection"
+  key_contributions:
+    - "LLM-guided protocol analysis"
+    - "Automated bug detection system"
+    - "Static and dynamic verification integration"
+  tags:
+    - "vector4-breaking-repairing"
+    - "bug-detection"
+    - "protocol-analysis"

@@ -1,0 +1,32 @@
+key: ieee2025-5g-prose-aka
+title: "A Formal Analysis of 5G ProSe AKA Protocols for U2N Relay Communication"
+authors:
+  - "Author TBD"
+year: 2025
+abstract: "This paper presents formal analysis of 5G Proximity Services (ProSe) Authentication and Key Agreement protocols for User-to-Network relay communication, using formal verification techniques."
+url: "https://ieeexplore.ieee.org/document/10816532/"
+venue: "IEEE Journals & Magazine"
+source: "ieee"
+categories:
+  - "5G Security"
+  - "ProSe AKA"
+  - "Formal Analysis"
+keywords:
+  - "5G ProSe"
+  - "AKA protocol"
+  - "formal analysis"
+  - "U2N relay"
+  - "authentication"
+paper_type: "theoretical_diagnostic"
+ai_annotations:
+  relevance_notes: "Relevant for formal analysis of authentication protocols in wireless networks, providing methodology applicable to LoRa mesh authentication."
+  summary: "Formal analysis of 5G ProSe AKA protocols for relay communication"
+  methodology: "Formal verification, protocol analysis, security property validation"
+  key_contributions:
+    - "5G ProSe AKA formal analysis"
+    - "U2N relay security verification"
+    - "Authentication protocol validation"
+  tags:
+    - "vector3-tamarin-prover"
+    - "5g-security"
+    - "aka-protocol"

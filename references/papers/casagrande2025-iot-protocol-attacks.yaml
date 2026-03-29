@@ -1,0 +1,32 @@
+key: casagrande2025-iot-protocol-attacks
+title: "Protocol-level Attacks and Defenses to Advance IoT Security"
+authors:
+  - "Marco Casagrande"
+year: 2025
+abstract: "This thesis presents comprehensive analysis of protocol-level attacks and defenses in IoT systems, covering attack methodologies, vulnerability discovery, and defense mechanisms for various IoT protocols."
+url: "https://theses.hal.science/tel-05019219/document"
+venue: "HAL Thesis Archive"
+source: "hal"
+categories:
+  - "IoT Security"
+  - "Protocol Attacks"
+  - "Defense Mechanisms"
+keywords:
+  - "IoT security"
+  - "protocol attacks"
+  - "defense mechanisms"
+  - "vulnerability discovery"
+  - "security analysis"
+paper_type: "survey_review"
+ai_annotations:
+  relevance_notes: "Extremely relevant as it covers protocol-level attacks and defenses which directly applies to LoRa mesh protocol security analysis."
+  summary: "Comprehensive analysis of IoT protocol attacks and defense mechanisms"
+  methodology: "Protocol analysis, attack modeling, defense design"
+  key_contributions:
+    - "Protocol-level attack taxonomy"
+    - "IoT security defense mechanisms"
+    - "Vulnerability discovery methodologies"
+  tags:
+    - "vector4-breaking-repairing"
+    - "protocol-attacks"
+    - "iot-security"

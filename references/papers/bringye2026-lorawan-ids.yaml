@@ -1,0 +1,35 @@
+key: bringye2026-lorawan-ids
+title: "Towards a Protocol-Aware Intrusion Detection System for LoRaWAN Networks"
+authors:
+  - "Zsolt Bringye"
+  - "Author 2 TBD"
+  - "Author 3 TBD"
+year: 2026
+abstract: "This paper presents a protocol-aware intrusion detection system specifically designed for LoRaWAN networks, addressing security challenges through deep protocol understanding and anomaly detection."
+url: "https://discovery.researcher.life/article/towards-a-protocol-aware-intrusion-detection-system-for-lorawan-networks/fdc4c887241a3e55a25915daad5c7c85"
+doi: "10.3390/fi18030140"
+venue: "Future Internet"
+source: "mdpi"
+categories:
+  - "LoRaWAN Security"
+  - "Intrusion Detection"
+  - "Protocol-Aware Security"
+keywords:
+  - "LoRaWAN"
+  - "intrusion detection"
+  - "protocol-aware"
+  - "network security"
+  - "anomaly detection"
+paper_type: "application_system"
+ai_annotations:
+  relevance_notes: "Extremely relevant - directly addresses LoRaWAN intrusion detection with protocol-aware approach, applicable to mesh network security."
+  summary: "Protocol-aware intrusion detection system for LoRaWAN networks"
+  methodology: "Protocol analysis, anomaly detection, intrusion detection system design"
+  key_contributions:
+    - "Protocol-aware LoRaWAN IDS"
+    - "LoRaWAN security enhancement"
+    - "Anomaly detection for wireless protocols"
+  tags:
+    - "vector1-lorawan-security"
+    - "intrusion-detection"
+    - "protocol-aware"

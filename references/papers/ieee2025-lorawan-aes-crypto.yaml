@@ -1,0 +1,32 @@
+key: ieee2025-lorawan-aes-crypto
+title: "Enhancing LoRaWAN Security: An Advanced AES-Based Cryptographic Approach"
+authors:
+  - "Author TBD"
+year: 2025
+abstract: "This paper presents an advanced AES-based cryptographic approach to enhance LoRaWAN security, addressing current cryptographic limitations and proposing improved security mechanisms."
+url: "https://ieeexplore.ieee.org/document/10376065/"
+venue: "IEEE Journals & Magazine"
+source: "ieee"
+categories:
+  - "LoRaWAN Security"
+  - "Cryptography"
+  - "AES"
+keywords:
+  - "LoRaWAN"
+  - "AES"
+  - "cryptography"
+  - "security enhancement"
+  - "advanced encryption"
+paper_type: "application_system"
+ai_annotations:
+  relevance_notes: "Relevant for LoRaWAN security enhancements, providing cryptographic improvements applicable to mesh security."
+  summary: "Advanced AES-based cryptographic enhancements for LoRaWAN security"
+  methodology: "Cryptographic design, AES implementation, security analysis"
+  key_contributions:
+    - "Advanced AES-based LoRaWAN security"
+    - "Cryptographic enhancement methodology"
+    - "Improved security mechanisms"
+  tags:
+    - "vector1-lorawan-security"
+    - "cryptography"
+    - "aes-enhancement"
