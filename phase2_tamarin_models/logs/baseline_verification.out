@@ -1,0 +1,255 @@
+maude tool: 'maude'
+ checking version: 3.1. OK.
+ checking installation: OK.
+[Theory LoRaMesher_Baseline] Theory loaded
+[Theory LoRaMesher_Baseline] Theory translated
+[Theory LoRaMesher_Baseline] Derivation checks started
+[Theory LoRaMesher_Baseline] Derivation checks ended
+[Theory LoRaMesher_Baseline] Theory closed
+[Saturating Sources] Step 1 (Max 5)
+[Saturating Sources] Done
+theory LoRaMesher_Baseline
+
+begin
+
+// Function signature and definition of the equational theory E
+
+functions: fst/1, pair/2, snd/1
+equations: fst(<x.1, x.2>) = x.1, snd(<x.1, x.2>) = x.2
+
+rule (modulo E) Node_Init:
+   [ Fr( ~id ), Fr( ~psk ), Fr( ~seq ) ]
+  --[ NodeInit( ~id ), HonestNode( ~id ), PSKInit( ~id, ~psk ) ]->
+   [
+   !Node( ~id, 'honest' ), !Honest( ~id ), !PSK( ~id, ~psk ),
+   !HelloSeq( ~id, ~seq ), !Neighbor( ~id, ~id )
+   ]
+
+  /* has exactly the trivial AC variant */
+
+rule (modulo E) Hello_Broadcast:
+   [ !Node( n, 'honest' ), !HelloSeq( n, seq ) ]
+  --[ HelloSent( n, 'zero', seq ) ]->
+   [ Out( <n, 'zero', seq, n> ) ]
+
+  /* has exactly the trivial AC variant */
+
+rule (modulo E) Route_Update:
+   [
+   In( <src, metric, seq_new, nextHop> ), !Node( dst, 'honest' ),
+   !Neighbor( dst, dst )
+   ]
+  --[
+  RouteUpdate( dst, src, metric, seq_new ),
+  RouteAccepted( dst, src, metric, nextHop, seq_new )
+  ]->
+   [ !RouteTable( dst, src, metric, nextHop, seq_new ) ]
+
+  /* has exactly the trivial AC variant */
+
+rule (modulo E) Data_Forward:
+   [
+   In( <src, dst, payload> ), !Node( forwarder, 'honest' ),
+   !RouteTable( forwarder, dst, metric, nextHop, seq )
+   ]
+  --[ Forward( forwarder, src, dst, nextHop ) ]->
+   [ Out( <src, dst, payload> ) ]
+
+  /* has exactly the trivial AC variant */
+
+rule (modulo E) Compromise_Node:
+   [
+   !Node( n, 'honest' ), !PSK( n, psk ),
+   !RouteTable( n, dst, metric, nh, seq )
+   ]
+  --[ Compromise( n ), Compromised( n ) ]->
+   [ Out( psk ), Out( <n, dst, metric, nh, seq> ) ]
+
+  /* has exactly the trivial AC variant */
+
+lemma L1_RouteMetricAuthenticity_Baseline:
+  all-traces
+  "∀ node dst metric nh seq #i.
+    (((RouteAccepted( node, dst, metric, nh, seq ) @ #i) ∧
+      (∃ #h. HonestNode( node ) @ #h)) ∧
+     (∃ #d. HonestNode( dst ) @ #d)) ⇒
+    (∃ #j. (HelloSent( dst, 'zero', seq ) @ #j) ∧ (#j < #i))"
+/*
+guarded formula characterizing all counter-examples:
+"∃ node dst metric nh seq #i.
+  (RouteAccepted( node, dst, metric, nh, seq ) @ #i)
+ ∧
+  (∃ #h. (HonestNode( node ) @ #h)) ∧
+  (∃ #d. (HonestNode( dst ) @ #d)) ∧
+  (∀ #j. (HelloSent( dst, 'zero', seq ) @ #j) ⇒ ¬(#j < #i))"
+*/
+simplify
+solve( !Node( ~id.1, 'honest' ) ▶₁ #i )
+  case Node_Init
+  solve( !Neighbor( ~id.1, ~id.1 ) ▶₂ #i )
+    case Node_Init
+    solve( !KU( ~id ) @ #vk.1 )
+      case Compromise_Node
+      SOLVED // trace found
+    qed
+  qed
+qed
+
+lemma L2_RouteFreshness_Baseline:
+  all-traces
+  "∀ node dst metric nh seq #i.
+    ((RouteAccepted( node, dst, metric, nh, seq ) @ #i) ∧
+     (∃ #h. HonestNode( node ) @ #h)) ⇒
+    (∃ #j. (HelloSent( dst, 'zero', seq ) @ #j) ∧ (#j < #i))"
+/*
+guarded formula characterizing all counter-examples:
+"∃ node dst metric nh seq #i.
+  (RouteAccepted( node, dst, metric, nh, seq ) @ #i)
+ ∧
+  (∃ #h. (HonestNode( node ) @ #h)) ∧
+  (∀ #j. (HelloSent( dst, 'zero', seq ) @ #j) ⇒ ¬(#j < #i))"
+*/
+simplify
+solve( !Node( ~id, 'honest' ) ▶₁ #i )
+  case Node_Init
+  solve( !Neighbor( ~id, ~id ) ▶₂ #i )
+    case Node_Init
+    SOLVED // trace found
+  qed
+qed
+
+lemma L3_RouteConsistency_Baseline:
+  all-traces
+  "∀ dst seq metric1 metric2 node1 node2 nh1 nh2 #i #j.
+    (((((RouteAccepted( node1, dst, metric1, nh1, seq ) @ #i) ∧
+        (RouteAccepted( node2, dst, metric2, nh2, seq ) @ #j)) ∧
+       (∃ #h1. HonestNode( node1 ) @ #h1)) ∧
+      (∃ #h2. HonestNode( node2 ) @ #h2)) ∧
+     (∃ #d. HonestNode( dst ) @ #d)) ⇒
+    (metric1 = metric2)"
+/*
+guarded formula characterizing all counter-examples:
+"∃ dst seq metric1 metric2 node1 node2 nh1 nh2 #i #j.
+  (RouteAccepted( node1, dst, metric1, nh1, seq ) @ #i) ∧
+  (RouteAccepted( node2, dst, metric2, nh2, seq ) @ #j)
+ ∧
+  (∃ #h1. (HonestNode( node1 ) @ #h1)) ∧
+  (∃ #h2. (HonestNode( node2 ) @ #h2)) ∧
+  (∃ #d. (HonestNode( dst ) @ #d)) ∧
+  (¬(metric1 = metric2))"
+*/
+simplify
+solve( !Node( ~id.1, 'honest' ) ▶₁ #i )
+  case Node_Init
+  solve( !Neighbor( ~id.1, ~id.1 ) ▶₂ #i )
+    case Node_Init
+    solve( !Node( ~id.2, 'honest' ) ▶₁ #j )
+      case Node_Init
+      solve( !Neighbor( ~id.2, ~id.2 ) ▶₂ #j )
+        case Node_Init
+        solve( !KU( ~id ) @ #vk.1 )
+          case Compromise_Node
+          SOLVED // trace found
+        qed
+      qed
+    qed
+  qed
+qed
+
+lemma L4_NoUnauthorizedRoute_Baseline:
+  all-traces
+  "∀ node attacker dst metric seq #i.
+    (((RouteAccepted( node, dst, metric, attacker, seq ) @ #i) ∧
+      (∃ #h1. HonestNode( node ) @ #h1)) ∧
+     (∃ #h2. HonestNode( dst ) @ #h2)) ⇒
+    (∃ #ha. HonestNode( attacker ) @ #ha)"
+/*
+guarded formula characterizing all counter-examples:
+"∃ node attacker dst metric seq #i.
+  (RouteAccepted( node, dst, metric, attacker, seq ) @ #i)
+ ∧
+  (∃ #h1. (HonestNode( node ) @ #h1)) ∧
+  (∃ #h2. (HonestNode( dst ) @ #h2)) ∧
+  (∀ #ha. (HonestNode( attacker ) @ #ha) ⇒ ⊥)"
+*/
+simplify
+solve( !Node( ~id.1, 'honest' ) ▶₁ #i )
+  case Node_Init
+  solve( !Neighbor( ~id, ~id ) ▶₂ #i )
+    case Node_Init
+    solve( !KU( ~id.1 ) @ #vk.1 )
+      case Compromise_Node
+      SOLVED // trace found
+    qed
+  qed
+qed
+
+lemma L5_PSKConfidentiality_Baseline:
+  all-traces
+  "∀ node psk #i.
+    ((PSKInit( node, psk ) @ #i) ∧ (¬(∃ #c. Compromised( node ) @ #c))) ⇒
+    (¬(∃ #k. K( psk ) @ #k))"
+/*
+guarded formula characterizing all counter-examples:
+"∃ node psk #i.
+  (PSKInit( node, psk ) @ #i)
+ ∧
+  (∀ #c. (Compromised( node ) @ #c) ⇒ ⊥) ∧ (∃ #k. (K( psk ) @ #k))"
+*/
+simplify
+solve( !KU( ~psk ) @ #vk )
+  case Compromise_Node
+  by contradiction /* from formulas */
+qed
+
+lemma Compromise_Reveals_PSK:
+  all-traces
+  "∀ node psk #i.
+    ((PSKInit( node, psk ) @ #i) ∧ (∃ #c. Compromised( node ) @ #c)) ⇒
+    (∃ #k. K( psk ) @ #k)"
+/*
+guarded formula characterizing all counter-examples:
+"∃ node psk #i.
+  (PSKInit( node, psk ) @ #i)
+ ∧
+  (∃ #c. (Compromised( node ) @ #c)) ∧ (∀ #k. (K( psk ) @ #k) ⇒ ⊥)"
+*/
+simplify
+solve( !Node( ~id, 'honest' ) ▶₀ #c )
+  case Node_Init
+  solve( !PSK( ~id, psk ) ▶₁ #c )
+    case Node_Init
+    solve( !RouteTable( ~id, dst, metric, nh, seq ) ▶₂ #c )
+      case Route_Update
+      SOLVED // trace found
+    qed
+  qed
+qed
+
+/* All wellformedness checks were successful. */
+
+/*
+Generated from:
+Tamarin version 1.13.0
+Maude version 3.1
+Git revision: 255986bd733baaba138941cbc13e093e3bfebd6c, branch: develop
+Compiled at: 2026-03-29 04:57:55.819514964 UTC
+*/
+
+end
+
+==============================================================================
+summary of summaries:
+
+analyzed: /workspace/phase2_tamarin_models/baseline/baseline_lora_dv.spthy
+
+  processing time: 0.82s
+  
+  L1_RouteMetricAuthenticity_Baseline (all-traces): falsified - found trace (5 steps)
+  L2_RouteFreshness_Baseline (all-traces): falsified - found trace (4 steps)
+  L3_RouteConsistency_Baseline (all-traces): falsified - found trace (7 steps)
+  L4_NoUnauthorizedRoute_Baseline (all-traces): falsified - found trace (5 steps)
+  L5_PSKConfidentiality_Baseline (all-traces): verified (3 steps)
+  Compromise_Reveals_PSK (all-traces): falsified - found trace (5 steps)
+
+==============================================================================

@@ -1,0 +1,380 @@
+[
+  {
+    "scenario": {
+      "topology": "Linear",
+      "attack_type": "Spoofing",
+      "run_id": 0,
+      "use_patch": false
+    },
+    "success_rate": 0.0,
+    "avg_latency": 0.0,
+    "throughput": 0.0,
+    "pdr": 0.0,
+    "completion_time": 0.002840280532836914,
+    "error": null
+  },
+  {
+    "scenario": {
+      "topology": "Linear",
+      "attack_type": "Spoofing",
+      "run_id": 1,
+      "use_patch": false
+    },
+    "success_rate": 0.0,
+    "avg_latency": 0.0,
+    "throughput": 0.0,
+    "pdr": 0.0,
+    "completion_time": 0.003748655319213867,
+    "error": null
+  },
+  {
+    "scenario": {
+      "topology": "Linear",
+      "attack_type": "Spoofing",
+      "run_id": 2,
+      "use_patch": false
+    },
+    "success_rate": 0.0,
+    "avg_latency": 0.0,
+    "throughput": 0.0,
+    "pdr": 0.0,
+    "completion_time": 0.002748727798461914,
+    "error": null
+  },
+  {
+    "scenario": {
+      "topology": "Linear",
+      "attack_type": "Replay",
+      "run_id": 0,
+      "use_patch": false
+    },
+    "success_rate": 0.0,
+    "avg_latency": 0.0,
+    "throughput": 0.0,
+    "pdr": 0.0,
+    "completion_time": 0.002549409866333008,
+    "error": null
+  },
+  {
+    "scenario": {
+      "topology": "Linear",
+      "attack_type": "Replay",
+      "run_id": 1,
+      "use_patch": false
+    },
+    "success_rate": 0.0,
+    "avg_latency": 0.0,
+    "throughput": 0.0,
+    "pdr": 0.0,
+    "completion_time": 0.0024442672729492188,
+    "error": null
+  },
+  {
+    "scenario": {
+      "topology": "Linear",
+      "attack_type": "Replay",
+      "run_id": 2,
+      "use_patch": false
+    },
+    "success_rate": 0.0,
+    "avg_latency": 0.0,
+    "throughput": 0.0,
+    "pdr": 0.0,
+    "completion_time": 0.002756834030151367,
+    "error": null
+  },
+  {
+    "scenario": {
+      "topology": "Linear",
+      "attack_type": "Selective",
+      "run_id": 0,
+      "use_patch": false
+    },
+    "success_rate": 0.0,
+    "avg_latency": 0.0,
+    "throughput": 0.0,
+    "pdr": 0.0,
+    "completion_time": 0.003935813903808594,
+    "error": null
+  },
+  {
+    "scenario": {
+      "topology": "Linear",
+      "attack_type": "Selective",
+      "run_id": 1,
+      "use_patch": false
+    },
+    "success_rate": 0.0,
+    "avg_latency": 0.0,
+    "throughput": 0.0,
+    "pdr": 0.0,
+    "completion_time": 0.0027828216552734375,
+    "error": null
+  },
+  {
+    "scenario": {
+      "topology": "Linear",
+      "attack_type": "Selective",
+      "run_id": 2,
+      "use_patch": false
+    },
+    "success_rate": 0.0,
+    "avg_latency": 0.0,
+    "throughput": 0.0,
+    "pdr": 0.0,
+    "completion_time": 0.004086017608642578,
+    "error": null
+  },
+  {
+    "scenario": {
+      "topology": "Tree",
+      "attack_type": "Spoofing",
+      "run_id": 0,
+      "use_patch": false
+    },
+    "success_rate": 0.0,
+    "avg_latency": 0.0,
+    "throughput": 0.0,
+    "pdr": 0.01,
+    "completion_time": 0.004499673843383789,
+    "error": null
+  },
+  {
+    "scenario": {
+      "topology": "Tree",
+      "attack_type": "Spoofing",
+      "run_id": 1,
+      "use_patch": false
+    },
+    "success_rate": 0.0,
+    "avg_latency": 0.0,
+    "throughput": 0.0,
+    "pdr": 0.01,
+    "completion_time": 0.002007722854614258,
+    "error": null
+  },
+  {
+    "scenario": {
+      "topology": "Tree",
+      "attack_type": "Spoofing",
+      "run_id": 2,
+      "use_patch": false
+    },
+    "success_rate": 0.0,
+    "avg_latency": 0.0,
+    "throughput": 0.0,
+    "pdr": 0.01,
+    "completion_time": 0.0023300647735595703,
+    "error": null
+  },
+  {
+    "scenario": {
+      "topology": "Tree",
+      "attack_type": "Replay",
+      "run_id": 0,
+      "use_patch": false
+    },
+    "success_rate": 0.0,
+    "avg_latency": 0.0,
+    "throughput": 0.0,
+    "pdr": 0.01,
+    "completion_time": 0.003537416458129883,
+    "error": null
+  },
+  {
+    "scenario": {
+      "topology": "Tree",
+      "attack_type": "Replay",
+      "run_id": 1,
+      "use_patch": false
+    },
+    "success_rate": 0.0,
+    "avg_latency": 0.0,
+    "throughput": 0.0,
+    "pdr": 0.01,
+    "completion_time": 0.00208282470703125,
+    "error": null
+  },
+  {
+    "scenario": {
+      "topology": "Tree",
+      "attack_type": "Replay",
+      "run_id": 2,
+      "use_patch": false
+    },
+    "success_rate": 0.0,
+    "avg_latency": 0.0,
+    "throughput": 0.0,
+    "pdr": 0.01,
+    "completion_time": 0.0036132335662841797,
+    "error": null
+  },
+  {
+    "scenario": {
+      "topology": "Tree",
+      "attack_type": "Selective",
+      "run_id": 0,
+      "use_patch": false
+    },
+    "success_rate": 0.0,
+    "avg_latency": 0.0,
+    "throughput": 0.0,
+    "pdr": 0.01,
+    "completion_time": 0.0036995410919189453,
+    "error": null
+  },
+  {
+    "scenario": {
+      "topology": "Tree",
+      "attack_type": "Selective",
+      "run_id": 1,
+      "use_patch": false
+    },
+    "success_rate": 0.0,
+    "avg_latency": 0.0,
+    "throughput": 0.0,
+    "pdr": 0.01,
+    "completion_time": 0.0021300315856933594,
+    "error": null
+  },
+  {
+    "scenario": {
+      "topology": "Tree",
+      "attack_type": "Selective",
+      "run_id": 2,
+      "use_patch": false
+    },
+    "success_rate": 0.0,
+    "avg_latency": 0.0,
+    "throughput": 0.0,
+    "pdr": 0.01,
+    "completion_time": 0.003485441207885742,
+    "error": null
+  },
+  {
+    "scenario": {
+      "topology": "Grid",
+      "attack_type": "Spoofing",
+      "run_id": 0,
+      "use_patch": false
+    },
+    "success_rate": 0.0,
+    "avg_latency": 0.0,
+    "throughput": 0.0,
+    "pdr": 0.01,
+    "completion_time": 0.003988027572631836,
+    "error": null
+  },
+  {
+    "scenario": {
+      "topology": "Grid",
+      "attack_type": "Spoofing",
+      "run_id": 1,
+      "use_patch": false
+    },
+    "success_rate": 0.0,
+    "avg_latency": 0.0,
+    "throughput": 0.0,
+    "pdr": 0.01,
+    "completion_time": 0.001996755599975586,
+    "error": null
+  },
+  {
+    "scenario": {
+      "topology": "Grid",
+      "attack_type": "Spoofing",
+      "run_id": 2,
+      "use_patch": false
+    },
+    "success_rate": 0.0,
+    "avg_latency": 0.0,
+    "throughput": 0.0,
+    "pdr": 0.01,
+    "completion_time": 0.002026081085205078,
+    "error": null
+  },
+  {
+    "scenario": {
+      "topology": "Grid",
+      "attack_type": "Replay",
+      "run_id": 0,
+      "use_patch": false
+    },
+    "success_rate": 0.0,
+    "avg_latency": 0.0,
+    "throughput": 0.0,
+    "pdr": 0.01,
+    "completion_time": 0.004716157913208008,
+    "error": null
+  },
+  {
+    "scenario": {
+      "topology": "Grid",
+      "attack_type": "Replay",
+      "run_id": 1,
+      "use_patch": false
+    },
+    "success_rate": 0.0,
+    "avg_latency": 0.0,
+    "throughput": 0.0,
+    "pdr": 0.01,
+    "completion_time": 0.004037141799926758,
+    "error": null
+  },
+  {
+    "scenario": {
+      "topology": "Grid",
+      "attack_type": "Replay",
+      "run_id": 2,
+      "use_patch": false
+    },
+    "success_rate": 0.0,
+    "avg_latency": 0.0,
+    "throughput": 0.0,
+    "pdr": 0.01,
+    "completion_time": 0.002151012420654297,
+    "error": null
+  },
+  {
+    "scenario": {
+      "topology": "Grid",
+      "attack_type": "Selective",
+      "run_id": 0,
+      "use_patch": false
+    },
+    "success_rate": 0.0,
+    "avg_latency": 0.0,
+    "throughput": 0.0,
+    "pdr": 0.007,
+    "completion_time": 0.004521369934082031,
+    "error": null
+  },
+  {
+    "scenario": {
+      "topology": "Grid",
+      "attack_type": "Selective",
+      "run_id": 1,
+      "use_patch": false
+    },
+    "success_rate": 0.0,
+    "avg_latency": 0.0,
+    "throughput": 0.0,
+    "pdr": 0.003,
+    "completion_time": 0.0045316219329833984,
+    "error": null
+  },
+  {
+    "scenario": {
+      "topology": "Grid",
+      "attack_type": "Selective",
+      "run_id": 2,
+      "use_patch": false
+    },
+    "success_rate": 0.0,
+    "avg_latency": 0.0,
+    "throughput": 0.0,
+    "pdr": 0.0,
+    "completion_time": 0.0020558834075927734,
+    "error": null
+  }
+]

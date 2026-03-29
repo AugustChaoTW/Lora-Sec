@@ -1,15 +1,19 @@
-# Multi-stage build for LoRaMesher ns-3 simulation with GPU support
-# Base: NVIDIA CUDA 12.8 + Python 3.11
+# Single-stage build for LoRaMesher ns-3 simulation with GPU support
+# Base: NVIDIA CUDA 12.8 devel
 
-FROM nvidia/cuda:12.8.0-devel-ubuntu24.04 AS builder
+FROM nvidia/cuda:12.8.0-devel-ubuntu24.04
 
-# Install dependencies
-RUN apt-get update && apt-get install -y \
+# Prevent interactive prompts
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Install core dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
-    git \
     cmake \
-    python3.11 \
-    python3.11-dev \
+    ninja-build \
+    git \
+    python3 \
+    python3-dev \
     python3-pip \
     pkg-config \
     libxml2 \
@@ -17,33 +21,77 @@ RUN apt-get update && apt-get install -y \
     libgtk-3-dev \
     gir1.2-gtk-3.0 \
     sqlite3 \
-    libc6 \
-    libgccjit0 \
-    netcat-openbsd \
     wget \
     curl \
+    ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 
-# Set Python 3.11 as default
-RUN update-alternatives --install /usr/bin/python python /usr/bin/python3.11 1 && \
-    update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.11 1
+# Verify tools
+RUN python3 --version && pkg-config --version && g++ --version
 
-# Install ns-3 (pre-built or source)
+# Download and install ns-3.40 with proper configuration
 WORKDIR /opt
-RUN wget https://www.nsnam.org/release/ns-allinone-3.40.tar.bz2 && \
-    tar -xf ns-allinone-3.40.tar.bz2 && \
-    cd ns-allinone-3.40 && \
-    ./build.py --enable-examples --enable-tests && \
-    rm /opt/ns-allinone-3.40.tar.bz2
+RUN wget -q https://www.nsnam.org/release/ns-allinone-3.40.tar.bz2 && \
+    tar -jxf ns-allinone-3.40.tar.bz2 && \
+    rm ns-allinone-3.40.tar.bz2
 
-# Set ns-3 environment
+WORKDIR /opt/ns-allinone-3.40/ns-3.40
+
+# Build ns-3 with proper flags (ns-3 3.40 uses CMake via ./ns3 wrapper)
+RUN chmod +x ./ns3 && \
+    ./ns3 configure --build-profile=debug --enable-examples --enable-tests --disable-python --disable-werror 2>&1 | tail -20 && \
+    ./ns3 build 2>&1 | tail -30
+
+# Verify build artifacts exist
+RUN test -d build/lib || (echo "Build failed!" && exit 1) && \
+    ls -1 build/lib | grep "libns3" | head -10
+
+# Create .pc files for pkg-config if they don't exist
+RUN mkdir -p build/lib/pkgconfig && \
+    cat > build/lib/pkgconfig/ns3-core.pc << 'EOF'
+prefix=/opt/ns-allinone-3.40/ns-3.40
+exec_prefix=${prefix}/build
+libdir=${exec_prefix}/lib
+includedir=${prefix}/build/include
+
+Name: ns-3-core
+Description: ns-3 Core Module
+Version: 3.40
+Cflags: -I${includedir}
+Libs: -L${libdir} -Wl,-rpath=${libdir} -lns3.40-core-default
+EOF
+
+RUN cat > build/lib/pkgconfig/ns3-network.pc << 'EOF'
+prefix=/opt/ns-allinone-3.40/ns-3.40
+exec_prefix=${prefix}/build
+libdir=${exec_prefix}/lib
+includedir=${prefix}/build/include
+
+Name: ns-3-network
+Description: ns-3 Network Module
+Version: 3.40
+Requires: ns3-core
+Cflags: -I${includedir}
+Libs: -L${libdir} -Wl,-rpath=${libdir} -lns3.40-network-default
+EOF
+
+# Set environment variables for ns-3
 ENV NS3_PATH=/opt/ns-allinone-3.40/ns-3.40
 ENV PATH=$NS3_PATH/build/commands:$PATH
 ENV PKG_CONFIG_PATH=$NS3_PATH/build/lib/pkgconfig:$PKG_CONFIG_PATH
 ENV LD_LIBRARY_PATH=$NS3_PATH/build/lib:$LD_LIBRARY_PATH
+ENV LIBRARY_PATH=$NS3_PATH/build/lib:$LIBRARY_PATH
+
+# Update library cache
+RUN ldconfig $NS3_PATH/build/lib
+
+# Verify pkg-config can find ns-3 libraries
+RUN pkg-config --exists ns3-core && echo "✓ ns3-core found" || (echo "✗ ns3-core NOT found" && exit 1) && \
+    pkg-config --exists ns3-network && echo "✓ ns3-network found" || (echo "✗ ns3-network NOT found" && exit 1) && \
+    pkg-config --cflags --libs ns3-core | head -c 100 && echo "..."
 
 # Install Python dependencies for multiprocessing and parallel execution
-RUN pip3 install --no-cache-dir \
+RUN pip3 install --no-cache-dir --break-system-packages \
     numpy \
     matplotlib \
     pandas \
@@ -51,36 +99,20 @@ RUN pip3 install --no-cache-dir \
     tqdm \
     psutil
 
-# Final runtime image
-FROM nvidia/cuda:12.8.0-runtime-ubuntu24.04
-
-# Copy ns-3 from builder
-COPY --from=builder /opt /opt
-COPY --from=builder /usr/bin/python* /usr/bin/
-COPY --from=builder /usr/lib/python3.11 /usr/lib/python3.11
-COPY --from=builder /usr/local/lib/python3.11 /usr/local/lib/python3.11
-
-# Install runtime dependencies only
-RUN apt-get update && apt-get install -y \
-    libxml2 \
-    libgtk-3-0 \
-    python3-pip \
-    pkg-config \
-    netcat-openbsd \
-    && rm -rf /var/lib/apt/lists/*
-
-# Set environment variables
-ENV NS3_PATH=/opt/ns-allinone-3.40/ns-3.40
-ENV PATH=$NS3_PATH/build/commands:$PATH
-ENV PKG_CONFIG_PATH=$NS3_PATH/build/lib/pkgconfig:$PKG_CONFIG_PATH
-ENV LD_LIBRARY_PATH=$NS3_PATH/build/lib:$LD_LIBRARY_PATH
-ENV PYTHONUNBUFFERED=1
+# Create working directory
+WORKDIR /workspace
 
 # Enable GPU support
 ENV CUDA_VISIBLE_DEVICES=0
+ENV PYTHONUNBUFFERED=1
 
-# Create working directory
-WORKDIR /workspace
+# Print environment for debugging
+RUN echo "=== ns-3 Environment ===" && \
+    echo "NS3_PATH=$NS3_PATH" && \
+    echo "PKG_CONFIG_PATH=$PKG_CONFIG_PATH" && \
+    echo "LD_LIBRARY_PATH=$LD_LIBRARY_PATH" && \
+    echo "=======================" && \
+    ls -la $NS3_PATH/build/lib/ | head -5
 
 # Entry point
 CMD ["/bin/bash"]

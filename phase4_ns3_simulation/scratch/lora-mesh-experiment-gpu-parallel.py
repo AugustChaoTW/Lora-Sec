@@ -181,7 +181,7 @@ class GPUExperimentRunner:
                 "--duration=300",  # 5 minutes simulation
                 "--helloPeriod=10",
                 "--samplePeriod=10",
-                f"--randomSeed={scenario.run_id + 42}",
+                f"--seed={scenario.run_id + 42}",
                 f"--output={output_file}",
             ]
 

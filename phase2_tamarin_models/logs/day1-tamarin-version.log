@@ -1,4 +1,14 @@
-Unable to find image 'lora-mesh-tamarin:latest' locally
-docker: Error response from daemon: pull access denied for lora-mesh-tamarin, repository does not exist or may require 'docker login': denied: requested access to the resource is denied
+maude tool: 'maude'
+ checking version: tamarin-prover 1.13.0, (C) David Basin, Cas Cremers, Jannik Dreier, Simon Meier, Ralf Sasse, Benedikt Schmidt, 2010-2023
 
-Run 'docker run --help' for more information
+This program comes with ABSOLUTELY NO WARRANTY. It is free software, and you
+are welcome to redistribute it according to its LICENSE, see
+'https://github.com/tamarin-prover/tamarin-prover/blob/master/LICENSE'.
+
+3.1. OK.
+ checking installation: OK.
+Generated from:
+Tamarin version 1.13.0
+Maude version 3.1
+Git revision: 255986bd733baaba138941cbc13e093e3bfebd6c, branch: develop
+Compiled at: 2026-03-29 04:57:55.819514964 UTC

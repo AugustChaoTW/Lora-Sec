@@ -3,7 +3,7 @@
 
 set -e
 
-PROJECT_ROOT=$(cd "$(dirname "$0")/../.." && pwd)
+PROJECT_ROOT=$(cd "$(dirname "$0")/.." && pwd)
 PHASE4_DIR="$PROJECT_ROOT/phase4_ns3_simulation"
 RESULTS_DIR="$PHASE4_DIR/results"
 
