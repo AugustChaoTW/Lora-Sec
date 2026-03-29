@@ -1,0 +1,86 @@
+# Multi-stage build for LoRaMesher ns-3 simulation with GPU support
+# Base: NVIDIA CUDA 12.8 + Python 3.11
+
+FROM nvidia/cuda:12.8.0-devel-ubuntu24.04 AS builder
+
+# Install dependencies
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    git \
+    cmake \
+    python3.11 \
+    python3.11-dev \
+    python3-pip \
+    pkg-config \
+    libxml2 \
+    libxml2-dev \
+    libgtk-3-dev \
+    gir1.2-gtk-3.0 \
+    sqlite3 \
+    libc6 \
+    libgccjit0 \
+    netcat-openbsd \
+    wget \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Set Python 3.11 as default
+RUN update-alternatives --install /usr/bin/python python /usr/bin/python3.11 1 && \
+    update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.11 1
+
+# Install ns-3 (pre-built or source)
+WORKDIR /opt
+RUN wget https://www.nsnam.org/release/ns-allinone-3.40.tar.bz2 && \
+    tar -xf ns-allinone-3.40.tar.bz2 && \
+    cd ns-allinone-3.40 && \
+    ./build.py --enable-examples --enable-tests && \
+    rm /opt/ns-allinone-3.40.tar.bz2
+
+# Set ns-3 environment
+ENV NS3_PATH=/opt/ns-allinone-3.40/ns-3.40
+ENV PATH=$NS3_PATH/build/commands:$PATH
+ENV PKG_CONFIG_PATH=$NS3_PATH/build/lib/pkgconfig:$PKG_CONFIG_PATH
+ENV LD_LIBRARY_PATH=$NS3_PATH/build/lib:$LD_LIBRARY_PATH
+
+# Install Python dependencies for multiprocessing and parallel execution
+RUN pip3 install --no-cache-dir \
+    numpy \
+    matplotlib \
+    pandas \
+    scipy \
+    tqdm \
+    psutil
+
+# Final runtime image
+FROM nvidia/cuda:12.8.0-runtime-ubuntu24.04
+
+# Copy ns-3 from builder
+COPY --from=builder /opt /opt
+COPY --from=builder /usr/bin/python* /usr/bin/
+COPY --from=builder /usr/lib/python3.11 /usr/lib/python3.11
+COPY --from=builder /usr/local/lib/python3.11 /usr/local/lib/python3.11
+
+# Install runtime dependencies only
+RUN apt-get update && apt-get install -y \
+    libxml2 \
+    libgtk-3-0 \
+    python3-pip \
+    pkg-config \
+    netcat-openbsd \
+    && rm -rf /var/lib/apt/lists/*
+
+# Set environment variables
+ENV NS3_PATH=/opt/ns-allinone-3.40/ns-3.40
+ENV PATH=$NS3_PATH/build/commands:$PATH
+ENV PKG_CONFIG_PATH=$NS3_PATH/build/lib/pkgconfig:$PKG_CONFIG_PATH
+ENV LD_LIBRARY_PATH=$NS3_PATH/build/lib:$LD_LIBRARY_PATH
+ENV PYTHONUNBUFFERED=1
+
+# Enable GPU support
+ENV CUDA_VISIBLE_DEVICES=0
+
+# Create working directory
+WORKDIR /workspace
+
+# Entry point
+CMD ["/bin/bash"]
