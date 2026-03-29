@@ -1,0 +1,217 @@
+/*
+ * LoRaMesher Distance-Vector Routing - Baseline (Vulnerable) Protocol Model
+ * 
+ * Purpose: Formal specification of LoRaMesher protocol WITHOUT authentication
+ * Expected Result: 4 security lemmas BROKEN, 1 cryptographic lemma PROVED
+ * Verification Time: ~25-35 minutes
+ *
+ * Generated: 2026-03-29 (Phase 2 skeleton)
+ * Template Source: phase2_tamarin_prep/01_PROTOCOL_ABSTRACTION.md §5
+ */
+
+theory LoRaMesher_Baseline
+
+begin
+
+// ============ TYPES & FUNCTIONS ============
+
+type NodeID = value
+type Metric = nat
+type SeqNum = nat
+
+// ============ FACTS (Persistent State) ============
+
+// Node management
+fact: Node(NodeID, role: {honest, attacker})
+fact: Honest(NodeID)
+
+// Cryptography
+fact: PSK(NodeID, value)
+
+// Routing state
+fact: HelloSeq(NodeID, SeqNum)
+fact: RouteTable(NodeID, NodeID, Metric, NodeID, SeqNum)
+  // Interpretation: RouteTable(owner_node, destination, metric_distance, next_hop_neighbor, sequence_number)
+
+// Topology
+fact: Neighbor(NodeID, NodeID)
+fact: Compromise(NodeID)
+
+// ============ RULES ============
+
+// Rule 1: Node Initialization
+rule Node_Init:
+  [ Fr(~id), Fr(~psk) ]
+  --[ NodeInit(~id) ]->
+  [ Node(~id, honest),
+    Honest(~id),
+    PSK(~id, ~psk),
+    HelloSeq(~id, '0')
+  ]
+
+// Rule 2: Hello Broadcast (Periodic)
+// Each node broadcasts its own metric=0 and sequence number
+rule Hello_Broadcast:
+  [ Node(n, honest),
+    HelloSeq(n, seq),
+    Fr(~newSeq)
+  ]
+  --[ HelloSent(n, 0, ~newSeq) ]->
+  [ Out(Hello(n, 0, ~newSeq)),
+    HelloSeq(n, ~newSeq)
+  ]
+
+// Rule 3: Route Table Update (Bellman-Ford)
+// Node updates its route table when receiving Hello from neighbor
+rule Route_Update:
+  [ In(Hello(src, metric_src, seq_new)),
+    Node(dst, honest),
+    Neighbor(dst, src),
+    RouteTable(dst, src, _, _, old_seq)
+  ]
+  --[ 
+      Condition(seq_new > old_seq),  // Only accept newer sequence numbers
+      RouteUpdate(dst, src, metric_src + 1, seq_new)
+  ]->
+  [ RouteTable(dst, src, metric_src + 1, src, seq_new)
+  ]
+
+// Rule 4: Data Forwarding via Routing Table Lookup
+rule Data_Forward:
+  [ In(Data(src, dst, payload)),
+    Node(forwarder, honest),
+    RouteTable(forwarder, dst, metric, nextHop, seq)
+  ]
+  --[ Forward(forwarder, src, dst, nextHop) ]->
+  [ Out(Data(src, dst, payload))
+  ]
+
+// Rule 5: Node Compromise
+// Attacker gains full knowledge of compromised node's state
+rule Compromise_Node:
+  [ Node(n, honest),
+    PSK(n, psk),
+    RouteTable(n, dst, metric, nh, seq)
+  ]
+  --[ Compromise(n) ]->
+  [ Out(psk),
+    Out(RouteTable(n, dst, metric, nh, seq))
+  ]
+
+// Rule 6: Attacker Message Manipulation (Dolev-Yao)
+// Built-in via In/Out facts - attacker can intercept, replay, modify any message
+
+// ============ LEMMAS (BASELINE - EXPECT BROKEN) ============
+
+/*
+ * Lemma L1: Route Metric Authenticity
+ * 
+ * Property: When an honest node learns a route, the metric must originate
+ *           from the claimed source node (not injected by attacker)
+ * 
+ * Expected: BROKEN
+ * Attack: Hello Spoofing - attacker forges Hello with arbitrary metric
+ */
+lemma L1_RouteMetricAuthenticity_Baseline:
+  "All node dst metric seq.
+    RouteTable(node, dst, metric, _, seq) @ i
+    & Honest(dst)
+    & Honest(node)
+    ==> 
+    (Ex #j. HelloSent(dst, 0, seq) @ j & j < i)"
+
+/*
+ * Lemma L2: Routing Freshness & Replay Resistance
+ * 
+ * Property: Old routing information (low sequence numbers) cannot be
+ *           accepted as if it were recent
+ * 
+ * Expected: BROKEN
+ * Attack: Metric Replay - attacker replays old metric at new sequence
+ */
+lemma L2_RouteFreshness_Baseline:
+  "All node dst metric seq.
+    RouteTable(node, dst, metric, _, seq) @ i
+    & Honest(node)
+    ==> 
+    (Ex #j. HelloSent(dst, 0, seq) @ j & j < i)"
+
+/*
+ * Lemma L3: Route Path Consistency
+ * 
+ * Property: Multiple honest nodes learning routes to same destination
+ *           (same sequence) should agree on metric values
+ * 
+ * Expected: BROKEN
+ * Attack: Hop-by-Hop Modification - intermediate can modify metric
+ */
+lemma L3_RouteConsistency_Baseline:
+  "All dst seq metric1 metric2 node1 node2.
+    RouteTable(node1, dst, metric1, _, seq) @ i
+    & RouteTable(node2, dst, metric2, _, seq) @ j
+    & Honest(node1)
+    & Honest(node2)
+    & Honest(dst)
+    ==> 
+    metric1 = metric2"
+
+/*
+ * Lemma L4: No Unauthorized Route Installation
+ * 
+ * Property: Honest node must never route to honest destination via
+ *           dishonest intermediate node (without authorization)
+ * 
+ * Expected: BROKEN
+ * Attack: False Route Installation - attacker installs itself as nextHop
+ */
+lemma L4_NoUnauthorizedRoute_Baseline:
+  "All node attacker dst.
+    RouteTable(node, dst, _, attacker, _) @ i
+    & Honest(node)
+    & ~Honest(attacker)
+    & Honest(dst)
+    ==> 
+    False"
+
+/*
+ * Lemma L5: PSK Confidentiality
+ * 
+ * Property: Pre-shared keys of non-compromised honest nodes must not
+ *           be learned by attacker through protocol messages
+ * 
+ * Expected: PROVED (cryptographic assumption)
+ * Assumption: PSK established out-of-band before network operation
+ */
+lemma L5_PSKConfidentiality_Baseline:
+  "All node psk.
+    PSK(node, psk) @ 0
+    & Honest(node)
+    & ~Compromise(node)
+    ==> 
+    ~AttackerKnows(psk) @ ∞"
+
+// ============ HELPER LEMMAS (Optional) ============
+
+/*
+ * Helper: Verify that compromise rule works as expected
+ */
+lemma Compromise_Reveals_PSK:
+  "All node psk.
+    PSK(node, psk) @ 0
+    & Compromise(node) @ i
+    ==> 
+    AttackerKnows(psk) @ after(i)"
+
+end
+
+/*
+ * NOTES FOR PHASE 2 EXECUTION:
+ * 
+ * 1. This is the BASELINE model (vulnerable protocol)
+ * 2. Expected verification: 4 BROKEN lemmas, 1 PROVED
+ * 3. Counterexamples will show attack traces
+ * 4. Keep this model as-is for comparison with patched version
+ * 5. Analyze counterexamples in ATTACKS_DETAILED.md
+ * 
+ * Next: Create patched_lora_dv.spthy with HMAC and MetricVersion binding
+ */
