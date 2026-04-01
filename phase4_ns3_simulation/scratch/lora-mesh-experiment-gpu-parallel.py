@@ -48,7 +48,11 @@ class GPUExperimentRunner:
 
     def __init__(self, project_root: Path, use_gpu: bool = True, num_workers: int = 10):
         self.project_root = project_root
-        self.phase4_root = project_root / "phase4_ns3_simulation"
+        self.phase4_root = (
+            project_root / "phase4_ns3_simulation"
+            if (project_root / "phase4_ns3_simulation").exists()
+            else project_root
+        )
         self.binary_path = self.phase4_root / "build" / "lora-mesh-sim"
         self.results_dir = self.phase4_root / "results"
         self.results_dir.mkdir(parents=True, exist_ok=True)
@@ -190,12 +194,15 @@ class GPUExperimentRunner:
                 f"patch={int(scenario.use_patch)} run={scenario.run_id}"
             )
 
-            # Execute simulation
+            # Execute simulation with proper ns-3 library path
+            env = os.environ.copy()
+            env["LD_LIBRARY_PATH"] = (
+                "/opt/ns-allinone-3.40/ns-3.40/build/lib:"
+                + env.get("LD_LIBRARY_PATH", "")
+            )
+
             result = subprocess.run(
-                cmd,
-                capture_output=True,
-                text=True,
-                timeout=120,  # 2-minute timeout per simulation
+                cmd, capture_output=True, text=True, timeout=120, env=env
             )
 
             if result.returncode != 0:
@@ -340,7 +347,10 @@ class GPUExperimentRunner:
 
 def main():
     """Main entry point"""
-    project_root = Path(__file__).parent.parent.parent
+    if Path("/workspace").exists():
+        project_root = Path("/workspace")
+    else:
+        project_root = Path(__file__).parent.parent.parent
 
     # Check for GPU support
     use_gpu = True

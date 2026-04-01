@@ -14,11 +14,13 @@ class AttackerNode
     explicit AttackerNode(const AttackConfig& config, uint32_t seed);
 
     bool ShouldAttackAt(uint32_t currentSec) const;
-    std::optional<HelloMessage> AttackA_MetricSpoofing(uint32_t currentSec, uint32_t fakeSeq, bool usePatch) const;
+    std::optional<HelloMessage> AttackA_MetricSpoofing(uint32_t currentSec,
+                                                       uint32_t fakeSeq,
+                                                       SecurityMode securityMode) const;
     std::optional<HelloMessage> AttackB_MetricReplay(uint32_t currentSec,
                                                      uint32_t lastSeenSeq,
                                                      uint32_t lastSeenMetricVersion,
-                                                     bool usePatch) const;
+                                                     SecurityMode securityMode) const;
     bool AttackC_SelectiveForwarding();
 
     const AttackConfig& GetConfig() const;

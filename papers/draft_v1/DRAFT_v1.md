@@ -437,17 +437,28 @@ rule Node_Receive_Rekey:
 
 ---
 
-## 參考文獻 (References)
+## 9. 相關工作 (Related Work)
 
-[待補充完整 BibTeX 格式]
+### 9.1 LoRaWAN 安全格局 (LoRaWAN Security Landscape)
 
-- Wong et al. 2024: LoRa Mesh 安全綜述
-- Heeger et al. 2020: PUF 在 LoRa ad-hoc 的應用
-- Tamarin Prover 官方手冊
-- Meshtastic GitHub Repository
-- LoRaMesher GitHub Repository
+LoRaWAN 協議的安全性研究主要集中在其星狀拓撲下的密鑰管理與物理層攻擊。既存文獻詳細記錄了 LoRaWAN 的加密基礎 \cite{ieee2025-lorawan-aes-crypto, yang2021-lorawan-systematic}。身份驗證與加密依賴於 AES-CCM，利用預共享根密鑰衍生網路與應用層會話密鑰。儘管 v1.1 標準引入了獨立密鑰以降低惡意網路伺服器風險 \cite{ieee2025-lorawan-key-verification}，但其實施過程中的狀態同步問題依然是脆弱點。例如，針對幀計數器不同步的重放攻擊已被證明 \cite{ieee2025-lorawan-key-vulnerability}。此外，物理層的干擾與定位欺騙也威脅著網關的穩定性 \cite{repetto2025-lorawan-drone-attack, mohamed2022-lorawan-gateways}。然而，這些研究大多假設中心化後端的存在，而在離線、去中心化的 mesh 場景下，這些假設不再成立。
+
+### 9.2 Mesh 路由漏洞與距離向量問題 (Mesh Routing Vulnerabilities)
+
+在放棄 LoRaWAN 中心化架構、轉向去中心化 ad-hoc mesh 網路時，距離向量 (DV) 路由因其低內存佔用而成為首選 \cite{ieee2025-lora-hierarchy-routing, glabbeek2016-aodv-verification}。然而，基於 Bellman-Ford 的 DV 協議天生信任鄰居節點的更新。文獻指出，路由中毒、黑洞與匯點攻擊 (Sinkhole) 是 DV 路由的主要威脅 \cite{sejaphala2025-sinkhole-detection, zenodo2025-manet-routing-attacks}。在 LoRa 物理層下，不穩定的鏈路品質使得識別惡意丟包更具挑戰性 \cite{springer2026-vanet-routing}。雖然諸如 TS-AODV 或 SEAD 等協議嘗試引入信任機制或單向哈希鏈 \cite{hu2002-sead, thomas2024-aodv-flooding, kumar2024-sead-ariadne}，但這些防禦往往無法抵抗擁有全網對稱密鑰的內部節點篡改路由度量值。
+
+### 9.3 協議安全的形式化驗證 (Formal Verification for Protocol Security)
+
+形式化驗證是確保協議正確性的金標準。諸如 Event-B 曾被用於驗證 LoRaWAN 的狀態機與 ADR 機制 \cite{ieee2025-adr-eventb, riviere2025-eventb-liveness}。然而，對於複雜的加密協議，基於 Dolev-Yao 模型的符號化分析更為有效 \cite{basin2025-tamarin-book}。Tamarin Prover 作為領先的符號化驗證工具，已成功應用於 5G-AKA 等標準 \cite{ieee2025-5g-prose-aka}。在路由領域，前人對 AODV 等反應式路由進行了自動化驗證 \cite{glabbeek2016-aodv-verification, namjoshi2017-loop-freedom}，證明了跳數度量值易受攻擊。但在 LoRa 資源受限環境下的主動式 DV 路由驗證仍屬空白。
+
+### 9.4 本研究的定位 (Our Position in the Landscape)
+
+本研究將「破壞與修復」範式 \cite{song2026-protocolguard, vonhippel2024-verification-attack} 應用於 LoRa Mesh 控制面。不同於前人僅關注單跳安全性或一般性的路由理論，我們針對真實的 LoRaMesher 與 Meshtastic 架構，利用 Tamarin 發現了兩類新的 mesh 特有攻擊。我們提出了一種輕量級的密碼學綁定機制，在不超過 LoRa 佔空比限制的前提下，數學上證明了修補方案對內部節點惡意篡改的抵抗力。
 
 ---
+
+## 10. 參考文獻 (References)
+
 
 ## 附錄 A：Tamarin 模型程式碼
 

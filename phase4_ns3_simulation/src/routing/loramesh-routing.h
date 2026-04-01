@@ -12,7 +12,10 @@ namespace lorasec {
 class LoraMeshRouting
 {
   public:
-    LoraMeshRouting(const TopologySpec& topology, bool usePatch, uint32_t helloPeriodSec, uint32_t metricVersionWindowSec);
+    LoraMeshRouting(const TopologySpec& topology,
+                    SecurityMode securityMode,
+                    uint32_t helloPeriodSec,
+                    uint32_t metricVersionWindowSec);
 
     void NodeInit(uint32_t seed);
     std::vector<HelloMessage> HelloBroadcast(uint32_t currentSec);
@@ -25,6 +28,7 @@ class LoraMeshRouting
     uint32_t GetRouteTableSize(uint32_t node) const;
     bool IsCompromised(uint32_t nodeId) const;
     uint32_t GetHelloSeq(uint32_t nodeId) const;
+    uint32_t GetMetricVersion(uint32_t nodeId) const;
 
   private:
     struct NodeState
@@ -35,11 +39,13 @@ class LoraMeshRouting
         std::map<uint32_t, RouteEntry> routeTable;
     };
 
-    bool VerifyHelloForPatched(const HelloMessage& hello, uint32_t receiver, uint32_t currentSec) const;
+    bool VerifyHello(const HelloMessage& hello, uint32_t receiver, uint32_t currentSec) const;
+    bool RequiresAuthentication() const;
+    bool RequiresMetricVersion() const;
     bool IsNeighbor(uint32_t a, uint32_t b) const;
 
     TopologySpec m_topology;
-    bool m_usePatch;
+    SecurityMode m_securityMode;
     uint32_t m_helloPeriodSec;
     uint32_t m_metricVersionWindowSec;
     std::vector<NodeState> m_nodes;

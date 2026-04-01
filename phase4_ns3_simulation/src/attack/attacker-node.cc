@@ -22,8 +22,12 @@ AttackerNode::ShouldAttackAt(uint32_t currentSec) const
 }
 
 std::optional<HelloMessage>
-AttackerNode::AttackA_MetricSpoofing(uint32_t currentSec, uint32_t fakeSeq, bool usePatch) const
+AttackerNode::AttackA_MetricSpoofing(uint32_t currentSec,
+                                     uint32_t fakeSeq,
+                                     SecurityMode securityMode) const
 {
+    (void) securityMode;
+
     if (m_config.type != AttackType::SPOOFING)
     {
         return std::nullopt;
@@ -34,7 +38,7 @@ AttackerNode::AttackA_MetricSpoofing(uint32_t currentSec, uint32_t fakeSeq, bool
                         m_config.attackerNode,
                         0,
                         fakeSeq,
-                        usePatch,
+                        false,
                         forgedVersion};
 }
 
@@ -42,21 +46,21 @@ std::optional<HelloMessage>
 AttackerNode::AttackB_MetricReplay(uint32_t currentSec,
                                    uint32_t lastSeenSeq,
                                    uint32_t lastSeenMetricVersion,
-                                   bool usePatch) const
+                                   SecurityMode securityMode) const
 {
     if (m_config.type != AttackType::REPLAY)
     {
         return std::nullopt;
     }
 
-    uint32_t replayedSeq = (lastSeenSeq > 0) ? lastSeenSeq - 1 : 0;
-    uint32_t replayedMetricVersion = (lastSeenMetricVersion > 0) ? lastSeenMetricVersion - 1 : 0;
+    uint32_t replayedSeq = lastSeenSeq;
+    uint32_t replayedMetricVersion = (lastSeenMetricVersion > 1) ? lastSeenMetricVersion - 2 : 0;
 
     return HelloMessage{m_config.victimNode,
                         m_config.attackerNode,
                         0,
                         replayedSeq,
-                        usePatch,
+                        securityMode == SecurityMode::PATCHED,
                         replayedMetricVersion};
 }
 

@@ -1,0 +1,15 @@
+% Related Work Comparison Matrix
+% Columns: Title, Focus Area, Key Method, Our Novelty
+% Generated for WP-3 completion
+
+"Flying Drones to Locate Cyber-Attackers in LoRaWAN","Physical Layer Security","Signal attenuation & CSS jamming detection","Analyzes control plane logic vs. physical signal behavior"
+"Zero Trust for Multi-RAT IoT","Network Architecture","Trust Boundary Management in Heterogeneous environments","Focuses on proactive LoRa Mesh routing vs. general trust models"
+"Formal Validation of ADR Protocol using Event-B","State-Machine Verification","Event-B modeling of ADR mechanisms","Analyzes dynamic multi-hop routing vs. static star topology"
+"Epistemic Analysis of Key-Management Vulnerability","Key Management","Knowledge-based analysis of v1.1 join procedure","Extends to mesh-specific rekey synchronization issues"
+"Extensive Security Verification of LoRaWAN Key-Establishment","Protocol Hardening","Symbolic verification of join/session key derivation","Identifies mismatch attacks in multi-hop forwarding vs. single-hop"
+"A Hierarchy-Based Dynamic Routing Protocol for LoRa Mesh","Routing Efficiency","Metric-based tree construction","Provides formal security proofs (Tamarin) for routing integrity"
+"Modelling and Verifying the AODV Routing Protocol","Reactive Routing","Symbolic verification of on-demand path discovery","Targeting proactive Distance Vector protocols in LPWAN constraints"
+"Verification and Attack Synthesis for Network Protocols","General Methodology","Automated attack synthesis for generic protocols","First application to LoRaMesher and Meshtastic control planes"
+"Timed Bigraphs for Sensor Network Routing","Sensor Networks","Temporal logic for routing properties","Scalable symbolic verification vs. state-space intensive bigraphs"
+"Loop Freedom in AODVv2","Routing Stability","Inductive proofs of path monotonicity","Focuses on cryptographically bound metric consistency"
+"This Work (Breaking & Repairing LoRa Mesh)","Control Plane Security","Tamarin Prover + ns-3 Validation","First verified minimal patch for LoRa Mesh metric spoofing"

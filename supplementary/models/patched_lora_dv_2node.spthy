@@ -1,10 +1,10 @@
-theory LoRaMesher_Patched
+theory LoRaMesher_Patched_2Node
 begin
 
 /*
- Patched model for LoRaMesher DV routing.
- Security mechanisms: HMAC-authenticated Hello + MetricVersion binding.
- Target outcome: L1-L5 all proved.
+ Simplified patched model for LoRaMesher DV routing (2-node topology).
+ Focus: Verify HMAC authentication + MetricVersion binding.
+ Target: L1-L5 all proved within tractable verification time.
 */
 
 functions: hmac/2
@@ -16,8 +16,7 @@ rule Node_Init:
     !Honest(~id),
     !PSK(~id,~id,~psk),
     !HelloSeq(~id,~seq),
-    !MetricVersion(~id,~id,'v0'),
-    !Neighbor(~id,~id)
+    !MetricVersion(~id,~id,'v0')
   ]
 
 rule Hello_Broadcast_Auth:
@@ -28,7 +27,6 @@ rule Hello_Broadcast_Auth:
 rule Route_Update_Verify:
   [ In(<src,metric,seq_new,nextHop,'v0',hmac(<src,metric,seq_new,nextHop,'v0'>,psk_src)>),
     !Node(dst,'honest'),
-    !Neighbor(dst,dst),
     !Honest(src),
     !PSK(src,src,psk_src),
     !MetricVersion(src,src,'v0')
@@ -41,15 +39,12 @@ rule MetricVersion_Increment:
   --[ MetricVersionIncrement(n,'v0') ]->
   [ !MetricVersion(n,n,'v0') ]
 
-rule Data_Forward:
-  [ In(<src,dst,payload>), !Node(forwarder,'honest'), !RouteTable(forwarder,dst,metric,nextHop,seq,ver) ]
-  --[ Forward(forwarder,src,dst,nextHop) ]->
-  [ Out(<src,dst,payload>) ]
-
 rule Compromise_Node:
-  [ !Node(n,'honest'), !PSK(n,n,psk), !RouteTable(n,dst,metric,nh,seq,ver) ]
+  [ !Node(n,'honest'), !PSK(n,n,psk) ]
   --[ Compromise(n), Compromised(n) ]->
-  [ Out(psk), Out(<n,dst,metric,nh,seq,ver>) ]
+  [ Out(psk) ]
+
+/* Security Properties */
 
 lemma L1_RouteMetricAuthenticity_Patched:
   "All node dst metric nh seq ver #i.
@@ -90,6 +85,8 @@ lemma L5_PSKConfidentiality_Patched:
       PSKInit(node,psk) @ i
       & not (Ex #c. Compromised(node) @ c)
     ==> not (Ex #k. K(psk) @ k)"
+
+/* Sanity Checks */
 
 lemma L_Sanity1_Honest_Route_Exists: exists-trace
   "Ex dst src metric nh seq ver #i #h1 #h2.

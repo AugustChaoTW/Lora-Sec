@@ -1,0 +1,380 @@
+[
+  {
+    "scenario": {
+      "topology": "Linear",
+      "attack_type": "Spoofing",
+      "run_id": 0,
+      "use_patch": false
+    },
+    "success_rate": 0.0,
+    "avg_latency": 0.0,
+    "throughput": 0.0,
+    "pdr": 0.0,
+    "completion_time": 0.0007319450378417969,
+    "error": "[Errno 2] No such file or directory: '/workspace/phase4_ns3_simulation/build/lora-mesh-sim'"
+  },
+  {
+    "scenario": {
+      "topology": "Linear",
+      "attack_type": "Spoofing",
+      "run_id": 1,
+      "use_patch": false
+    },
+    "success_rate": 0.0,
+    "avg_latency": 0.0,
+    "throughput": 0.0,
+    "pdr": 0.0,
+    "completion_time": 0.0006651878356933594,
+    "error": "[Errno 2] No such file or directory: '/workspace/phase4_ns3_simulation/build/lora-mesh-sim'"
+  },
+  {
+    "scenario": {
+      "topology": "Linear",
+      "attack_type": "Spoofing",
+      "run_id": 2,
+      "use_patch": false
+    },
+    "success_rate": 0.0,
+    "avg_latency": 0.0,
+    "throughput": 0.0,
+    "pdr": 0.0,
+    "completion_time": 0.0011718273162841797,
+    "error": "[Errno 2] No such file or directory: '/workspace/phase4_ns3_simulation/build/lora-mesh-sim'"
+  },
+  {
+    "scenario": {
+      "topology": "Linear",
+      "attack_type": "Replay",
+      "run_id": 0,
+      "use_patch": false
+    },
+    "success_rate": 0.0,
+    "avg_latency": 0.0,
+    "throughput": 0.0,
+    "pdr": 0.0,
+    "completion_time": 0.0008070468902587891,
+    "error": "[Errno 2] No such file or directory: '/workspace/phase4_ns3_simulation/build/lora-mesh-sim'"
+  },
+  {
+    "scenario": {
+      "topology": "Linear",
+      "attack_type": "Replay",
+      "run_id": 1,
+      "use_patch": false
+    },
+    "success_rate": 0.0,
+    "avg_latency": 0.0,
+    "throughput": 0.0,
+    "pdr": 0.0,
+    "completion_time": 0.0009958744049072266,
+    "error": "[Errno 2] No such file or directory: '/workspace/phase4_ns3_simulation/build/lora-mesh-sim'"
+  },
+  {
+    "scenario": {
+      "topology": "Linear",
+      "attack_type": "Replay",
+      "run_id": 2,
+      "use_patch": false
+    },
+    "success_rate": 0.0,
+    "avg_latency": 0.0,
+    "throughput": 0.0,
+    "pdr": 0.0,
+    "completion_time": 0.0010406970977783203,
+    "error": "[Errno 2] No such file or directory: '/workspace/phase4_ns3_simulation/build/lora-mesh-sim'"
+  },
+  {
+    "scenario": {
+      "topology": "Linear",
+      "attack_type": "Selective",
+      "run_id": 0,
+      "use_patch": false
+    },
+    "success_rate": 0.0,
+    "avg_latency": 0.0,
+    "throughput": 0.0,
+    "pdr": 0.0,
+    "completion_time": 0.0009045600891113281,
+    "error": "[Errno 2] No such file or directory: '/workspace/phase4_ns3_simulation/build/lora-mesh-sim'"
+  },
+  {
+    "scenario": {
+      "topology": "Linear",
+      "attack_type": "Selective",
+      "run_id": 1,
+      "use_patch": false
+    },
+    "success_rate": 0.0,
+    "avg_latency": 0.0,
+    "throughput": 0.0,
+    "pdr": 0.0,
+    "completion_time": 0.0009467601776123047,
+    "error": "[Errno 2] No such file or directory: '/workspace/phase4_ns3_simulation/build/lora-mesh-sim'"
+  },
+  {
+    "scenario": {
+      "topology": "Linear",
+      "attack_type": "Selective",
+      "run_id": 2,
+      "use_patch": false
+    },
+    "success_rate": 0.0,
+    "avg_latency": 0.0,
+    "throughput": 0.0,
+    "pdr": 0.0,
+    "completion_time": 0.0009102821350097656,
+    "error": "[Errno 2] No such file or directory: '/workspace/phase4_ns3_simulation/build/lora-mesh-sim'"
+  },
+  {
+    "scenario": {
+      "topology": "Tree",
+      "attack_type": "Spoofing",
+      "run_id": 0,
+      "use_patch": false
+    },
+    "success_rate": 0.0,
+    "avg_latency": 0.0,
+    "throughput": 0.0,
+    "pdr": 0.0,
+    "completion_time": 0.0008747577667236328,
+    "error": "[Errno 2] No such file or directory: '/workspace/phase4_ns3_simulation/build/lora-mesh-sim'"
+  },
+  {
+    "scenario": {
+      "topology": "Tree",
+      "attack_type": "Spoofing",
+      "run_id": 1,
+      "use_patch": false
+    },
+    "success_rate": 0.0,
+    "avg_latency": 0.0,
+    "throughput": 0.0,
+    "pdr": 0.0,
+    "completion_time": 0.0004036426544189453,
+    "error": "[Errno 2] No such file or directory: '/workspace/phase4_ns3_simulation/build/lora-mesh-sim'"
+  },
+  {
+    "scenario": {
+      "topology": "Tree",
+      "attack_type": "Spoofing",
+      "run_id": 2,
+      "use_patch": false
+    },
+    "success_rate": 0.0,
+    "avg_latency": 0.0,
+    "throughput": 0.0,
+    "pdr": 0.0,
+    "completion_time": 0.0004169940948486328,
+    "error": "[Errno 2] No such file or directory: '/workspace/phase4_ns3_simulation/build/lora-mesh-sim'"
+  },
+  {
+    "scenario": {
+      "topology": "Tree",
+      "attack_type": "Replay",
+      "run_id": 0,
+      "use_patch": false
+    },
+    "success_rate": 0.0,
+    "avg_latency": 0.0,
+    "throughput": 0.0,
+    "pdr": 0.0,
+    "completion_time": 0.00022101402282714844,
+    "error": "[Errno 2] No such file or directory: '/workspace/phase4_ns3_simulation/build/lora-mesh-sim'"
+  },
+  {
+    "scenario": {
+      "topology": "Tree",
+      "attack_type": "Replay",
+      "run_id": 1,
+      "use_patch": false
+    },
+    "success_rate": 0.0,
+    "avg_latency": 0.0,
+    "throughput": 0.0,
+    "pdr": 0.0,
+    "completion_time": 0.00030112266540527344,
+    "error": "[Errno 2] No such file or directory: '/workspace/phase4_ns3_simulation/build/lora-mesh-sim'"
+  },
+  {
+    "scenario": {
+      "topology": "Tree",
+      "attack_type": "Replay",
+      "run_id": 2,
+      "use_patch": false
+    },
+    "success_rate": 0.0,
+    "avg_latency": 0.0,
+    "throughput": 0.0,
+    "pdr": 0.0,
+    "completion_time": 0.0001823902130126953,
+    "error": "[Errno 2] No such file or directory: '/workspace/phase4_ns3_simulation/build/lora-mesh-sim'"
+  },
+  {
+    "scenario": {
+      "topology": "Tree",
+      "attack_type": "Selective",
+      "run_id": 0,
+      "use_patch": false
+    },
+    "success_rate": 0.0,
+    "avg_latency": 0.0,
+    "throughput": 0.0,
+    "pdr": 0.0,
+    "completion_time": 0.00034499168395996094,
+    "error": "[Errno 2] No such file or directory: '/workspace/phase4_ns3_simulation/build/lora-mesh-sim'"
+  },
+  {
+    "scenario": {
+      "topology": "Tree",
+      "attack_type": "Selective",
+      "run_id": 1,
+      "use_patch": false
+    },
+    "success_rate": 0.0,
+    "avg_latency": 0.0,
+    "throughput": 0.0,
+    "pdr": 0.0,
+    "completion_time": 0.00041103363037109375,
+    "error": "[Errno 2] No such file or directory: '/workspace/phase4_ns3_simulation/build/lora-mesh-sim'"
+  },
+  {
+    "scenario": {
+      "topology": "Tree",
+      "attack_type": "Selective",
+      "run_id": 2,
+      "use_patch": false
+    },
+    "success_rate": 0.0,
+    "avg_latency": 0.0,
+    "throughput": 0.0,
+    "pdr": 0.0,
+    "completion_time": 0.00019097328186035156,
+    "error": "[Errno 2] No such file or directory: '/workspace/phase4_ns3_simulation/build/lora-mesh-sim'"
+  },
+  {
+    "scenario": {
+      "topology": "Grid",
+      "attack_type": "Spoofing",
+      "run_id": 0,
+      "use_patch": false
+    },
+    "success_rate": 0.0,
+    "avg_latency": 0.0,
+    "throughput": 0.0,
+    "pdr": 0.0,
+    "completion_time": 0.0002589225769042969,
+    "error": "[Errno 2] No such file or directory: '/workspace/phase4_ns3_simulation/build/lora-mesh-sim'"
+  },
+  {
+    "scenario": {
+      "topology": "Grid",
+      "attack_type": "Spoofing",
+      "run_id": 1,
+      "use_patch": false
+    },
+    "success_rate": 0.0,
+    "avg_latency": 0.0,
+    "throughput": 0.0,
+    "pdr": 0.0,
+    "completion_time": 0.00019288063049316406,
+    "error": "[Errno 2] No such file or directory: '/workspace/phase4_ns3_simulation/build/lora-mesh-sim'"
+  },
+  {
+    "scenario": {
+      "topology": "Grid",
+      "attack_type": "Spoofing",
+      "run_id": 2,
+      "use_patch": false
+    },
+    "success_rate": 0.0,
+    "avg_latency": 0.0,
+    "throughput": 0.0,
+    "pdr": 0.0,
+    "completion_time": 0.00020623207092285156,
+    "error": "[Errno 2] No such file or directory: '/workspace/phase4_ns3_simulation/build/lora-mesh-sim'"
+  },
+  {
+    "scenario": {
+      "topology": "Grid",
+      "attack_type": "Replay",
+      "run_id": 0,
+      "use_patch": false
+    },
+    "success_rate": 0.0,
+    "avg_latency": 0.0,
+    "throughput": 0.0,
+    "pdr": 0.0,
+    "completion_time": 0.00018262863159179688,
+    "error": "[Errno 2] No such file or directory: '/workspace/phase4_ns3_simulation/build/lora-mesh-sim'"
+  },
+  {
+    "scenario": {
+      "topology": "Grid",
+      "attack_type": "Replay",
+      "run_id": 1,
+      "use_patch": false
+    },
+    "success_rate": 0.0,
+    "avg_latency": 0.0,
+    "throughput": 0.0,
+    "pdr": 0.0,
+    "completion_time": 0.00037479400634765625,
+    "error": "[Errno 2] No such file or directory: '/workspace/phase4_ns3_simulation/build/lora-mesh-sim'"
+  },
+  {
+    "scenario": {
+      "topology": "Grid",
+      "attack_type": "Replay",
+      "run_id": 2,
+      "use_patch": false
+    },
+    "success_rate": 0.0,
+    "avg_latency": 0.0,
+    "throughput": 0.0,
+    "pdr": 0.0,
+    "completion_time": 0.00019741058349609375,
+    "error": "[Errno 2] No such file or directory: '/workspace/phase4_ns3_simulation/build/lora-mesh-sim'"
+  },
+  {
+    "scenario": {
+      "topology": "Grid",
+      "attack_type": "Selective",
+      "run_id": 0,
+      "use_patch": false
+    },
+    "success_rate": 0.0,
+    "avg_latency": 0.0,
+    "throughput": 0.0,
+    "pdr": 0.0,
+    "completion_time": 0.00017976760864257812,
+    "error": "[Errno 2] No such file or directory: '/workspace/phase4_ns3_simulation/build/lora-mesh-sim'"
+  },
+  {
+    "scenario": {
+      "topology": "Grid",
+      "attack_type": "Selective",
+      "run_id": 1,
+      "use_patch": false
+    },
+    "success_rate": 0.0,
+    "avg_latency": 0.0,
+    "throughput": 0.0,
+    "pdr": 0.0,
+    "completion_time": 0.0003933906555175781,
+    "error": "[Errno 2] No such file or directory: '/workspace/phase4_ns3_simulation/build/lora-mesh-sim'"
+  },
+  {
+    "scenario": {
+      "topology": "Grid",
+      "attack_type": "Selective",
+      "run_id": 2,
+      "use_patch": false
+    },
+    "success_rate": 0.0,
+    "avg_latency": 0.0,
+    "throughput": 0.0,
+    "pdr": 0.0,
+    "completion_time": 0.0004258155822753906,
+    "error": "[Errno 2] No such file or directory: '/workspace/phase4_ns3_simulation/build/lora-mesh-sim'"
+  }
+]

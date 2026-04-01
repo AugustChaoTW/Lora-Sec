@@ -22,6 +22,13 @@ enum class AttackType
     SELECTIVE
 };
 
+enum class SecurityMode
+{
+    BASELINE,
+    PATCHED,
+    METRICVERSION
+};
+
 struct HelloMessage
 {
     uint32_t claimedSrc;

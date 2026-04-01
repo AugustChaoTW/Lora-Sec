@@ -75,6 +75,48 @@ ParseAttackType(const std::string& input)
     return AttackType::NONE;
 }
 
+SecurityMode
+ParseSecurityMode(const std::string& input)
+{
+    std::string mode = ToLower(input);
+    if (mode == "patched")
+    {
+        return SecurityMode::PATCHED;
+    }
+    if (mode == "metricversion")
+    {
+        return SecurityMode::METRICVERSION;
+    }
+    return SecurityMode::BASELINE;
+}
+
+std::string
+SecurityModeName(SecurityMode mode)
+{
+    switch (mode)
+    {
+    case SecurityMode::PATCHED:
+        return "patched";
+    case SecurityMode::METRICVERSION:
+        return "metricversion";
+    case SecurityMode::BASELINE:
+    default:
+        return "baseline";
+    }
+}
+
+bool
+UsesPatch(SecurityMode mode)
+{
+    return mode != SecurityMode::BASELINE;
+}
+
+bool
+UsesMetricVersion(SecurityMode mode)
+{
+    return mode == SecurityMode::METRICVERSION;
+}
+
 uint32_t
 DefaultVictim(const TopologySpec& topology)
 {
@@ -183,13 +225,15 @@ StepForwardPacket(const LoraMeshRouting& routing,
 std::string
 BuildJson(const std::string& topology,
           const std::string& attack,
-          bool usePatch,
+          SecurityMode securityMode,
           uint32_t seed,
           uint32_t durationSec,
           const SimMetrics& metrics,
           uint32_t payloadBytes)
 {
     double pdr = metrics.generated == 0 ? 0.0 : static_cast<double>(metrics.delivered) / metrics.generated;
+    double pdrPercent = pdr * 100.0;
+    double throughputPktPerSec = durationSec == 0 ? 0.0 : static_cast<double>(metrics.delivered) / durationSec;
     double throughputBps = durationSec == 0 ? 0.0 : (metrics.delivered * payloadBytes * 8.0) / durationSec;
     double avgLatencyMs = metrics.delivered == 0 ? 0.0 : static_cast<double>(metrics.latencyMsTotal) / metrics.delivered;
     double attackSuccess = metrics.generated == 0
@@ -204,13 +248,17 @@ BuildJson(const std::string& topology,
     os << "{\n";
     os << "  \"topology\": \"" << topology << "\",\n";
     os << "  \"attack_type\": \"" << attack << "\",\n";
-    os << "  \"use_patch\": " << (usePatch ? "true" : "false") << ",\n";
+    os << "  \"state\": \"" << SecurityModeName(securityMode) << "\",\n";
+    os << "  \"use_patch\": " << (UsesPatch(securityMode) ? "true" : "false") << ",\n";
+    os << "  \"use_metric_version\": " << (UsesMetricVersion(securityMode) ? "true" : "false") << ",\n";
     os << "  \"seed\": " << seed << ",\n";
     os << "  \"duration_seconds\": " << durationSec << ",\n";
     os << "  \"packets_generated\": " << metrics.generated << ",\n";
     os << "  \"packets_delivered\": " << metrics.delivered << ",\n";
     os << "  \"packets_dropped\": " << metrics.dropped << ",\n";
     os << "  \"pdr\": " << pdr << ",\n";
+    os << "  \"pdr_percent\": " << pdrPercent << ",\n";
+    os << "  \"throughput_pkt_per_sec\": " << throughputPktPerSec << ",\n";
     os << "  \"throughput_bps\": " << throughputBps << ",\n";
     os << "  \"avg_latency_ms\": " << avgLatencyMs << ",\n";
     os << "  \"attack_success_redirect_percent\": " << attackSuccess << ",\n";
@@ -238,8 +286,10 @@ main(int argc, char* argv[])
 {
     std::string topologyName = "linear";
     std::string attackName = "spoofing";
+    std::string securityState = "baseline";
     std::string outputPath = "results/result.json";
     bool usePatch = false;
+    bool useMetricVersion = false;
     uint32_t seed = 1;
     uint32_t durationSec = 300;
     uint32_t helloPeriodSec = 10;
@@ -249,7 +299,9 @@ main(int argc, char* argv[])
     CommandLine cmd;
     cmd.AddValue("topology", "linear|tree|grid", topologyName);
     cmd.AddValue("attack", "spoofing|replay|selective|none", attackName);
+    cmd.AddValue("state", "baseline|patched|metricversion", securityState);
     cmd.AddValue("usePatch", "0/1", usePatch);
+    cmd.AddValue("useMetricVersion", "0/1", useMetricVersion);
     cmd.AddValue("seed", "deterministic seed", seed);
     cmd.AddValue("duration", "seconds", durationSec);
     cmd.AddValue("helloPeriod", "seconds", helloPeriodSec);
@@ -259,6 +311,16 @@ main(int argc, char* argv[])
     cmd.Parse(argc, argv);
 
     RngSeedManager::SetSeed(seed);
+
+    SecurityMode securityMode = ParseSecurityMode(securityState);
+    if (useMetricVersion)
+    {
+        securityMode = SecurityMode::METRICVERSION;
+    }
+    else if (usePatch)
+    {
+        securityMode = SecurityMode::PATCHED;
+    }
 
     TopologySpec topology = ParseTopology(topologyName);
     NodeContainer nodes;
@@ -271,7 +333,7 @@ main(int argc, char* argv[])
     config.frequencySec = helloPeriodSec;
     config.selectiveDropRate = 0.5;
 
-    LoraMeshRouting routing(topology, usePatch, helloPeriodSec, 20);
+    LoraMeshRouting routing(topology, securityMode, helloPeriodSec, 20);
     routing.NodeInit(seed + 11);
     routing.Compromise(config.attackerNode);
 
@@ -291,7 +353,7 @@ main(int argc, char* argv[])
         if (sec >= dataStartSec)
         {
         Simulator::Schedule(Seconds(sec),
-                            [sec, &routing, &attacker, &config, usePatch]() {
+                            [sec, &routing, &attacker, &config, securityMode]() {
                                 if (!attacker.ShouldAttackAt(sec))
                                 {
                                     return;
@@ -308,7 +370,7 @@ main(int argc, char* argv[])
                                     {
                                         auto msg = attacker.AttackA_MetricSpoofing(sec,
                                                                                     routing.GetHelloSeq(config.victimNode),
-                                                                                    usePatch);
+                                                                                    securityMode);
                                         if (msg.has_value())
                                         {
                                             routing.RouteUpdate(receiver, msg.value(), sec);
@@ -318,8 +380,8 @@ main(int argc, char* argv[])
                                     {
                                         auto msg = attacker.AttackB_MetricReplay(sec,
                                                                                  routing.GetHelloSeq(config.victimNode),
-                                                                                 sec / 20,
-                                                                                 usePatch);
+                                                                                 routing.GetMetricVersion(config.victimNode),
+                                                                                 securityMode);
                                         if (msg.has_value())
                                         {
                                             routing.RouteUpdate(receiver, msg.value(), sec);
@@ -363,7 +425,7 @@ main(int argc, char* argv[])
     Simulator::Destroy();
 
     std::ofstream out(outputPath);
-    out << BuildJson(topologyName, attackName, usePatch, seed, durationSec, metrics, payloadBytes);
+    out << BuildJson(topologyName, attackName, securityMode, seed, durationSec, metrics, payloadBytes);
     out.close();
 
     return 0;

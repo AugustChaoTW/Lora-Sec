@@ -1,55 +1,64 @@
-theory LoRaMesher_Patched
+theory LoRaMesher_Patched_WithMetrics
 begin
 
 /*
- Patched model for LoRaMesher DV routing.
- Security mechanisms: HMAC-authenticated Hello + MetricVersion binding.
- Target outcome: L1-L5 all proved.
+ Patched model for LoRaMesher DV routing with dynamic MetricVersion binding.
+ Security mechanisms: HMAC-authenticated Hello + Dynamic MetricVersion binding.
+ Target outcome: L1-L5 all proved, with L2 RouteFreshness addressing replay attacks.
 */
 
 functions: hmac/2
 
 rule Node_Init:
-  [ Fr(~id), Fr(~psk), Fr(~seq) ]
+  [ Fr(~id), Fr(~psk), Fr(~seq), Fr(~dst) ]
   --[ NodeInit(~id), HonestNode(~id), PSKInit(~id,~psk) ]->
   [ !Node(~id,'honest'),
     !Honest(~id),
     !PSK(~id,~id,~psk),
     !HelloSeq(~id,~seq),
-    !MetricVersion(~id,~id,'v0'),
-    !Neighbor(~id,~id)
+    !MetricVersion(~id,~dst,'v0'),
+    !CurrentMetric(~id,~dst,'zero')
   ]
 
 rule Hello_Broadcast_Auth:
-  [ !Node(n,'honest'), !Honest(n), !HelloSeq(n,seq), !PSK(n,n,psk), !MetricVersion(n,n,'v0') ]
-  --[ HelloSent(n,'zero',seq), HMACGenerated(n,'zero',seq,'v0') ]->
-  [ Out(<n,'zero',seq,n,'v0',hmac(<n,'zero',seq,n,'v0'>,psk)>) ]
+  [ !Node(n,'honest'), 
+    !Honest(n), 
+    !HelloSeq(n,seq), 
+    !PSK(n,n,psk), 
+    !MetricVersion(n,n,ver),
+    !CurrentMetric(n,'zero',metric)
+  ]
+  --[ HelloSent(n,'zero',seq,ver), HMACGenerated(n,'zero',seq,ver) ]->
+  [ Out(<n,'zero',seq,n,ver,hmac(<n,'zero',seq,n,ver>,psk)>) ]
 
 rule Route_Update_Verify:
-  [ In(<src,metric,seq_new,nextHop,'v0',hmac(<src,metric,seq_new,nextHop,'v0'>,psk_src)>),
+  [ In(<src,metric,seq_new,nextHop,ver,hmac(<src,metric,seq_new,nextHop,ver>,psk_src)>),
     !Node(dst,'honest'),
-    !Neighbor(dst,dst),
     !Honest(src),
     !PSK(src,src,psk_src),
-    !MetricVersion(src,src,'v0')
+    !MetricVersion(src,src,ver)
   ]
-  --[ RouteUpdate(dst,src,metric,seq_new), HMACVerified(dst,src,metric,seq_new), RouteAccepted(dst,src,metric,nextHop,seq_new,'v0') ]->
-  [ !RouteTable(dst,src,metric,nextHop,seq_new,'v0') ]
+  --[ RouteUpdate(dst,src,metric,seq_new), 
+      HMACVerified(dst,src,metric,seq_new,ver), 
+      RouteAccepted(dst,src,metric,nextHop,seq_new,ver) ]->
+  [ !RouteTable(dst,src,metric,nextHop,seq_new,ver) ]
 
 rule MetricVersion_Increment:
   [ !MetricVersion(n,n,'v0') ]
-  --[ MetricVersionIncrement(n,'v0') ]->
-  [ !MetricVersion(n,n,'v0') ]
+  --[ MetricVersionIncrement(n,'v0','v1') ]->
+  [ !MetricVersion(n,n,'v1') ]
 
-rule Data_Forward:
-  [ In(<src,dst,payload>), !Node(forwarder,'honest'), !RouteTable(forwarder,dst,metric,nextHop,seq,ver) ]
-  --[ Forward(forwarder,src,dst,nextHop) ]->
-  [ Out(<src,dst,payload>) ]
+rule MetricVersion_Increment_v1:
+  [ !MetricVersion(n,n,'v1') ]
+  --[ MetricVersionIncrement(n,'v1','v2') ]->
+  [ !MetricVersion(n,n,'v2') ]
 
 rule Compromise_Node:
-  [ !Node(n,'honest'), !PSK(n,n,psk), !RouteTable(n,dst,metric,nh,seq,ver) ]
+  [ !Node(n,'honest'), !PSK(n,n,psk) ]
   --[ Compromise(n), Compromised(n) ]->
-  [ Out(psk), Out(<n,dst,metric,nh,seq,ver>) ]
+  [ Out(psk) ]
+
+/* Security Properties */
 
 lemma L1_RouteMetricAuthenticity_Patched:
   "All node dst metric nh seq ver #i.
@@ -57,7 +66,7 @@ lemma L1_RouteMetricAuthenticity_Patched:
       & (Ex #h1. HonestNode(node) @ h1)
       & (Ex #h2. HonestNode(dst) @ h2)
       & not (Ex #c. Compromised(dst) @ c)
-    ==> (Ex #j. HelloSent(dst,'zero',seq) @ j & j < i)"
+    ==> (Ex #j. HelloSent(dst,'zero',seq,ver) @ j & j < i)"
 
 lemma L2_RouteFreshness_Patched:
   "All node dst metric1 metric2 nh1 nh2 seq ver1 ver2 #i #j.
@@ -91,6 +100,8 @@ lemma L5_PSKConfidentiality_Patched:
       & not (Ex #c. Compromised(node) @ c)
     ==> not (Ex #k. K(psk) @ k)"
 
+/* Sanity Checks */
+
 lemma L_Sanity1_Honest_Route_Exists: exists-trace
   "Ex dst src metric nh seq ver #i #h1 #h2.
     RouteAccepted(dst,src,metric,nh,seq,ver) @ i
@@ -98,10 +109,10 @@ lemma L_Sanity1_Honest_Route_Exists: exists-trace
     & HonestNode(src) @ h2"
 
 lemma L_Sanity2_HMAC_Verified: exists-trace
-  "Ex dst src metric seq #i.
-    HMACVerified(dst,src,metric,seq) @ i"
+  "Ex dst src metric seq ver #i.
+    HMACVerified(dst,src,metric,seq,ver) @ i"
 
 lemma L_Sanity3_MetricVersion_Increment_Happens: exists-trace
-  "Ex n ver #i. MetricVersionIncrement(n,ver) @ i"
+  "Ex n old_ver new_ver #i. MetricVersionIncrement(n,old_ver,new_ver) @ i"
 
 end

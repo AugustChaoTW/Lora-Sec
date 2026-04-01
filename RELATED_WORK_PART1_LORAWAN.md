@@ -1,0 +1,19 @@
+# Part 1: LoRaWAN Security and Vulnerabilities
+
+## 1.1 The State of LoRaWAN Protocol Security
+The emergence of Long Range (LoRa) technology revolutionized Low-Power Wide-Area Networks (LPWANs) by enabling multi-kilometer communication on milliwatt power budgets [7]. As the standard MAC layer, LoRaWAN dictates the architecture, relying heavily on a star-of-stars topology where edge nodes communicate directly with centralized gateways. 
+
+Existing literature extensively documents the cryptographic foundation of LoRaWAN [3]. Authentication and encryption rely on AES-CCM, utilizing unique pre-shared root keys (AppKey, NwkKey) to derive session keys for network integrity (NwkSKey) and application confidentiality (AppSKey). While the standard has evolved (e.g., v1.1 introducing distinct keys to mitigate rogue network server risks), the static nature of LPWAN deployments means legacy implementations remain widespread. However, the reliance on a centralized backend assumes a trusted, highly available infrastructure—an assumption that breaks down catastrophically in decentralized, off-grid scenarios where mesh networking becomes necessary.
+
+## 1.2 Known Attacks and Implementation Vulnerabilities
+Despite rigorous cryptographic foundations, the practical implementation of LoRa networks frequently exposes critical attack vectors. Recent research highlights vulnerabilities traversing from the physical layer up to the application layer. Signal coverage prediction attacks, for instance, exploit the predictable attenuation of LoRa CSS (Chirp Spread Spectrum) modulation to execute targeted jamming and localization spoofing [5], [2]. 
+
+At the protocol level, state synchronization remains a persistent Achilles' heel. Replay attacks exploiting desynchronized frame counters have been thoroughly demonstrated in LoRaWAN v1.1 implementations [6]. Most critically, key management in decentralized implementations has proven fragile. The recent discovery of CVE-2025-52464 in Meshtastic [1] underscores the danger of hardcoded or easily extractable cryptographic material in edge nodes. When an attacker can replicate a node's identity, the entire trust anchor of the network collapses, allowing malicious actors to silently infiltrate the topology. This vulnerability is particularly devastating in mesh environments where compromised nodes actively participate in routing.
+
+## 1.3 Formal Verification of LoRaWAN
+To systematically address these vulnerabilities, researchers have increasingly turned to formal verification. Tools like Event-B have been successfully applied to model the state machines of LoRaWAN [8], identifying edge-case deadlocks and race conditions that manual analysis missed. Specifically, the Adaptive Data Rate (ADR) mechanism has been formally verified, revealing potential denial-of-service vectors when malicious gateways manipulate MAC commands [4].
+
+However, the current body of formal verification work in LPWANs exhibits significant limitations. First, models typically assume a static star topology, failing to capture the dynamic, multi-hop nature of mesh networks [9]. Second, the state-space explosion problem severely restricts the scalability of these models; verifying a single gateway-node interaction is feasible, but modeling a 100-node ad-hoc mesh is computationally intractable with current Event-B approaches. This gap highlights the urgent need for scalable, symbolic verification methodologies—such as those based on the Tamarin Prover—capable of modeling dynamic routing algorithms in decentralized LoRa environments.
+
+***
+*Transition Note: Having established that LoRaWAN's centralized security model is well-studied but insufficient for decentralized ad-hoc environments, the next section explores the specific vulnerabilities introduced when LoRa physical layers are paired with Distance Vector mesh routing.*

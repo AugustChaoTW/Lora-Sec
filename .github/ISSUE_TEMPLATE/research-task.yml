@@ -1,55 +1,31 @@
 name: Research Task
-description: Create a structured research task for the project
-labels: ["research-task"]
+description: Create a research task
+title: "[{PHASE}] "
+labels: ["research"]
 body:
-  - type: markdown
-    attributes:
-      value: |
-        # Research Task Template
-        Use this form to create structured research tasks with clear phases, types, and priorities.
-  
   - type: dropdown
     id: phase
     attributes:
-      label: Phase
-      description: Which research phase does this task belong to?
+      label: Research phase
       options:
-        - Phase 1 (Literature Review)
-        - Phase 2 (Problem Definition)
-        - Phase 3 (Method Development)
-        - Phase 4 (Experimentation)
-        - Phase 5 (Evaluation)
-        - Phase 6 (Writing)
-        - Phase 7 (Submission)
+        - Literature Review
+        - Proposal
+        - Experiment
+        - Writing
+        - Review
     validations:
       required: true
 
   - type: dropdown
     id: task_type
     attributes:
-      label: Task Type
-      description: What type of research task is this?
+      label: Task type
       options:
-        - research-design
-        - implementation
-        - experiment
+        - search
+        - read
         - analysis
-        - documentation
-        - review
-        - other
-    validations:
-      required: true
-
-  - type: dropdown
-    id: priority
-    attributes:
-      label: Priority
-      description: How urgent is this task?
-      options:
-        - "P0: Blocking"
-        - "P1: High"
-        - "P2: Medium"
-        - "P3: Low"
+        - code
+        - write
     validations:
       required: true
 
@@ -57,37 +33,6 @@ body:
     id: objective
     attributes:
       label: Objective
-      description: What is the goal of this task?
-      placeholder: "Clear, measurable objective..."
+      placeholder: Describe the goal of this task...
     validations:
       required: true
-
-  - type: textarea
-    id: approach
-    attributes:
-      label: Approach
-      description: How will you accomplish this task?
-      placeholder: "Step-by-step approach..."
-
-  - type: textarea
-    id: success_criteria
-    attributes:
-      label: Success Criteria
-      description: How will you know this task is complete?
-      placeholder: "Measurable success criteria..."
-    validations:
-      required: true
-
-  - type: textarea
-    id: dependencies
-    attributes:
-      label: Dependencies
-      description: What must be completed before this task?
-      placeholder: "List any blocking tasks or prerequisites..."
-
-  - type: input
-    id: estimated_effort
-    attributes:
-      label: Estimated Effort
-      description: "Time estimate (e.g., '2 weeks', '3 days')"
-      placeholder: "e.g., 2 weeks"

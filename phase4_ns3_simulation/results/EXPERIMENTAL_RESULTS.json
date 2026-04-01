@@ -1,380 +1,669 @@
-[
-  {
-    "scenario": {
-      "topology": "Linear",
-      "attack_type": "Spoofing",
-      "run_id": 0,
-      "use_patch": false
-    },
-    "success_rate": 0.0,
-    "avg_latency": 0.0,
-    "throughput": 0.0,
-    "pdr": 0.0,
-    "completion_time": 0.002840280532836914,
-    "error": null
+{
+  "summary": {
+    "duration_seconds": 150,
+    "elapsed_seconds": 0.022330522537231445,
+    "total_scenarios": 27,
+    "successful_scenarios": 27,
+    "failed_scenarios": 0,
+    "data_quality_ok": true,
+    "spoofing_clear": true,
+    "replay_clear": true,
+    "decision": "27_only",
+    "decision_reason": "The 27-scenario matrix already isolates the two protections cleanly: authentication blocks spoofing, and MetricVersion blocks replay.",
+    "comparisons": [
+      {
+        "topology": "linear",
+        "spoofing": {
+          "baseline_attack_effect": 100.0,
+          "patched_attack_effect": 0.0,
+          "metricversion_attack_effect": 0.0,
+          "baseline_pdr": 0.0,
+          "patched_pdr": 100.0,
+          "metricversion_pdr": 100.0
+        },
+        "replay": {
+          "baseline_attack_effect": 100.0,
+          "patched_attack_effect": 100.0,
+          "metricversion_attack_effect": 0.0,
+          "baseline_pdr": 0.0,
+          "patched_pdr": 0.0,
+          "metricversion_pdr": 100.0
+        }
+      },
+      {
+        "topology": "tree",
+        "spoofing": {
+          "baseline_attack_effect": 22.599999999999998,
+          "patched_attack_effect": 0.0,
+          "metricversion_attack_effect": 0.0,
+          "baseline_pdr": 77.419,
+          "patched_pdr": 100.0,
+          "metricversion_pdr": 100.0
+        },
+        "replay": {
+          "baseline_attack_effect": 22.599999999999998,
+          "patched_attack_effect": 22.599999999999998,
+          "metricversion_attack_effect": 0.0,
+          "baseline_pdr": 77.419,
+          "patched_pdr": 77.419,
+          "metricversion_pdr": 100.0
+        }
+      },
+      {
+        "topology": "grid",
+        "spoofing": {
+          "baseline_attack_effect": 22.599999999999998,
+          "patched_attack_effect": 0.0,
+          "metricversion_attack_effect": 0.0,
+          "baseline_pdr": 77.419,
+          "patched_pdr": 100.0,
+          "metricversion_pdr": 100.0
+        },
+        "replay": {
+          "baseline_attack_effect": 22.599999999999998,
+          "patched_attack_effect": 22.599999999999998,
+          "metricversion_attack_effect": 0.0,
+          "baseline_pdr": 77.419,
+          "patched_pdr": 77.419,
+          "metricversion_pdr": 100.0
+        }
+      }
+    ],
+    "representative_results": [
+      {
+        "topology": "linear",
+        "none_metricversion_pdr_percent": 100.0,
+        "spoofing_baseline_effect_percent": 100.0,
+        "spoofing_patched_effect_percent": 0.0,
+        "replay_patched_effect_percent": 100.0,
+        "replay_metricversion_effect_percent": 0.0
+      },
+      {
+        "topology": "tree",
+        "none_metricversion_pdr_percent": 100.0,
+        "spoofing_baseline_effect_percent": 22.599999999999998,
+        "spoofing_patched_effect_percent": 0.0,
+        "replay_patched_effect_percent": 22.599999999999998,
+        "replay_metricversion_effect_percent": 0.0
+      },
+      {
+        "topology": "grid",
+        "none_metricversion_pdr_percent": 100.0,
+        "spoofing_baseline_effect_percent": 22.599999999999998,
+        "spoofing_patched_effect_percent": 0.0,
+        "replay_patched_effect_percent": 22.599999999999998,
+        "replay_metricversion_effect_percent": 0.0
+      }
+    ],
+    "failed_details": []
   },
-  {
-    "scenario": {
-      "topology": "Linear",
-      "attack_type": "Spoofing",
-      "run_id": 1,
-      "use_patch": false
+  "scenarios": [
+    {
+      "scenario": {
+        "topology": "grid",
+        "attack": "none",
+        "state": "baseline",
+        "seed": 1
+      },
+      "output_file": "/workspace/results/apr2_3_grid_none_baseline_seed=1.json",
+      "packets_generated": 31,
+      "packets_delivered": 31,
+      "packets_dropped": 0,
+      "pdr": 1.0,
+      "pdr_percent": 100.0,
+      "avg_latency_ms": 200.0,
+      "throughput_pkt_per_sec": 0.207,
+      "throughput_bps": 105.813,
+      "attack_success_percent": 0.0,
+      "attack_effect_percent": 0.0,
+      "final_route_entries": 81,
+      "error": null
     },
-    "success_rate": 0.0,
-    "avg_latency": 0.0,
-    "throughput": 0.0,
-    "pdr": 0.0,
-    "completion_time": 0.003748655319213867,
-    "error": null
-  },
-  {
-    "scenario": {
-      "topology": "Linear",
-      "attack_type": "Spoofing",
-      "run_id": 2,
-      "use_patch": false
+    {
+      "scenario": {
+        "topology": "grid",
+        "attack": "none",
+        "state": "metricversion",
+        "seed": 1
+      },
+      "output_file": "/workspace/results/apr2_3_grid_none_metricversion_seed=1.json",
+      "packets_generated": 31,
+      "packets_delivered": 31,
+      "packets_dropped": 0,
+      "pdr": 1.0,
+      "pdr_percent": 100.0,
+      "avg_latency_ms": 200.0,
+      "throughput_pkt_per_sec": 0.207,
+      "throughput_bps": 105.813,
+      "attack_success_percent": 0.0,
+      "attack_effect_percent": 0.0,
+      "final_route_entries": 81,
+      "error": null
     },
-    "success_rate": 0.0,
-    "avg_latency": 0.0,
-    "throughput": 0.0,
-    "pdr": 0.0,
-    "completion_time": 0.002748727798461914,
-    "error": null
-  },
-  {
-    "scenario": {
-      "topology": "Linear",
-      "attack_type": "Replay",
-      "run_id": 0,
-      "use_patch": false
+    {
+      "scenario": {
+        "topology": "grid",
+        "attack": "none",
+        "state": "patched",
+        "seed": 1
+      },
+      "output_file": "/workspace/results/apr2_3_grid_none_patched_seed=1.json",
+      "packets_generated": 31,
+      "packets_delivered": 31,
+      "packets_dropped": 0,
+      "pdr": 1.0,
+      "pdr_percent": 100.0,
+      "avg_latency_ms": 200.0,
+      "throughput_pkt_per_sec": 0.207,
+      "throughput_bps": 105.813,
+      "attack_success_percent": 0.0,
+      "attack_effect_percent": 0.0,
+      "final_route_entries": 81,
+      "error": null
     },
-    "success_rate": 0.0,
-    "avg_latency": 0.0,
-    "throughput": 0.0,
-    "pdr": 0.0,
-    "completion_time": 0.002549409866333008,
-    "error": null
-  },
-  {
-    "scenario": {
-      "topology": "Linear",
-      "attack_type": "Replay",
-      "run_id": 1,
-      "use_patch": false
+    {
+      "scenario": {
+        "topology": "grid",
+        "attack": "replay",
+        "state": "baseline",
+        "seed": 1
+      },
+      "output_file": "/workspace/results/apr2_3_grid_replay_baseline_seed=1.json",
+      "packets_generated": 31,
+      "packets_delivered": 24,
+      "packets_dropped": 7,
+      "pdr": 0.774,
+      "pdr_percent": 77.419,
+      "avg_latency_ms": 200.0,
+      "throughput_pkt_per_sec": 0.16,
+      "throughput_bps": 81.92,
+      "attack_success_percent": 9.677,
+      "attack_effect_percent": 22.599999999999998,
+      "final_route_entries": 81,
+      "error": null
     },
-    "success_rate": 0.0,
-    "avg_latency": 0.0,
-    "throughput": 0.0,
-    "pdr": 0.0,
-    "completion_time": 0.0024442672729492188,
-    "error": null
-  },
-  {
-    "scenario": {
-      "topology": "Linear",
-      "attack_type": "Replay",
-      "run_id": 2,
-      "use_patch": false
+    {
+      "scenario": {
+        "topology": "grid",
+        "attack": "replay",
+        "state": "metricversion",
+        "seed": 1
+      },
+      "output_file": "/workspace/results/apr2_3_grid_replay_metricversion_seed=1.json",
+      "packets_generated": 31,
+      "packets_delivered": 31,
+      "packets_dropped": 0,
+      "pdr": 1.0,
+      "pdr_percent": 100.0,
+      "avg_latency_ms": 200.0,
+      "throughput_pkt_per_sec": 0.207,
+      "throughput_bps": 105.813,
+      "attack_success_percent": 0.0,
+      "attack_effect_percent": 0.0,
+      "final_route_entries": 81,
+      "error": null
     },
-    "success_rate": 0.0,
-    "avg_latency": 0.0,
-    "throughput": 0.0,
-    "pdr": 0.0,
-    "completion_time": 0.002756834030151367,
-    "error": null
-  },
-  {
-    "scenario": {
-      "topology": "Linear",
-      "attack_type": "Selective",
-      "run_id": 0,
-      "use_patch": false
+    {
+      "scenario": {
+        "topology": "grid",
+        "attack": "replay",
+        "state": "patched",
+        "seed": 1
+      },
+      "output_file": "/workspace/results/apr2_3_grid_replay_patched_seed=1.json",
+      "packets_generated": 31,
+      "packets_delivered": 24,
+      "packets_dropped": 7,
+      "pdr": 0.774,
+      "pdr_percent": 77.419,
+      "avg_latency_ms": 200.0,
+      "throughput_pkt_per_sec": 0.16,
+      "throughput_bps": 81.92,
+      "attack_success_percent": 9.677,
+      "attack_effect_percent": 22.599999999999998,
+      "final_route_entries": 81,
+      "error": null
     },
-    "success_rate": 0.0,
-    "avg_latency": 0.0,
-    "throughput": 0.0,
-    "pdr": 0.0,
-    "completion_time": 0.003935813903808594,
-    "error": null
-  },
-  {
-    "scenario": {
-      "topology": "Linear",
-      "attack_type": "Selective",
-      "run_id": 1,
-      "use_patch": false
+    {
+      "scenario": {
+        "topology": "grid",
+        "attack": "spoofing",
+        "state": "baseline",
+        "seed": 1
+      },
+      "output_file": "/workspace/results/apr2_3_grid_spoofing_baseline_seed=1.json",
+      "packets_generated": 31,
+      "packets_delivered": 24,
+      "packets_dropped": 7,
+      "pdr": 0.774,
+      "pdr_percent": 77.419,
+      "avg_latency_ms": 200.0,
+      "throughput_pkt_per_sec": 0.16,
+      "throughput_bps": 81.92,
+      "attack_success_percent": 9.677,
+      "attack_effect_percent": 22.599999999999998,
+      "final_route_entries": 81,
+      "error": null
     },
-    "success_rate": 0.0,
-    "avg_latency": 0.0,
-    "throughput": 0.0,
-    "pdr": 0.0,
-    "completion_time": 0.0027828216552734375,
-    "error": null
-  },
-  {
-    "scenario": {
-      "topology": "Linear",
-      "attack_type": "Selective",
-      "run_id": 2,
-      "use_patch": false
+    {
+      "scenario": {
+        "topology": "grid",
+        "attack": "spoofing",
+        "state": "metricversion",
+        "seed": 1
+      },
+      "output_file": "/workspace/results/apr2_3_grid_spoofing_metricversion_seed=1.json",
+      "packets_generated": 31,
+      "packets_delivered": 31,
+      "packets_dropped": 0,
+      "pdr": 1.0,
+      "pdr_percent": 100.0,
+      "avg_latency_ms": 200.0,
+      "throughput_pkt_per_sec": 0.207,
+      "throughput_bps": 105.813,
+      "attack_success_percent": 0.0,
+      "attack_effect_percent": 0.0,
+      "final_route_entries": 81,
+      "error": null
     },
-    "success_rate": 0.0,
-    "avg_latency": 0.0,
-    "throughput": 0.0,
-    "pdr": 0.0,
-    "completion_time": 0.004086017608642578,
-    "error": null
-  },
-  {
-    "scenario": {
-      "topology": "Tree",
-      "attack_type": "Spoofing",
-      "run_id": 0,
-      "use_patch": false
+    {
+      "scenario": {
+        "topology": "grid",
+        "attack": "spoofing",
+        "state": "patched",
+        "seed": 1
+      },
+      "output_file": "/workspace/results/apr2_3_grid_spoofing_patched_seed=1.json",
+      "packets_generated": 31,
+      "packets_delivered": 31,
+      "packets_dropped": 0,
+      "pdr": 1.0,
+      "pdr_percent": 100.0,
+      "avg_latency_ms": 200.0,
+      "throughput_pkt_per_sec": 0.207,
+      "throughput_bps": 105.813,
+      "attack_success_percent": 0.0,
+      "attack_effect_percent": 0.0,
+      "final_route_entries": 81,
+      "error": null
     },
-    "success_rate": 0.0,
-    "avg_latency": 0.0,
-    "throughput": 0.0,
-    "pdr": 0.01,
-    "completion_time": 0.004499673843383789,
-    "error": null
-  },
-  {
-    "scenario": {
-      "topology": "Tree",
-      "attack_type": "Spoofing",
-      "run_id": 1,
-      "use_patch": false
+    {
+      "scenario": {
+        "topology": "linear",
+        "attack": "none",
+        "state": "baseline",
+        "seed": 1
+      },
+      "output_file": "/workspace/results/apr2_3_linear_none_baseline_seed=1.json",
+      "packets_generated": 31,
+      "packets_delivered": 31,
+      "packets_dropped": 0,
+      "pdr": 1.0,
+      "pdr_percent": 100.0,
+      "avg_latency_ms": 250.0,
+      "throughput_pkt_per_sec": 0.207,
+      "throughput_bps": 105.813,
+      "attack_success_percent": 100.0,
+      "attack_effect_percent": 0.0,
+      "final_route_entries": 36,
+      "error": null
     },
-    "success_rate": 0.0,
-    "avg_latency": 0.0,
-    "throughput": 0.0,
-    "pdr": 0.01,
-    "completion_time": 0.002007722854614258,
-    "error": null
-  },
-  {
-    "scenario": {
-      "topology": "Tree",
-      "attack_type": "Spoofing",
-      "run_id": 2,
-      "use_patch": false
+    {
+      "scenario": {
+        "topology": "linear",
+        "attack": "none",
+        "state": "metricversion",
+        "seed": 1
+      },
+      "output_file": "/workspace/results/apr2_3_linear_none_metricversion_seed=1.json",
+      "packets_generated": 31,
+      "packets_delivered": 31,
+      "packets_dropped": 0,
+      "pdr": 1.0,
+      "pdr_percent": 100.0,
+      "avg_latency_ms": 250.0,
+      "throughput_pkt_per_sec": 0.207,
+      "throughput_bps": 105.813,
+      "attack_success_percent": 100.0,
+      "attack_effect_percent": 0.0,
+      "final_route_entries": 36,
+      "error": null
     },
-    "success_rate": 0.0,
-    "avg_latency": 0.0,
-    "throughput": 0.0,
-    "pdr": 0.01,
-    "completion_time": 0.0023300647735595703,
-    "error": null
-  },
-  {
-    "scenario": {
-      "topology": "Tree",
-      "attack_type": "Replay",
-      "run_id": 0,
-      "use_patch": false
+    {
+      "scenario": {
+        "topology": "linear",
+        "attack": "none",
+        "state": "patched",
+        "seed": 1
+      },
+      "output_file": "/workspace/results/apr2_3_linear_none_patched_seed=1.json",
+      "packets_generated": 31,
+      "packets_delivered": 31,
+      "packets_dropped": 0,
+      "pdr": 1.0,
+      "pdr_percent": 100.0,
+      "avg_latency_ms": 250.0,
+      "throughput_pkt_per_sec": 0.207,
+      "throughput_bps": 105.813,
+      "attack_success_percent": 100.0,
+      "attack_effect_percent": 0.0,
+      "final_route_entries": 36,
+      "error": null
     },
-    "success_rate": 0.0,
-    "avg_latency": 0.0,
-    "throughput": 0.0,
-    "pdr": 0.01,
-    "completion_time": 0.003537416458129883,
-    "error": null
-  },
-  {
-    "scenario": {
-      "topology": "Tree",
-      "attack_type": "Replay",
-      "run_id": 1,
-      "use_patch": false
+    {
+      "scenario": {
+        "topology": "linear",
+        "attack": "replay",
+        "state": "baseline",
+        "seed": 1
+      },
+      "output_file": "/workspace/results/apr2_3_linear_replay_baseline_seed=1.json",
+      "packets_generated": 31,
+      "packets_delivered": 0,
+      "packets_dropped": 31,
+      "pdr": 0.0,
+      "pdr_percent": 0.0,
+      "avg_latency_ms": 0.0,
+      "throughput_pkt_per_sec": 0.0,
+      "throughput_bps": 0.0,
+      "attack_success_percent": 0.0,
+      "attack_effect_percent": 100.0,
+      "final_route_entries": 36,
+      "error": null
     },
-    "success_rate": 0.0,
-    "avg_latency": 0.0,
-    "throughput": 0.0,
-    "pdr": 0.01,
-    "completion_time": 0.00208282470703125,
-    "error": null
-  },
-  {
-    "scenario": {
-      "topology": "Tree",
-      "attack_type": "Replay",
-      "run_id": 2,
-      "use_patch": false
+    {
+      "scenario": {
+        "topology": "linear",
+        "attack": "replay",
+        "state": "metricversion",
+        "seed": 1
+      },
+      "output_file": "/workspace/results/apr2_3_linear_replay_metricversion_seed=1.json",
+      "packets_generated": 31,
+      "packets_delivered": 31,
+      "packets_dropped": 0,
+      "pdr": 1.0,
+      "pdr_percent": 100.0,
+      "avg_latency_ms": 250.0,
+      "throughput_pkt_per_sec": 0.207,
+      "throughput_bps": 105.813,
+      "attack_success_percent": 100.0,
+      "attack_effect_percent": 0.0,
+      "final_route_entries": 36,
+      "error": null
     },
-    "success_rate": 0.0,
-    "avg_latency": 0.0,
-    "throughput": 0.0,
-    "pdr": 0.01,
-    "completion_time": 0.0036132335662841797,
-    "error": null
-  },
-  {
-    "scenario": {
-      "topology": "Tree",
-      "attack_type": "Selective",
-      "run_id": 0,
-      "use_patch": false
+    {
+      "scenario": {
+        "topology": "linear",
+        "attack": "replay",
+        "state": "patched",
+        "seed": 1
+      },
+      "output_file": "/workspace/results/apr2_3_linear_replay_patched_seed=1.json",
+      "packets_generated": 31,
+      "packets_delivered": 0,
+      "packets_dropped": 31,
+      "pdr": 0.0,
+      "pdr_percent": 0.0,
+      "avg_latency_ms": 0.0,
+      "throughput_pkt_per_sec": 0.0,
+      "throughput_bps": 0.0,
+      "attack_success_percent": 0.0,
+      "attack_effect_percent": 100.0,
+      "final_route_entries": 36,
+      "error": null
     },
-    "success_rate": 0.0,
-    "avg_latency": 0.0,
-    "throughput": 0.0,
-    "pdr": 0.01,
-    "completion_time": 0.0036995410919189453,
-    "error": null
-  },
-  {
-    "scenario": {
-      "topology": "Tree",
-      "attack_type": "Selective",
-      "run_id": 1,
-      "use_patch": false
+    {
+      "scenario": {
+        "topology": "linear",
+        "attack": "spoofing",
+        "state": "baseline",
+        "seed": 1
+      },
+      "output_file": "/workspace/results/apr2_3_linear_spoofing_baseline_seed=1.json",
+      "packets_generated": 31,
+      "packets_delivered": 0,
+      "packets_dropped": 31,
+      "pdr": 0.0,
+      "pdr_percent": 0.0,
+      "avg_latency_ms": 0.0,
+      "throughput_pkt_per_sec": 0.0,
+      "throughput_bps": 0.0,
+      "attack_success_percent": 0.0,
+      "attack_effect_percent": 100.0,
+      "final_route_entries": 36,
+      "error": null
     },
-    "success_rate": 0.0,
-    "avg_latency": 0.0,
-    "throughput": 0.0,
-    "pdr": 0.01,
-    "completion_time": 0.0021300315856933594,
-    "error": null
-  },
-  {
-    "scenario": {
-      "topology": "Tree",
-      "attack_type": "Selective",
-      "run_id": 2,
-      "use_patch": false
+    {
+      "scenario": {
+        "topology": "linear",
+        "attack": "spoofing",
+        "state": "metricversion",
+        "seed": 1
+      },
+      "output_file": "/workspace/results/apr2_3_linear_spoofing_metricversion_seed=1.json",
+      "packets_generated": 31,
+      "packets_delivered": 31,
+      "packets_dropped": 0,
+      "pdr": 1.0,
+      "pdr_percent": 100.0,
+      "avg_latency_ms": 250.0,
+      "throughput_pkt_per_sec": 0.207,
+      "throughput_bps": 105.813,
+      "attack_success_percent": 100.0,
+      "attack_effect_percent": 0.0,
+      "final_route_entries": 36,
+      "error": null
     },
-    "success_rate": 0.0,
-    "avg_latency": 0.0,
-    "throughput": 0.0,
-    "pdr": 0.01,
-    "completion_time": 0.003485441207885742,
-    "error": null
-  },
-  {
-    "scenario": {
-      "topology": "Grid",
-      "attack_type": "Spoofing",
-      "run_id": 0,
-      "use_patch": false
+    {
+      "scenario": {
+        "topology": "linear",
+        "attack": "spoofing",
+        "state": "patched",
+        "seed": 1
+      },
+      "output_file": "/workspace/results/apr2_3_linear_spoofing_patched_seed=1.json",
+      "packets_generated": 31,
+      "packets_delivered": 31,
+      "packets_dropped": 0,
+      "pdr": 1.0,
+      "pdr_percent": 100.0,
+      "avg_latency_ms": 250.0,
+      "throughput_pkt_per_sec": 0.207,
+      "throughput_bps": 105.813,
+      "attack_success_percent": 100.0,
+      "attack_effect_percent": 0.0,
+      "final_route_entries": 36,
+      "error": null
     },
-    "success_rate": 0.0,
-    "avg_latency": 0.0,
-    "throughput": 0.0,
-    "pdr": 0.01,
-    "completion_time": 0.003988027572631836,
-    "error": null
-  },
-  {
-    "scenario": {
-      "topology": "Grid",
-      "attack_type": "Spoofing",
-      "run_id": 1,
-      "use_patch": false
+    {
+      "scenario": {
+        "topology": "tree",
+        "attack": "none",
+        "state": "baseline",
+        "seed": 1
+      },
+      "output_file": "/workspace/results/apr2_3_tree_none_baseline_seed=1.json",
+      "packets_generated": 31,
+      "packets_delivered": 31,
+      "packets_dropped": 0,
+      "pdr": 1.0,
+      "pdr_percent": 100.0,
+      "avg_latency_ms": 133.871,
+      "throughput_pkt_per_sec": 0.207,
+      "throughput_bps": 105.813,
+      "attack_success_percent": 35.484,
+      "attack_effect_percent": 0.0,
+      "final_route_entries": 64,
+      "error": null
     },
-    "success_rate": 0.0,
-    "avg_latency": 0.0,
-    "throughput": 0.0,
-    "pdr": 0.01,
-    "completion_time": 0.001996755599975586,
-    "error": null
-  },
-  {
-    "scenario": {
-      "topology": "Grid",
-      "attack_type": "Spoofing",
-      "run_id": 2,
-      "use_patch": false
+    {
+      "scenario": {
+        "topology": "tree",
+        "attack": "none",
+        "state": "metricversion",
+        "seed": 1
+      },
+      "output_file": "/workspace/results/apr2_3_tree_none_metricversion_seed=1.json",
+      "packets_generated": 31,
+      "packets_delivered": 31,
+      "packets_dropped": 0,
+      "pdr": 1.0,
+      "pdr_percent": 100.0,
+      "avg_latency_ms": 133.871,
+      "throughput_pkt_per_sec": 0.207,
+      "throughput_bps": 105.813,
+      "attack_success_percent": 35.484,
+      "attack_effect_percent": 0.0,
+      "final_route_entries": 64,
+      "error": null
     },
-    "success_rate": 0.0,
-    "avg_latency": 0.0,
-    "throughput": 0.0,
-    "pdr": 0.01,
-    "completion_time": 0.002026081085205078,
-    "error": null
-  },
-  {
-    "scenario": {
-      "topology": "Grid",
-      "attack_type": "Replay",
-      "run_id": 0,
-      "use_patch": false
+    {
+      "scenario": {
+        "topology": "tree",
+        "attack": "none",
+        "state": "patched",
+        "seed": 1
+      },
+      "output_file": "/workspace/results/apr2_3_tree_none_patched_seed=1.json",
+      "packets_generated": 31,
+      "packets_delivered": 31,
+      "packets_dropped": 0,
+      "pdr": 1.0,
+      "pdr_percent": 100.0,
+      "avg_latency_ms": 133.871,
+      "throughput_pkt_per_sec": 0.207,
+      "throughput_bps": 105.813,
+      "attack_success_percent": 35.484,
+      "attack_effect_percent": 0.0,
+      "final_route_entries": 64,
+      "error": null
     },
-    "success_rate": 0.0,
-    "avg_latency": 0.0,
-    "throughput": 0.0,
-    "pdr": 0.01,
-    "completion_time": 0.004716157913208008,
-    "error": null
-  },
-  {
-    "scenario": {
-      "topology": "Grid",
-      "attack_type": "Replay",
-      "run_id": 1,
-      "use_patch": false
+    {
+      "scenario": {
+        "topology": "tree",
+        "attack": "replay",
+        "state": "baseline",
+        "seed": 1
+      },
+      "output_file": "/workspace/results/apr2_3_tree_replay_baseline_seed=1.json",
+      "packets_generated": 31,
+      "packets_delivered": 24,
+      "packets_dropped": 7,
+      "pdr": 0.774,
+      "pdr_percent": 77.419,
+      "avg_latency_ms": 129.167,
+      "throughput_pkt_per_sec": 0.16,
+      "throughput_bps": 81.92,
+      "attack_success_percent": 12.903,
+      "attack_effect_percent": 22.599999999999998,
+      "final_route_entries": 64,
+      "error": null
     },
-    "success_rate": 0.0,
-    "avg_latency": 0.0,
-    "throughput": 0.0,
-    "pdr": 0.01,
-    "completion_time": 0.004037141799926758,
-    "error": null
-  },
-  {
-    "scenario": {
-      "topology": "Grid",
-      "attack_type": "Replay",
-      "run_id": 2,
-      "use_patch": false
+    {
+      "scenario": {
+        "topology": "tree",
+        "attack": "replay",
+        "state": "metricversion",
+        "seed": 1
+      },
+      "output_file": "/workspace/results/apr2_3_tree_replay_metricversion_seed=1.json",
+      "packets_generated": 31,
+      "packets_delivered": 31,
+      "packets_dropped": 0,
+      "pdr": 1.0,
+      "pdr_percent": 100.0,
+      "avg_latency_ms": 133.871,
+      "throughput_pkt_per_sec": 0.207,
+      "throughput_bps": 105.813,
+      "attack_success_percent": 35.484,
+      "attack_effect_percent": 0.0,
+      "final_route_entries": 64,
+      "error": null
     },
-    "success_rate": 0.0,
-    "avg_latency": 0.0,
-    "throughput": 0.0,
-    "pdr": 0.01,
-    "completion_time": 0.002151012420654297,
-    "error": null
-  },
-  {
-    "scenario": {
-      "topology": "Grid",
-      "attack_type": "Selective",
-      "run_id": 0,
-      "use_patch": false
+    {
+      "scenario": {
+        "topology": "tree",
+        "attack": "replay",
+        "state": "patched",
+        "seed": 1
+      },
+      "output_file": "/workspace/results/apr2_3_tree_replay_patched_seed=1.json",
+      "packets_generated": 31,
+      "packets_delivered": 24,
+      "packets_dropped": 7,
+      "pdr": 0.774,
+      "pdr_percent": 77.419,
+      "avg_latency_ms": 129.167,
+      "throughput_pkt_per_sec": 0.16,
+      "throughput_bps": 81.92,
+      "attack_success_percent": 12.903,
+      "attack_effect_percent": 22.599999999999998,
+      "final_route_entries": 64,
+      "error": null
     },
-    "success_rate": 0.0,
-    "avg_latency": 0.0,
-    "throughput": 0.0,
-    "pdr": 0.007,
-    "completion_time": 0.004521369934082031,
-    "error": null
-  },
-  {
-    "scenario": {
-      "topology": "Grid",
-      "attack_type": "Selective",
-      "run_id": 1,
-      "use_patch": false
+    {
+      "scenario": {
+        "topology": "tree",
+        "attack": "spoofing",
+        "state": "baseline",
+        "seed": 1
+      },
+      "output_file": "/workspace/results/apr2_3_tree_spoofing_baseline_seed=1.json",
+      "packets_generated": 31,
+      "packets_delivered": 24,
+      "packets_dropped": 7,
+      "pdr": 0.774,
+      "pdr_percent": 77.419,
+      "avg_latency_ms": 129.167,
+      "throughput_pkt_per_sec": 0.16,
+      "throughput_bps": 81.92,
+      "attack_success_percent": 12.903,
+      "attack_effect_percent": 22.599999999999998,
+      "final_route_entries": 64,
+      "error": null
     },
-    "success_rate": 0.0,
-    "avg_latency": 0.0,
-    "throughput": 0.0,
-    "pdr": 0.003,
-    "completion_time": 0.0045316219329833984,
-    "error": null
-  },
-  {
-    "scenario": {
-      "topology": "Grid",
-      "attack_type": "Selective",
-      "run_id": 2,
-      "use_patch": false
+    {
+      "scenario": {
+        "topology": "tree",
+        "attack": "spoofing",
+        "state": "metricversion",
+        "seed": 1
+      },
+      "output_file": "/workspace/results/apr2_3_tree_spoofing_metricversion_seed=1.json",
+      "packets_generated": 31,
+      "packets_delivered": 31,
+      "packets_dropped": 0,
+      "pdr": 1.0,
+      "pdr_percent": 100.0,
+      "avg_latency_ms": 133.871,
+      "throughput_pkt_per_sec": 0.207,
+      "throughput_bps": 105.813,
+      "attack_success_percent": 35.484,
+      "attack_effect_percent": 0.0,
+      "final_route_entries": 64,
+      "error": null
     },
-    "success_rate": 0.0,
-    "avg_latency": 0.0,
-    "throughput": 0.0,
-    "pdr": 0.0,
-    "completion_time": 0.0020558834075927734,
-    "error": null
-  }
-]
+    {
+      "scenario": {
+        "topology": "tree",
+        "attack": "spoofing",
+        "state": "patched",
+        "seed": 1
+      },
+      "output_file": "/workspace/results/apr2_3_tree_spoofing_patched_seed=1.json",
+      "packets_generated": 31,
+      "packets_delivered": 31,
+      "packets_dropped": 0,
+      "pdr": 1.0,
+      "pdr_percent": 100.0,
+      "avg_latency_ms": 133.871,
+      "throughput_pkt_per_sec": 0.207,
+      "throughput_bps": 105.813,
+      "attack_success_percent": 35.484,
+      "attack_effect_percent": 0.0,
+      "final_route_entries": 64,
+      "error": null
+    }
+  ]
+}

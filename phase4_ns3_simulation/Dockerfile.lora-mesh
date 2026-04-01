@@ -1,0 +1,150 @@
+# Dedicated Docker image for LoRa Mesh ns-3 experiments
+# Optimized for fast builds, minimal dependencies, and reproducibility
+#
+# Base: NVIDIA CUDA 12.8 + ns-3.40 + LoRaMesher routing protocol
+# Purpose: Consistent, isolated environment for running mesh security experiments
+#
+# Build: docker build -f Dockerfile.lora-mesh -t lora-mesh-experiments:latest .
+# Run:   docker run --gpus all -v $(pwd):/workspace -v $(pwd)/results:/results lora-mesh-experiments:latest
+
+FROM nvidia/cuda:12.8.0-devel-ubuntu24.04
+
+ENV DEBIAN_FRONTEND=noninteractive
+ENV PYTHONUNBUFFERED=1
+
+# ============================================================================
+# Stage 1: System dependencies + ns-3 framework
+# ============================================================================
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    cmake \
+    git \
+    python3 \
+    python3-dev \
+    python3-pip \
+    pkg-config \
+    libxml2 \
+    libxml2-dev \
+    wget \
+    ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+
+# Download and build ns-3.40
+WORKDIR /opt
+RUN wget -q https://www.nsnam.org/release/ns-allinone-3.40.tar.bz2 && \
+    tar -jxf ns-allinone-3.40.tar.bz2 && \
+    rm ns-allinone-3.40.tar.bz2
+
+WORKDIR /opt/ns-allinone-3.40/ns-3.40
+
+RUN chmod +x ./ns3 && \
+    ./ns3 configure --build-profile=optimized --disable-tests --disable-examples --disable-python 2>&1 | tail -5 && \
+    ./ns3 build 2>&1 | tail -10
+
+# Set environment for ns-3 (before using it)
+ENV NS3_PATH=/opt/ns-allinone-3.40/ns-3.40
+ENV LD_LIBRARY_PATH=${NS3_PATH}/build/lib:$LD_LIBRARY_PATH
+ENV PKG_CONFIG_PATH=${NS3_PATH}/build/lib/pkgconfig:$PKG_CONFIG_PATH
+
+# Verify ns-3 built successfully (binaries exist)
+RUN test -d ${NS3_PATH}/build/lib && \
+    test -f ${NS3_PATH}/build/lib/libns3.40-core-optimized.so || \
+    (echo "ns-3 build failed" && exit 1)
+
+# ============================================================================
+# Stage 2: Python analysis tools
+# ============================================================================
+
+RUN pip3 install --no-cache-dir --break-system-packages \
+    numpy \
+    matplotlib \
+    pandas \
+    scipy \
+    tqdm \
+    psutil \
+    pyyaml
+
+# ============================================================================
+# Stage 3: Working directory setup
+# ============================================================================
+
+WORKDIR /workspace
+
+# Create necessary directories at build time
+RUN mkdir -p /workspace/build /workspace/results
+
+# Set GPU device
+ENV CUDA_VISIBLE_DEVICES=0
+
+# ============================================================================
+# Compilation script: will be executed at container startup
+# ============================================================================
+
+# This script compiles lora-mesh-sim when container starts
+# It checks timestamps to avoid recompilation if source hasn't changed
+RUN cat > /usr/local/bin/compile-lora-mesh.sh << 'COMPILE_SCRIPT'
+#!/bin/bash
+set -e
+
+NS3_PATH=/opt/ns-allinone-3.40/ns-3.40
+export LD_LIBRARY_PATH=${NS3_PATH}/build/lib:$LD_LIBRARY_PATH
+export PKG_CONFIG_PATH=${NS3_PATH}/build/lib/pkgconfig:$PKG_CONFIG_PATH
+
+BINARY=/workspace/build/lora-mesh-sim
+SOURCES=(
+    /workspace/scratch/lora-mesh-sim.cc
+    /workspace/src/routing/loramesh-routing.cc
+    /workspace/src/attack/attacker-node.cc
+)
+
+# Check if any source is newer than binary
+NEEDS_RECOMPILE=0
+if [ ! -f "$BINARY" ]; then
+    NEEDS_RECOMPILE=1
+else
+    for src in "${SOURCES[@]}"; do
+        if [ "$src" -nt "$BINARY" ]; then
+            NEEDS_RECOMPILE=1
+            break
+        fi
+    done
+fi
+
+if [ "$NEEDS_RECOMPILE" -eq 1 ]; then
+    echo "[compile-lora-mesh] Compiling lora-mesh-sim with all dependencies..."
+    
+    cd /workspace
+    mkdir -p build
+    
+    g++ -std=c++17 -O2 \
+        -I${NS3_PATH}/build/include \
+        -I/workspace/src \
+        -L${NS3_PATH}/build/lib \
+        /workspace/scratch/lora-mesh-sim.cc \
+        /workspace/src/routing/loramesh-routing.cc \
+        /workspace/src/attack/attacker-node.cc \
+        -o "$BINARY" \
+        -Wl,-rpath=${NS3_PATH}/build/lib \
+        -lns3.40-core-optimized -lns3.40-network-optimized \
+        2>&1 | tee /tmp/compile.log | grep -E "error|undefined" || true
+    
+    if [ ! -f "$BINARY" ]; then
+        echo "[ERROR] Compilation failed: binary not created at $BINARY"
+        exit 1
+    fi
+    
+    echo "[compile-lora-mesh] ✓ Binary ready: $BINARY"
+else
+    echo "[compile-lora-mesh] ✓ Using cached binary (sources unchanged)"
+fi
+COMPILE_SCRIPT
+
+RUN chmod +x /usr/local/bin/compile-lora-mesh.sh
+
+# ============================================================================
+# Entry point
+# ============================================================================
+
+# Entrypoint: compile, then run experiments
+CMD ["/bin/bash", "-c", "/usr/local/bin/compile-lora-mesh.sh && cd /workspace && exec bash"]

@@ -114,5 +114,8 @@ RUN echo "=== ns-3 Environment ===" && \
     echo "=======================" && \
     ls -la $NS3_PATH/build/lib/ | head -5
 
-# Entry point
+# Create build directory for runtime compilation
+RUN mkdir -p /workspace/build
+
+# Entry point - compilation happens at runtime when /workspace is mounted
 CMD ["/bin/bash"]

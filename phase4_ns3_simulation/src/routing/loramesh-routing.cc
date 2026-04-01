@@ -5,11 +5,11 @@
 namespace lorasec {
 
 LoraMeshRouting::LoraMeshRouting(const TopologySpec& topology,
-                                 bool usePatch,
+                                 SecurityMode securityMode,
                                  uint32_t helloPeriodSec,
                                  uint32_t metricVersionWindowSec)
     : m_topology(topology),
-      m_usePatch(usePatch),
+      m_securityMode(securityMode),
       m_helloPeriodSec(helloPeriodSec),
       m_metricVersionWindowSec(metricVersionWindowSec),
       m_nodes(topology.nodeCount)
@@ -48,6 +48,16 @@ LoraMeshRouting::HelloBroadcast(uint32_t currentSec)
     {
         m_nodes[node].helloSeq += 1;
         m_nodes[node].metricVersion = currentSec / std::max<uint32_t>(1, m_metricVersionWindowSec);
+
+        auto selfIt = m_nodes[node].routeTable.find(node);
+        if (selfIt != m_nodes[node].routeTable.end())
+        {
+            selfIt->second.metric = 0;
+            selfIt->second.nextHop = node;
+            selfIt->second.seq = m_nodes[node].helloSeq;
+            selfIt->second.metricVersion = m_nodes[node].metricVersion;
+        }
+
         for (uint32_t neigh : m_topology.adjacency[node])
         {
             const auto routes = m_nodes[node].routeTable;
@@ -57,9 +67,9 @@ LoraMeshRouting::HelloBroadcast(uint32_t currentSec)
                 HelloMessage hello{entry.destination,
                                    node,
                                    entry.metric,
-                                   std::max(entry.seq, m_nodes[node].helloSeq),
-                                   m_usePatch,
-                                   m_nodes[node].metricVersion};
+                                   entry.seq,
+                                   RequiresAuthentication(),
+                                   entry.metricVersion};
                 output.push_back(hello);
                 RouteUpdate(neigh, hello, currentSec);
             }
@@ -76,7 +86,7 @@ LoraMeshRouting::RouteUpdate(uint32_t receiver, const HelloMessage& hello, uint3
         return;
     }
 
-    if (m_usePatch && !VerifyHelloForPatched(hello, receiver, currentSec))
+    if (!VerifyHello(hello, receiver, currentSec))
     {
         return;
     }
@@ -102,11 +112,6 @@ LoraMeshRouting::RouteUpdate(uint32_t receiver, const HelloMessage& hello, uint3
         better = true;
     }
     else if (hello.seq == it->second.seq && newMetric < it->second.metric)
-    {
-        better = true;
-    }
-
-    if (!m_usePatch && hello.seq + 1 == it->second.seq && newMetric <= it->second.metric)
     {
         better = true;
     }
@@ -173,12 +178,23 @@ LoraMeshRouting::GetHelloSeq(uint32_t nodeId) const
     return m_nodes[nodeId].helloSeq;
 }
 
-bool
-LoraMeshRouting::VerifyHelloForPatched(const HelloMessage& hello, uint32_t receiver, uint32_t currentSec) const
+uint32_t
+LoraMeshRouting::GetMetricVersion(uint32_t nodeId) const
 {
-    if (!hello.authenticated)
+    return m_nodes[nodeId].metricVersion;
+}
+
+bool
+LoraMeshRouting::VerifyHello(const HelloMessage& hello, uint32_t receiver, uint32_t currentSec) const
+{
+    if (RequiresAuthentication() && !hello.authenticated)
     {
         return false;
+    }
+
+    if (!RequiresMetricVersion())
+    {
+        return true;
     }
 
     auto table = m_nodes[receiver].routeTable;
@@ -196,8 +212,20 @@ LoraMeshRouting::VerifyHelloForPatched(const HelloMessage& hello, uint32_t recei
         }
     }
 
-    uint32_t expectedVersion = currentSec / std::max<uint32_t>(1, m_metricVersionWindowSec);
-    return hello.metricVersion >= expectedVersion;
+    (void) currentSec;
+    return true;
+}
+
+bool
+LoraMeshRouting::RequiresAuthentication() const
+{
+    return m_securityMode != SecurityMode::BASELINE;
+}
+
+bool
+LoraMeshRouting::RequiresMetricVersion() const
+{
+    return m_securityMode == SecurityMode::METRICVERSION;
 }
 
 bool

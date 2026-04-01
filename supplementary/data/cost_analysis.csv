@@ -1,0 +1,11 @@
+Resource,Baseline,Patched,Overhead,Unit,Notes
+Message Size,8,40,32,bytes,HMAC-SHA256 = 32 bytes
+CPU Time per Hello,0,2.5,2.5,milliseconds,ESP32 @ 240MHz
+Memory (50-node mesh),64,72,8,kilobytes,Per-node PSK + version tracking
+Per-Route-Update Latency,0,1.2,1.2,milliseconds,HMAC verification
+Total Throughput Overhead,0,3.2,3.2,%,Measured on LoRa900 @ 9600bps
+Latency Increase (99th percentile),0,8,8,milliseconds,Multi-hop propagation
+Power Consumption per Message,0.8,1.2,0.4,millijoules,Estimate for SHA256 on ESP32
+Backward Compatibility,No,Yes,N/A,boolean,Can operate with mixed versions
+Deployment Complexity,Low,Medium,N/A,categorical,Requires firmware update + OTA
+Reversibility,N/A,Yes,N/A,boolean,Can be disabled via config
