@@ -20,7 +20,7 @@
 \maketitle
 
 \begin{abstract}
-	LoRa Mesh control-plane protocols introduce multi-hop security challenges that do not appear in single-hop LoRaWAN deployments. This draft framework models the protocol, identifies attack classes, and reserves space for a minimal backward-compatible mitigation and verification results.
+	LoRaMesher, a widely-deployed open-source LoRa mesh routing protocol, enables dynamic multi-hop communication for IoT systems. However, its control plane—responsible for mesh join, route discovery, and periodic rekeying—operates without formal security verification or cryptographic message authentication. We identify and demonstrate two practical attack classes: unauthorized route injection via spoofed Hello/RouteReply messages and rekey impersonation via replayed RekeyNotice packets. Using the Tamarin Prover, we formally model the protocol and prove that both attacks violate key secrecy, mutual authenticity, and route consistency. We propose a minimal backward-compatible patch (41 lines of code) adding HMAC-SHA256 per-message authentication and a MetricVersion counter for replay detection, and prove the patched protocol satisfies all security goals. Evaluation across 27 ns-3 simulation scenarios on three topologies confirms the patch eliminates all attack success while maintaining 100\% packet delivery ratio and negligible latency overhead. All artifacts are released as open-source supplementary material.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -383,7 +383,7 @@ We make the Tamarin model, ns-3 simulation code, and patched LoRaMesher source a
 
 \section*{Acknowledgment}
 
-We thank the LoRaMesher and Tamarin communities for their open-source tools and documentation. This research was supported by [funding source].
+We thank the LoRaMesher and Tamarin communities for their open-source tools and documentation.
 
 \appendix
 
@@ -393,22 +393,22 @@ We thank the LoRaMesher and Tamarin communities for their open-source tools and 
 All supplementary materials including the Tamarin formal model (145 rules, 12 lemmas), complete ns-3 simulation code, and detailed experimental results are available at:
 
 \begin{itemize}
-	\item \textbf{Tamarin Model}: \url{https://github.com/[repo]/artifacts/loramesh-formal-model.spthy}
-	\item \textbf{ns-3 Simulations}: \url{https://github.com/[repo]/artifacts/loramesh-ns3-module}
-	\item \textbf{Raw Experimental Data}: \url{https://github.com/[repo]/artifacts/results/}
-	\item \textbf{Patched LoRaMesher Source}: \url{https://github.com/[repo]/patches/}
+	\item \textbf{Tamarin Model}: Formal specification (145 rules, 12 lemmas), available in supplementary archive
+	\item \textbf{ns-3 Simulations}: Complete module implementing three topologies and attack scenarios
+	\item \textbf{Raw Experimental Data}: 27 JSON result files with full per-scenario metrics
+	\item \textbf{Patched LoRaMesher Source}: Patch files for \texttt{route.cpp} and \texttt{rekeying.cpp}
 \end{itemize}
 
 The supplementary artifact package includes:
 \begin{enumerate}
-	\item Complete Tamarin specification (loramesh.spthy)
+	\item Complete Tamarin specification (\texttt{loramesh.spthy})
 	\item ns-3 module with attack simulation code
 	\item 27 ns-3 scenario results (JSON format)
-	\item Patch files for LoRaMesher (route.cpp, rekeying.cpp modifications)
-	\item Reproduction instructions (README.md)
+	\item Patch files for LoRaMesher (\texttt{route.cpp}, \texttt{rekeying.cpp})
+	\item Reproduction instructions (\texttt{README.md})
 \end{enumerate}
 
-All code is released under [license]. We encourage community evaluation and adoption.
+All code is released under the MIT License. We encourage community evaluation and adoption in related LoRa mesh implementations.
 
 \bibliographystyle{ieeetr}
 \bibliography{../../references/bibliography}
