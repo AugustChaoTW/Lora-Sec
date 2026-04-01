@@ -1,0 +1,5 @@
+Metric,Best,Nominal,Worst
+Latency (ms),12,18,35
+CPU Overhead (%),0.5,1.2,3.5
+Memory (bytes),64,80,128
+Energy (mJ/msg),0.1,0.15,0.45

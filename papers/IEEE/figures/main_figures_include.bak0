@@ -1,0 +1,37 @@
+% ==============================================================================
+% Lora-Sec: Main Figures Include File
+% ==============================================================================
+% Instructions:
+% 1. Add \usepackage{tikz} and \usepackage{graphicx} to your main document preamble.
+% 2. Use \input{} for the TikZ files or \includegraphics{} for the PDFs as needed.
+% ==============================================================================
+
+\begin{figure}[htbp]
+    \centering
+    \input{papers/IEEE/figures/fig1_protocol_flow.tex}
+    \caption{Phase A-D of the proposed Lora-Sec DV routing protocol. The security validation layer ensures packet integrity via HMAC and freshness via MetricVersion, discarding spoofed or stale messages before further processing.}
+    \label{fig:protocol_flow}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \input{papers/IEEE/figures/fig2_attack_scenarios.tex}
+    \caption{Execution traces of common attacks. Baseline vulnerability (red dashed lines) allows successful exploitation, whereas Lora-Sec mechanisms (solid green lines) successfully block spoofing, replay, and selective forwarding attempts.}
+    \label{fig:attack_scenarios}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    % Generate this PDF by running: python3 papers/IEEE/figures/fig3_comparison.py
+    \includegraphics[width=\linewidth]{papers/IEEE/figures/fig3_comparison.pdf}
+    \caption{Attack success rate across varying network sizes. The baseline vulnerable model shows an exponentially increasing attack probability over hops, which Lora-Sec maintains at near-zero levels.}
+    \label{fig:comparison}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    % Generate this PDF by running: python3 papers/IEEE/figures/fig4_overhead_matrix.py
+    \includegraphics[width=0.8\linewidth]{papers/IEEE/figures/fig4_overhead_matrix.pdf}
+    \caption{Overhead analysis matrix detailing latency, CPU, memory, and energy consumption under Best, Nominal, and Worst-case scenarios. Lower values indicate optimized overhead suitable for constrained IoT end-nodes.}
+    \label{fig:overhead}
+\end{figure}

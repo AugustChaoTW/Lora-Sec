@@ -1,0 +1,144 @@
+\documentclass[10pt,journal]{IEEEtran}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{url}
+\usepackage[hidelinks]{hyperref}
+\usepackage{lipsum}
+
+\begin{document}
+
+\title{Breaking and Repairing LoRa Mesh Control Plane:\ Formal Analysis, Attacks, and Verified Mitigation}
+\author{Author Names Omitted for Review}
+\maketitle
+
+\begin{abstract}
+	LoRa Mesh control-plane protocols introduce multi-hop security challenges that do not appear in single-hop LoRaWAN deployments. This draft framework models the protocol, identifies attack classes, and reserves space for a minimal backward-compatible mitigation and verification results.
+\end{abstract}
+
+\begin{IEEEkeywords}
+	LoRa Mesh, protocol security, formal verification, Tamarin Prover, IoT security
+\end{IEEEkeywords}
+
+\section{Introduction}
+LoRa mesh systems extend LoRa deployments with dynamic multi-hop routing, which increases flexibility but also complicates key management and route consistency~\cite{wong2024,lorawan_spec}. Prior work on LoRaWAN security and generic mesh routing does not fully capture the control-plane properties studied here~\cite{tamarin_prover,meshtastic_repo}.
+
+\lipsum[1]
+\lipsum[2-4]
+
+\section{Threat Model and Security Goals}
+We assume a Dolev-Yao attacker with eavesdropping, replay, modification, and limited node compromise capability~\cite{dolev_yao}. The target security goals are key secrecy, mutual authenticity, and route-key consistency.
+
+\lipsum[2]
+\lipsum[5-7]
+
+\subsection*{Security Goal Placeholders}
+\begin{itemize}
+	\item Key secrecy under partial compromise~\cite{tamarin_prover}
+	\item Mutual authenticity across multi-hop route transitions~\cite{ieee802154}
+	\item Route-key consistency for rekeyed sessions~\cite{loramesher_repo}
+\end{itemize}
+
+\section{Protocol Abstraction and Formal Model}
+This section will hold the protocol abstraction, state machine, and Tamarin facts/rules. The current draft maps join, route discovery, data forwarding, and periodic rekeying into symbolic transitions~\cite{tamarin_prover,meshtastic_repo}.
+
+\begin{figure}[t]
+	\centering
+	\fbox{\parbox[c][1.7in][c]{0.92\columnwidth}{\centering Placeholder: Protocol Flow}}
+	\caption{Protocol flow placeholder for join, route discovery, forwarding, and rekeying.}
+	\label{fig:protocol-flow}
+\end{figure}
+
+\lipsum[3]
+\lipsum[8-10]
+
+\section{Formal Analysis Results}
+This section will summarize the original-model lemmas, counterexamples, and patched-model proof status. It will reference the core theorem statements and verification traces from Tamarin~\cite{tamarin_prover}.
+
+\lipsum[4]
+\lipsum[11-13]
+
+\section{New Attacks}
+Two attack families are reserved here: unauthorized route injection and unsynchronized rekey impersonation. Figure~\ref{fig:attack-scenario} will capture the message sequence for the attack path~\cite{ns3_repo}.
+
+\begin{figure}[t]
+	\centering
+	\fbox{\parbox[c][1.7in][c]{0.92\columnwidth}{\centering Placeholder: Attack Scenario}}
+	\caption{Attack scenario placeholder for route injection and delayed rekey abuse.}
+	\label{fig:attack-scenario}
+\end{figure}
+
+\lipsum[5]
+\lipsum[14-16]
+
+\section{Mitigation}
+This section will define the minimal patch, including per-hop sequence validation and timestamp/HMAC checks. Figure~\ref{fig:before-after} will compare the original and patched control-plane paths~\cite{tamarin_prover}.
+
+\begin{figure}[t]
+	\centering
+	\fbox{\parbox[c][1.7in][c]{0.92\columnwidth}{\centering Placeholder: Before/After Patch}}
+	\caption{Before/after patch placeholder for control-plane validation changes.}
+	\label{fig:before-after}
+\end{figure}
+
+\lipsum[6]
+\lipsum[17-19]
+
+\section{Evaluation}
+This section is reserved for ns-3 attack reproduction results, overhead measurements, and deployability discussion~\cite{ns3_repo,loramesher_repo}. Figure~\ref{fig:overhead} will show message-size and latency overhead.
+
+\begin{figure}[t]
+	\centering
+	\fbox{\parbox[c][1.7in][c]{0.92\columnwidth}{\centering Placeholder: Overhead Plot}}
+	\caption{Overhead placeholder for message size, latency, and success-rate changes.}
+	\label{fig:overhead}
+\end{figure}
+
+\lipsum[7]
+\lipsum[20-22]
+
+\section{Conclusion}
+This draft leaves space for the final summary, limitations, and future work. The completed version will close with deployment guidance and open research directions~\cite{wong2024,meshtastic_repo}.
+
+\lipsum[8]
+\lipsum[23-25]
+
+\section*{Acknowledgment}
+Placeholder.
+
+\begin{thebibliography}{99}
+
+	\bibitem{wong2024}
+	Wong et al., ``LoRa Mesh Security Survey,'' 2024.
+
+	\bibitem{lorawan_spec}
+	LoRa Alliance, ``LoRaWAN Specification,'' latest revision.
+
+	\bibitem{tamarin_prover}
+	M. Mej\`{a}s, A. Raman, and others, ``Tamarin Prover Documentation,'' accessed 2026.
+
+	\bibitem{meshtastic_repo}
+	Meshtastic Project, ``Meshtastic Repository,'' GitHub.
+
+	\bibitem{loramesher_repo}
+	LoRaMesher Project, ``LoRaMesher Repository,'' GitHub.
+
+	\bibitem{dolev_yao}
+	D. Dolev and A. C. Yao, ``On the Security of Public Key Protocols,'' IEEE Transactions on Information Theory.
+
+	\bibitem{ieee802154}
+	IEEE, ``IEEE 802.15.4 Wireless Personal Area Networks Standard.''
+
+	\bibitem{ns3_repo}
+	ns-3 Project, ``ns-3 Network Simulator,'' GitHub.
+
+\end{thebibliography}
+
+\end{document}

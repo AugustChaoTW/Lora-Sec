@@ -1,0 +1,30 @@
+\begin{thebibliography}{1}
+
+\bibitem{repetto2025-lorawan-drone-attack}
+M.~Repetto, ``Flying drones to locate cyber-attackers in lorawan metropolitan
+  networks,'' {\em arXiv preprint arXiv:2509.15725}, 2025.
+
+\bibitem{shelby2026-zero-trust-iot}
+J.~Shelby, ``Zero trust for multi-rat iot: Trust boundary management in
+  heterogeneous wireless network environments,'' {\em arXiv preprint
+  arXiv:2602.08989}, 2026.
+
+\bibitem{ieee2025-adr-eventb}
+S.~Kang {\em et~al.}, ``Formal validation of adr protocol in lorawan network
+  using event-b,'' in {\em IEEE Conference Publication}, 2025.
+
+\bibitem{ieee2025-lorawan-key-vulnerability}
+W.~Knottenbelt {\em et~al.}, ``Epistemic analysis of a key-management
+  vulnerability in lorawan,'' in {\em IEEE Conference Publication}, 2025.
+
+\bibitem{ieee2025-lorawan-aes-crypto}
+L.~Chen and S.~Lee, ``Enhancing lorawan security: An advanced aes-based
+  cryptographic approach,'' {\em IEEE Transactions on Wireless Communications},
+  2025.
+
+\bibitem{springer2026-adr-mobility}
+M.~Garcia {\em et~al.}, ``A robust hybrid adaptive data rate mechanism for
+  high-mobility lorawan iot networks,'' {\em Journal of Engineering and Applied
+  Science}, 2026.
+
+\end{thebibliography}

@@ -1,0 +1,66 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand\HyField@AuxAddToFields[1]{}
+\providecommand\HyField@AuxAddToCoFields[2]{}
+\citation{repetto2025-lorawan-drone-attack,shelby2026-zero-trust-iot}
+\citation{ieee2025-adr-eventb,ieee2025-lorawan-key-vulnerability}
+\citation{ieee2025-lorawan-aes-crypto,springer2026-adr-mobility}
+\citation{ieee2025-lorawan-key-vulnerability}
+\@writefile{toc}{\contentsline {section}{\numberline {I}Introduction}{1}{section.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {II}Threat Model and Security Goals}{1}{section.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {II-A}}Attacker Model}{1}{subsection.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {II-B}}Protocol Scope}{1}{subsection.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {II-C}}Security Goals}{1}{subsection.2.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {III}Protocol Abstraction and Formal Model}{1}{section.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-A}}Control-Plane Message Format}{1}{subsection.3.1}\protected@file@percent }
+\citation{ieee2025-adr-eventb,ieee2025-lorawan-key-vulnerability}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Protocol state transitions for join (Hello auth), route discovery (RouteRequest/Reply), and rekeying (RekeyNotice). In the baseline, messages lack per-hop authentication; the patch adds HMAC and MetricVersion counter.}}{2}{figure.1}\protected@file@percent }
+\newlabel{fig:protocol-flow}{{1}{2}{Protocol state transitions for join (Hello auth), route discovery (RouteRequest/Reply), and rekeying (RekeyNotice). In the baseline, messages lack per-hop authentication; the patch adds HMAC and MetricVersion counter}{figure.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-B}}State Machine Abstraction}{2}{subsection.3.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-C}}Formal Model in Tamarin}{2}{subsection.3.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {IV}Formal Analysis Results}{2}{section.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-A}}Baseline Protocol Verification}{2}{subsection.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-B}}Patched Protocol Verification}{2}{subsection.4.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-C}}Performance Impact of Verification}{2}{subsection.4.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {V}New Attacks}{2}{section.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {V-A}}Attack 1: Unauthorized Route Injection (Spoofing)}{2}{subsection.5.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {V-B}}Attack 2: Unsynchronized Rekey Impersonation (Replay)}{3}{subsection.5.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {VI}Mitigation Strategy}{3}{section.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VI-A}}Patch 1: HMAC-SHA256 Authentication on Route Messages}{3}{subsection.6.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Message sequence diagram for spoofing attack (left) and replay attack (right). In baseline, attacker succeeds by sending forged messages without authentication. In patched version, HMAC and MetricVersion counter prevent both attacks.}}{3}{figure.2}\protected@file@percent }
+\newlabel{fig:attack-scenario}{{2}{3}{Message sequence diagram for spoofing attack (left) and replay attack (right). In baseline, attacker succeeds by sending forged messages without authentication. In patched version, HMAC and MetricVersion counter prevent both attacks}{figure.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VI-B}}Patch 2: MetricVersion Counter for Replay Detection}{3}{subsection.6.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VI-C}}Deployment Recommendations}{3}{subsection.6.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {VII}Evaluation}{3}{section.7}\protected@file@percent }
+\newlabel{sec:evaluation}{{VII}{3}{Evaluation}{section.7}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Control-plane message flow before (baseline) and after (patched) security enhancements. HMAC verification (orange) is added to Hello and RouteReply; MetricVersion counter (blue) is added to RekeyNotice. Data-plane forwarding remains unchanged.}}{4}{figure.3}\protected@file@percent }
+\newlabel{fig:before-after}{{3}{4}{Control-plane message flow before (baseline) and after (patched) security enhancements. HMAC verification (orange) is added to Hello and RouteReply; MetricVersion counter (blue) is added to RekeyNotice. Data-plane forwarding remains unchanged}{figure.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VII-A}}Experimental Setup}{4}{subsection.7.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {VII-A}1}Topologies}{4}{subsubsection.7.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {VII-A}2}Protocol States}{4}{subsubsection.7.1.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {VII-A}3}Simulation Parameters}{4}{subsubsection.7.1.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VII-B}}Attack Effectiveness}{4}{subsection.7.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {VII-B}1}Spoofing Attack Results}{4}{subsubsection.7.2.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Comparison of attack success rates across different protocol versions. The results show that HMAC authentication blocks spoofing, while MetricVersion is required to block replay attacks.}}{4}{figure.4}\protected@file@percent }
+\newlabel{fig:comparison-attacks}{{4}{4}{Comparison of attack success rates across different protocol versions. The results show that HMAC authentication blocks spoofing, while MetricVersion is required to block replay attacks}{figure.4}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Network performance metrics under normal operation. The security patches maintain 100\% PDR and constant throughput with minimal latency impact.}}{4}{figure.5}\protected@file@percent }
+\newlabel{fig:overhead}{{5}{4}{Network performance metrics under normal operation. The security patches maintain 100\% PDR and constant throughput with minimal latency impact}{figure.5}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {VII-B}2}Replay Attack Results}{4}{subsubsection.7.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VII-C}}Overhead Analysis}{4}{subsection.7.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {VII-C}1}Latency}{4}{subsubsection.7.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {VII-C}2}Throughput and PDR}{4}{subsubsection.7.3.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VII-D}}Limitations and Future Work}{4}{subsection.7.4}\protected@file@percent }
+\citation{repetto2025-lorawan-drone-attack,shelby2026-zero-trust-iot}
+\bibstyle{ieeetr}
+\bibdata{../../references/bibliography}
+\bibcite{repetto2025-lorawan-drone-attack}{1}
+\bibcite{shelby2026-zero-trust-iot}{2}
+\bibcite{ieee2025-adr-eventb}{3}
+\bibcite{ieee2025-lorawan-key-vulnerability}{4}
+\bibcite{ieee2025-lorawan-aes-crypto}{5}
+\bibcite{springer2026-adr-mobility}{6}
+\@writefile{toc}{\contentsline {section}{\numberline {VIII}Conclusion}{5}{section.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{Appendix}{5}{section*.3}\protected@file@percent }
+\newlabel{appendix:supplementary}{{A}{5}{\appendixname }{section*.3}{}}
+\@writefile{toc}{\contentsline {section}{References}{5}{section*.4}\protected@file@percent }
+\gdef \@abspage@last{5}

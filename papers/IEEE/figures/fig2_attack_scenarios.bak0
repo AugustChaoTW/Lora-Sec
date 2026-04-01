@@ -1,0 +1,54 @@
+\documentclass[tikz,border=5mm]{standalone}
+\usetikzlibrary{shapes, arrows, positioning, fit, backgrounds, decorations.pathmorphing}
+
+\begin{document}
+\begin{tikzpicture}[
+    >=latex,
+    node distance=1.5cm and 2.5cm,
+    font=\sffamily,
+    normalnode/.style={circle, draw, fill=blue!10, minimum size=1cm, thick},
+    attacknode/.style={circle, draw, red, fill=red!10, minimum size=1cm, thick},
+    msg/.style={draw, ->, thick},
+    baseline/.style={draw, ->, red, dashed, thick},
+    patched/.style={draw, ->, green!60!black, thick, text=green!60!black}
+]
+
+%% Scenario 1: Spoofing
+\node[text width=4cm, align=center, font=\bfseries] (s1) at (0,0) {Scenario 1: Spoofing};
+\node[normalnode, below=of s1] (A1) {A};
+\node[attacknode, right=of A1] (M1) {M};
+\node[normalnode, right=of M1] (B1) {B};
+
+\draw[msg] (A1) -- node[above, font=\scriptsize] {Auth RREQ} (M1);
+\draw[baseline] (M1) to[bend left] node[above, font=\scriptsize] {Forged RREQ} (B1);
+\draw[patched] (B1) to[bend left] node[below, font=\scriptsize] {HMAC Block} (M1);
+
+%% Scenario 2: Replay Attack
+\node[text width=4cm, align=center, font=\bfseries, below=3cm of s1] (s2) {Scenario 2: Replay Attack};
+\node[normalnode, below=of s2] (A2) {A};
+\node[attacknode, right=of A2] (M2) {M};
+\node[normalnode, right=of M2] (B2) {B};
+
+\draw[msg] (A2) -- node[above, font=\scriptsize] {Old RREP} (M2);
+\draw[baseline] (M2) to[bend left] node[above, font=\scriptsize] {Replay RREP} (B2);
+\draw[patched] (B2) to[bend left] node[below, font=\scriptsize] {MetricVersion Block} (M2);
+
+%% Scenario 3: Selective Forwarding
+\node[text width=4cm, align=center, font=\bfseries, below=3cm of s2] (s3) {Scenario 3: Selective Forwarding};
+\node[normalnode, below=of s3] (A3) {A};
+\node[attacknode, right=of A3] (M3) {M};
+\node[normalnode, right=of M3] (B3) {B};
+
+\draw[msg] (A3) -- node[above, font=\scriptsize] {Data Pkt} (M3);
+\draw[baseline, decorate, decoration={snake, amplitude=.4mm, segment length=2mm, post length=1mm}] (M3) -- node[above, font=\scriptsize] {Drop/Blackhole} ++(1.5,0.5);
+\draw[patched] (M3) to[bend right] node[below, font=\scriptsize] {Enforced ACK / Trust Metric} (B3);
+
+%% Annotations
+\node[right=5cm of s1, text width=6cm, align=left] {
+    \textbf{Legend:}\\
+    {\color{red}--- Baseline Vulnerability (Success)}\\
+    {\color{green!60!black}--- Patched State (Blocked/Mitigated)}
+};
+
+\end{tikzpicture}
+\end{document}
