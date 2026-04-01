@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.1.19)  1 APR 2026 15:19
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.1.19)  2 APR 2026 02:04
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -574,7 +574,7 @@ Overfull \hbox (60.0pt too wide) in paragraph at lines 134--134
 []\T1/pcr/m/n/10 lemma rekeyIntegrity: Epoch(n+1) only after Epoch(n)[] 
  []
 
-<figures/fig1_protocol_flow.pdf, id=173, 619.98227pt x 331.80864pt>
+<figures/fig1_protocol_flow.pdf, id=177, 619.98227pt x 331.80864pt>
 File: figures/fig1_protocol_flow.pdf Graphic file (type pdf)
 <use figures/fig1_protocol_flow.pdf>
 Package pdftex.def Info: figures/fig1_protocol_flow.pdf  used on input line 140
@@ -586,74 +586,91 @@ Underfull \hbox (badness 2635) in paragraph at lines 164--165
  []
 
 [2 <./figures/fig1_protocol_flow.pdf>]
-Underfull \hbox (badness 5893) in paragraph at lines 189--190
+Underfull \hbox (badness 5893) in paragraph at lines 206--207
 []\T1/ptm/m/n/10 Attacker has LoRa ca-pa-bil-ity on the same fre-
  []
 
 
-Underfull \hbox (badness 1371) in paragraph at lines 200--201
+Underfull \hbox (badness 1371) in paragraph at lines 217--218
 []\T1/ptm/b/n/10 Attack Mech-a-nism\T1/ptm/m/n/10 : An at-tacker records a le-g
 it-i-mate
  []
 
-<figures/fig2_attack_scenarios.pdf, id=204, 468.97609pt x 372.77167pt>
+<figures/fig2_attack_scenarios.pdf, id=208, 468.97609pt x 372.77167pt>
 File: figures/fig2_attack_scenarios.pdf Graphic file (type pdf)
 <use figures/fig2_attack_scenarios.pdf>
 Package pdftex.def Info: figures/fig2_attack_scenarios.pdf  used on input line 
-215.
+232.
 (pdftex.def)             Requested size: 252.0pt x 200.30397pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 228--229
+Underfull \hbox (badness 10000) in paragraph at lines 245--246
 []\T1/ptm/m/n/10 Each RouteRe-ply and Hello mes-sage now
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 228--229
+Underfull \hbox (badness 10000) in paragraph at lines 245--246
 \T1/ptm/m/n/10 in-cludes a 16-byte HMAC-SHA256 over
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 235--236
-\T1/ptm/m/n/10 (con-di-tional com-pi-la-tion guarded by \T1/pcr/m/n/10 #define
+Overfull \hbox (30.0pt too wide) in paragraph at lines 260--260
+[]  \T1/pcr/m/n/10 payload = [msg.sender | msg.metric | msg.ttl][] 
  []
 
-<figures/fig3_comparison.pdf, id=205, 498.26651pt x 208.92493pt>
+
+Overfull \hbox (48.0pt too wide) in paragraph at lines 260--260
+[]  \T1/pcr/m/n/10 expected_hmac = HMAC-SHA256(key=my_longterm_key,[] 
+ []
+
+
+Overfull \hbox (6.0pt too wide) in paragraph at lines 260--260
+[]                              \T1/pcr/m/n/10 data=payload)[] 
+ []
+
+[3 <./figures/fig2_attack_scenarios.pdf>]
+<figures/fig3_comparison.pdf, id=237, 498.26651pt x 208.92493pt>
 File: figures/fig3_comparison.pdf Graphic file (type pdf)
 <use figures/fig3_comparison.pdf>
-Package pdftex.def Info: figures/fig3_comparison.pdf  used on input line 262.
+Package pdftex.def Info: figures/fig3_comparison.pdf  used on input line 291.
 (pdftex.def)             Requested size: 252.0pt x 105.66724pt.
-[3 <./figures/fig2_attack_scenarios.pdf>]
-Underfull \hbox (badness 1502) in paragraph at lines 307--308
+
+Underfull \hbox (badness 1502) in paragraph at lines 336--337
 []\T1/ptm/m/n/10 The \T1/ptm/m/it/10 Met-ricVer-sion \T1/ptm/m/n/10 en-hance-me
 nt suc-cess-fully coun-tered
  []
 
 File: figures/fig3_comparison.pdf Graphic file (type pdf)
 <use figures/fig3_comparison.pdf>
-Package pdftex.def Info: figures/fig3_comparison.pdf  used on input line 311.
+Package pdftex.def Info: figures/fig3_comparison.pdf  used on input line 340.
 (pdftex.def)             Requested size: 252.0pt x 105.66724pt.
-<figures/fig4_overhead_matrix.pdf, id=239, 715.39586pt x 209.06607pt>
+
+Underfull \hbox (badness 2512) in paragraph at lines 350--351
+\T1/ptm/m/n/10 i-mal la-tency over-head. End-to-end la-tency ranges from
+ []
+
+[4 <./figures/fig3_comparison.pdf>]
+<figures/fig4_overhead_matrix.pdf, id=257, 715.39586pt x 209.06607pt>
 File: figures/fig4_overhead_matrix.pdf Graphic file (type pdf)
 <use figures/fig4_overhead_matrix.pdf>
 Package pdftex.def Info: figures/fig4_overhead_matrix.pdf  used on input line 3
-28.
+57.
 (pdftex.def)             Requested size: 252.0pt x 73.64314pt.
-[4 <./figures/fig3_comparison.pdf> <./figures/fig4_overhead_matrix.pdf>]
-** WARNING: Ignoring useless \section in Appendix (line 361).
 
-Underfull \hbox (badness 10000) in paragraph at lines 367--368
+** WARNING: Ignoring useless \section in Appendix (line 390).
+
+Underfull \hbox (badness 10000) in paragraph at lines 396--397
 []\T1/ptm/b/n/10 Tamarin Model\T1/ptm/m/n/10 : []$https : / / github . com / [r
 epo ] /artifacts /
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 368--369
+Underfull \hbox (badness 10000) in paragraph at lines 397--398
 []\T1/ptm/b/n/10 ns-3 Sim-u-la-tions\T1/ptm/m/n/10 : []$https : / / github . co
 m / [repo ] /artifacts /
  []
 
 
-Underfull \hbox (badness 6316) in paragraph at lines 369--370
+Underfull \hbox (badness 6316) in paragraph at lines 398--399
 []\T1/ptm/b/n/10 Raw Ex-per-i-men-tal Data\T1/ptm/m/n/10 : []$https : / / githu
 b . com / [repo ]
  []
@@ -670,22 +687,22 @@ Underfull \hbox (badness 1817) in paragraph at lines 8--11
 age-
  []
 
-) [5] (./main.aux)
+) [5 <./figures/fig4_overhead_matrix.pdf>] (./main.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
  ***********
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 8AF139FC4B870CDFA6CCEE29CF7054B0;6218.
+(rerunfilecheck)             Checksum: A91FA36D5DF6969FBD381044727D582A;6425.
  ) 
 Here is how much of TeX's memory you used:
- 12100 strings out of 474222
- 190087 string characters out of 5748733
+ 12102 strings out of 474222
+ 190117 string characters out of 5748733
  1947975 words of memory out of 5000000
- 34112 multiletter control sequences out of 15000+600000
+ 34113 multiletter control sequences out of 15000+600000
  663809 words of font info for 137 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 79i,7n,93p,636b,673s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 79i,6n,93p,636b,671s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texli
@@ -700,10 +717,10 @@ pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share
 /texlive/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/share/texlive/texmf
 -dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/typ
 e1/urw/times/utmri8a.pfb>
-Output written on main.pdf (5 pages, 251194 bytes).
+Output written on main.pdf (5 pages, 253006 bytes).
 PDF statistics:
- 354 PDF objects out of 1000 (max. 8388607)
- 301 compressed objects within 4 object streams
- 71 named destinations out of 1000 (max. 500000)
- 301 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 358 PDF objects out of 1000 (max. 8388607)
+ 305 compressed objects within 4 object streams
+ 72 named destinations out of 1000 (max. 500000)
+ 309 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -365,11 +365,11 @@ While the ns-3 simulations provide strong evidence of the patch's effectiveness,
 
 \section{Conclusion}
 
-LoRaMesher enables dynamic mesh routing for LoRa IoT systems but leaves its control plane unverified and unathenticated. We identified and modeled two concrete attack classes—unauthorized route injection and rekey impersonation—both practical to execute with commodity hardware.
+LoRaMesher brings dynamic mesh routing to LoRa IoT, but its control plane lacks formal verification and cryptographic authentication. We identified two classes of attacks: unauthorized route injection and unsynchronized rekey impersonation. Both attacks succeed in the baseline and are practical to execute with commodity LoRa hardware.
 
-Formal analysis using the Tamarin Prover confirms the baseline vulnerabilities and proves the correctness of a minimal patch (41 lines total) adding HMAC-SHA256 authentication and MetricVersion counters. Comprehensive ns-3 evaluation across three topologies and three protocol versions demonstrates that the patch eliminates attack success (0\% success rate) while imposing negligible performance impact (100\% PDR, <1\% latency overhead).
+Our formal analysis using Tamarin confirmed the vulnerabilities in the original protocol and proved the correctness of a minimal patch adding HMAC-SHA256 authentication and MetricVersion counters. ns-3 simulations on three topologies (linear, tree, grid) across three protocol versions demonstrate that the patch eliminates attack success while maintaining 100\% packet delivery ratio and <1\% latency overhead.
 
-The patch preserves backward compatibility and integrates cleanly into existing deployments. We strongly recommend immediate adoption in production LoRaMesher networks and encourage evaluation of similar defenses in related mesh protocols (e.g., Meshtastic, OpenThread).
+The patch requires only 41 lines of code and preserves backward compatibility. We recommend immediate deployment to production LoRaMesher deployments and evaluation of integration with the broader Meshtastic ecosystem.
 
 \subsection*{Open Questions}
 

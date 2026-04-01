@@ -33,17 +33,17 @@ LoRa mesh systems extend LoRa deployments with dynamic multi-hop routing, enabli
 
 The LoRaMesher protocol is a widely-deployed open-source mesh routing implementation offering dynamic route discovery and multi-hop communication for IoT systems. However, its control plane—responsible for mesh join, route discovery, and periodic rekeying—lacks formal security verification. Without cryptographic message authentication, attackers can exploit this gap to inject false routing information and manipulate key exchanges.
 
-We identify two concrete attack classes: (1) unauthorized route injection through spoofed Hello messages and (2) rekey impersonation via replay of outdated rekeying requests. Both attacks are enabled by the absence of message authentication and sequence counters in the baseline protocol.
+Specifically, we identify two classes of attacks on the LoRaMesher control plane: (1) unauthorized route injection via spoofed Hello messages, and (2) unsynchronized rekey impersonation via replayed rekeying requests. These attacks exploit the absence of per-hop message authentication and counter-based replay detection in the original design.
 
 To address these vulnerabilities, we propose a minimal backward-compatible patch adding HMAC-based authentication and a MetricVersion counter. We formally verify both the original protocol (to confirm vulnerabilities) and the patched protocol (to confirm fixes) using the Tamarin Prover. Our ns-3 simulations demonstrate that the patch successfully prevents attacks while maintaining 100\% packet delivery ratio and negligible performance overhead.
 
-Our contributions are: (1) formal analysis of LoRaMesher control-plane vulnerabilities using the Tamarin Prover, (2) practical attack demonstrations via ns-3 network simulation, (3) a minimal backward-compatible patch with proof of correctness, and (4) actionable deployment recommendations for operators~\cite{ieee2025-lorawan-aes-crypto,springer2026-adr-mobility}.
+This paper contributes: (1) formal modeling of LoRaMesher control-plane attacks using symbolic execution, (2) concrete attack demonstrations in ns-3, (3) a verified mitigation strategy, and (4) practical deployment guidance for mesh operators~\cite{ieee2025-lorawan-aes-crypto,springer2026-adr-mobility}.
 
 \section{Threat Model and Security Goals}
 
 \subsection{Attacker Model}
 
-We adopt the standard Dolev-Yao attacker model, adapted to the LoRa wireless domain, with the following capabilities:
+We assume a Dolev-Yao attacker operating over the LoRa wireless medium with the following capabilities:
 
 \begin{itemize}
 	\item \textbf{Eavesdropping}: Full access to all LoRa traffic on the same frequency/spreading factor
@@ -81,12 +81,12 @@ These goals are formalized in Tamarin and verified on both the baseline and patc
 
 \subsection{Control-Plane Message Format}
 
-All LoRaMesher control messages follow a uniform TLV (Type-Length-Value) envelope:
+All LoRaMesher control messages use a common TLV (Type-Length-Value) structure:
 \begin{verbatim}
 [Type:1B][Length:2B][Payload:L bytes]
 \end{verbatim}
 
-The following message types are relevant to this security analysis:
+Critical message types for this analysis:
 \begin{itemize}
 	\item \textbf{Hello (Type=0x00)}: Peer discovery, sent every 10 seconds
 	      \begin{verbatim}
@@ -148,7 +148,7 @@ We conducted formal analysis using Tamarin 1.8.0 with the Maude 3.2 backend. All
 
 \subsection{Baseline Protocol Verification}
 
-Analysis of the original LoRaMesher control plane revealed the following lemma violations:
+Analysis of the original LoRaMesher control plane revealed:
 
 \begin{itemize}
 	\item \textbf{keySecrecy lemma}: VIOLATED. Counterexample: An attacker overhears a Hello message, extracts the sender's key material from packet timing and frequency, and injects a malicious route.
@@ -172,28 +172,11 @@ With our minimal patch (adding HMAC-SHA256 to Hello/RouteReply and MetricVersion
 
 \textbf{Proof time}: 3.2s wall-clock for 12 lemmas (verified separately, sequential proofs).
 
-\subsection{Tamarin Model Excerpt}
-
-A simplified snippet of our Tamarin model illustrates the verification approach:
-\begin{verbatim}
-rule Route_Reply:
-  [ St_Node(n, state), In(msg) ]
-  --[ RoleN(n) ]-->
-  [ St_Node(n, state'), Out(reply) ]
-
-lemma noRouteInjection:
-  "All n m route #i. RoleN(n) @i 
-   ==> (Honest(Originator(route)) | 
-        Compromised(Originator(route)))"
-\end{verbatim}
-
-This pattern validates that only honest nodes can initiate valid routes in the patched protocol.
-
 \subsection{Performance Impact of Verification}
 
-Tamarin's reachability analysis introduces no runtime overhead; it is a compile-time verification tool. The patched protocol incurs only the computational cost of HMAC-SHA256 verification per control message, detailed in §\ref{sec:evaluation}.
+Tamarin's reachability analysis introduces no runtime overhead; it is a compile-time tool. The protocol itself gains only the computational cost of HMAC-SHA256 verification per message (§\ref{sec:evaluation}).
 
-The Tamarin model is conservative, assuming no side-channel leaks, no timing attacks, and full attacker observability. These assumptions align with standard formal protocol analysis practices~\cite{ieee2025-adr-eventb,ieee2025-lorawan-key-vulnerability}.
+The Tamarin model is conservative: it assumes no side-channel leaks, no timing attacks, and full attacker observability. These assumptions are standard in formal protocol analysis~\cite{ieee2025-adr-eventb,ieee2025-lorawan-key-vulnerability}.
 
 \section{New Attacks}
 
@@ -247,21 +230,9 @@ We propose a minimal patch that preserves backward compatibility while adding cr
 	\item Verification is performed before route metric comparison
 \end{itemize}
 
-\textbf{Verification Pseudocode}:
-\begin{verbatim}
-on_receive(RouteReply msg):
-  payload = [msg.sender | msg.metric | msg.ttl]
-  expected_hmac = HMAC-SHA256(key=my_longterm_key, 
-                              data=payload)
-  if msg.hmac != expected_hmac:
-    drop(msg)
-    return
-  update_route(msg.route, msg.metric)
-\end{verbatim}
+\textbf{Backward Compatibility}: Nodes with old firmware will fail HMAC verification and drop authenticated messages, then fall back to the baseline routing. This creates a transient vulnerability during mixed-version deployment but does not cause network partition.
 
-\textbf{Backward Compatibility}: Nodes with old firmware will fail HMAC verification and drop authenticated messages, falling back to baseline routing. This creates a transient vulnerability window during mixed-version deployments but does not trigger network partition.
-
-\textbf{Code Footprint}: 23 lines in LoRaMesher's \texttt{route.cpp} (guarded by \texttt{\#define PATCH\_AUTH}).
+\textbf{Code Footprint}: 23 lines in LoRaMesher's \texttt{route.cpp} (conditional compilation guarded by \texttt{\#define PATCH\_AUTH}).
 
 \subsection{Patch 2: MetricVersion Counter for Replay Detection}
 
@@ -323,7 +294,7 @@ Each simulation runs for 150 seconds. Nodes generate packets at a rate of 0.207 
 
 \subsection{Attack Effectiveness}
 
-We measure the attack success rate and its impact on packet delivery ratio (PDR) across all topology and protocol state combinations.
+The core of our evaluation is measuring the attack success rate and its impact on PDR across different topologies and protocol states.
 
 \subsubsection{Spoofing Attack Results}
 Under the spoofing attack, the attacker injects false control packets to divert traffic. In the \textit{Baseline} version, the attack success rate reached 100\% in the linear topology and 9.7\% in the tree and grid topologies, effectively dropping the PDR to 0\% and 77.4\% respectively.
@@ -346,8 +317,8 @@ The \textit{MetricVersion} enhancement successfully countered these attacks. By 
 
 We analyzed the performance cost of the security enhancements during normal operation (no-attack scenarios).
 
-\subsubsection{Latency Impact}
-The patched protocol introduces minimal latency overhead. End-to-end latency ranges from 133.9~ms (tree topology) to 250.0~ms (linear topology), with the cryptographic verification cost negligible relative to LoRa transmission delays.
+\subsubsection{Latency}
+The average end-to-end latency in the \textit{MetricVersion} version ranged from 133.9~ms in the tree topology to 250.0~ms in the linear topology. Compared to the baseline, the latency impact was negligible, as the computational cost of HMAC verification and counter checking is small compared to the LoRa transmission time.
 
 \subsubsection{Throughput and PDR}
 The system maintained a consistent throughput of 0.207 packets per second across all protocol versions when no attack was present. The PDR remained at 100\%, indicating that the added security headers did not cause significant congestion or packet loss in the tested scenarios.
@@ -365,11 +336,11 @@ While the ns-3 simulations provide strong evidence of the patch's effectiveness,
 
 \section{Conclusion}
 
-LoRaMesher enables dynamic mesh routing for LoRa IoT systems but leaves its control plane unverified and unathenticated. We identified and modeled two concrete attack classes—unauthorized route injection and rekey impersonation—both practical to execute with commodity hardware.
+LoRaMesher brings dynamic mesh routing to LoRa IoT, but its control plane lacks formal verification and cryptographic authentication. We identified two classes of attacks: unauthorized route injection and unsynchronized rekey impersonation. Both attacks succeed in the baseline and are practical to execute with commodity LoRa hardware.
 
-Formal analysis using the Tamarin Prover confirms the baseline vulnerabilities and proves the correctness of a minimal patch (41 lines total) adding HMAC-SHA256 authentication and MetricVersion counters. Comprehensive ns-3 evaluation across three topologies and three protocol versions demonstrates that the patch eliminates attack success (0\% success rate) while imposing negligible performance impact (100\% PDR, <1\% latency overhead).
+Our formal analysis using Tamarin confirmed the vulnerabilities in the original protocol and proved the correctness of a minimal patch adding HMAC-SHA256 authentication and MetricVersion counters. ns-3 simulations on three topologies (linear, tree, grid) across three protocol versions demonstrate that the patch eliminates attack success while maintaining 100\% packet delivery ratio and <1\% latency overhead.
 
-The patch preserves backward compatibility and integrates cleanly into existing deployments. We strongly recommend immediate adoption in production LoRaMesher networks and encourage evaluation of similar defenses in related mesh protocols (e.g., Meshtastic, OpenThread).
+The patch requires only 41 lines of code and preserves backward compatibility. We recommend immediate deployment to production LoRaMesher deployments and evaluation of integration with the broader Meshtastic ecosystem.
 
 \subsection*{Open Questions}
 
