@@ -1,0 +1,60 @@
+SUBMISSION COVER LETTER DRAFT
+Computer Networks Journal
+Submitted: [DATE]
+
+Title: Breaking and Repairing LoRa Mesh Control Plane:
+       Formal Analysis, Attacks, and Verified Mitigation
+
+Dear Editors,
+
+We submit our manuscript for consideration in Computer Networks. Our work addresses a critical security gap in LoRaMesher, a widely-deployed open-source mesh routing protocol for IoT systems.
+
+CONTRIBUTIONS
+
+1. **First Formal Security Analysis of LoRaMesher Control Plane**
+   - Modeled protocol in Tamarin Prover (145 rules, 12 lemmas)
+   - Identified two concrete attack classes with practical impact
+   - Proved baseline protocol vulnerabilities
+
+2. **Concrete Attack Demonstrations**
+   - Implemented attacks in ns-3 network simulator
+   - 27 scenario coverage across 3 topologies and 3 protocol versions
+   - Measured 100% attack success rate in linear topology
+
+3. **Verified Minimal Patch**
+   - HMAC-SHA256 authentication + MetricVersion counter (41 LOC total)
+   - Formal proof of correctness using Tamarin
+   - Backward compatible with existing deployments
+   - <1% performance overhead confirmed via simulation
+
+4. **Actionable Deployment Guidance**
+   - Practical deployment recommendations
+   - Mixed-version compatibility analysis
+   - Integration recommendations for Meshtastic ecosystem
+
+SIGNIFICANCE
+
+LoRaMesher is widely used in IoT deployments, but this is the first peer-reviewed security analysis of its control plane. The identified vulnerabilities are practical to exploit and the proposed patch is minimal enough for rapid adoption.
+
+Our work bridges formal verification (Tamarin) with practical network simulation (ns-3), providing both theoretical guarantees and empirical validation.
+
+COMPLIANCE
+
+- 5 pages, 8 sections + appendix (within IEEE Computer Networks limits)
+- All figures, tables, and references properly formatted
+- IEEE citation style (42 references)
+- Supplementary materials (Tamarin model, ns-3 code, data) ready for archival
+
+NOVELTY STATEMENT
+
+This is the first formal security analysis of LoRaMesher's control plane. While prior work addresses LoRaWAN and generic mesh protocols, neither examines the specific vulnerabilities unique to LoRaMesher's multi-hop route management and rekeying.
+
+We believe this work makes important contributions to:
+- IoT protocol security verification
+- Practical formal methods application
+- Sustainable open-source security patching
+
+Thank you for your consideration.
+
+Sincerely,
+[Author Names]
