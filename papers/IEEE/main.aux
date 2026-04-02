@@ -11,14 +11,14 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {II-A}}Attacker Model}{1}{subsection.2.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {II-B}}Protocol Scope}{1}{subsection.2.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {II-C}}Security Goals}{1}{subsection.2.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {III}Protocol Abstraction and Formal Model}{1}{section.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-A}}Control-Plane Message Format}{1}{subsection.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {III}Protocol Abstraction and Formal Model}{2}{section.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-A}}Control-Plane Message Format}{2}{subsection.3.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-B}}State Machine Abstraction}{2}{subsection.3.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-C}}Formal Model in Tamarin}{2}{subsection.3.3}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {IV}Formal Analysis Results}{2}{section.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-A}}Baseline Protocol Verification}{2}{subsection.4.1}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Protocol state transitions for join (Hello auth), route discovery (RouteRequest/Reply), and rekeying (RekeyNotice). In the baseline, messages lack per-hop authentication; the patch adds HMAC and MetricVersion counter.}}{2}{figure.1}\protected@file@percent }
 \newlabel{fig:protocol-flow}{{1}{2}{Protocol state transitions for join (Hello auth), route discovery (RouteRequest/Reply), and rekeying (RekeyNotice). In the baseline, messages lack per-hop authentication; the patch adds HMAC and MetricVersion counter}{figure.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-A}}Baseline Protocol Verification}{2}{subsection.4.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-B}}Patched Protocol Verification}{2}{subsection.4.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-C}}Tamarin Model Excerpt}{2}{subsection.4.3}\protected@file@percent }
 \citation{ieee2025-adr-eventb,ieee2025-lorawan-key-vulnerability}
@@ -38,14 +38,13 @@
 \newlabel{sec:evaluation}{{VII}{4}{Evaluation}{section.7}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VII-A}}Experimental Setup}{4}{subsection.7.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {VII-A}1}Topologies}{4}{subsubsection.7.1.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Comparison of attack success rates across different protocol versions. The results show that HMAC authentication blocks spoofing, while MetricVersion is required to block replay attacks.}}{4}{figure.4}\protected@file@percent }
-\newlabel{fig:comparison-attacks}{{4}{4}{Comparison of attack success rates across different protocol versions. The results show that HMAC authentication blocks spoofing, while MetricVersion is required to block replay attacks}{figure.4}{}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {VII-A}2}Protocol States}{4}{subsubsection.7.1.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {VII-A}3}Simulation Parameters}{4}{subsubsection.7.1.3}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VII-B}}Attack Effectiveness}{4}{subsection.7.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {VII-B}1}Spoofing Attack Results}{4}{subsubsection.7.2.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {VII-B}2}Replay Attack Results}{4}{subsubsection.7.2.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VII-C}}Overhead Analysis}{4}{subsection.7.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {VII-C}1}Latency Impact}{4}{subsubsection.7.3.1}\protected@file@percent }
 \citation{repetto2025-lorawan-drone-attack,shelby2026-zero-trust-iot}
 \bibstyle{ieeetr}
 \bibdata{../../references/bibliography}
@@ -55,9 +54,10 @@
 \bibcite{ieee2025-lorawan-key-vulnerability}{4}
 \bibcite{ieee2025-lorawan-aes-crypto}{5}
 \bibcite{springer2026-adr-mobility}{6}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Comparison of attack success rates across different protocol versions. The results show that HMAC authentication blocks spoofing, while MetricVersion is required to block replay attacks.}}{5}{figure.4}\protected@file@percent }
+\newlabel{fig:comparison-attacks}{{4}{5}{Comparison of attack success rates across different protocol versions. The results show that HMAC authentication blocks spoofing, while MetricVersion is required to block replay attacks}{figure.4}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Network performance metrics under normal operation. The security patches maintain 100\% PDR and constant throughput with minimal latency impact.}}{5}{figure.5}\protected@file@percent }
 \newlabel{fig:overhead}{{5}{5}{Network performance metrics under normal operation. The security patches maintain 100\% PDR and constant throughput with minimal latency impact}{figure.5}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {VII-C}1}Latency Impact}{5}{subsubsection.7.3.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {VII-C}2}Throughput and PDR}{5}{subsubsection.7.3.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VII-D}}Limitations and Future Work}{5}{subsection.7.4}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {VIII}Conclusion}{5}{section.8}\protected@file@percent }

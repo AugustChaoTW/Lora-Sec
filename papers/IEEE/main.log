@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.1.19)  2 APR 2026 02:04
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.1.19)  2 APR 2026 02:11
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -518,22 +518,21 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 49.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
+) [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}{/usr/share/texlive/texm
+f-dist/fonts/enc/dvips/base/8r.enc}
+
+
+]
 LaTeX Font Info:    Trying to load font information for T1+pcr on input line 85
 .
-
-(/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1pcr.fd
+ (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1pcr.fd
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
 )
 Overfull \hbox (32.09729pt too wide) in paragraph at lines 94--94
  []\T1/pcr/m/n/10 [Sender:2B][MetricVersion:2B][Signature:16B][] 
  []
 
-[1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}{/usr/share/texlive/texmf-
-dist/fonts/enc/dvips/base/8r.enc}
 
-
-]
 Overfull \hbox (62.09729pt too wide) in paragraph at lines 98--98
  []\T1/pcr/m/n/10 [Initiator:2B][RouteID:2B][TTL:1B][Signature:16B][] 
  []
@@ -574,7 +573,7 @@ Overfull \hbox (60.0pt too wide) in paragraph at lines 134--134
 []\T1/pcr/m/n/10 lemma rekeyIntegrity: Epoch(n+1) only after Epoch(n)[] 
  []
 
-<figures/fig1_protocol_flow.pdf, id=177, 619.98227pt x 331.80864pt>
+<figures/fig1_protocol_flow.pdf, id=176, 619.98227pt x 331.80864pt>
 File: figures/fig1_protocol_flow.pdf Graphic file (type pdf)
 <use figures/fig1_protocol_flow.pdf>
 Package pdftex.def Info: figures/fig1_protocol_flow.pdf  used on input line 140
@@ -649,7 +648,7 @@ Underfull \hbox (badness 2512) in paragraph at lines 350--351
  []
 
 [4 <./figures/fig3_comparison.pdf>]
-<figures/fig4_overhead_matrix.pdf, id=257, 715.39586pt x 209.06607pt>
+<figures/fig4_overhead_matrix.pdf, id=256, 715.39586pt x 209.06607pt>
 File: figures/fig4_overhead_matrix.pdf Graphic file (type pdf)
 <use figures/fig4_overhead_matrix.pdf>
 Package pdftex.def Info: figures/fig4_overhead_matrix.pdf  used on input line 3
@@ -658,21 +657,14 @@ Package pdftex.def Info: figures/fig4_overhead_matrix.pdf  used on input line 3
 
 ** WARNING: Ignoring useless \section in Appendix (line 390).
 
-Underfull \hbox (badness 10000) in paragraph at lines 396--397
-[]\T1/ptm/b/n/10 Tamarin Model\T1/ptm/m/n/10 : []$https : / / github . com / [r
-epo ] /artifacts /
+Underfull \hbox (badness 10000) in paragraph at lines 399--400
+[]\T1/ptm/b/n/10 Patched Lo-RaMesher Source\T1/ptm/m/n/10 : Patch files for
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 397--398
-[]\T1/ptm/b/n/10 ns-3 Sim-u-la-tions\T1/ptm/m/n/10 : []$https : / / github . co
-m / [repo ] /artifacts /
- []
-
-
-Underfull \hbox (badness 6316) in paragraph at lines 398--399
-[]\T1/ptm/b/n/10 Raw Ex-per-i-men-tal Data\T1/ptm/m/n/10 : []$https : / / githu
-b . com / [repo ]
+Underfull \hbox (badness 10000) in paragraph at lines 407--408
+[]\T1/ptm/m/n/10 Patch files for Lo-RaMesher (\T1/pcr/m/n/10 route.cpp\T1/ptm/m
+/n/10 ,
  []
 
 (./main.bbl
@@ -698,11 +690,11 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 Here is how much of TeX's memory you used:
  12102 strings out of 474222
  190117 string characters out of 5748733
- 1947975 words of memory out of 5000000
+ 1949975 words of memory out of 5000000
  34113 multiletter control sequences out of 15000+600000
  663809 words of font info for 137 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 79i,6n,93p,636b,671s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 79i,6n,93p,1153b,593s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texli
@@ -717,10 +709,10 @@ pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share
 /texlive/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/share/texlive/texmf
 -dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/typ
 e1/urw/times/utmri8a.pfb>
-Output written on main.pdf (5 pages, 253006 bytes).
+Output written on main.pdf (5 pages, 254845 bytes).
 PDF statistics:
- 358 PDF objects out of 1000 (max. 8388607)
- 305 compressed objects within 4 object streams
+ 349 PDF objects out of 1000 (max. 8388607)
+ 297 compressed objects within 3 object streams
  72 named destinations out of 1000 (max. 500000)
  309 words of extra memory for PDF output out of 10000 (max. 10000000)
 

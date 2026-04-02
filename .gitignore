@@ -1,41 +1,31 @@
-# Python environments and caches
+# Local Python environment and caches
 venv/
 .venv/
 __pycache__/
 *.py[cod]
-*.pyo
 .ruff_cache/
 .pytest_cache/
 .mypy_cache/
 
-# Editors and OS metadata
+# Editor and OS noise
 .DS_Store
 Thumbs.db
 *.swp
-*.swo
 *~
 
-# Generic build outputs
+# Generated build, verification, and simulation outputs
 build/
-dist/
-out/
-tmp/
-temp/
-
-# ns-3 / simulation artifacts
+phase2_tamarin_models/logs/
+phase2_tamarin_models/artifacts/
+phase2_tamarin_models/*_verification_run.log
 phase4_ns3_simulation/build/
-phase4_ns3_simulation/phase4_ns3_simulation/build/
 phase4_ns3_simulation/results/
 
-# Runtime logs and traces
+# Logs and temporary run outputs
 *.log
 *.out
 
-# Tamarin verification outputs
-phase2_tamarin_models/**/logs/
-phase2_tamarin_models/*_verification_run.log
-
-# LaTeX intermediate files
+# LaTeX intermediates and backup files
 *.aux
 *.bbl
 *.bcf
@@ -50,3 +40,4 @@ phase2_tamarin_models/*_verification_run.log
 *.synctex.gz
 *.toc
 *.xdv
+*.bak*
