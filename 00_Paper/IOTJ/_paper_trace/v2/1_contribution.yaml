@@ -1,0 +1,29 @@
+avoid_overclaiming: []
+contributions:
+- avoid_overclaiming: []
+  claim: them in ns-3 with 100\ success rate on linear topologies
+  confidence: 0.7
+  contribution_id: C1
+  evidence_experiments: []
+  evidence_figures: []
+  evidence_sections: []
+  evidence_tables: []
+  inferred: true
+  response_strategy: ''
+  reviewer_risk: ''
+  rq_ids: []
+  status: draft
+  strongest_defensible_wording: them in ns-3 with 100\ success rate on linear topologies
+  why_it_matters: (inferred — review and edit)
+core_research_question:
+  hypothesis: ''
+  motivation: ''
+  rq_id: RQ1
+  text: ''
+main_thesis:
+  one_sentence_safe_claim: ''
+  safe_claim: ''
+paper_path: /home/augchao/Work/Lora-Sec/00_Paper/IOTJ/IOTJ-Aug.tex
+paper_stage: draft
+paper_title: ''
+reviewer_risk: ''

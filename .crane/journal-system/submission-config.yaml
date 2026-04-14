@@ -1,0 +1,18 @@
+research_field: IoT Security, Wireless Network Security, Formal Verification
+target_journals:
+- IEEE Internet of Things Journal
+paper_constraints:
+  page_limit: 14
+  figure_limit: 8
+submission_strategy:
+  timeline: normal
+  acceptance_target: 0.75
+  revision_tolerance: moderate
+paper_characteristics:
+  has_code_release: true
+  has_dataset_release: false
+  has_human_subjects: false
+  ethics_approval_number: null
+  replicability_score: 7
+created_at: '2026-04-14T16:35:42.330197'
+stage: setup

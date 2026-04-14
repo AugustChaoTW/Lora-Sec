@@ -1,0 +1,65 @@
+entries:
+- caption_draft: 'Tamarin Lemma Results: Baseline vs. Patched Protocol'
+  claim_supported: C2 C3
+  exact_numbers: []
+  final_values: {}
+  ft_id: T:1
+  mentioned_in: []
+  needs_update_if: []
+  presentation_rules: {}
+  purpose: 對比 baseline（4 lemmas FALSIFIED）與 patched（8/8 lemmas PROVED）的 Tamarin 驗證結果，呈現形式化安全保證
+  related_rqs:
+  - RQ1
+  - RQ2
+  source_experiments:
+  - E4
+  text_reference_rule: ''
+  type: figure
+  visualization: {}
+- caption_draft: Attack Success Rate and PDR Across Topologies and Protocol States
+  claim_supported: C1 C3 C4
+  exact_numbers: []
+  final_values: {}
+  ft_id: T:2
+  mentioned_in: []
+  needs_update_if: []
+  presentation_rules: {}
+  purpose: 呈現 spoofing 與 replay 攻擊在三種拓撲 × 三種協議狀態下的攻擊成功率與 PDR（mean over 5 seeds）
+  related_rqs:
+  - RQ1
+  - RQ2
+  source_experiments:
+  - E1
+  - E2
+  text_reference_rule: ''
+  type: figure
+  visualization: {}
+- caption_draft: Performance Under Normal Operation (No Attack, Mean ± Std, 5 Seeds)
+  claim_supported: C3 C4
+  exact_numbers: []
+  final_values: {}
+  ft_id: T:3
+  mentioned_in: []
+  needs_update_if: []
+  presentation_rules: {}
+  purpose: 展示三種拓撲 × 三種協議狀態在無攻擊情境下的延遲（mean±std）與 PDR，證明補丁開鋷可忽略
+  related_rqs:
+  - RQ3
+  source_experiments:
+  - E3
+  text_reference_rule: ''
+  type: figure
+  visualization: {}
+figure_table_registry:
+- ft_id: T:1
+  locked_value: null
+  purpose: 對比 baseline（4 lemmas FALSIFIED）與 patched（8/8 lemmas PROVED）的 Tamarin 驗證結果，呈現形式化安全保證
+  type: figure
+- ft_id: T:2
+  locked_value: null
+  purpose: 呈現 spoofing 與 replay 攻擊在三種拓撲 × 三種協議狀態下的攻擊成功率與 PDR（mean over 5 seeds）
+  type: figure
+- ft_id: T:3
+  locked_value: null
+  purpose: 展示三種拓撲 × 三種協議狀態在無攻擊情境下的延遲（mean±std）與 PDR，證明補丁開鋷可忽略
+  type: figure

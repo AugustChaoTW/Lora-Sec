@@ -1,0 +1,106 @@
+experiment_registry:
+- canonical_metric: ''
+  exp_id: E1
+  goal: (auto-generated placeholder — edit to reflect your experiments)
+  locked: false
+  value: null
+- canonical_metric: ''
+  exp_id: E2
+  goal: 量化 replay attack（重放 RekeyNotice）在 3 種拓撲 × 3 種協議狀態下的攻擊成功率，驗證 MetricVersion
+    counter 的必要性
+  locked: false
+  value: null
+- canonical_metric: ''
+  exp_id: E3
+  goal: 量化 HMAC 認證與 MetricVersion counter 在無攻擊情境下對延遲、PDR 與吞吐量的開鋷
+  locked: false
+  value: null
+- canonical_metric: ''
+  exp_id: E4
+  goal: 對 baseline 和 patched 協議執行 Tamarin 符號可達性分析，獲得機器可檢查的漏洞證明（反例追蹤）與安全證明
+  locked: false
+  value: null
+experiments:
+- canonical_number:
+    locked: false
+    locked_at: ''
+    value: null
+  citation_needed: []
+  confidence: 0.3
+  controlled_variables: {}
+  deprecated_numbers: []
+  exp_id: E1
+  final_numbers: {}
+  goal: (auto-generated placeholder — edit to reflect your experiments)
+  inferred: true
+  notes: ''
+  output_files: []
+  related_contributions: []
+  related_rqs: []
+  setting: {}
+  status: pending
+  used_in_paper: {}
+- canonical_number:
+    locked: false
+    locked_at: ''
+    value: null
+  citation_needed: []
+  controlled_variables: {}
+  deprecated_numbers: []
+  exp_id: E2
+  final_numbers: {}
+  goal: 量化 replay attack（重放 RekeyNotice）在 3 種拓撲 × 3 種協議狀態下的攻擊成功率，驗證 MetricVersion
+    counter 的必要性
+  notes: ''
+  output_files: []
+  related_contributions:
+  - C1
+  - C3
+  - C4
+  related_rqs:
+  - RQ1
+  - RQ2
+  setting: {}
+  status: pending
+  used_in_paper: {}
+- canonical_number:
+    locked: false
+    locked_at: ''
+    value: null
+  citation_needed: []
+  controlled_variables: {}
+  deprecated_numbers: []
+  exp_id: E3
+  final_numbers: {}
+  goal: 量化 HMAC 認證與 MetricVersion counter 在無攻擊情境下對延遲、PDR 與吞吐量的開鋷
+  notes: ''
+  output_files: []
+  related_contributions:
+  - C3
+  - C4
+  related_rqs:
+  - RQ3
+  setting: {}
+  status: pending
+  used_in_paper: {}
+- canonical_number:
+    locked: false
+    locked_at: ''
+    value: null
+  citation_needed: []
+  controlled_variables: {}
+  deprecated_numbers: []
+  exp_id: E4
+  final_numbers: {}
+  goal: 對 baseline 和 patched 協議執行 Tamarin 符號可達性分析，獲得機器可檢查的漏洞證明（反例追蹤）與安全證明
+  notes: ''
+  output_files: []
+  related_contributions:
+  - C2
+  - C3
+  related_rqs:
+  - RQ1
+  - RQ2
+  setting: {}
+  status: pending
+  used_in_paper: {}

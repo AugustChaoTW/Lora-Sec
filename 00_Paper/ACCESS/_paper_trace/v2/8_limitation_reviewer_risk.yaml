@@ -1,0 +1,79 @@
+risk_register:
+- description: (auto-generated placeholder — add specific reviewer risks)
+  risk_id: R1
+  severity: medium
+  status: open
+- description: 所有實驗均為 ns-3 模擬，缺乏 ESP32 等資源受限硬體的實機驗證，評審者可能購疑碼表、HMAC 中斷延遲對電池寿命的影響
+  risk_id: R2
+  severity: medium
+  status: open
+- description: Tamarin 使用保守假設（無側通道、無時序攻擊），審查者可說形式模型跟實際 LoRa 物理層語意不符
+  risk_id: R3
+  severity: low
+  status: open
+- description: 模擬拓撲最多 9 個節點，實際大規模 LoRa Mesh（>50 nodes）可能呈現不同的收斂動態和攻擊表面
+  risk_id: R4
+  severity: medium
+  status: open
+- description: 協議形式化對象為 LoRaMesher，審查者可能購疑是否適用於 Meshtastic、OpenThread 等相似協議
+  risk_id: R5
+  severity: low
+  status: open
+risks:
+- confidence: 0.3
+  description: (auto-generated placeholder — add specific reviewer risks)
+  fallback_claim: ''
+  inferred: true
+  likely_appears_in: Reviewer 2
+  mitigation_evidence: []
+  related_contributions: []
+  related_sections: []
+  response_strategy: ''
+  risk_id: R1
+  severity: medium
+  status: open
+- description: 所有實驗均為 ns-3 模擬，缺乏 ESP32 等資源受限硬體的實機驗證，評審者可能購疑碼表、HMAC 中斷延遲對電池寿命的影響
+  fallback_claim: ''
+  likely_appears_in: Reviewer 1
+  mitigation_evidence: []
+  related_contributions:
+  - C4
+  related_sections: []
+  response_strategy: 詳述 ESP32-S3 HMAC 基準延遲（0.3ms）來源，強調模擬已將該延遲納入；未來工作納入實機驗證
+  risk_id: R2
+  severity: medium
+  status: open
+- description: Tamarin 使用保守假設（無側通道、無時序攻擊），審查者可說形式模型跟實際 LoRa 物理層語意不符
+  fallback_claim: ''
+  likely_appears_in: Reviewer 3
+  mitigation_evidence: []
+  related_contributions:
+  - C2
+  related_sections: []
+  response_strategy: 說明這是標準形式協議分析實踐，Tamarin 的實用辵及 TLS 1.3、5G-AKA 證明了相同方法的有效性
+  risk_id: R3
+  severity: low
+  status: open
+- description: 模擬拓撲最多 9 個節點，實際大規模 LoRa Mesh（>50 nodes）可能呈現不同的收斂動態和攻擊表面
+  fallback_claim: ''
+  likely_appears_in: Reviewer 2
+  mitigation_evidence: []
+  related_contributions:
+  - C4
+  related_sections: []
+  response_strategy: 強調三種拓撲涵蓋典型部署情境；將大規模驗證列為未來工作，並說明 Tamarin 證明對任意規模網路成立
+  risk_id: R4
+  severity: medium
+  status: open
+- description: 協議形式化對象為 LoRaMesher，審查者可能購疑是否適用於 Meshtastic、OpenThread 等相似協議
+  fallback_claim: ''
+  likely_appears_in: Reviewer 1
+  mitigation_evidence: []
+  related_contributions:
+  - C2
+  - C5
+  related_sections: []
+  response_strategy: 訃明節複中已討論延伸至 Meshtastic〃強調 LoRaMesher 被選是因為它是目前最常用的開源實作
+  risk_id: R5
+  severity: low
+  status: open

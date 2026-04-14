@@ -1,0 +1,32 @@
+research_questions:
+- hypothesis: ''
+  motivation: ''
+  related_contributions: []
+  rq_id: RQ1
+  status: draft
+  tested_by_experiments: []
+  tested_by_figures: []
+  tested_by_sections: []
+  tested_by_tables: []
+  text: (auto-generated placeholder — edit to reflect your actual RQ)
+- hypothesis: 僅加入 HMAC-SHA256 認證與 MetricVersion 計數器（41 行）即可在 Tamarin 中證明所有安全屬性成立，無需更動
+    DV 路由演算本身
+  motivation: 實際部署需要輕量、對舊模組向下相容的解決方案，避免強制升級所有節點
+  related_contributions: []
+  rq_id: RQ2
+  status: draft
+  tested_by_experiments: []
+  tested_by_figures: []
+  tested_by_sections: []
+  tested_by_tables: []
+  text: 最小化的向後相容补丁是否能可證明地修復所有已識別的漏洞？
+- hypothesis: HMAC-SHA256 的計算成本在 LoRa 傳輸延遲（100-250ms）面前可忽略不計，全面部署對 PDR 沒有可測影響
+  motivation: 資源受限的 IoT 設備需要指證補丁帶來的額外計算負擔在實際功耗和需求之內
+  related_contributions: []
+  rq_id: RQ3
+  status: draft
+  tested_by_experiments: []
+  tested_by_figures: []
+  tested_by_sections: []
+  tested_by_tables: []
+  text: 安全補丁對 LoRaMesher 拓撲的延遲、PDR 與吞吐量影響是否可接受？

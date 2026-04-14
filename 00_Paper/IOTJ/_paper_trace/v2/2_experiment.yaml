@@ -1,0 +1,26 @@
+experiment_registry:
+- canonical_metric: ''
+  exp_id: E1
+  goal: (auto-generated placeholder — edit to reflect your experiments)
+  locked: false
+  value: null
+experiments:
+- canonical_number:
+    locked: false
+    locked_at: ''
+    value: null
+  citation_needed: []
+  confidence: 0.3
+  controlled_variables: {}
+  deprecated_numbers: []
+  exp_id: E1
+  final_numbers: {}
+  goal: (auto-generated placeholder — edit to reflect your experiments)
+  inferred: true
+  notes: ''
+  output_files: []
+  related_contributions: []
+  related_rqs: []
+  setting: {}
+  status: pending
+  used_in_paper: {}

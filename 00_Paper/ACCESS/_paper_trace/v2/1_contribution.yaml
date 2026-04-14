@@ -1,0 +1,94 @@
+avoid_overclaiming: []
+contributions:
+- avoid_overclaiming: []
+  claim: 'a minimal backward-compatible patch (41~lines of code) consisting of: (a)~HMAC-SHA256
+    per-message authentication added to all control messages, and (b)~a per-destination
+    counter for replay detection'
+  confidence: 0.7
+  contribution_id: C1
+  evidence_experiments: []
+  evidence_figures: []
+  evidence_sections: []
+  evidence_tables: []
+  inferred: true
+  response_strategy: ''
+  reviewer_risk: ''
+  rq_ids: []
+  status: draft
+  strongest_defensible_wording: 'a minimal backward-compatible patch (41~lines of
+    code) consisting of: (a)~HMAC-SHA256 per-message authentication added to all control
+    messages, and (b)~a per-destination counter for replay detection'
+  why_it_matters: (inferred — review and edit)
+- avoid_overclaiming: []
+  claim: a minimal 41-line patch and prove with Tamarin that the patched protocol
+    satisfies all security goals (8/8 lemmas verified in $<$4~seconds)
+  confidence: 0.7
+  contribution_id: C2
+  evidence_experiments: []
+  evidence_figures: []
+  evidence_sections: []
+  evidence_tables: []
+  inferred: true
+  response_strategy: ''
+  reviewer_risk: ''
+  rq_ids: []
+  status: draft
+  strongest_defensible_wording: a minimal 41-line patch and prove with Tamarin that
+    the patched protocol satisfies all security goals (8/8 lemmas verified in $<$4~seconds)
+  why_it_matters: (inferred — review and edit)
+- avoid_overclaiming: []
+  claim: 41 行最小化向後相容补丁（HMAC-SHA256 + MetricVersion）並經 Tamarin 證明所有 8 個安全屬性均成立
+  contribution_id: C3
+  evidence_experiments: []
+  evidence_figures: []
+  evidence_sections: []
+  evidence_tables: []
+  response_strategy: ''
+  reviewer_risk: ''
+  rq_ids:
+  - RQ2
+  status: draft
+  strongest_defensible_wording: 我們提出一個 41 行的补丁並用 Tamarin 證明其修複完整性
+  why_it_matters: 最小化修改降低部署風險，形式化驗證確保訾仮完整性而非僅靠人工审查
+- avoid_overclaiming: []
+  claim: 27 個 ns-3 情境、135 次執行的实驗驗證：補丁將攻擊成功率歸零且開鋷 <1%
+  contribution_id: C4
+  evidence_experiments: []
+  evidence_figures: []
+  evidence_sections: []
+  evidence_tables: []
+  response_strategy: ''
+  reviewer_risk: ''
+  rq_ids:
+  - RQ3
+  status: draft
+  strongest_defensible_wording: 我們在三種拓撲上驗證了補丁的有效性和效能影響
+  why_it_matters: 實驗確認形式化模型的現實有效性，讓社群能評估部署成本
+- avoid_overclaiming: []
+  claim: 開放公予全部研究物件：Tamarin 模型、ns-3 模擬程式、原始數據、補丁程式碼（MIT 授權）
+  contribution_id: C5
+  evidence_experiments: []
+  evidence_figures: []
+  evidence_sections: []
+  evidence_tables: []
+  response_strategy: ''
+  reviewer_risk: ''
+  rq_ids:
+  - RQ1
+  - RQ2
+  - RQ3
+  status: draft
+  strongest_defensible_wording: 所有物件已在 MIT 授權下开放公予
+  why_it_matters: 促進社群採用與後續研究，符合 IEEE ACCESS 開放取用等級的可重現性要求
+core_research_question:
+  hypothesis: ''
+  motivation: ''
+  rq_id: RQ1
+  text: ''
+main_thesis:
+  one_sentence_safe_claim: ''
+  safe_claim: ''
+paper_path: /home/augchao/Work/Lora-Sec/00_Paper/ACCESS/ACCESS-Aug.tex
+paper_stage: draft
+paper_title: ''
+reviewer_risk: ''

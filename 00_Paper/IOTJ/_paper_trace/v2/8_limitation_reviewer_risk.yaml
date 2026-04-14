@@ -1,0 +1,18 @@
+risk_register:
+- description: (auto-generated placeholder — add specific reviewer risks)
+  risk_id: R1
+  severity: medium
+  status: open
+risks:
+- confidence: 0.3
+  description: (auto-generated placeholder — add specific reviewer risks)
+  fallback_claim: ''
+  inferred: true
+  likely_appears_in: Reviewer 2
+  mitigation_evidence: []
+  related_contributions: []
+  related_sections: []
+  response_strategy: ''
+  risk_id: R1
+  severity: medium
+  status: open

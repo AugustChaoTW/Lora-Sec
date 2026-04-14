@@ -1,0 +1,69 @@
+avoid_overclaiming: []
+contributions:
+- avoid_overclaiming: []
+  claim: a minimal backward-compatible patch (41 lines of code) adding HMAC-SHA256
+    per-message authentication and a MetricVersion counter for replay detection, and
+    prove the patched protocol satisfies all secu
+  confidence: 0.7
+  contribution_id: C1
+  evidence_experiments: []
+  evidence_figures: []
+  evidence_sections: []
+  evidence_tables: []
+  inferred: true
+  response_strategy: ''
+  reviewer_risk: ''
+  rq_ids: []
+  status: draft
+  strongest_defensible_wording: a minimal backward-compatible patch (41 lines of code)
+    adding HMAC-SHA256 per-message authentication and a MetricVersion counter for
+    replay detection, and prove the patched protocol satisfies all secu
+  why_it_matters: (inferred — review and edit)
+- avoid_overclaiming: []
+  claim: a minimal backward-compatible patch adding HMAC-based authentication and
+    a MetricVersion counter
+  confidence: 0.7
+  contribution_id: C2
+  evidence_experiments: []
+  evidence_figures: []
+  evidence_sections: []
+  evidence_tables: []
+  inferred: true
+  response_strategy: ''
+  reviewer_risk: ''
+  rq_ids: []
+  status: draft
+  strongest_defensible_wording: a minimal backward-compatible patch adding HMAC-based
+    authentication and a MetricVersion counter
+  why_it_matters: (inferred — review and edit)
+- avoid_overclaiming: []
+  claim: 'are: (1) formal analysis of LoRaMesher control-plane vulnerabilities using
+    the Tamarin Prover, (2) practical attack demonstrations via ns-3 network simulation,
+    (3) a minimal backward-compatible patch'
+  confidence: 0.7
+  contribution_id: C3
+  evidence_experiments: []
+  evidence_figures: []
+  evidence_sections: []
+  evidence_tables: []
+  inferred: true
+  response_strategy: ''
+  reviewer_risk: ''
+  rq_ids: []
+  status: draft
+  strongest_defensible_wording: 'are: (1) formal analysis of LoRaMesher control-plane
+    vulnerabilities using the Tamarin Prover, (2) practical attack demonstrations
+    via ns-3 network simulation, (3) a minimal backward-compatible patch'
+  why_it_matters: (inferred — review and edit)
+core_research_question:
+  hypothesis: ''
+  motivation: ''
+  rq_id: RQ1
+  text: ''
+main_thesis:
+  one_sentence_safe_claim: ''
+  safe_claim: ''
+paper_path: /home/augchao/Work/Lora-Sec/papers/IEEE/main.tex
+paper_stage: draft
+paper_title: ''
+reviewer_risk: ''
