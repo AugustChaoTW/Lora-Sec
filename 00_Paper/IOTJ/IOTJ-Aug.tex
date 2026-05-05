@@ -76,9 +76,10 @@ only 0.098~ms per message (measured on real ESP32-S3 hardware,
 10,000~iterations)—negligible against LoRa's 100–250~ms link
 latency—and requires 18~bytes of additional RAM per route table entry.
 
-Validation across 27~ns-3 simulation scenarios (135~runs, 3 topologies,
-5 seeds) confirms 0\% residual attack success rate and $<$1\% latency
-overhead across linear, tree, and grid IoT deployments.
+Validation across 27~ns-3 simulation scenarios (3 topologies $\times$
+3 security modes $\times$ 3 attack types) confirms 0\% residual PDR
+degradation under full patching with $<$1\% latency overhead across
+linear, tree, and grid IoT deployments.
 All artifacts—Tamarin models, ns-3 code, and patched firmware—are
 released under MIT license to accelerate community adoption.
 \end{abstract}
@@ -172,13 +173,13 @@ This paper makes five contributions to secure IoT mesh networking:
     patched protocol (Section~\ref{sec:formal}).
 
   \item \textbf{ESP32-Optimized Patch.} We design a 41-line patch
-    calibrated for ESP32-class microcontrollers: 0.3~ms HMAC
+    calibrated for ESP32-class microcontrollers: 0.098~ms HMAC
     overhead, 18~bytes/entry RAM overhead, no PKI dependency
     (Section~\ref{sec:patch}).
 
   \item \textbf{Multi-Topology Validation.} We validate security
-    effectiveness and performance overhead across 135~ns-3
-    simulation runs spanning three IoT deployment topologies
+    effectiveness and performance overhead across 27~ns-3
+    simulation scenarios spanning three IoT deployment topologies
     (Section~\ref{sec:eval}).
 
   \item \textbf{Open Artifacts.} All Tamarin models, ns-3 simulation
@@ -278,15 +279,15 @@ Our patch must operate within ESP32-S3 constraints:
     \midrule
     Flash              & 8~MB             & 2.1~KB (+0.03\%) \\
     SRAM               & 512~KB           & 18~B/route entry \\
-    CPU (HMAC-SHA256)  & 240~MHz          & 0.3~ms/message \\
-    LoRa link latency  & 100–250~ms       & overhead $<$0.3\% \\
+    CPU (HMAC-SHA256)  & 240~MHz          & 0.098~ms/message \\
+    LoRa link latency  & 100–250~ms       & overhead $<$0.1\% \\
     Battery (baseline) & 2500~mAh         & $<$0.1\% additional draw \\
     \bottomrule
   \end{tabular}
 \end{table}
 
-The HMAC computation time (0.3~ms on ESP32-S3, measured with
-mbedTLS~2.28) is three orders of magnitude smaller than LoRa's
+The HMAC computation time (0.098~ms on ESP32-S3, measured with
+mbedTLS~2.28 on production hardware, 10{,}000 iterations) is three orders of magnitude smaller than LoRa's
 minimum air-time for a 64-byte payload at SF9 (165~ms). The patch
 is thus computationally negligible for the target hardware.
 
@@ -576,8 +577,9 @@ position for all field-to-cloud traffic.
     end-to-end integrity checks.
 \end{enumerate}
 
-\textbf{ns-3 result}: 100\% success on linear, 9.7\% on mesh
-topologies; PDR drops to 0\% and 77.4\% respectively.
+\textbf{ns-3 result}: 100\% PDR degradation on linear topology (PDR drops to 0\%);
+22.6\% PDR degradation on tree and grid topologies (PDR drops to 77.4\%),
+as routing diversity partially mitigates the attack.
 This is consistent with black-hole and sinkhole attack patterns
 documented for MANET and IoT routing~\cite{sejaphala2025-sinkhole-detection,ieee2025-blackhole-optimization,zenodo2025-manet-routing-attacks}.
 A related vulnerability (insufficient entropy in Meshtastic mesh
@@ -763,16 +765,16 @@ Three IoT deployment topologies are evaluated:
     e.g., smart-city air quality monitoring.
 \end{itemize}
 
-Each of 27 base scenarios (3 topologies × 3 protocol states ×
-3 attack types) is repeated with 5 random seeds (135 total runs,
-300~s each). Protocol parameters: Hello period 10~s, rekeying
+We evaluate all 27 scenarios (3 topologies × 3 protocol states ×
+3 attack types) with seed=1 (300~s each); cryptographic pass/fail
+outcomes are deterministic and do not vary across seeds. Protocol parameters: Hello period 10~s, rekeying
 interval 30~s, SF9, 868~MHz, payload 64~bytes, rate 0.207~pkt/s.
 
 \subsection{Attack Effectiveness}
 
 \begin{table}[t]
   \centering
-  \caption{Attack Success Rate / PDR Across IoT Deployment Topologies}
+  \caption{PDR Degradation / PDR Across IoT Deployment Topologies}
   \label{tab:attacks}
   \setlength{\tabcolsep}{4pt}
   \begin{tabular}{llccc}
@@ -781,22 +783,22 @@ interval 30~s, SF9, 868~MHz, payload 64~bytes, rate 0.207~pkt/s.
       \textbf{Baseline} & \textbf{Patched} & \textbf{+MetricVer} \\
     \midrule
     \multirow{3}{*}{Route Inject}
-      & Linear & 100\% / 0\%      & 0\% / 100\% & 0\% / 100\% \\
-      & Tree   & 9.7\% / 77.4\%   & 0\% / 100\% & 0\% / 100\% \\
-      & Grid   & 9.7\% / 77.4\%   & 0\% / 100\% & 0\% / 100\% \\
+      & Linear & 100\% / 0\%       & 0\% / 100\% & 0\% / 100\% \\
+      & Tree   & 22.6\% / 77.4\%   & 0\% / 100\% & 0\% / 100\% \\
+      & Grid   & 22.6\% / 77.4\%   & 0\% / 100\% & 0\% / 100\% \\
     \midrule
     \multirow{3}{*}{Replay}
-      & Linear & 100\% / 0\%      & 100\% / 0\%     & 0\% / 100\% \\
-      & Tree   & 12.9\% / 77.4\%  & 12.9\% / 77.4\% & 0\% / 100\% \\
-      & Grid   & 12.9\% / 77.4\%  & 12.9\% / 77.4\% & 0\% / 100\% \\
+      & Linear & 100\% / 0\%       & 100\% / 0\%      & 0\% / 100\% \\
+      & Tree   & 22.6\% / 77.4\%   & 22.6\% / 77.4\%  & 0\% / 100\% \\
+      & Grid   & 22.6\% / 77.4\%   & 22.6\% / 77.4\%  & 0\% / 100\% \\
     \bottomrule
-    \multicolumn{5}{l}{\footnotesize Attack success rate / PDR. Mean over 5 seeds.}
+    \multicolumn{5}{l}{\footnotesize PDR degradation / PDR. Attack-effect metric; seed=1 (outcomes deterministic).}
   \end{tabular}
 \end{table}
 
 Table~\ref{tab:attacks} confirms that HMAC alone (Patched) eliminates
 route injection but is insufficient against replay. The MetricVersion
-counter is required to achieve 0\% attack success universally—
+counter is required to achieve 0\% PDR degradation universally—
 consistent with the Tamarin proof that both patches are necessary
 for G2 (RouteFreshness).
 
@@ -843,23 +845,23 @@ application-layer performance.
   \def\bw{0.22}  % bar width
   % x positions: Linear=1, Tree=2, Grid=3
   % Groups: Baseline, Patched, +MetricVer
-  % Spoofing success: 100, 9.7, 9.7 | 0,0,0 | 0,0,0
+  % Spoofing PDR degradation: 100, 22.6, 22.6 | 0,0,0 | 0,0,0
   \foreach \x/\h/\col in {
-    0.7/100/red!60, 1.7/9.7/red!60, 2.7/9.7/red!60,
+    0.7/100/red!60, 1.7/22.6/red!60, 2.7/22.6/red!60,
     1.0/0/blue!50, 2.0/0/blue!50, 3.0/0/blue!50,
     1.3/0/green!60!black, 2.3/0/green!60!black, 3.3/0/green!60!black}{
     \fill[\col] (\x,0) rectangle ++(\bw,\h*0.035);
   }
-  % Replay success
+  % Replay PDR degradation: 100, 22.6, 22.6 | 100, 22.6, 22.6 | 0,0,0
   \foreach \x/\h/\col in {
-    0.7/100/red!60, 1.7/12.9/red!60, 2.7/12.9/red!60,
-    1.0/100/orange!70, 2.0/12.9/orange!70, 3.0/12.9/orange!70,
+    0.7/100/red!60, 1.7/22.6/red!60, 2.7/22.6/red!60,
+    1.0/100/orange!70, 2.0/22.6/orange!70, 3.0/22.6/orange!70,
     1.3/0/green!60!black, 2.3/0/green!60!black, 3.3/0/green!60!black}{
     \fill[\col,opacity=0.55] (\x+3.8,0) rectangle ++(\bw,\h*0.035);
   }
   % Axes
   \draw[->] (0.5,0) -- (4.0,0) node[right,font=\tiny]{Topology};
-  \draw[->] (0.5,0) -- (0.5,3.7) node[above,font=\tiny]{Attack Success (\%)};
+  \draw[->] (0.5,0) -- (0.5,3.7) node[above,font=\tiny]{PDR Degradation (\%)};
   \foreach \y/\lab in {0/0,1.05/30,2.1/60,3.15/90}{
     \draw[gray!40] (0.52,\y) -- (3.9,\y);
     \node[font=\tiny,left] at (0.5,\y) {\lab};
@@ -890,13 +892,13 @@ application-layer performance.
   \node[font=\tiny,right] at (4.50,-0.53) {Patched (replay)};
   \end{scope}
   \end{tikzpicture}
-  \caption{Attack success rates across three IoT deployment topologies.
-           (a)~Spoofing: HMAC authentication (Patched) reduces success to 0\%
-           universally.
+  \caption{PDR degradation across three IoT deployment topologies.
+           (a)~Spoofing: HMAC authentication (Patched) eliminates PDR
+           degradation universally.
            (b)~Replay: HMAC alone leaves linear topology fully vulnerable
-           (100\%); the MetricVersion counter (+MetricVer) achieves 0\%
-           across all topologies, confirming both patches are necessary
-           for complete protection.}
+           (100\% degradation); the MetricVersion counter (+MetricVer)
+           achieves 0\% degradation across all topologies, confirming
+           both patches are necessary for complete protection.}
   \label{fig:eval-results}
 \end{figure}
 
@@ -1046,7 +1048,7 @@ NIST's lightweight cryptography competition produced ASCON and
 GIFT-COFB as candidates for IoT authentication~\cite{ieee2025-lorawan-aes-crypto}.
 Our evaluation uses HMAC-SHA256 for compatibility with existing
 ESP32 mbedTLS deployments; adopting ASCON would reduce HMAC
-overhead from 0.3~ms to $\approx$0.08~ms, a direction for
+overhead from 0.098~ms to $\approx$0.08~ms, a direction for
 future work. Adversarial robustness of LoRa device
 authentication via deep learning~\cite{ieee2025-lora-adversarial}
 complements our control-plane approach with physical-layer defenses.
@@ -1095,9 +1097,9 @@ or confuse session epochs across an entire sensor field.
 We have addressed this gap with a full-stack approach: formal
 machine-checked proofs identify the vulnerability root causes
 (four Tamarin lemmas falsified), a 41-line ESP32-optimized patch
-fixes them (0.3~ms HMAC overhead, 18~B/entry RAM), and 135~ns-3
-simulation runs confirm 0\% residual attack success with $<$1\%
-performance overhead.
+fixes them (0.098~ms HMAC overhead measured on production hardware, 18~B/entry RAM), and 27~ns-3
+simulation scenarios confirm 0\% residual PDR degradation under
+full patching with $<$1\% performance overhead.
 
 Our results establish two principles for IoT mesh security:
 (1) formal verification with Tamarin is tractable for LoRa routing
@@ -1118,7 +1120,7 @@ and available at \url{https://github.com/[anonymized-for-review]}
   \item \textbf{Tamarin models} (\texttt{*.spthy}):
     three verified models (baseline, patched 2-node, patched with MetricVersion);
   \item \textbf{ns-3 simulation module} (\texttt{phase4\_ns3\_simulation/}):
-    C++17 source, Dolev-Yao attacker, 135-run experiment matrix, and
+    C++17 source, Dolev-Yao attacker, 27-scenario experiment matrix, and
     result data (JSON);
   \item \textbf{Patched LoRaMesher firmware} (\texttt{route.cpp},
     \texttt{rekeying.cpp}): apply as a drop-in patch to upstream
@@ -1143,10 +1145,10 @@ communities.
     \texttt{patched\_lora\_dv\_2node.spthy},
     \texttt{patched\_lora\_dv\_with\_metrics\_v2.spthy}
   \item \textbf{ns-3 module}: C++17, three topologies,
-    Dolev-Yao attacker, 135-run experiment matrix
+    Dolev-Yao attacker, 27-scenario experiment matrix
   \item \textbf{Patched LoRaMesher firmware}:
     \texttt{route.cpp} (+23 lines) and \texttt{rekeying.cpp} (+18 lines)
-  \item \textbf{Raw simulation data}: 135 JSON result files
+  \item \textbf{Raw simulation data}: 27 JSON result files
   \item \textbf{Docker image}: Tamarin~1.8.0 + ns-3.40 pre-installed
   \item \textbf{ESP32 benchmark}: HMAC timing script for ESP32-S3
 \end{itemize}
