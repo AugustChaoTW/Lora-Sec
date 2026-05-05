@@ -1,0 +1,154 @@
+risk_register:
+
+  - risk_id: R1
+    description: >
+      ns-3 simulations use up to 9 nodes. Large-scale mesh networks
+      (>50 nodes) may exhibit different convergence dynamics under
+      attack conditions.
+    severity: medium
+    status: open
+    likely_appears_in: "Reviewer 1 or 2"
+    related_contributions: [C4]
+    related_sections: [sec:eval, sec:limitations]
+    mitigation_evidence:
+      - "Tamarin proof is topology-independent (protocol-level, not scale-dependent)"
+      - "Three qualitatively distinct topology classes cover main structural diversity"
+      - "§9 explicitly acknowledges scale limitation as future work"
+    fallback_claim: >
+      The formal proof (Tamarin) is topology-independent. Simulation
+      covers three structural topology classes representing common IoT
+      deployments. Large-scale validation is listed as future work.
+    response_strategy: >
+      Cite that Tamarin's proof covers all possible executions of the
+      protocol, not just those in 9-node topologies. The patch correctness
+      is scale-independent; the 9-node simulation validates performance
+      overhead in representative deployment sizes.
+    confidence: 0.85
+
+  - risk_id: R2
+    description: >
+      No real ESP32 hardware deployment experiment. HMAC overhead (0.3 ms)
+      is sourced from mbedTLS 2.28 benchmarks on ESP32-S3, not measured
+      in this paper.
+    severity: medium
+    status: CLOSED
+    likely_appears_in: "Reviewer 2 (hardware reviewer)"
+    related_contributions: [C3]
+    related_sections: [sec:patch, sec:limitations]
+    hardware_available:
+      confirmed_date: "2026-05-05"
+      quantity: 6
+      chip: ESP32-S3 (QFN56, revision v0.2)
+      flash: 4MB (XMC), PSRAM: 2MB
+      lora_radio: SX1261 (Semtech SX126x family, 150–960 MHz)
+      framework: Arduino on ESP-IDF v4.4.5
+      port: /dev/cu.usbmodem134201 @ augustmacbook-pro (SSH: fychao@augustmacbook-pro)
+      mac: "1c:db:d4:85:6e:58"
+      board_model: "Heltec WiFi LoRa 32 V3 (confirmed via pin sequence match)"
+      lora_chip_confirmed: "SX1262 (SX1261 string = RadioLib driver, same SX126x family)"
+      frequency_band: "AS923 Plan, 920–925 MHz (Taiwan legal band); 923 MHz used in experiments"
+    planned_action: >
+      Phase 1: Flash HMAC micro-benchmark firmware, measure HMAC-SHA256
+      timing over 10,000 iterations with esp_timer_get_time(). Replace
+      "mbedTLS benchmark" claim in §6.1 with "measured on [board] @ 240 MHz".
+      Phase 2: Flash LoRaMesher baseline + patched on 2 boards, demonstrate
+      route injection attack and defense on real hardware.
+    mitigation_evidence:
+      - "MEASURED on Heltec WiFi LoRa 32 V3 (ESP32-S3 @ 240 MHz): 98 µs ± 2 µs (0.098 ms), 10,000 iterations"
+      - "Result 3× better than prior mbedTLS 2.28 benchmark claim (0.3 ms)"
+      - "0.098 ms = 0.06% of LoRa 165 ms air-time — definitionally negligible"
+      - "ns-3 system-level <1% overhead confirmed consistent with hardware measurement"
+      - "Log: hardware_experiments/E5a_hmac_timing/e5a_result.log"
+    fallback_claim: >
+      HMAC overhead is benchmarked from mbedTLS 2.28 on ESP32-S3; the
+      0.3 ms figure is conservatively stated and three orders of magnitude
+      below LoRa's minimum air-time, making any measurement uncertainty
+      irrelevant to the practicality conclusion.
+    response_strategy: >
+      Acknowledge directly. Offer to add a footnote clarifying the timing
+      source (mbedTLS benchmark). Emphasize that the practicality argument
+      holds even if the real overhead is 10× higher (3 ms vs. 165 ms
+      air-time is still <2%).
+    confidence: 0.90
+
+  - risk_id: R3
+    description: >
+      Tamarin proves correctness under the Dolev-Yao model only. Implementation
+      vulnerabilities (buffer overflows, timing side-channels, key management
+      errors) are outside the proof scope.
+    severity: low
+    status: open
+    likely_appears_in: "Reviewer with formal methods background"
+    related_contributions: [C2]
+    related_sections: [sec:formal]
+    mitigation_evidence:
+      - "Dolev-Yao is the standard attacker model for protocol verification (cite basin2025)"
+      - "All Tamarin lemmas clearly specify protocol-level properties"
+      - "Implementation is separately validated via ns-3 C++ simulation"
+      - "§1 explicitly scopes the threat model to control-plane message injection"
+    fallback_claim: >
+      The Tamarin proof establishes protocol-level security under the
+      standard Dolev-Yao model, the strongest widely-accepted symbolic
+      security model for protocol analysis. Implementation correctness
+      is a separate concern addressed in future work.
+    response_strategy: >
+      Standard response for Tamarin papers — this is a known limitation
+      of symbolic verification, not a novelty gap. Cite established
+      Tamarin papers (5G-AKA, TLS 1.3) that accept this framing.
+    confidence: 0.97
+
+  - risk_id: R4
+    description: >
+      Only a single Dolev-Yao attacker is modeled. Coordinated multi-attacker
+      scenarios (e.g., Sybil attacks, colluding compromised nodes) are
+      not evaluated.
+    severity: low
+    status: open
+    likely_appears_in: "Reviewer 3"
+    related_contributions: [C2, C4]
+    related_sections: [sec:eval, sec:limitations]
+    mitigation_evidence:
+      - "Single-attacker is the standard starting point for protocol security analysis"
+      - "G4 (AuthorizedRoutes) already addresses compromised nodes (up to k < n/2)"
+      - "§9 explicitly lists multi-attacker scenarios as future work"
+    fallback_claim: >
+      Single-attacker evaluation is standard baseline. G4 covers up to
+      k < n/2 compromised nodes. Multi-attacker extension is future work.
+    response_strategy: >
+      Acknowledge and note that the patch's HMAC-per-message authentication
+      does not become weaker under multi-attacker scenarios — each message
+      is independently authenticated, so a colluding attacker group cannot
+      forge messages without possessing long-term keys.
+    confidence: 0.88
+
+  - risk_id: R5
+    description: >
+      Results are specific to LoRaMesher. Generalizability to other LoRa
+      mesh stacks (Meshtastic, custom DV implementations) is assumed but
+      not validated.
+    severity: low
+    status: open
+    likely_appears_in: "Reviewer 1"
+    related_contributions: [C1, C3]
+    related_sections: [sec:related, sec:limitations]
+    mitigation_evidence:
+      - "§8 discusses Meshtastic as a related DV architecture"
+      - "§9 lists Meshtastic portability as planned future contribution"
+      - "The patch design is protocol-agnostic: HMAC-per-message + monotonic counter"
+      - "CVE-2025 for Meshtastic cited (cve2025-meshtastic-entropy) showing same attack class exists"
+    fallback_claim: >
+      Results are validated for LoRaMesher. The patch design (HMAC + monotonic
+      counter) is a general DV routing security primitive applicable to
+      similar architectures; Meshtastic portability is planned.
+    response_strategy: >
+      Cite the Meshtastic CVE to show the attack surface generalization
+      is well-motivated. The Tamarin model is parameterized over message
+      types and can be adapted to other DV protocols with minimal changes.
+    confidence: 0.82
+
+risks:
+  - {risk_id: R1, severity: medium, status: open}
+  - {risk_id: R2, severity: medium, status: open}
+  - {risk_id: R3, severity: low, status: open}
+  - {risk_id: R4, severity: low, status: open}
+  - {risk_id: R5, severity: low, status: open}

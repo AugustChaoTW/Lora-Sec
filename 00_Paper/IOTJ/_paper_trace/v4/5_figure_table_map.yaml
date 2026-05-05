@@ -1,0 +1,182 @@
+figure_table_registry:
+  - ft_id: "fig:attack-overview"
+    type: figure
+    purpose: "LoRaMesher IoT mesh attack surface — visually establishes two attack vectors with no attacker cost barrier ($20 radio)"
+    locked_value: null
+
+  - ft_id: "fig:attack-seq"
+    type: figure
+    purpose: "Message sequence diagrams for Attack 1 (route injection) and Attack 2 (epoch replay)"
+    locked_value: null
+
+  - ft_id: "fig:eval-results"
+    type: figure
+    purpose: "Attack success rate bar charts across 3 topologies for spoofing and replay attacks"
+    locked_value: null
+
+  - ft_id: "tab:esp32"
+    type: table
+    purpose: "ESP32-S3 resource budget showing patch overhead is negligible vs. constraints"
+    locked_value: null
+
+  - ft_id: "tab:notation"
+    type: table
+    purpose: "Mathematical notation reference table"
+    locked_value: null
+
+  - ft_id: "tab:tamarin"
+    type: table
+    purpose: "Tamarin lemma results: 4 FALSIFIED baseline vs. 8 PROVED patched"
+    locked_value: null
+
+  - ft_id: "tab:attacks"
+    type: table
+    purpose: "Attack success rate / PDR across topologies and security modes"
+    locked_value: null
+
+  - ft_id: "tab:overhead"
+    type: table
+    purpose: "Latency and PDR overhead under normal operation (mean±std, 5 seeds)"
+    locked_value: null
+
+entries:
+  - ft_id: "fig:attack-overview"
+    type: figure
+    caption_draft: >
+      LoRaMesher IoT mesh attack surface. Left: Route-injection — attacker broadcasts
+      forged RouteReply(metric=1). Right: Epoch replay — replayed RekeyNotice(epoch=E).
+      Both attacks require only a commodity LoRa transceiver ($18–50).
+    purpose: "Establishes the attack surface and motivates the paper"
+    claim_supported: "C1"
+    related_rqs: [RQ1]
+    source_experiments: []
+    mentioned_in: [sec:intro]
+    exact_numbers: []
+    final_values: {}
+    presentation_rules: {}
+    needs_update_if: []
+    text_reference_rule: "Introduced at end of §1.3 contributions list"
+    visualization: {type: TikZ, environment: "figure*"}
+
+  - ft_id: "fig:attack-seq"
+    type: figure
+    caption_draft: >
+      Message sequence diagrams for the two attacks. (a) Route injection: attacker sniffs
+      Hello broadcasts then injects forged RouteReply(metric=1), causing convergence within
+      one DV cycle. (b) Epoch replay: attacker captures RekeyNotice and replays two epochs later.
+    purpose: "Concrete protocol-level illustration of both attacks"
+    claim_supported: "C1"
+    related_rqs: [RQ1]
+    source_experiments: [E1, E2]
+    mentioned_in: [sec:attacks]
+    exact_numbers: ["100% PDR loss (linear)"]
+    final_values: {}
+    presentation_rules: {}
+    needs_update_if: []
+    text_reference_rule: "Placed at end of §5 attack analysis"
+    visualization: {type: TikZ, environment: figure}
+
+  - ft_id: "fig:eval-results"
+    type: figure
+    caption_draft: >
+      Attack success rates across three IoT deployment topologies. (a) Spoofing: HMAC reduces
+      success to 0% universally. (b) Replay: HMAC alone leaves linear fully vulnerable (100%);
+      MetricVersion counter achieves 0% across all topologies.
+    purpose: "Side-by-side topology comparison confirming both patches are necessary"
+    claim_supported: "C4"
+    related_rqs: [RQ3]
+    source_experiments: [E1, E2, E3]
+    mentioned_in: [sec:eval]
+    exact_numbers: ["100% spoofing baseline linear", "0% patched all", "100% replay linear HMAC-only", "0% full-patch all"]
+    final_values: {}
+    presentation_rules: {}
+    needs_update_if: []
+    text_reference_rule: "Placed after §7.2 attack effectiveness discussion"
+    visualization: {type: TikZ, environment: figure, style: "grouped bar chart"}
+
+  - ft_id: "tab:esp32"
+    type: table
+    caption_draft: "ESP32-S3 Resource Budget for LoRaMesher Security Patch"
+    purpose: "Quantifies ESP32 constraints and shows patch overhead is negligible"
+    claim_supported: "C3"
+    related_rqs: [RQ2]
+    source_experiments: [E3]
+    mentioned_in: [sec:threat]
+    exact_numbers: ["+2.1 KB flash", "18 B/route entry", "0.3 ms/message", "<0.3% LoRa overhead", "<0.1% battery"]
+    final_values:
+      flash_overhead: "+2.1 KB (+0.03%)"
+      ram_overhead: "18 B/route entry"
+      cpu_overhead: "0.3 ms/message"
+    presentation_rules: {}
+    needs_update_if: ["Hardware benchmark updated", "Different ESP32 variant used"]
+    text_reference_rule: "\\ref{tab:esp32}"
+    visualization: {}
+
+  - ft_id: "tab:notation"
+    type: table
+    caption_draft: "Notation Used Throughout the Paper"
+    purpose: "Mathematical notation reference"
+    claim_supported: ""
+    related_rqs: []
+    source_experiments: []
+    mentioned_in: [sec:model]
+    exact_numbers: []
+    final_values: {}
+    presentation_rules: {}
+    needs_update_if: ["New symbols introduced"]
+    text_reference_rule: "\\ref{tab:notation}"
+    visualization: {}
+
+  - ft_id: "tab:tamarin"
+    type: table
+    caption_draft: "Tamarin Lemma Results: Baseline vs. Patched Protocol"
+    purpose: "Machine-checked proof results — baseline FALSIFIED, patched PROVED"
+    claim_supported: "C2"
+    related_rqs: [RQ1, RQ2]
+    source_experiments: [E4]
+    mentioned_in: [sec:formal]
+    exact_numbers: ["4/5 FALSIFIED baseline", "5/5 PROVED patched", "0.8 s baseline", "3.6 s patched"]
+    final_values:
+      baseline_falsified: 4
+      patched_proved: 8
+      patched_proof_time_s: 3.6
+    presentation_rules: {}
+    needs_update_if: ["Tamarin model updated", "New lemmas added"]
+    text_reference_rule: "\\ref{tab:tamarin}"
+    visualization: {}
+
+  - ft_id: "tab:attacks"
+    type: table
+    caption_draft: "Attack Success Rate / PDR Across IoT Deployment Topologies"
+    purpose: "Quantified attack effectiveness across topologies and security modes"
+    claim_supported: "C1 C4"
+    related_rqs: [RQ1, RQ3]
+    source_experiments: [E1, E2]
+    mentioned_in: [sec:eval]
+    exact_numbers: ["100%/0% linear baseline", "9.7%/77.4% tree/grid baseline", "0%/100% patched route inject", "100%/0% linear replay HMAC-only", "0%/100% full patch all"]
+    final_values:
+      route_inject_linear_baseline_success: "100%"
+      replay_linear_hmac_only_success: "100%"
+      full_patch_success_all: "0%"
+    presentation_rules: {}
+    needs_update_if: ["Simulation seeds changed", "Topology configuration changed"]
+    text_reference_rule: "\\ref{tab:attacks}"
+    visualization: {}
+
+  - ft_id: "tab:overhead"
+    type: table
+    caption_draft: "IoT Network Performance Under Normal Operation (Mean ± Std, 5 Seeds)"
+    purpose: "Performance overhead — confirms ≤5 ms (<1%) latency, PDR 100% all topologies"
+    claim_supported: "C3 C4"
+    related_rqs: [RQ2, RQ3]
+    source_experiments: [E3]
+    mentioned_in: [sec:eval]
+    exact_numbers: ["245±8 ms linear baseline", "250±9 ms linear full-patch", "130±5 ms tree baseline", "142±6 ms grid baseline", "≤5 ms max overhead", "<1% overhead"]
+    final_values:
+      max_latency_overhead_ms: 5
+      max_overhead_pct: "<1%"
+      pdr_all_unattacked: "100%"
+    presentation_rules: {}
+    needs_update_if: ["Simulation parameters changed"]
+    text_reference_rule: "\\ref{tab:overhead}"
+    visualization: {}

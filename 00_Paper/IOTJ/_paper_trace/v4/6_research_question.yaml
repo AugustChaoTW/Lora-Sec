@@ -1,0 +1,66 @@
+research_questions:
+
+- rq_id: RQ1
+  text: >
+    Does the LoRaMesher distance-vector control plane contain formally
+    provable security vulnerabilities that can be exploited with commodity
+    LoRa hardware ($20 radio) in real IoT deployment topologies?
+  hypothesis: >
+    The absence of cryptographic authentication in LoRaMesher Hello,
+    RouteReply, and RekeyNotice messages allows a Dolev-Yao adversary
+    to violate MetricAuthenticity (G1), RouteFreshness (G2),
+    RouteConsistency (G3), and AuthorizedRoutes (G4).
+  motivation: >
+    LoRaMesher is the dominant open-source mesh routing stack for
+    ESP32-class IoT deployments. It is deployed in safety-critical
+    scenarios (precision agriculture, disaster response, smart city)
+    yet ships without control-plane authentication — a gap unaddressed
+    by existing LoRaWAN or 802.15.4 security mechanisms.
+  status: answered
+  tested_by_experiments: [E1, E2, E4]
+  tested_by_figures: [fig:attack-overview, fig:attack-seq]
+  tested_by_tables: [tab:tamarin, tab:attacks]
+  tested_by_sections: [sec:threat, sec:formal, sec:attacks]
+  related_contributions: [C1, C2]
+
+- rq_id: RQ2
+  text: >
+    Can a minimal patch (≤50 lines) restore all four security properties
+    without exceeding ESP32-class resource budgets (sub-millisecond CPU
+    overhead, <1% RAM increase)?
+  hypothesis: >
+    HMAC-SHA256 per-message authentication (23 lines) combined with a
+    per-destination MetricVersion counter (18 lines) is both necessary
+    and sufficient to prove G1–G4, and imposes only 0.3 ms CPU and
+    18 B/entry RAM overhead on ESP32-S3 hardware.
+  motivation: >
+    IoT deployments require patches that fit ESP32 constraints
+    (240 MHz, 512 KB RAM). Heavy solutions (PKI, TinyECC >500 ms/op)
+    are incompatible. The patch must also be deployable via OTA update
+    with <15 min service interruption.
+  status: answered
+  tested_by_experiments: [E3, E4]
+  tested_by_figures: [fig:eval-results]
+  tested_by_tables: [tab:esp32, tab:overhead, tab:tamarin]
+  tested_by_sections: [sec:patch, sec:eval]
+  related_contributions: [C2, C3]
+
+- rq_id: RQ3
+  text: >
+    Does the patched protocol maintain 0% residual attack success rate
+    and <1% performance overhead across diverse IoT deployment topologies
+    (linear pipeline, hierarchical tree, dense grid)?
+  hypothesis: >
+    The 41-line patch eliminates both attack classes across all three
+    topology types (linear 6-node, tree 8-node, grid 3×3) in ns-3
+    simulation with 5 random seeds, while latency overhead remains ≤5 ms.
+  motivation: >
+    Real IoT deployments exhibit diverse physical topologies. Security
+    must hold regardless of node arrangement, and performance overhead
+    must be negligible to justify adoption in production deployments.
+  status: answered
+  tested_by_experiments: [E1, E2, E3]
+  tested_by_figures: [fig:eval-results]
+  tested_by_tables: [tab:attacks, tab:overhead]
+  tested_by_sections: [sec:eval]
+  related_contributions: [C4, C5]

@@ -1,0 +1,136 @@
+sections:
+
+  - section_id: sec:intro
+    title: "Introduction"
+    label: "\\section{Introduction}"
+    writing_contract: >
+      Opens with IEEEPARstart. Establishes LoRa IoT deployment scale.
+      §1.1: Two concrete attack vectors with cost barrier ($20 radio).
+      §1.2: Why existing solutions (LoRaWAN, 802.15.4, TinyECC) don't apply.
+      §1.3: Five contributions enumerated.
+      Includes figure* attack overview (fig:attack-overview).
+    rqs_addressed: [RQ1]
+    contributions_introduced: [C1, C2, C3, C4, C5]
+    status: complete
+
+  - section_id: sec:threat
+    title: "IoT Deployment Context and Threat Model"
+    label: "\\section{IoT Deployment Context and Threat Model}"
+    writing_contract: >
+      §2.1: Three IoT deployment scenarios with attack impact.
+      §2.2: ESP32-S3 resource budget table (tab:esp32).
+      §2.3: Dolev-Yao attacker model adapted to LoRa IoT.
+      §2.4: Security goals G1–G4 (Tamarin lemmas preview).
+    rqs_addressed: [RQ1, RQ2]
+    contributions_introduced: [C1]
+    status: complete
+
+  - section_id: sec:model
+    title: "System Model and Problem Formulation"
+    label: "\\section{System Model and Problem Formulation}"
+    writing_contract: >
+      §3.1: Definition 1 — LoRa Mesh Network formal tuple N=(V,E,K,T).
+      §3.2: Protocol state σ_v=(rt_v, e_v, sk_v, mv_v) with align equations.
+      §3.3: Definitions 2–3 — Authenticated Accept (HMAC eq) and Fresh Route (freshness eq).
+      §3.4: Definition 4 — Secure LoRa Mesh Routing (G1–G4 as align equations).
+      §3.5: Notation table (tab:notation).
+    rqs_addressed: [RQ1, RQ2]
+    contributions_introduced: [C2, C3]
+    status: complete
+    notes: "Core formal methodology section — added in revision to address IoTJ rigor requirements"
+
+  - section_id: sec:formal
+    title: "LoRaMesher Protocol and Formal Model"
+    label: "\\section{LoRaMesher Protocol and Formal Model}"
+    writing_contract: >
+      §4.1: Control-plane message format (3 lstlisting: Hello, RouteReply, RekeyNotice).
+      §4.2: 3-state machine + Tamarin encoding (persistent facts, patched Hello rule, 4 lemmas).
+      §4.3: Formal analysis results with tab:tamarin (baseline FALSIFIED / patched PROVED).
+    rqs_addressed: [RQ1, RQ2]
+    contributions_introduced: [C2]
+    status: complete
+
+  - section_id: sec:attacks
+    title: "Attack Analysis for IoT Deployments"
+    label: "\\section{Attack Analysis for IoT Deployments}"
+    writing_contract: >
+      §5.1: Attack 1 — Route Hijacking via forged RouteReply.
+        IoT scenario (precision agriculture), 4-step execution, ns-3 result.
+      §5.2: Attack 2 — Session Confusion via RekeyNotice Replay.
+        IoT scenario (disaster response), 4-step execution, ns-3 result.
+      Includes fig:attack-seq (TikZ message sequence diagram).
+    rqs_addressed: [RQ1]
+    contributions_introduced: [C1]
+    status: complete
+
+  - section_id: sec:patch
+    title: "Lightweight Security Patch for ESP32 Deployments"
+    label: "\\section{Lightweight Security Patch for ESP32 Deployments}"
+    writing_contract: >
+      §6.1: Patch 1 — HMAC-SHA256 (23-line code listing, 0.3 ms overhead).
+      §6.2: Patch 2 — MetricVersion counter (18-line code listing, 98 B RAM).
+      §6.3: Backward compatibility (#define PATCH_AUTH, OTA <15 min).
+    rqs_addressed: [RQ2]
+    contributions_introduced: [C3]
+    status: complete
+
+  - section_id: sec:eval
+    title: "Experimental Evaluation"
+    label: "\\section{Experimental Evaluation}"
+    writing_contract: >
+      §7.1: ns-3.40 setup (3 topologies, 27×5=135 runs, SF9, 300 s).
+      §7.2: Attack effectiveness (tab:attacks) — HMAC insufficient for replay.
+      §7.3: Performance overhead (tab:overhead) — ≤5 ms, 100% PDR.
+      §7.4: Implications for IoT operators (4 action items).
+      Includes fig:eval-results (TikZ grouped bar chart).
+    rqs_addressed: [RQ3]
+    contributions_introduced: [C4]
+    status: complete
+
+  - section_id: sec:related
+    title: "Related Work"
+    label: "\\section{Related Work}"
+    writing_contract: >
+      §8.1: LoRa/LoRaWAN security (star-topology, no mesh control-plane auth).
+      §8.2: IoT mesh protocol security (TinySec, blockchain IDS, MPKE ProVerif).
+      §8.3: Routing attack defenses (SEAD, AODV verification, sinkhole/blackhole, VANET).
+      §8.4: Formal verification of IoT protocols (Tamarin 5G-AKA, LoRaWAN ADR, key estab.).
+      §8.5: Lightweight cryptography for IoT (ASCON, GIFT-COFB, deep-learning LoRa auth).
+    rqs_addressed: []
+    contributions_introduced: []
+    status: complete
+
+  - section_id: sec:limitations
+    title: "Limitations and Future Work"
+    label: "\\section{Limitations and Future Work}"
+    writing_contract: >
+      5 limitations explicitly listed: hardware validation, scale (>50 nodes),
+      single attacker, Meshtastic portability, lightweight crypto (ASCON).
+    rqs_addressed: []
+    contributions_introduced: []
+    status: complete
+    risks_addressed: [R1, R2, R4, R5]
+
+  - section_id: sec:conclusion
+    title: "Conclusion"
+    label: "\\section{Conclusion}"
+    writing_contract: >
+      Restates the security gap ($20 radio → IoT field hijacking).
+      Summarizes full-stack approach results.
+      States two generalizable principles for IoT mesh security.
+      Closes with open-source commitment.
+    rqs_addressed: [RQ1, RQ2, RQ3]
+    contributions_introduced: []
+    status: complete
+
+  - section_id: app:artifact
+    title: "Code and Data Availability"
+    label: "\\section*{Code and Data Availability}"
+    writing_contract: >
+      Lists all 6 artifact categories: Tamarin models, ns-3 module,
+      patched firmware, raw simulation data, Docker image, ESP32 benchmark.
+      GitHub URL anonymized pending review.
+    rqs_addressed: []
+    contributions_introduced: [C5]
+    status: complete
+    notes: "GitHub URL [anonymized-for-review] must be replaced on acceptance"

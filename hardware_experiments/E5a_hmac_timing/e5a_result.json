@@ -1,0 +1,22 @@
+{
+  "exp": "E5a",
+  "chip": "ESP32-S3",
+  "chip_rev": 2,
+  "cpu_mhz": 240,
+  "sdk": "v5.5.4",
+  "payload_bytes": 64,
+  "tag_bytes": 16,
+  "key_bytes": 16,
+  "n_iter": 10000,
+  "mean_us": 98.17,
+  "std_us": 1.55,
+  "min_us": 97.0,
+  "p50_us": 98.0,
+  "p95_us": 102.0,
+  "p99_us": 103.0,
+  "max_us": 114.0,
+  "mean_ms": 0.0982,
+  "lora_airtime_ref_us": 165000,
+  "overhead_pct": 0.0595,
+  "captured_at": "2026-05-05T20:21:14.950627"
+}

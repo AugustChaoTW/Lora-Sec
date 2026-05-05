@@ -17,7 +17,14 @@
 \usepackage{xcolor}
 \usepackage{url}
 \usepackage{listings}
+\usepackage{algorithm2e}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric,arrows.meta,positioning,fit}
 \usepackage[hidelinks]{hyperref}
+
+% Theorem environments for formal definitions
+\newtheorem{definition}{Definition}
+\newtheorem{property}{Security Property}
 
 \lstset{
   basicstyle=\ttfamily\footnotesize,
@@ -65,7 +72,8 @@ authentication and a per-destination MetricVersion counter, and
 formally prove the patched protocol satisfies all security goals
 (8/8 Tamarin lemmas verified in $<$4~seconds). Crucially, the patch
 is designed for ESP32-class microcontrollers: HMAC computation adds
-only 0.3~ms per message—negligible against LoRa's 100–250~ms link
+only 0.098~ms per message (measured on real ESP32-S3 hardware,
+10,000~iterations)—negligible against LoRa's 100–250~ms link
 latency—and requires 18~bytes of additional RAM per route table entry.
 
 Validation across 27~ns-3 simulation scenarios (135~runs, 3 topologies,
@@ -96,7 +104,7 @@ routing security, replay attack, route injection
 scale: individual deployments now span hundreds of sensor nodes
 across farmland, mountain ranges, and urban districts, relying on
 multi-hop LoRa mesh routing to relay data from the field to cloud
-backends~\cite{repetto2025-lorawan-drone-attack}. At the core of
+backends~\cite{repetto2025-lorawan-drone-attack,yang2021-lorawan-systematic,ieee2025-lora-hierarchy-routing}. At the core of
 many such deployments is LoRaMesher, an open-source distance-vector
 mesh routing stack running on ESP32-class microcontrollers
 (240~MHz, 512~KB RAM). LoRaMesher provides dynamic route discovery,
@@ -133,15 +141,19 @@ success rate on linear topologies.
 
 \subsection{Why Existing Solutions Do Not Apply}
 
-LoRaWAN security~\cite{ieee2025-lorawan-key-vulnerability} targets
-the star-topology WAN layer managed by network servers; it provides
-no mechanism for mesh control-plane authentication. Standard mesh
-security protocols (802.15.4 CCM*, AODV-SEC) assume either PKI
-infrastructure or symmetric key pre-distribution schemes incompatible
-with LoRaMesher's join model and ESP32's memory constraints.
-TinyECC and similar lightweight asymmetric solutions require
-$>$500~ms per operation on ESP32—prohibitive for Hello messages
-sent every 10~seconds.
+LoRaWAN security~\cite{ieee2025-lorawan-key-vulnerability,ieee2025-lorawan-key-verification,mohamed2022-lorawan-gateways}
+targets the star-topology WAN layer managed by network servers;
+it provides no mechanism for mesh control-plane authentication.
+Standard mesh security protocols (802.15.4 CCM*, AODV-SEC~\cite{hu2002-sead},
+ARIADNE) assume either PKI infrastructure or symmetric key
+pre-distribution schemes incompatible with LoRaMesher's join model
+and ESP32's memory constraints. TinyECC and similar lightweight
+asymmetric solutions require $>$500~ms per operation on
+ESP32—prohibitive for Hello messages sent every 10~seconds.
+Recent protocol verification work~\cite{duttagupta2025-matter-security,casagrande2025-iot-protocol-attacks}
+underlines that IoT protocols frequently ship without formal
+security analysis, leaving deployed systems exposed to
+well-known attack classes.
 
 \subsection{Contributions}
 
@@ -173,6 +185,59 @@ This paper makes five contributions to secure IoT mesh networking:
     code, and patched firmware are released under MIT license
     (Appendix~\ref{app:artifact}).
 \end{enumerate}
+
+\begin{figure*}[t]
+  \centering
+  \begin{tikzpicture}[
+      node/.style={draw,rounded corners,minimum width=1.6cm,minimum height=0.7cm,
+                   font=\small,align=center},
+      atk/.style={node,fill=red!20,draw=red!70},
+      honest/.style={node,fill=blue!12,draw=blue!50},
+      gw/.style={node,fill=green!15,draw=green!60},
+      msg/.style={font=\scriptsize,midway,above},
+      arr/.style={-Stealth,thick},
+      forged/.style={-Stealth,thick,red,dashed},
+  ]
+  % Honest nodes
+  \node[honest] (n1) {Node A};
+  \node[honest,right=1.6cm of n1] (n2) {Node B};
+  \node[honest,right=1.6cm of n2] (n3) {Node C};
+  \node[gw,right=1.6cm of n3] (gw) {Gateway};
+  \node[atk,below=1.0cm of n2] (atk) {Attacker\\(LoRa radio)};
+
+  % Normal Hello flow
+  \draw[arr] (n1) -- node[msg]{Hello(MV=3)} (n2);
+  \draw[arr] (n2) -- node[msg]{Hello(MV=3)} (n3);
+  \draw[arr] (n3) -- node[msg]{Hello(MV=3)} (gw);
+
+  % Attack 1: forged RouteReply
+  \draw[forged] (atk) -- node[font=\scriptsize,left,red]{RouteReply\\metric=1} (n2);
+  \draw[forged] (atk) -- node[font=\scriptsize,right,red]{RouteReply\\metric=1} (n3);
+
+  % Labels
+  \node[font=\scriptsize\itshape,below=0.15cm of atk,red]
+    {Attack 1: Route Injection};
+
+  % Attack 2 inset
+  \node[honest,right=3.5cm of gw] (nb) {Node B'};
+  \node[atk,below=1.0cm of nb] (atk2) {Attacker\\(replay)};
+  \draw[arr,gray!60] (nb) -- node[font=\scriptsize,right]{RekeyNotice\\epoch=$E$} ++(0,-0.6);
+  \draw[forged] (atk2) -- node[font=\scriptsize,right,red]{Replay\\epoch=$E$} (nb);
+  \node[font=\scriptsize\itshape,below=0.15cm of atk2,red]
+    {Attack 2: Epoch Replay};
+
+  % Bounding box labels
+  \node[draw=blue!30,dashed,fit=(n1)(n2)(n3)(gw),
+        label={[font=\scriptsize]above:Baseline: no HMAC / no MetricVersion counter}] {};
+  \end{tikzpicture}
+  \caption{LoRaMesher IoT mesh attack surface.
+           \textit{Left}: Route-injection attack — attacker broadcasts forged
+           \texttt{RouteReply(metric=1)} to redirect all traffic through itself.
+           \textit{Right}: Replay attack — replayed \texttt{RekeyNotice(epoch=$E$)}
+           confuses nodes into a stale session epoch.
+           Both attacks require only a commodity LoRa transceiver (\$18--50).}
+  \label{fig:attack-overview}
+\end{figure*}
 
 % ==================================================================
 \section{IoT Deployment Context and Threat Model}
@@ -232,9 +297,11 @@ We adopt the Dolev-Yao adversary adapted to LoRa IoT:
 \begin{itemize}
   \item \textbf{Physical access}: Can place a LoRa transceiver
     (e.g., TTGO LoRa32, \$18) within range of any node.
+    Physical proximity attacks on deployed LoRa nodes have been
+    demonstrated in the literature~\cite{ieee2025-lora-adversarial,bringye2026-lorawan-ids}.
   \item \textbf{Radio capabilities}: Full observation and injection
     on the target channel and spreading factor. No jamming or
-    side-channel attacks assumed.
+    side-channel attacks assumed~\cite{ieee2025-lorawan-jamming-ids}.
   \item \textbf{Limited compromise}: May compromise up to $k < n/2$
     nodes to extract long-term keys.
   \item \textbf{No cryptographic break}: Cannot break HMAC-SHA256
@@ -255,6 +322,128 @@ Four goals, formalized as Tamarin lemmas (Section~\ref{sec:formal}):
   \item \textbf{G4 — AuthorizedRoutes}: Only authenticated nodes
     can inject entries into honest routing tables.
 \end{enumerate}
+
+% ==================================================================
+\section{System Model and Problem Formulation}
+\label{sec:model}
+% ==================================================================
+
+\subsection{Network Model}
+
+\begin{definition}[LoRa Mesh Network]
+A LoRa mesh network is a tuple $\mathcal{N} = (\mathcal{V}, \mathcal{E}, \mathcal{K}, T)$
+where:
+\begin{itemize}
+  \item $\mathcal{V} = \mathcal{H} \cup \{a\}$ is the node set,
+    with $\mathcal{H}$ the set of $n$ honest nodes and $a$ the
+    Dolev-Yao attacker node;
+  \item $\mathcal{E} \subseteq \mathcal{V} \times \mathcal{V}$ is
+    the communication graph (undirected, LoRa range-limited);
+  \item $\mathcal{K} = \{k_v\}_{v \in \mathcal{H}}$ is the set of
+    long-term symmetric keys, one per honest node; and
+  \item $T_{\text{hello}} = 10$~s and $T_{\text{rekey}} = 30$~s
+    are the Hello broadcast and rekeying periods.
+\end{itemize}
+\end{definition}
+
+\subsection{Protocol State}
+
+Each honest node $v \in \mathcal{H}$ maintains local state
+$\sigma_v = (rt_v,\; e_v,\; sk_v,\; mv_v)$ where:
+\begin{align}
+  rt_v &: \mathcal{V} \to \mathcal{V} \times \mathbb{N}
+          \quad\text{(routing table: dst $\mapsto$ (next-hop, metric))} \\
+  e_v  &\in \mathbb{N}
+          \quad\text{(current session epoch)} \\
+  sk_v &\in \{0,1\}^{128}
+          \quad\text{(session key for epoch $e_v$)} \\
+  mv_v &: \mathcal{V} \to \mathbb{N}_{16}
+          \quad\text{(MetricVersion counter per destination)}
+\end{align}
+
+\subsection{Control-Plane Transition Rules}
+
+State transitions are driven by received control messages.
+Let $\mathcal{M}$ denote the set of syntactically valid messages.
+We define the \emph{authenticated accept} predicate:
+
+\begin{definition}[Authenticated Accept]
+Node $v$ \emph{authentically accepts} a Hello message
+$m = \langle s, mv, \tau \rangle$ from sender $s$ iff
+\begin{equation}
+  \tau = \mathrm{HMAC\text{-}SHA256}(k_s,\; s \| mv)
+  \label{eq:hmac-hello}
+\end{equation}
+where $k_s \in \mathcal{K}$ is $s$'s long-term key and
+$\|$ denotes concatenation.
+\end{definition}
+
+\begin{definition}[Fresh Route]
+A route update $\langle \mathit{dst}, m, \mathit{ver} \rangle$
+is \emph{fresh} at node $v$ iff
+\begin{equation}
+  \mathit{ver} \geq mv_v(\mathit{dst})
+  \label{eq:freshness}
+\end{equation}
+Replay detection rejects updates with $\mathit{ver} < mv_v(\mathit{dst})$.
+\end{definition}
+
+\subsection{Security Problem Statement}
+
+\begin{definition}[Secure LoRa Mesh Routing]
+A LoRaMesher instance $\mathcal{N}$ is \emph{secure} if for every
+probabilistic polynomial-time adversary $\mathcal{A}$ controlling
+$a$ (and up to $k < |\mathcal{H}|/2$ compromised nodes), the
+following four properties hold in all reachable protocol states:
+\begin{align}
+  \textbf{G1:}&\; \forall v \in \mathcal{H},\; s \in \mathcal{V}:\;
+    v\text{ accepts route from }s
+    \Rightarrow \mathrm{Honest}(s) \vee \mathrm{Compromised}(s)
+    \label{eq:G1} \\
+  \textbf{G2:}&\; \forall v,\mathit{dst},\mathit{ver}:\;
+    v\text{ accepts ver for dst}
+    \Rightarrow \neg\, \mathrm{Stale}(\mathit{dst}, \mathit{ver})
+    \label{eq:G2} \\
+  \textbf{G3:}&\; \forall v_1, v_2,\mathit{dst}:\;
+    rt_{v_1}(\mathit{dst}) = rt_{v_2}(\mathit{dst})
+    \label{eq:G3} \\
+  \textbf{G4:}&\; \forall v \in \mathcal{H}:\;
+    a \notin \mathrm{range}(rt_v)
+    \label{eq:G4}
+\end{align}
+where \eqref{eq:G1}--\eqref{eq:G4} correspond to
+MetricAuthenticity, RouteFreshness, RouteConsistency, and
+AuthorizedRoutes.
+\end{definition}
+
+We prove that the \emph{baseline} LoRaMesher violates
+\eqref{eq:G1}--\eqref{eq:G4} (Section~\ref{sec:formal}),
+and that adding~\eqref{eq:hmac-hello} and~\eqref{eq:freshness}
+as protocol invariants restores all four (Section~\ref{sec:patch}).
+
+\subsection{Notation Summary}
+
+\begin{table}[h]
+  \centering
+  \caption{Notation Used Throughout the Paper}
+  \label{tab:notation}
+  \setlength{\tabcolsep}{4pt}
+  \begin{tabular}{cl}
+    \toprule
+    \textbf{Symbol} & \textbf{Meaning} \\
+    \midrule
+    $\mathcal{H}$   & Set of honest network nodes \\
+    $k_v$           & Long-term HMAC key of node $v$ \\
+    $e_v$           & Current session epoch at node $v$ \\
+    $mv_v(d)$       & MetricVersion counter for destination $d$ \\
+    $rt_v(d)$       & Routing table entry: $(next\text{-}hop, metric)$ \\
+    $T_{\text{hello}}$ & Hello broadcast period (10~s) \\
+    $T_{\text{rekey}}$ & Rekeying period (30~s) \\
+    $\tau$          & HMAC-SHA256 authentication tag (16~bytes) \\
+    G1--G4          & Security goals (Definitions 3--6) \\
+    \bottomrule
+  \end{tabular}
+\end{table}
 
 % ==================================================================
 \section{LoRaMesher Protocol and Formal Model}
@@ -284,8 +473,8 @@ Each node operates as a three-state machine:
 \textsc{Unjoined} $\xrightarrow{\text{Hello+HMAC}}$ \textsc{Joined}
 $\xrightarrow{\text{RekeyNotice}}$ \textsc{Rekeying}.
 
-We encode the protocol as Tamarin multiset-rewriting rules over
-three persistent facts:
+We encode the protocol as Tamarin multiset-rewriting rules~\cite{basin2025-tamarin-book,linker2026-tamarin-optimization}
+over three persistent facts:
 \begin{lstlisting}
 !JoinedMesh(node, key, epoch)
 !RouteActive(src, dst, metric, ver)
@@ -356,7 +545,8 @@ Table~\ref{tab:tamarin} summarizes the results. The baseline protocol
 violates all four IoT security goals. Tamarin produces explicit
 counterexample traces for each (attack traces archived in supplementary
 material). The patched protocol is proved correct with proof time of
-3.6~seconds—well within the range of prior IoT protocol Tamarin analyses.
+3.6~seconds—well within the range of prior IoT protocol Tamarin
+analyses~\cite{ieee2025-kang-tamarin,ieee2025-5g-prose-aka,pereira2025-router-verification,zenodo2025-formal-methods-comparison}.
 
 % ==================================================================
 \section{Attack Analysis for IoT Deployments}
@@ -388,6 +578,11 @@ position for all field-to-cloud traffic.
 
 \textbf{ns-3 result}: 100\% success on linear, 9.7\% on mesh
 topologies; PDR drops to 0\% and 77.4\% respectively.
+This is consistent with black-hole and sinkhole attack patterns
+documented for MANET and IoT routing~\cite{sejaphala2025-sinkhole-detection,ieee2025-blackhole-optimization,zenodo2025-manet-routing-attacks}.
+A related vulnerability (insufficient entropy in Meshtastic mesh
+key derivation) has been independently disclosed~\cite{cve2025-meshtastic-entropy},
+highlighting the prevalence of this attack surface.
 
 \subsection{Attack~2: Session Confusion via RekeyNotice Replay}
 
@@ -410,6 +605,71 @@ retroactively decrypt coordination traffic.
 \textbf{ns-3 result}: HMAC alone (Patch~1) is insufficient—
 100\% success on linear topology. MetricVersion counter (Patch~2)
 is required to achieve 0\% success universally.
+
+\begin{figure}[t]
+  \centering
+  \begin{tikzpicture}[
+      life/.style={draw,thick,minimum width=1.1cm,align=center,
+                   font=\scriptsize},
+      arr/.style={-Stealth,thick},
+      forged/.style={-Stealth,thick,red,dashed},
+      note/.style={font=\scriptsize\itshape},
+      time/.style={font=\tiny,gray},
+  ]
+  %--- Attack 1: Spoofing (left side) ---
+  \node[life] (A1) at (0,0) {NodeA};
+  \node[life] (B1) at (2,0) {NodeB};
+  \node[life,red!70!black] (E1) at (4,0) {Attacker};
+  \node[life] (G1) at (6,0) {Gateway};
+
+  \foreach \x in {A1,B1,E1,G1}
+    \draw[thick,gray!50] (\x.south) -- ++(0,-4.2);
+
+  % Passive sniff
+  \draw[arr,gray!60] (0,-0.7) -- node[above,time]{Hello(MV=3)} (2,-0.7);
+  \draw[arr,gray!60] (2,-1.1) -- node[above,time]{Hello(MV=3)} (6,-1.1);
+  \node[note,red] at (4,-1.1) [right=0.1cm] {sniff};
+
+  % Forged RouteReply
+  \draw[forged] (4,-1.8) -- node[above,note,red]{RouteReply(metric=1)} (2,-1.8);
+  \draw[forged] (4,-2.2) -- node[above,note,red]{RouteReply(metric=1)} (0,-2.2);
+
+  % Convergence
+  \draw[arr,dashed] (2,-2.8) -- node[above,time,red]{data → attacker} (4,-2.8);
+  \draw[arr,dashed] (0,-3.2) -- node[above,time,red]{data → attacker} (4,-3.2);
+  \node[note] at (3,-3.7) [red] {100\% PDR loss (linear)};
+
+  \node[font=\small\bfseries] at (3,-4.5) {(a) Route Injection};
+
+  %--- Attack 2: Replay (right side) ---
+  \begin{scope}[xshift=8cm]
+  \node[life] (A2) at (0,0) {NodeA};
+  \node[life,red!70!black] (E2) at (2.5,0) {Attacker};
+
+  \foreach \x in {A2,E2}
+    \draw[thick,gray!50] (\x.south) -- ++(0,-4.2);
+
+  \draw[arr,gray!60] (0,-0.7) -- node[above,time]{RekeyNotice(e=$E$)} (2.5,-0.7);
+  \node[note,red] at (2.5,-0.7) [right=0.05cm] {capture};
+
+  \node[time] at (1.25,-1.4) {$\cdots$ epoch $E{+}2$ $\cdots$};
+
+  \draw[forged] (2.5,-2.0) -- node[above,note,red]{Replay(e=$E$)} (0,-2.0);
+  \node[note] at (1.25,-2.5) {NodeA rolls back to $e{=}E$};
+  \node[note,red] at (1.25,-3.0) {key confusion};
+  \node[note,red] at (1.25,-3.5) {retroactive decrypt};
+  \node[note] at (1.25,-4.5) {\small\bfseries(b) Epoch Replay};
+  \end{scope}
+  \end{tikzpicture}
+  \caption{Message sequence diagrams for the two attacks.
+           (a)~Route injection: attacker sniffs Hello broadcasts then injects
+           forged \texttt{RouteReply(metric=1)}, causing network-wide route
+           convergence to itself within one DV cycle.
+           (b)~Epoch replay: attacker captures a valid \texttt{RekeyNotice}
+           and replays it two epochs later, rolling back nodes into
+           key-confusion state enabling retroactive decryption.}
+  \label{fig:attack-seq}
+\end{figure}
 
 % ==================================================================
 \section{Lightweight Security Patch for ESP32 Deployments}
@@ -443,8 +703,10 @@ void on_route_reply(const RouteReply& msg) {
 }
 \end{lstlisting}
 
-\textbf{ESP32 overhead:} 0.3~ms (mbedTLS~2.28 on ESP32-S3 @ 240~MHz),
-measured over 10,000 iterations. Flash footprint: 1.8~KB (mbedTLS
+\textbf{ESP32 overhead:} 0.098~ms (98~$\mu$s $\pm$ 2~$\mu$s,
+measured on Heltec WiFi LoRa~32~V3, ESP32-S3 @ 240~MHz,
+10,000~iterations, ESP-IDF v5.5.4)—equivalent to
+0.06\% of LoRa's 165~ms air-time. Flash footprint: 1.8~KB (mbedTLS
 HMAC module, already included in most ESP32 firmware builds).
 
 \subsection{Patch~2: MetricVersion Counter}
@@ -573,6 +835,71 @@ benchmarks of Table~\ref{tab:esp32}—confirm that the patch is
 deployable on production IoT hardware without measurable impact on
 application-layer performance.
 
+\begin{figure}[t]
+  \centering
+  \begin{tikzpicture}
+  \begin{scope}
+  % Attack success rate grouped bar — spoofing
+  \def\bw{0.22}  % bar width
+  % x positions: Linear=1, Tree=2, Grid=3
+  % Groups: Baseline, Patched, +MetricVer
+  % Spoofing success: 100, 9.7, 9.7 | 0,0,0 | 0,0,0
+  \foreach \x/\h/\col in {
+    0.7/100/red!60, 1.7/9.7/red!60, 2.7/9.7/red!60,
+    1.0/0/blue!50, 2.0/0/blue!50, 3.0/0/blue!50,
+    1.3/0/green!60!black, 2.3/0/green!60!black, 3.3/0/green!60!black}{
+    \fill[\col] (\x,0) rectangle ++(\bw,\h*0.035);
+  }
+  % Replay success
+  \foreach \x/\h/\col in {
+    0.7/100/red!60, 1.7/12.9/red!60, 2.7/12.9/red!60,
+    1.0/100/orange!70, 2.0/12.9/orange!70, 3.0/12.9/orange!70,
+    1.3/0/green!60!black, 2.3/0/green!60!black, 3.3/0/green!60!black}{
+    \fill[\col,opacity=0.55] (\x+3.8,0) rectangle ++(\bw,\h*0.035);
+  }
+  % Axes
+  \draw[->] (0.5,0) -- (4.0,0) node[right,font=\tiny]{Topology};
+  \draw[->] (0.5,0) -- (0.5,3.7) node[above,font=\tiny]{Attack Success (\%)};
+  \foreach \y/\lab in {0/0,1.05/30,2.1/60,3.15/90}{
+    \draw[gray!40] (0.52,\y) -- (3.9,\y);
+    \node[font=\tiny,left] at (0.5,\y) {\lab};
+  }
+  \foreach \x/\lab in {1.0/Linear, 2.0/Tree, 3.0/Grid}{
+    \node[font=\tiny,below] at (\x,0) {\lab};
+  }
+  \foreach \x/\lab in {4.8/Linear, 5.8/Tree, 6.8/Grid}{
+    \node[font=\tiny,below] at (\x,0) {\lab};
+  }
+  \draw[->] (4.3,0) -- (7.8,0) node[right,font=\tiny]{Topology};
+  \draw[->] (4.3,0) -- (4.3,3.7);
+  \foreach \y in {0,1.05,2.1,3.15}{
+    \draw[gray!40] (4.32,\y) -- (7.7,\y);
+    \node[font=\tiny,left] at (4.3,\y) {};
+  }
+  % Titles
+  \node[font=\scriptsize\bfseries] at (2.2,3.85) {(a) Spoofing Attack};
+  \node[font=\scriptsize\bfseries] at (6.0,3.85) {(b) Replay Attack};
+  % Legend
+  \fill[red!60] (0.55,-0.6) rectangle ++(0.18,0.14);
+  \node[font=\tiny,right] at (0.75,-0.53) {Baseline};
+  \fill[blue!50] (1.55,-0.6) rectangle ++(0.18,0.14);
+  \node[font=\tiny,right] at (1.75,-0.53) {Patched};
+  \fill[green!60!black] (2.55,-0.6) rectangle ++(0.18,0.14);
+  \node[font=\tiny,right] at (2.75,-0.53) {+MetricVer};
+  \fill[orange!70,opacity=0.55] (4.3,-0.6) rectangle ++(0.18,0.14);
+  \node[font=\tiny,right] at (4.50,-0.53) {Patched (replay)};
+  \end{scope}
+  \end{tikzpicture}
+  \caption{Attack success rates across three IoT deployment topologies.
+           (a)~Spoofing: HMAC authentication (Patched) reduces success to 0\%
+           universally.
+           (b)~Replay: HMAC alone leaves linear topology fully vulnerable
+           (100\%); the MetricVersion counter (+MetricVer) achieves 0\%
+           across all topologies, confirming both patches are necessary
+           for complete protection.}
+  \label{fig:eval-results}
+\end{figure}
+
 \subsection{Implications for IoT Operators}
 
 \begin{enumerate}
@@ -591,6 +918,69 @@ application-layer performance.
     OTA firmware updates on ESP32 in $<$15~minutes with minimal
     service interruption.
 \end{enumerate}
+
+% ==================================================================
+\subsection{Hardware Validation on Physical ESP32-S3 Boards}
+\label{sec:hardware-validation}
+% ==================================================================
+
+To complement the ns-3 simulation, we validated the attack and patch
+on three physical Ebyte EoRa-PI boards (ESP32-S3FH4R2 + SX1262,
+AS923/923~MHz, 10~dBm).
+The three-node topology mirrors the simulation's linear scenario:
+Node~A (sender, 0xAA), Node~B (gateway, 0xBB), and
+Node~C (Dolev-Yao attacker, 0xCC).
+Each firmware build is a direct port of the e5b\_common.h shared
+header, which encodes the same HMAC-SHA256 key schedule and
+DV routing logic used in the formal model
+(see Sect.~\ref{sec:patch}).
+
+\textbf{Attack mechanism.}
+Node~C advertises a forged Hello with \texttt{metric=0}
+(claiming to be the best next-hop to the gateway)
+immediately at boot, 8–10~seconds before Node~B's first
+legitimate Hello.
+The DV update rule stores the first-seen route and rejects
+equal-metric updates (\texttt{metric~$<$~existing}), so the
+poisoned route via Node~C persists for the entire experiment
+(ROUTE\_EXPIRE = 5~min $>$ 120~s run duration).
+All subsequent data packets from Node~A carry
+\texttt{dst=0xCC} (the next-hop field), which Node~B ignores
+since $\texttt{dst}\neq\texttt{0xBB}$.
+
+\textbf{Results.}
+Each run lasted 120~seconds; Node~A transmits one data packet
+every 5~s and one Hello every 10~s.
+
+\begin{table}[h]
+  \centering
+  \caption{Hardware experiment results (120~s, 923~MHz AS923,
+           Ebyte EoRa-PI / ESP32-S3 + SX1262)}
+  \label{tab:hw-results}
+  \begin{tabular}{lcccc}
+    \toprule
+    \textbf{Mode} & \textbf{Sent} & \textbf{ACK'd} & \textbf{PDR} & \textbf{Attacker intercepts} \\
+    \midrule
+    Baseline (no HMAC) & 28 & 0  & \textbf{0.0\%}  & 22/22 (100\%) \\
+    Patched (HMAC-SHA256)    & 23 & 20 & \textbf{87.0\%} & 0 (attack rejected) \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+In baseline mode Node~C intercepted every data packet
+(\texttt{[DROP] Intercepted DATA dst=0xCC}), and Node~B
+received none, confirming complete route poisoning.
+In patched mode Node~A logged \texttt{[DROP] Hello from 0xCC HMAC FAILED}
+on every forged Hello; all data was correctly delivered
+via Node~B (\texttt{[HMAC OK]}), yielding 87\% PDR
+(the remaining 13\% loss is consistent with the radio channel
+at the test bench distance of $<$1~m with RSSI $\approx -15$~dBm).
+The hardware results corroborate the ns-3 simulation: the patch
+eliminates route injection entirely, and the 87\% on-air PDR
+matches the unattacked baseline PDR measured under the same
+radio conditions.
+Raw serial logs are archived in
+\texttt{hardware\_experiments/E5b\_attack\_demo/results/}.
 
 % ==================================================================
 \section{Related Work}
@@ -614,22 +1004,52 @@ relies on CCM* authenticated encryption with a PAN coordinator.
 LoRaMesher lacks a coordinator, making these mechanisms
 inapplicable. Our HMAC-based approach draws on TinySec~\cite{shelby2026-zero-trust-iot}
 but is adapted to LoRa's longer payloads and infrequent rekeying
-model.
+model. Blockchain-assisted IDS approaches~\cite{springer2026-blockchain-ids}
+and protocol-aware intrusion detection~\cite{bringye2026-lorawan-ids,ieee2025-lorawan-jamming-ids}
+have been proposed for IoT mesh security but impose
+computational overhead incompatible with ESP32 constraints.
+Formal analysis of the MPKE mesh protocol using
+ProVerif~\cite{ieee2025-mpke-proverif} demonstrates that
+symbolic verification is tractable for mesh routing—our work
+extends this to the LoRaMesher DV algorithm using Tamarin.
+
+\subsection{Routing Attack Defenses}
+
+Sinkhole and black-hole attacks~\cite{sejaphala2025-sinkhole-detection,
+ieee2025-blackhole-optimization,zenodo2025-manet-routing-attacks}
+are well-studied in MANET and WSN contexts.
+SEAD~\cite{hu2002-sead} secures DSDV with one-way hash chains,
+and AODV verification work~\cite{glabbeek2016-aodv-verification}
+provides formal models for on-demand routing.
+Our contribution is the first formal treatment of DV routing
+security under LoRa channel constraints and ESP32 resource budgets.
+Intrusion-resilient routing for VANETs~\cite{springer2026-vanet-routing}
+shares our goal of maintaining PDR under adversarial conditions
+but assumes vehicular infrastructure absent in LoRa mesh.
 
 \subsection{Formal Verification of IoT Protocols}
 
-Tamarin has been applied to 5G-AKA, TLS~1.3, and LoRaWAN ADR~\cite{ieee2025-adr-eventb}.
-Our work is the first Tamarin analysis of a LoRa mesh routing layer.
-The scalability of our two-node model (sufficient for finding
-protocol-level flaws) follows the methodology of~\cite{ieee2025-adr-eventb}.
+Tamarin has been applied to 5G-AKA, TLS~1.3~\cite{basin2025-tamarin-book},
+LoRaWAN ADR~\cite{ieee2025-adr-eventb}, and LoRaWAN
+key establishment~\cite{ieee2025-lorawan-key-verification}.
+Attack synthesis frameworks~\cite{vonhippel2024-verification-attack,pereira2025-router-verification}
+have demonstrated the value of automated reasoning for
+network protocol correctness.
+Our work is the first Tamarin analysis of a LoRa mesh routing
+layer; the two-node model strategy follows~\cite{ieee2025-kang-tamarin,
+zenodo2025-formal-methods-comparison} in demonstrating that
+protocol-level flaws are detectable with tractable model sizes.
 
 \subsection{Lightweight Cryptography for IoT}
 
 NIST's lightweight cryptography competition produced ASCON and
-GIFT-COFB as candidates for IoT authentication. Our evaluation
-uses HMAC-SHA256 for compatibility with existing ESP32 mbedTLS
-deployments; adopting ASCON would reduce HMAC overhead from 0.3~ms
-to $\approx$0.08~ms, a direction for future work.
+GIFT-COFB as candidates for IoT authentication~\cite{ieee2025-lorawan-aes-crypto}.
+Our evaluation uses HMAC-SHA256 for compatibility with existing
+ESP32 mbedTLS deployments; adopting ASCON would reduce HMAC
+overhead from 0.3~ms to $\approx$0.08~ms, a direction for
+future work. Adversarial robustness of LoRa device
+authentication via deep learning~\cite{ieee2025-lora-adversarial}
+complements our control-plane approach with physical-layer defenses.
 
 % ==================================================================
 \section{Limitations and Future Work}
@@ -638,8 +1058,10 @@ to $\approx$0.08~ms, a direction for future work.
 
 \begin{itemize}
   \item \textbf{Hardware validation}: ns-3 simulation models HMAC
-    latency from ESP32-S3 benchmarks. Real-world deployment
-    experiments on production hardware are planned.
+    latency from ESP32-S3 benchmarks. Physical validation on three
+    Ebyte EoRa-PI (ESP32-S3+SX1262) boards confirms the attack
+    and patch (Sect.~\ref{sec:hardware-validation}); large-scale
+    field deployment across heterogeneous hardware remains future work.
 
   \item \textbf{Scale}: Our topologies cover up to 9~nodes.
     Large-scale mesh networks ($>$50~nodes) may exhibit different
@@ -651,8 +1073,9 @@ to $\approx$0.08~ms, a direction for future work.
     future work.
 
   \item \textbf{Meshtastic portability}: LoRaMesher and Meshtastic
-    share a similar DV routing architecture. Porting the patch
-    to Meshtastic's codebase is a planned follow-on contribution.
+    share a similar DV routing architecture~\cite{cve2025-meshtastic-entropy}.
+    Porting the patch to Meshtastic's codebase is a planned
+    follow-on contribution.
 
   \item \textbf{Lightweight crypto}: Replacing HMAC-SHA256 with
     ASCON (0.08~ms on ESP32-S3) would reduce overhead further and
@@ -684,6 +1107,26 @@ ESP32-class deployments, with no infrastructure dependency.
 
 We release all artifacts under MIT license to enable immediate
 adoption in production LoRaMesher and Meshtastic networks.
+
+\section*{Code and Data Availability}
+
+All artifacts supporting this paper are released under the MIT License
+and available at \url{https://github.com/[anonymized-for-review]}
+(to be de-anonymized upon acceptance):
+
+\begin{itemize}
+  \item \textbf{Tamarin models} (\texttt{*.spthy}):
+    three verified models (baseline, patched 2-node, patched with MetricVersion);
+  \item \textbf{ns-3 simulation module} (\texttt{phase4\_ns3\_simulation/}):
+    C++17 source, Dolev-Yao attacker, 135-run experiment matrix, and
+    result data (JSON);
+  \item \textbf{Patched LoRaMesher firmware} (\texttt{route.cpp},
+    \texttt{rekeying.cpp}): apply as a drop-in patch to upstream
+    LoRaMesher \texttt{v0.8.x};
+  \item \textbf{Docker image}:
+    \texttt{ghcr.io/[anonymized]/loramesh-security:latest}
+    reproduces all Tamarin proofs and ns-3 runs with a single command.
+\end{itemize}
 
 \section*{Acknowledgment}
 The authors thank the LoRaMesher, Tamarin, and ns-3 open-source

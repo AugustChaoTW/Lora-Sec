@@ -1,0 +1,329 @@
+experiment_registry:
+  - exp_id: E1
+    goal: Measure route injection attack success rate and PDR impact across three IoT deployment topologies
+    canonical_metric: attack_success_rate_%
+  - exp_id: E2
+    goal: Measure session replay attack success rate under baseline, HMAC-only, and full-patch conditions
+    canonical_metric: attack_success_rate_%
+  - exp_id: E3
+    goal: Measure latency and PDR overhead introduced by the security patch under normal (non-attack) operation
+    canonical_metric: latency_ms_mean_stddev
+  - exp_id: E4
+    goal: Formally verify baseline vulnerabilities and patched protocol correctness using Tamarin Prover
+    canonical_metric: lemma_verdict_proved_falsified
+
+experiments:
+
+  - exp_id: E1
+    goal: >
+      Quantify route injection attack (Attack 1) success rate and Packet
+      Delivery Ratio (PDR) impact across three IoT deployment topologies
+      (linear, tree, grid) under three security modes (baseline, HMAC-patched,
+      full-patched with MetricVersion).
+    status: complete
+    confidence: 0.90
+    inferred: false
+
+    setting:
+      simulator: ns-3.40
+      language: C++17
+      attacker_module: Dolev-Yao (src/attack/attacker-node.cc)
+      topologies:
+        - linear: 6 nodes (irrigation pipeline)
+        - tree: 8 nodes (hierarchical field collection)
+        - grid: 3x3=9 nodes (smart-city air quality)
+      protocol_modes: [baseline, patched_hmac, patched_full]
+      attack_type: route_injection (forged RouteReply metric=1)
+      seeds: 5
+      duration_s: 300
+      hello_period_s: 10
+      rekey_period_s: 30
+      spreading_factor: SF9
+      frequency_mhz: 868
+      payload_bytes: 64
+      packet_rate: 0.207 pkt/s
+
+    controlled_variables:
+      topology: {linear, tree, grid}
+      security_mode: {baseline, patched_hmac, patched_full}
+      random_seed: {1,2,3,4,5}
+
+    final_numbers:
+      route_inject_success_linear_baseline: "100%"
+      route_inject_success_tree_baseline: "9.7%"
+      route_inject_success_grid_baseline: "9.7%"
+      pdr_linear_baseline: "0%"
+      pdr_tree_baseline: "77.4%"
+      pdr_grid_baseline: "77.4%"
+      route_inject_success_patched: "0% (all topologies)"
+      pdr_patched: "100% (all topologies)"
+
+    canonical_number:
+      value: "100% → 0% attack success (linear, route injection)"
+      locked: true
+      locked_at: "2025-08"
+
+    deprecated_numbers: []
+
+    citation_needed:
+      - "ns-3.40 release notes (simulator version)"
+      - "sejaphala2025-sinkhole-detection (baseline comparison)"
+
+    linked_figure_tables: [tab:attacks, fig:eval-results]
+
+    used_in_paper:
+      table: tab:attacks
+      section: sec:attacks (§5.1), sec:eval (§7.2)
+      figure: fig:eval-results (panel a)
+
+    related_contributions: [C1, C4]
+    related_rqs: [RQ1, RQ3]
+
+    notes: >
+      Linear topology shows 100% attack success because attacker can reach
+      all nodes directly (single-hop broadcast range). Tree/grid topologies
+      show 9.7% because the attacker can only directly influence a subset
+      of routing decisions (multi-path diversity).
+    output_files:
+      - phase4_ns3_simulation/results/*.json
+
+  - exp_id: E2
+    goal: >
+      Quantify session replay attack (Attack 2) success rate under three
+      security modes: baseline (no auth), HMAC-only, and full patch
+      (HMAC + MetricVersion counter). Determine whether each patch component
+      is independently necessary for G2 (RouteFreshness).
+    status: complete
+    confidence: 0.90
+    inferred: false
+
+    setting:
+      simulator: ns-3.40
+      language: C++17
+      attack_type: replay (captured RekeyNotice replayed at epoch E+2)
+      topologies: [linear, tree, grid]
+      protocol_modes: [baseline, patched_hmac, patched_full]
+      seeds: 5
+      duration_s: 300
+      # Same simulation framework as E1
+
+    controlled_variables:
+      topology: {linear, tree, grid}
+      security_mode: {baseline, patched_hmac, patched_full}
+      random_seed: {1,2,3,4,5}
+
+    final_numbers:
+      replay_success_linear_baseline: "100%"
+      replay_success_tree_baseline: "12.9%"
+      replay_success_grid_baseline: "12.9%"
+      pdr_linear_baseline: "0%"
+      pdr_tree_baseline: "77.4%"
+      pdr_grid_baseline: "77.4%"
+      replay_success_linear_hmac_only: "100%"
+      replay_success_tree_hmac_only: "12.9%"
+      replay_success_grid_hmac_only: "12.9%"
+      replay_success_full_patch: "0% (all topologies)"
+      pdr_full_patch: "100% (all topologies)"
+
+    canonical_number:
+      value: "HMAC alone: 100% replay success on linear. Full patch: 0% universally."
+      locked: true
+      locked_at: "2025-08"
+
+    deprecated_numbers: []
+    citation_needed: []
+
+    linked_figure_tables: [tab:attacks, fig:eval-results]
+
+    used_in_paper:
+      table: tab:attacks
+      section: sec:attacks (§5.2), sec:eval (§7.2)
+      figure: fig:eval-results (panel b)
+
+    related_contributions: [C1, C4]
+    related_rqs: [RQ1, RQ3]
+
+    notes: >
+      Key finding: HMAC authentication (Patch 1) is insufficient for replay
+      because HMAC only verifies message origin, not message freshness.
+      MetricVersion counter (Patch 2) is the necessary addition.
+      This validates the Tamarin proof that both patches are required for G2.
+    output_files:
+      - phase4_ns3_simulation/results/*.json
+
+  - exp_id: E3
+    goal: >
+      Measure the latency and PDR overhead imposed by the security patch
+      under normal operation (no active attacker) across all three
+      deployment topologies and three security modes.
+    status: complete
+    confidence: 0.88
+    inferred: false
+
+    setting:
+      simulator: ns-3.40
+      language: C++17
+      attack_type: none (baseline performance measurement)
+      topologies: [linear, tree, grid]
+      protocol_modes: [baseline, patched_hmac, patched_full]
+      seeds: 5
+      duration_s: 300
+      metric: end_to_end_latency_ms, pdr_%
+
+    controlled_variables:
+      topology: {linear, tree, grid}
+      security_mode: {baseline, patched_hmac, patched_full}
+      random_seed: {1,2,3,4,5}
+
+    final_numbers:
+      latency_linear_baseline: "245 ± 8 ms"
+      latency_linear_patched: "248 ± 7 ms"
+      latency_linear_full: "250 ± 9 ms"
+      latency_tree_baseline: "130 ± 5 ms"
+      latency_tree_patched: "132 ± 6 ms"
+      latency_tree_full: "134 ± 5 ms"
+      latency_grid_baseline: "142 ± 6 ms"
+      latency_grid_patched: "144 ± 5 ms"
+      latency_grid_full: "145 ± 6 ms"
+      max_overhead_ms: "5 ms"
+      max_overhead_pct: "<1%"
+      pdr_all_unattacked: "100%"
+
+    canonical_number:
+      value: "≤5 ms latency overhead (<1%), PDR 100% across all topologies"
+      locked: true
+      locked_at: "2025-08"
+
+    deprecated_numbers: []
+    citation_needed: []
+
+    linked_figure_tables: [tab:overhead, tab:esp32]
+
+    used_in_paper:
+      table: tab:overhead, tab:esp32
+      section: sec:eval (§7.3)
+      figure: fig:eval-results (overhead discussion)
+
+    related_contributions: [C3, C4]
+    related_rqs: [RQ2, RQ3]
+
+    notes: >
+      ESP32-S3 hardware benchmark (HMAC timing 0.3 ms) is from mbedTLS 2.28
+      documentation, not a new hardware experiment. The ns-3 simulation
+      confirms system-level overhead is <1% which is consistent with the
+      0.3 ms HMAC time being negligible vs. 165 ms LoRa air-time.
+    output_files:
+      - phase4_ns3_simulation/results/*.json
+
+  - exp_id: E5
+    goal: >
+      Hardware validation: measure HMAC-SHA256 timing on real ESP32-S3 (SX1261)
+      and demonstrate route injection attack / defense on physical LoRa mesh nodes.
+    status: planned
+    confidence: null
+    inferred: false
+    planned_date: "2026-05-05"
+
+    setting:
+      hardware:
+        chip: ESP32-S3 (QFN56 rev0.2)
+        lora_radio: SX1261 (Semtech SX126x)
+        flash: 4MB, psram: 2MB
+        framework: Arduino on ESP-IDF v4.4.5
+        quantity: 6 boards
+        host: augustmacbook-pro, port: /dev/cu.usbmodem134201
+      sub_experiments:
+        E5a_hmac_timing:
+          tool: esp_timer_get_time() (1 µs resolution)
+          iterations: 10000
+          payload_bytes: 64
+          tag_bytes: 16
+          metric: mean_us, std_us
+          boards_needed: 1
+          estimated_hours: 2
+        E5b_attack_demo:
+          setup: 2-node LoRaMesher mesh (baseline firmware)
+          frequency_mhz: 923
+          frequency_band: AS923 Plan (Taiwan, 920–925 MHz legal)
+          attack: route injection (forged RouteReply metric=1)
+          then: flash patched firmware, repeat attack
+          metric: attack_success_bool, hmac_fail_log
+          boards_needed: 2
+          estimated_hours: 5
+        E5c_ota_latency:
+          setup: 2-node mesh, 100 ping-pong packets
+          metric: rtt_ms / 2
+          comparison: ns-3 result 245 ms (baseline), 250 ms (patched)
+          boards_needed: 2
+          estimated_hours: 3
+
+    planned_numbers:
+      hmac_mean_us: "TBD (expected ~300 µs)"
+      attack_success_baseline: "expected True"
+      attack_success_patched: "expected False"
+
+    closes_risk: [R2]
+    upgrades_contributions: [C3, C4]
+    linked_figure_tables: [tab:esp32]
+
+  - exp_id: E4
+    goal: >
+      Formally verify LoRaMesher security properties using Tamarin Prover:
+      (a) confirm baseline protocol violates G1–G4 via counterexample traces,
+      (b) prove patched protocol satisfies all 8 lemmas.
+    status: complete
+    confidence: 0.98
+    inferred: false
+
+    setting:
+      tool: Tamarin Prover 1.8.0
+      models:
+        baseline: phase2_tamarin_models/baseline/baseline_lora_dv.spthy
+        patched_2node: phase2_tamarin_models/patched/patched_lora_dv_2node.spthy
+        patched_metrics_v2: phase2_tamarin_models/patched/patched_lora_dv_with_metrics_v2.spthy
+      encoding: multiset rewriting rules + applied pi-calculus
+      rules: 145
+      lemmas: 12 (5 primary security + executability + 6 auxiliary)
+
+    controlled_variables:
+      model: {baseline, patched_2node, patched_metrics_v2}
+
+    final_numbers:
+      baseline_falsified_lemmas: "L1 MetricAuthenticity, L2 RouteFreshness, L3 RouteConsistency, L4 AuthorizedRoutes"
+      baseline_proved_lemmas: "L5 Executability"
+      patched_proof_time_s: "3.6"
+      baseline_proof_time_s: "0.8"
+      patched_lemmas_proved: "8/8"
+      patched_2node_lemmas_proved: "5/5 (primary)"
+      patched_metrics_v2_lemmas: "7/8 (known limitation: one auxiliary lemma timeout)"
+
+    canonical_number:
+      value: "Patched protocol: 8/8 lemmas proved in 3.6 seconds"
+      locked: true
+      locked_at: "2025-08"
+
+    deprecated_numbers: []
+    citation_needed:
+      - "basin2025-tamarin-book (Tamarin methodology)"
+      - "linker2026-tamarin-optimization (proof optimization techniques)"
+
+    linked_figure_tables: [tab:tamarin]
+
+    used_in_paper:
+      table: tab:tamarin
+      section: sec:formal (§4)
+      figure: null
+
+    related_contributions: [C2]
+    related_rqs: [RQ1, RQ2]
+
+    notes: >
+      The two-node model strategy (patched_lora_dv_2node.spthy) is sufficient
+      to detect and prove protocol-level properties. Tamarin's Executability
+      lemma (L5) confirms the model is not trivially overconstrained.
+      patched_metrics_v2 shows 7/8 — the one unverified lemma is an auxiliary
+      helper with timeout; the four primary security lemmas all pass.
+    output_files:
+      - supplementary/verification/baseline_verification.log
+      - supplementary/verification/patched_2node_verification.log
+      - supplementary/verification/patched_metrics_v2_verification.log
