@@ -1,0 +1,88 @@
+[RX] Hello from 0xAA metric=1
+[RX] Hello from 0xCC metric=0
+[TX] Hello (gateway) seq=1 metric=0 mode=PATCHED
+[RX] Hello from 0xBB metric=0
+[RX] DATA id=0 from 0xAA payload=PKT0000 | recv=1
+[TX] ACK id=0 → 0xAA
+[RX] DATA id=1 from 0xAA payload=PKT0001 | recv=2
+[TX] ACK id=1 → 0xAA
+[RX] Hello from 0xCC metric=0
+[RX] Hello from 0xAA metric=1
+[TX] Hello (gateway) seq=2 metric=0 mode=PATCHED
+[RX] Hello from 0xBB metric=0
+[RX] DATA id=2 from 0xAA payload=PKT0002 | recv=3
+[TX] ACK id=2 → 0xAA
+[RX] Hello from 0xCC metric=0
+[RX] DATA id=3 from 0xAA payload=PKT0003 | recv=4
+[TX] ACK id=3 → 0xAA
+[RX] Hello from 0xAA metric=1
+[TX] Hello (gateway) seq=3 metric=0 mode=PATCHED
+[RX] Hello from 0xBB metric=0
+[RX] DATA id=4 from 0xAA payload=PKT0004 | recv=5
+[TX] ACK id=4 → 0xAA
+[RX] Hello from 0xCC metric=0
+[RX] DATA id=5 from 0xAA payload=PKT0005 | recv=6
+[TX] ACK id=5 → 0xAA
+[RX] Hello from 0xAA metric=1
+[TX] Hello (gateway) seq=4 metric=0 mode=PATCHED
+[RX] Hello from 0xBB metric=0
+[RX] DATA id=7 from 0xAA payload=PKT0007 | recv=7
+[TX] ACK id=7 → 0xAA
+[RX] Hello from 0xAA metric=1
+[RX] Hello from 0xCC metric=0
+[TX] Hello (gateway) seq=5 metric=0 mode=PATCHED
+[RX] Hello from 0xBB metric=0
+[RX] DATA id=8 from 0xAA payload=PKT0008 | recv=8
+[TX] ACK id=8 → 0xAA
+[RX] DATA id=9 from 0xAA payload=PKT0009 | recv=9
+[TX] ACK id=9 → 0xAA
+[RX] Hello from 0xCC metric=0
+[RX] Hello from 0xAA metric=1
+[TX] Hello (gateway) seq=6 metric=0 mode=PATCHED
+[RX] Hello from 0xBB metric=0
+[RX] DATA id=10 from 0xAA payload=PKT0010 | recv=10
+[TX] ACK id=10 → 0xAA
+[RX] Hello from 0xCC metric=0
+[RX] DATA id=11 from 0xAA payload=PKT0011 | recv=11
+[TX] ACK id=11 → 0xAA
+[RX] Hello from 0xAA metric=1
+[TX] Hello (gateway) seq=7 metric=0 mode=PATCHED
+[RX] Hello from 0xBB metric=0
+[RX] DATA id=12 from 0xAA payload=PKT0012 | recv=12
+[TX] ACK id=12 → 0xAA
+[RX] Hello from 0xCC metric=0
+[RX] DATA id=13 from 0xAA payload=PKT0013 | recv=13
+[TX] ACK id=13 → 0xAA
+[RX] Hello from 0xAA metric=1
+[TX] Hello (gateway) seq=8 metric=0 mode=PATCHED
+[RX] Hello from 0xBB metric=0
+[RX] DATA id=15 from 0xAA payload=PKT0015 | recv=14
+[TX] ACK id=15 → 0xAA
+[RX] Hello from 0xAA metric=1
+[RX] Hello from 0xCC metric=0
+[TX] Hello (gateway) seq=9 metric=0 mode=PATCHED
+[RX] Hello from 0xBB metric=0
+[RX] DATA id=16 from 0xAA payload=PKT0016 | recv=15
+[TX] ACK id=16 → 0xAA
+[RX] DATA id=17 from 0xAA payload=PKT0017 | recv=16
+[TX] ACK id=17 → 0xAA
+[RX] Hello from 0xCC metric=0
+[RX] Hello from 0xAA metric=1
+[TX] Hello (gateway) seq=10 metric=0 mode=PATCHED
+[RX] Hello from 0xBB metric=0
+[RX] DATA id=18 from 0xAA payload=PKT0018 | recv=17
+[TX] ACK id=18 → 0xAA
+[RX] Hello from 0xCC metric=0
+[RX] DATA id=19 from 0xAA payload=PKT0019 | recv=18
+[TX] ACK id=19 → 0xAA
+[RX] Hello from 0xAA metric=1
+[TX] Hello (gateway) seq=11 metric=0 mode=PATCHED
+[RX] Hello from 0xBB metric=0
+[RX] DATA id=20 from 0xAA payload=PKT0020 | recv=19
+[TX] ACK id=20 → 0xAA
+[RX] Hello from 0xCC metric=0
+[RX] DATA id=21 from 0xAA payload=PKT0021 | recv=20
+[TX] ACK id=21 → 0xAA
+[RX] Hello from 0xAA metric=1
+[TX] Hello (gateway) seq=12 metric=0 mode=PATCHED
+[RX] Hello from 0xBB metric=0

@@ -1,0 +1,48 @@
+[TX] DATA id=4 via=0xCC | sent=5 ack=0 PDR=0.0%
+[RX] Hello from 0xCC metric=0
+[TX] Hello seq=2 metric=1 mode=BASELINE
+[TX] DATA id=5 via=0xCC | sent=6 ack=0 PDR=0.0%
+[TX] DATA id=6 via=0xCC | sent=7 ack=0 PDR=0.0%
+[TX] Hello seq=3 metric=1 mode=BASELINE
+[TX] DATA id=7 via=0xCC | sent=8 ack=0 PDR=0.0%
+[RX] Hello from 0xCC metric=0
+[TX] DATA id=8 via=0xCC | sent=9 ack=0 PDR=0.0%
+[TX] Hello seq=4 metric=1 mode=BASELINE
+[TX] DATA id=9 via=0xCC | sent=10 ack=0 PDR=0.0%
+[RX] Hello from 0xCC metric=0
+[TX] DATA id=10 via=0xCC | sent=11 ack=0 PDR=0.0%
+[RX] Hello from 0xCC metric=0
+[TX] Hello seq=5 metric=1 mode=BASELINE
+[TX] DATA id=11 via=0xCC | sent=12 ack=0 PDR=0.0%
+[TX] DATA id=12 via=0xCC | sent=13 ack=0 PDR=0.0%
+[RX] Hello from 0xCC metric=0
+[TX] Hello seq=6 metric=1 mode=BASELINE
+[TX] DATA id=13 via=0xCC | sent=14 ack=0 PDR=0.0%
+[TX] DATA id=14 via=0xCC | sent=15 ack=0 PDR=0.0%
+[TX] Hello seq=7 metric=1 mode=BASELINE
+[TX] DATA id=15 via=0xCC | sent=16 ack=0 PDR=0.0%
+[RX] Hello from 0xCC metric=0
+[TX] DATA id=16 via=0xCC | sent=17 ack=0 PDR=0.0%
+[TX] Hello seq=8 metric=1 mode=BASELINE
+[TX] DATA id=17 via=0xCC | sent=18 ack=0 PDR=0.0%
+[RX] Hello from 0xCC metric=0
+[TX] DATA id=18 via=0xCC | sent=19 ack=0 PDR=0.0%
+[RX] Hello from 0xCC metric=0
+[TX] Hello seq=9 metric=1 mode=BASELINE
+[TX] DATA id=19 via=0xCC | sent=20 ack=0 PDR=0.0%
+[TX] DATA id=20 via=0xCC | sent=21 ack=0 PDR=0.0%
+[RX] Hello from 0xCC metric=0
+[TX] Hello seq=10 metric=1 mode=BASELINE
+[TX] DATA id=21 via=0xCC | sent=22 ack=0 PDR=0.0%
+[TX] DATA id=22 via=0xCC | sent=23 ack=0 PDR=0.0%
+[TX] Hello seq=11 metric=1 mode=BASELINE
+[TX] DATA id=23 via=0xCC | sent=24 ack=0 PDR=0.0%
+[RX] Hello from 0xCC metric=0
+[TX] DATA id=24 via=0xCC | sent=25 ack=0 PDR=0.0%
+[TX] Hello seq=12 metric=1 mode=BASELINE
+[TX] DATA id=25 via=0xCC | sent=26 ack=0 PDR=0.0%
+[RX] Hello from 0xCC metric=0
+[TX] DATA id=26 via=0xCC | sent=27 ack=0 PDR=0.0%
+[RX] Hello from 0xCC metric=0
+[TX] Hello seq=13 metric=1 mode=BASELINE
+[TX] DATA id=27 via=0xCC | sent=28 ack=0 PDR=0.0%

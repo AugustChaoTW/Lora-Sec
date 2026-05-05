@@ -1,0 +1,36 @@
+[RX] Hello from 0xCC metric=0
+[TX] Hello (gateway) seq=1 metric=0 mode=BASELINE
+[RX] Hello from 0xBB metric=0
+[TX] Hello (gateway) seq=2 metric=0 mode=BASELINE
+[RX] Hello from 0xBB metric=0
+[RX] Hello from 0xCC metric=0
+[TX] Hello (gateway) seq=3 metric=0 mode=BASELINE
+[RX] Hello from 0xBB metric=0
+[RX] Hello from 0xCC metric=0
+[RX] Hello from 0xCC metric=0
+[TX] Hello (gateway) seq=4 metric=0 mode=BASELINE
+[RX] Hello from 0xBB metric=0
+[RX] Hello from 0xCC metric=0
+[TX] Hello (gateway) seq=5 metric=0 mode=BASELINE
+[RX] Hello from 0xBB metric=0
+[TX] Hello (gateway) seq=6 metric=0 mode=BASELINE
+[RX] Hello from 0xBB metric=0
+[RX] Hello from 0xCC metric=0
+[TX] Hello (gateway) seq=7 metric=0 mode=BASELINE
+[RX] Hello from 0xBB metric=0
+[RX] Hello from 0xCC metric=0
+[RX] Hello from 0xCC metric=0
+[TX] Hello (gateway) seq=8 metric=0 mode=BASELINE
+[RX] Hello from 0xBB metric=0
+[RX] Hello from 0xCC metric=0
+[TX] Hello (gateway) seq=9 metric=0 mode=BASELINE
+[RX] Hello from 0xBB metric=0
+[TX] Hello (gateway) seq=10 metric=0 mode=BASELINE
+[RX] Hello from 0xBB metric=0
+[RX] Hello from 0xCC metric=0
+[TX] Hello (gateway) seq=11 metric=0 mode=BASELINE
+[RX] Hello from 0xBB metric=0
+[RX] Hello from 0xCC metric=0
+[RX] Hello from 0xCC metric=0
+[TX] Hello (gateway) seq=12 metric=0 mode=BASELINE
+[RX] Hello from 0xBB metric=0

@@ -1,0 +1,104 @@
+[SNIFF] Hello from 0xAA metric=1
+[ATK] Forged Hello seq=1 metric=0 (no HMAC)
+[ATK] → Baseline: Node A routes via attacker
+[ATK] → Patched : Node A rejects (HMAC=0 invalid)
+[SNIFF] Hello from 0xCC metric=0
+[SNIFF] Hello from 0xBB metric=0
+[DROP] Intercepted DATA id=0 src=0xAA dst=0xBB | total=1
+[DROP] Intercepted DATA id=1 src=0xAA dst=0xBB | total=2
+[ATK] Forged Hello seq=2 metric=0 (no HMAC)
+[ATK] → Baseline: Node A routes via attacker
+[ATK] → Patched : Node A rejects (HMAC=0 invalid)
+[SNIFF] Hello from 0xCC metric=0
+[SNIFF] Hello from 0xAA metric=1
+[SNIFF] Hello from 0xBB metric=0
+[DROP] Intercepted DATA id=2 src=0xAA dst=0xBB | total=3
+[ATK] Forged Hello seq=3 metric=0 (no HMAC)
+[ATK] → Baseline: Node A routes via attacker
+[ATK] → Patched : Node A rejects (HMAC=0 invalid)
+[SNIFF] Hello from 0xCC metric=0
+[DROP] Intercepted DATA id=3 src=0xAA dst=0xBB | total=4
+[SNIFF] Hello from 0xAA metric=1
+[SNIFF] Hello from 0xBB metric=0
+[DROP] Intercepted DATA id=4 src=0xAA dst=0xBB | total=5
+[ATK] Forged Hello seq=4 metric=0 (no HMAC)
+[ATK] → Baseline: Node A routes via attacker
+[ATK] → Patched : Node A rejects (HMAC=0 invalid)
+[SNIFF] Hello from 0xCC metric=0
+[DROP] Intercepted DATA id=5 src=0xAA dst=0xBB | total=6
+[SNIFF] Hello from 0xAA metric=1
+[SNIFF] Hello from 0xBB metric=0
+[ATK] Forged Hello seq=5 metric=0 (no HMAC)
+[ATK] → Baseline: Node A routes via attacker
+[ATK] → Patched : Node A rejects (HMAC=0 invalid)
+[SNIFF] Hello from 0xCC metric=0
+[DROP] Intercepted DATA id=7 src=0xAA dst=0xBB | total=7
+[SNIFF] Hello from 0xAA metric=1
+[ATK] Forged Hello seq=6 metric=0 (no HMAC)
+[ATK] → Baseline: Node A routes via attacker
+[ATK] → Patched : Node A rejects (HMAC=0 invalid)
+[SNIFF] Hello from 0xCC metric=0
+[SNIFF] Hello from 0xBB metric=0
+[DROP] Intercepted DATA id=8 src=0xAA dst=0xBB | total=8
+[DROP] Intercepted DATA id=9 src=0xAA dst=0xBB | total=9
+[ATK] Forged Hello seq=7 metric=0 (no HMAC)
+[ATK] → Baseline: Node A routes via attacker
+[ATK] → Patched : Node A rejects (HMAC=0 invalid)
+[SNIFF] Hello from 0xCC metric=0
+[SNIFF] Hello from 0xAA metric=1
+[SNIFF] Hello from 0xBB metric=0
+[DROP] Intercepted DATA id=10 src=0xAA dst=0xBB | total=10
+[ATK] Forged Hello seq=8 metric=0 (no HMAC)
+[ATK] → Baseline: Node A routes via attacker
+[ATK] → Patched : Node A rejects (HMAC=0 invalid)
+[SNIFF] Hello from 0xCC metric=0
+[DROP] Intercepted DATA id=11 src=0xAA dst=0xBB | total=11
+[SNIFF] Hello from 0xAA metric=1
+[SNIFF] Hello from 0xBB metric=0
+[DROP] Intercepted DATA id=12 src=0xAA dst=0xBB | total=12
+[ATK] Forged Hello seq=9 metric=0 (no HMAC)
+[ATK] → Baseline: Node A routes via attacker
+[ATK] → Patched : Node A rejects (HMAC=0 invalid)
+[SNIFF] Hello from 0xCC metric=0
+[DROP] Intercepted DATA id=13 src=0xAA dst=0xBB | total=13
+[SNIFF] Hello from 0xAA metric=1
+[SNIFF] Hello from 0xBB metric=0
+[ATK] Forged Hello seq=10 metric=0 (no HMAC)
+[ATK] → Baseline: Node A routes via attacker
+[ATK] → Patched : Node A rejects (HMAC=0 invalid)
+[SNIFF] Hello from 0xCC metric=0
+[DROP] Intercepted DATA id=15 src=0xAA dst=0xBB | total=14
+[SNIFF] Hello from 0xAA metric=1
+[ATK] Forged Hello seq=11 metric=0 (no HMAC)
+[ATK] → Baseline: Node A routes via attacker
+[ATK] → Patched : Node A rejects (HMAC=0 invalid)
+[SNIFF] Hello from 0xCC metric=0
+[SNIFF] Hello from 0xBB metric=0
+[DROP] Intercepted DATA id=16 src=0xAA dst=0xBB | total=15
+[DROP] Intercepted DATA id=17 src=0xAA dst=0xBB | total=16
+[ATK] Forged Hello seq=12 metric=0 (no HMAC)
+[ATK] → Baseline: Node A routes via attacker
+[ATK] → Patched : Node A rejects (HMAC=0 invalid)
+[SNIFF] Hello from 0xCC metric=0
+[SNIFF] Hello from 0xAA metric=1
+[SNIFF] Hello from 0xBB metric=0
+[DROP] Intercepted DATA id=18 src=0xAA dst=0xBB | total=17
+[ATK] Forged Hello seq=13 metric=0 (no HMAC)
+[ATK] → Baseline: Node A routes via attacker
+[ATK] → Patched : Node A rejects (HMAC=0 invalid)
+[SNIFF] Hello from 0xCC metric=0
+[DROP] Intercepted DATA id=19 src=0xAA dst=0xBB | total=18
+[SNIFF] Hello from 0xAA metric=1
+[SNIFF] Hello from 0xBB metric=0
+[DROP] Intercepted DATA id=20 src=0xAA dst=0xBB | total=19
+[ATK] Forged Hello seq=14 metric=0 (no HMAC)
+[ATK] → Baseline: Node A routes via attacker
+[ATK] → Patched : Node A rejects (HMAC=0 invalid)
+[SNIFF] Hello from 0xCC metric=0
+[DROP] Intercepted DATA id=21 src=0xAA dst=0xBB | total=20
+[SNIFF] Hello from 0xAA metric=1
+[SNIFF] Hello from 0xBB metric=0
+[ATK] Forged Hello seq=15 metric=0 (no HMAC)
+[ATK] → Baseline: Node A routes via attacker
+[ATK] → Patched : Node A rejects (HMAC=0 invalid)
+[SNIFF] Hello from 0xCC metric=0

@@ -1,0 +1,80 @@
+[TX] Hello seq=2 metric=1 mode=PATCHED
+[DROP] Hello from 0xCC HMAC FAILED
+[RX] Hello from 0xBB metric=0 [HMAC OK]
+[ROUTE] Added dst=0xBB via=0xBB metric=1
+[TX] DATA id=0 via=0xBB | sent=1 ack=0 PDR=0.0%
+[RX] ACK id=0 PDR=100.0%
+[TX] DATA id=1 via=0xBB | sent=2 ack=1 PDR=50.0%
+[RX] ACK id=1 PDR=100.0%
+[DROP] Hello from 0xCC HMAC FAILED
+[TX] Hello seq=3 metric=1 mode=PATCHED
+[RX] Hello from 0xBB metric=0 [HMAC OK]
+[TX] DATA id=2 via=0xBB | sent=3 ack=2 PDR=66.7%
+[RX] ACK id=2 PDR=100.0%
+[DROP] Hello from 0xCC HMAC FAILED
+[TX] DATA id=3 via=0xBB | sent=4 ack=3 PDR=75.0%
+[RX] ACK id=3 PDR=100.0%
+[TX] Hello seq=4 metric=1 mode=PATCHED
+[RX] Hello from 0xBB metric=0 [HMAC OK]
+[TX] DATA id=4 via=0xBB | sent=5 ack=4 PDR=80.0%
+[RX] ACK id=4 PDR=100.0%
+[DROP] Hello from 0xCC HMAC FAILED
+[TX] DATA id=5 via=0xBB | sent=6 ack=5 PDR=83.3%
+[RX] ACK id=5 PDR=100.0%
+[TX] Hello seq=5 metric=1 mode=PATCHED
+[RX] Hello from 0xBB metric=0 [HMAC OK]
+[TX] DATA id=6 via=0xBB | sent=7 ack=6 PDR=85.7%
+[TX] DATA id=7 via=0xBB | sent=8 ack=6 PDR=75.0%
+[RX] ACK id=7 PDR=87.5%
+[TX] Hello seq=6 metric=1 mode=PATCHED
+[DROP] Hello from 0xCC HMAC FAILED
+[RX] Hello from 0xBB metric=0 [HMAC OK]
+[TX] DATA id=8 via=0xBB | sent=9 ack=7 PDR=77.8%
+[RX] ACK id=8 PDR=88.9%
+[TX] DATA id=9 via=0xBB | sent=10 ack=8 PDR=80.0%
+[RX] ACK id=9 PDR=90.0%
+[DROP] Hello from 0xCC HMAC FAILED
+[TX] Hello seq=7 metric=1 mode=PATCHED
+[RX] Hello from 0xBB metric=0 [HMAC OK]
+[TX] DATA id=10 via=0xBB | sent=11 ack=9 PDR=81.8%
+[RX] ACK id=10 PDR=90.9%
+[DROP] Hello from 0xCC HMAC FAILED
+[TX] DATA id=11 via=0xBB | sent=12 ack=10 PDR=83.3%
+[RX] ACK id=11 PDR=91.7%
+[TX] Hello seq=8 metric=1 mode=PATCHED
+[RX] Hello from 0xBB metric=0 [HMAC OK]
+[TX] DATA id=12 via=0xBB | sent=13 ack=11 PDR=84.6%
+[RX] ACK id=12 PDR=92.3%
+[DROP] Hello from 0xCC HMAC FAILED
+[TX] DATA id=13 via=0xBB | sent=14 ack=12 PDR=85.7%
+[RX] ACK id=13 PDR=92.9%
+[TX] Hello seq=9 metric=1 mode=PATCHED
+[RX] Hello from 0xBB metric=0 [HMAC OK]
+[TX] DATA id=14 via=0xBB | sent=15 ack=13 PDR=86.7%
+[TX] DATA id=15 via=0xBB | sent=16 ack=13 PDR=81.2%
+[RX] ACK id=15 PDR=87.5%
+[TX] Hello seq=10 metric=1 mode=PATCHED
+[DROP] Hello from 0xCC HMAC FAILED
+[RX] Hello from 0xBB metric=0 [HMAC OK]
+[TX] DATA id=16 via=0xBB | sent=17 ack=14 PDR=82.4%
+[RX] ACK id=16 PDR=88.2%
+[TX] DATA id=17 via=0xBB | sent=18 ack=15 PDR=83.3%
+[RX] ACK id=17 PDR=88.9%
+[DROP] Hello from 0xCC HMAC FAILED
+[TX] Hello seq=11 metric=1 mode=PATCHED
+[RX] Hello from 0xBB metric=0 [HMAC OK]
+[TX] DATA id=18 via=0xBB | sent=19 ack=16 PDR=84.2%
+[RX] ACK id=18 PDR=89.5%
+[DROP] Hello from 0xCC HMAC FAILED
+[TX] DATA id=19 via=0xBB | sent=20 ack=17 PDR=85.0%
+[RX] ACK id=19 PDR=90.0%
+[TX] Hello seq=12 metric=1 mode=PATCHED
+[RX] Hello from 0xBB metric=0 [HMAC OK]
+[TX] DATA id=20 via=0xBB | sent=21 ack=18 PDR=85.7%
+[RX] ACK id=20 PDR=90.5%
+[DROP] Hello from 0xCC HMAC FAILED
+[TX] DATA id=21 via=0xBB | sent=22 ack=19 PDR=86.4%
+[RX] ACK id=21 PDR=90.9%
+[TX] Hello seq=13 metric=1 mode=PATCHED
+[RX] Hello from 0xBB metric=0 [HMAC OK]
+[TX] DATA id=22 via=0xBB | sent=23 ack=20 PDR=87.0%
