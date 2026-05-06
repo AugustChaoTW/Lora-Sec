@@ -9,6 +9,7 @@
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{cite}
+\usepackage{enumitem}
 \usepackage{amsmath,amssymb,amsthm}
 \usepackage{booktabs}
 \usepackage{array}
@@ -222,6 +223,43 @@ The specific contributions are:
     immediate community adoption and independent replication
     (Appendix~\ref{app:artifact}).
 \end{enumerate}
+
+\subsection{Methodology Overview}
+\label{sec:methodology}
+
+Our study follows a four-phase, mutually corroborating methodology:
+
+\begin{enumerate}[label=\textbf{Phase \arabic*.}]
+  \item \textbf{Formal Disclosure} (Section~\ref{sec:formal}):
+    We build a Tamarin Prover model of LoRaMesher's control plane
+    and derive machine-checked attack traces. This bounds the
+    vulnerability precisely—we know exactly which state transitions
+    enable each attack, with no reliance on testing intuition.
+
+  \item \textbf{Verified Patch} (Section~\ref{sec:patch}):
+    We extend the Tamarin model with the proposed patch rules and
+    re-verify all security lemmas. The patch is accepted only when
+    Tamarin proves all 8 goals, guaranteeing it eliminates the
+    formally identified root causes—not just the observed symptoms.
+
+  \item \textbf{Multi-Topology Simulation} (Section~\ref{sec:eval}):
+    We implement the protocol, both attacks, and three security modes
+    in ns-3.40 with a C++17 Dolev-Yao attacker. This translates
+    Tamarin's symbolic guarantees into packet-level PDR measurements
+    across linear, tree, and grid IoT deployments.
+
+  \item \textbf{Physical Hardware Confirmation}
+    (Section~\ref{sec:hardware-validation}):
+    We reproduce the attack and patch on three Ebyte EoRa-PI boards
+    (ESP32-S3 + SX1262), confirming that both the formal model and
+    the simulator faithfully represent production-hardware behavior.
+\end{enumerate}
+
+Each phase independently corroborates the previous: formal proofs
+rule out false negatives; the simulator quantifies deployment-scale
+impact; hardware rules out simulator artifacts. Together they form
+an end-to-end evidence chain absent from any prior LoRa mesh
+security study.
 
 \begin{figure*}[t]
   \centering
@@ -802,9 +840,15 @@ Three IoT deployment topologies are evaluated:
 \end{itemize}
 
 We evaluate all 27 scenarios (3 topologies × 3 protocol states ×
-3 attack types) with seed=1 (300~s each); cryptographic pass/fail
-outcomes are deterministic and do not vary across seeds. Protocol parameters: Hello period 10~s, rekeying
-interval 30~s, SF9, 868~MHz, payload 64~bytes, rate 0.207~pkt/s.
+3 attack types) with seed=1 (300~s each). Cryptographic pass/fail
+outcomes are deterministic across seeds: HMAC verification succeeds
+or fails based solely on key material and message content; topology
+seed affects only node placement and traffic timing, neither of
+which alters whether an HMAC tag is valid. PDR values in
+Table~\ref{tab:attacks} therefore represent structural protocol
+behavior, not sampling noise. Protocol parameters: Hello period 10~s,
+rekeying interval 30~s, SF9, 868~MHz, payload 64~bytes,
+rate 0.207~pkt/s.
 
 \subsection{Attack Effectiveness}
 
@@ -1088,6 +1132,50 @@ overhead from 0.098~ms to $\approx$0.08~ms, a direction for
 future work. Adversarial robustness of LoRa device
 authentication via deep learning~\cite{ieee2025-lora-adversarial}
 complements our control-plane approach with physical-layer defenses.
+
+\subsection{Positioning vs.\ Prior Work}
+\label{sec:positioning}
+
+Table~\ref{tab:related-comparison} summarizes how this work differs
+from the most closely related studies across four capability axes.
+No prior work simultaneously covers all four.
+
+\begin{table}[t]
+  \centering
+  \caption{Comparison with closest related work on LoRa/mesh security.
+           \checkmark~=~fully covered; $\circ$~=~partially;
+           $\times$~=~absent.}
+  \label{tab:related-comparison}
+  \setlength{\tabcolsep}{4pt}
+  \begin{tabular}{lcccc}
+    \toprule
+    \textbf{Work} &
+      \textbf{\shortstack{Formal\\Proof}} &
+      \textbf{\shortstack{LoRa Mesh\\Control-plane}} &
+      \textbf{\shortstack{Verified\\Patch}} &
+      \textbf{\shortstack{HW\\Validation}} \\
+    \midrule
+    LoRaWAN key verification~\cite{ieee2025-lorawan-key-verification}
+      & \checkmark & $\times$ & $\times$ & $\times$ \\
+    MPKE-ProVerif~\cite{ieee2025-mpke-proverif}
+      & \checkmark & $\circ$  & $\times$ & $\times$ \\
+    AODV formal model~\cite{glabbeek2016-aodv-verification}
+      & \checkmark & $\times$ & $\times$ & $\times$ \\
+    SEAD one-way chains~\cite{hu2002-sead}
+      & $\times$   & $\times$ & \checkmark & $\times$ \\
+    LoRaWAN IDS~\cite{bringye2026-lorawan-ids}
+      & $\times$   & $\circ$  & $\times$ & $\times$ \\
+    \textbf{This work}
+      & \checkmark & \checkmark & \checkmark & \checkmark \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+The key differentiator is the combination of (i)~a Tamarin model
+targeting the DV-routing control plane specifically—not the WAN
+key establishment layer—and (ii)~an end-to-end evidence chain from
+formal proof through physical hardware that no prior study has
+assembled for any LoRa mesh routing protocol.
 
 % ==================================================================
 \section{Limitations and Future Work}
