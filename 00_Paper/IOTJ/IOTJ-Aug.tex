@@ -178,6 +178,30 @@ goals, and (iii)~validated the outcome across multi-topology
 simulation and physical hardware experiments. This paper closes
 that gap.
 
+\textbf{Why this is not incremental.}
+The patch components—HMAC-SHA256 and a monotonic counter—are
+individually well-known. The non-incremental contribution is
+threefold.
+(1)~\emph{Non-obvious attack surface}: LoRa's broadcast medium
+combined with DV routing's first-come-first-served rule creates a
+timing-exploitable vulnerability absent from Ethernet or IEEE
+802.15.4 mesh environments. An attacker who sends a single forged
+Hello before the gateway's first advertisement permanently poisons
+the routing table; no prior work identified or formally bounded
+this window.
+(2)~\emph{Non-trivial Tamarin encoding}: LoRaMesher's stateful metric
+comparison ($<$, not $\leq$) and per-destination MetricVersion
+counter required original multiset-rewriting rules with inductive
+monotonicity lemmas; these are not standard library patterns and
+took significant modeling effort to make tractable ($<$4~s proof time).
+(3)~\emph{Cross-layer surprise}: hardware experiments revealed that
+the attack only succeeds when the data packet's destination field
+encodes the \emph{next hop} (not the final gateway)—a subtlety
+invisible to both the Tamarin symbolic model and the ns-3 simulator,
+and only observable on physical boards. This finding strengthens the
+case that hardware validation is a necessary, not optional, component
+of IoT protocol security studies.
+
 \subsection{Contributions}
 
 To our knowledge, this paper presents the \textbf{first
@@ -524,6 +548,29 @@ as protocol invariants restores all four (Section~\ref{sec:patch}).
 \section{LoRaMesher Protocol and Formal Model}
 \label{sec:formal}
 % ==================================================================
+
+\textbf{Why Tamarin?}
+LoRaMesher's DV routing involves three properties that drive the
+tool choice.
+First, \emph{stateful route comparison}: each node maintains a
+routing table with per-entry metric and MetricVersion fields that
+are updated conditionally ($<$, not $\leq$); this stateful
+comparison is naturally expressed in Tamarin's persistent
+facts~(\texttt{!RouteActive}) but requires explicit
+state-space bounds in model checkers such as SPIN.
+Second, \emph{unbounded participants}: LoRa mesh deployments have
+no fixed topology; the attacker can join at any position. Tamarin
+proves properties for an arbitrary number of participants
+symbolically; ProVerif's Horn-clause encoding can express reachability
+but does not natively support inductive monotonicity arguments over
+per-destination counters.
+Third, \emph{dual mode—proofs and counterexamples}: we need both
+machine-checked attack traces (to confirm the vulnerability) and
+security proofs (to confirm the patch). Tamarin's constraint-solving
+engine produces both within the same framework and model;
+switching tools between phases would risk encoding inconsistency.
+These three requirements together motivated Tamarin over ProVerif,
+SPIN, and manual inductive proofs.
 
 \subsection{Control-Plane Message Format}
 
