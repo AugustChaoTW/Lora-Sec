@@ -378,16 +378,36 @@ Our patch must operate within ESP32-S3 constraints:
     Flash              & 8~MB             & 2.1~KB (+0.03\%) \\
     SRAM               & 512~KB           & 18~B/route entry \\
     CPU (HMAC-SHA256)  & 240~MHz          & 0.098~ms/message \\
-    LoRa link latency  & 100–250~ms       & overhead $<$0.1\% \\
-    Battery (baseline) & 2500~mAh         & $<$0.1\% additional draw \\
+    LoRa link latency  & 100–250~ms       & CPU overhead $<$0.1\% \\
+    LoRa airtime (Hello) & 124~ms (SF9)  & 165~ms patched (+33\%) \\
+    Duty cycle (Hello) & 1.24\%/10~s    & 1.65\%/10~s (+0.41 pp) \\
+    Battery (baseline) & 2500~mAh         & $<$0.5\% additional draw \\
     \bottomrule
   \end{tabular}
 \end{table}
 
 The HMAC computation time (0.098~ms on ESP32-S3, measured with
-mbedTLS~2.28 on production hardware, 10{,}000 iterations) is three orders of magnitude smaller than LoRa's
-minimum air-time for a 64-byte payload at SF9 (165~ms). The patch
-is thus computationally negligible for the target hardware.
+mbedTLS~2.28 on production hardware, 10{,}000 iterations) is three
+orders of magnitude smaller than LoRa's minimum air-time and is
+therefore computationally negligible.
+
+\textbf{LoRa airtime and duty-cycle impact.}
+The patch appends an 8-byte truncated HMAC tag to each
+control message (a deliberate design choice; 8~bytes provides
+64-bit collision resistance, sufficient against Dolev-Yao adversaries
+that cannot break SHA-256). Using the Semtech LoRa ToA formula at
+SF9 / BW=125~kHz / CR=4/5 / explicit header / CRC:
+a Hello message grows from 6~bytes (baseline) to 14~bytes (patched),
+increasing time-on-air from $\approx$124~ms to $\approx$165~ms
+(+33\%). The per-node duty-cycle increase for Hello traffic is
+$(165-124)/10{,}000 = 0.41$~percentage points. For data packets
+(13~bytes $\to$ 21~bytes), the airtime increase is $\approx$12\%.
+In the AS923 band (used in this study), the 1\% per-channel
+duty-cycle ceiling applies; the additional $\approx$0.41~pp overhead
+from Hellos remains within this ceiling for nodes sending one Hello
+per 10~s period. Operators with tighter duty-cycle budgets may
+reduce HMAC to 4~bytes (32-bit tag), halving the airtime overhead
+at the cost of reduced security margin.
 
 \subsection{Attacker Model}
 
@@ -406,6 +426,38 @@ We adopt the Dolev-Yao adversary adapted to LoRa IoT:
   \item \textbf{No cryptographic break}: Cannot break HMAC-SHA256
     in polynomial time.
 \end{itemize}
+
+\textbf{Key provisioning.}
+Each node is pre-provisioned with a shared symmetric key
+$k_v \in \{0,1\}^{128}$ at deployment time (out-of-band, e.g.,
+via USB or secure Bluetooth pairing before field installation).
+This assumption is standard for LoRa mesh deployments without
+a network server~\cite{shelby2026-zero-trust-iot} and is consistent
+with ESP32's secure-boot and NVS-encrypted flash capabilities.
+Group key rotation (rekeying) is triggered by the
+30-second \texttt{RekeyNotice} protocol; per-node keys are not
+rotated in the current design.
+
+\textbf{Node compromise and revocation.}
+If a node is physically captured and its key extracted,
+the attacker gains a valid HMAC key for that node's identity.
+The current patch does not include a key revocation mechanism;
+an operator must reflash all nodes with a new group key.
+This is a known limitation (Section~\ref{sec:limitations}).
+The $k < n/2$ compromise bound ensures that a majority of honest
+nodes retain valid routing state; the network continues to
+route through uncompromised paths.
+
+\textbf{MetricVersion counter reset.}
+The per-destination MetricVersion counter $mv_v$ is initialized
+to 0 at boot and stored in SRAM; it resets on power cycle.
+After a node reboot, it accepts the next received Hello as
+authoritative (any MetricVersion $> 0$ passes), then enforces
+monotonicity thereafter. An attacker who forces a target node
+to reboot and then replays a captured Hello with MetricVersion=1
+can inject one stale route entry. This one-reboot attack window
+is a known limitation and motivates persistent-counter storage
+(e.g., NVS flash) as future work.
 
 \subsection{Security Goals}
 
@@ -933,7 +985,7 @@ for G2 (RouteFreshness).
 
 \begin{table}[t]
   \centering
-  \caption{IoT Network Performance Under Normal Operation (Mean $\pm$ Std, 5 Seeds)}
+  \caption{IoT Network Performance Under Normal Operation (No Attack, seed=1)}
   \label{tab:overhead}
   \begin{tabular}{llcc}
     \toprule
@@ -1055,7 +1107,11 @@ application-layer performance.
 
 To complement the ns-3 simulation, we validated the attack and patch
 on three physical Ebyte EoRa-PI boards (ESP32-S3FH4R2 + SX1262,
-AS923/923~MHz, 10~dBm).
+AS923/923~MHz, 10~dBm) as a \emph{proof-of-concept} demonstration.
+This experiment confirms that the attack and defense behave as
+predicted on production hardware; deployment-scale coverage
+(multi-hop topologies, 6–9 nodes) is provided by the ns-3 results
+in Table~\ref{tab:attacks}.
 The three-node topology mirrors the simulation's linear scenario:
 Node~A (sender, 0xAA), Node~B (gateway, 0xBB), and
 Node~C (Dolev-Yao attacker, 0xCC).
