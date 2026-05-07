@@ -113,11 +113,12 @@ scale: individual deployments now span hundreds of sensor nodes
 across farmland, mountain ranges, and urban districts, relying on
 multi-hop LoRa mesh routing to relay data from the field to cloud
 backends~\cite{repetto2025-lorawan-drone-attack,yang2021-lorawan-systematic,ieee2025-lora-hierarchy-routing}. At the core of
-many such deployments is LoRaMesher, an open-source distance-vector
-mesh routing stack running on ESP32-class microcontrollers
-(240~MHz, 512~KB RAM). LoRaMesher provides dynamic route discovery,
-neighbor management, and periodic session rekeying, enabling
-self-organizing networks without fixed gateway infrastructure.
+many such deployments is LoRaMesher~\cite{sole2022-loramesher,sole2024-loramesher-dv},
+an open-source distance-vector mesh routing stack running on
+ESP32-class microcontrollers (240~MHz, 512~KB RAM).
+LoRaMesher provides dynamic route discovery, neighbor management,
+and periodic session rekeying, enabling self-organizing networks
+without fixed gateway infrastructure.
 Yet, despite the protocol's growing adoption, \emph{the security
 of its control-plane messages has never been formally analyzed}:
 no prior work has produced machine-checked vulnerability proofs,
@@ -1174,10 +1175,15 @@ Raw serial logs are archived in
 
 \subsection{LoRa and LoRaWAN Security}
 
-Prior work on LoRaWAN security~\cite{ieee2025-lorawan-key-vulnerability,
-ieee2025-lorawan-aes-crypto} targets the WAN star-topology layer
-and relies on network-server-managed key derivation.
-These mechanisms are absent in LoRaMesher's peer-to-peer mesh model.
+Comprehensive surveys of LoRaWAN security~\cite{hessel2022-lorawan-survey,yang2021-lorawan-systematic}
+document replay, join-server spoofing, and key-management vulnerabilities
+at the WAN layer.
+Formal verification work~\cite{ieee2025-lorawan-key-vulnerability,
+ieee2025-lorawan-key-verification} has analyzed LoRaWAN's key-establishment
+protocol with Tamarin and ProVerif. Key management schemes~\cite{lorawan-key-mgmt-2023,
+mohamed2022-lorawan-gateways} harden the WAN gateway tier.
+All of these target the star-topology WAN layer managed by network
+servers; they provide no mechanism for mesh control-plane authentication.
 Repetto et al.~\cite{repetto2025-lorawan-drone-attack} study LoRa
 security for drone-to-ground communications but focus on the PHY
 and LoRaWAN layers, not mesh routing.
@@ -1206,6 +1212,10 @@ are well-studied in MANET and WSN contexts.
 SEAD~\cite{hu2002-sead} secures DSDV with one-way hash chains,
 and AODV verification work~\cite{glabbeek2016-aodv-verification}
 provides formal models for on-demand routing.
+The IETF's threat analysis for RPL~\cite{ietf-rfc7416}—the routing
+protocol for low-power and lossy networks—enumerates sinkhole,
+replay, and selective-forwarding threats that parallel those we
+characterize for LoRaMesher's DV control plane.
 Our contribution is the first formal treatment of DV routing
 security under LoRa channel constraints and ESP32 resource budgets.
 Intrusion-resilient routing for VANETs~\cite{springer2026-vanet-routing}

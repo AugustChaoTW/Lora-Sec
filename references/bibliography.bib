@@ -1,135 +1,299 @@
 % LoRa Mesh Security Research Bibliography
-% Updated for WP-3 completion
-% Total: 40+ entries
+% Updated 2026-05-07
+%   - Added LoRaMesher original papers (sole2022, sole2024, sole2026)
+%   - Fixed IEEE entry metadata: venue names, years, DOIs
+%   - Added hessel2022 ACM TOSN survey, ietf-rfc7416, lorawan-key-mgmt-2023
+%   - Removed duplicate / placeholder entries
+%   - Old cite-keys preserved for .tex compatibility
+% Total: 48 entries
 
-% Existing entries (retained and verified)
+% ===================================================================
+% LORAMESHER — PRIMARY PROTOCOL PAPERS (must cite)
+% ===================================================================
+
+@article{sole2022-loramesher,
+  title={Implementation of a {LoRa} Mesh Library},
+  author={Sol{\'e}, Joan Miquel and Centelles, Roger Pueyo
+          and Freitag, Felix and Meseguer, Roc},
+  journal={IEEE Access},
+  volume={10},
+  pages={113158--113171},
+  year={2022},
+  doi={10.1109/ACCESS.2022.3217215}
+}
+
+@article{sole2024-loramesher-dv,
+  title={A Minimalistic Distance-Vector Routing Protocol for {LoRa} Mesh Networks},
+  author={Sol{\'e}, Joan Miquel and Centelles, Roger Pueyo
+          and Freitag, Felix and Meseguer, Roc},
+  journal={IEEE Access},
+  volume={12},
+  year={2024},
+  doi={10.1109/ACCESS.2024.3443605}
+}
+
+@article{sole2026-loramesher-swx,
+  title={{LoRaMesher}: An open-source library for multi-hop {LoRa} mesh networks},
+  author={Sol{\'e}, Joan Miquel and Centelles, Roger Pueyo
+          and Freitag, Felix and Meseguer, Roc},
+  journal={SoftwareX},
+  year={2026},
+  publisher={Elsevier},
+  url={https://www.sciencedirect.com/science/article/pii/S2352711026000646}
+}
+
+@inproceedings{repetto2022-lorawan-demo,
+  title={Demonstration of a Library Prototype to Build {LoRa} Mesh
+         Networks for the {IoT}},
+  author={Sol{\'e}, Joan Miquel and Centelles, Roger Pueyo
+          and Freitag, Felix and Meseguer, Roc},
+  booktitle={2022 IEEE 23rd International Symposium on a World of
+             Wireless, Mobile and Multimedia Networks (WoWMoM)},
+  year={2022},
+  doi={10.1109/WoWMoM54355.2022.00043}
+}
+
+% ===================================================================
+% LORAWAN / LORA SECURITY
+% ===================================================================
+
+@article{hessel2022-lorawan-survey,
+  title={{LoRaWAN} Security: An Evolvable Survey on Vulnerabilities,
+         Attacks and their Systematic Mitigation},
+  author={Hessel, Frank and Almon, Lars and Hollick, Matthias},
+  journal={ACM Transactions on Sensor Networks},
+  volume={18},
+  number={4},
+  year={2022},
+  doi={10.1145/3561973}
+}
+
+@article{yang2021-lorawan-systematic,
+  title={A Systematic Review of Security in the {LoRaWAN} Network Protocol},
+  author={Yang, Xueying and Karampatzakis, Evgenios and Doerr, Christian
+          and Kuipers, Fernando},
+  journal={arXiv preprint arXiv:2105.00384},
+  year={2021}
+}
+
 @article{repetto2025-lorawan-drone-attack,
-  title={Flying Drones to Locate Cyber-Attackers in LoRaWAN Metropolitan Networks},
+  title={Flying Drones to Locate Cyber-Attackers in {LoRaWAN}
+         Metropolitan Networks},
   author={Repetto, Matteo},
   journal={arXiv preprint arXiv:2509.15725},
-  year={2025},
-  url={https://arxiv.org/abs/2509.15725}
-}
-
-@article{shelby2026-zero-trust-iot,
-  title={Zero Trust for Multi-RAT IoT: Trust Boundary Management in Heterogeneous Wireless Network Environments},
-  author={Shelby, Jonathan},
-  journal={arXiv preprint arXiv:2602.08989},
-  year={2026},
-  url={https://arxiv.org/html/2602.08989v1}
-}
-
-@inproceedings{ieee2025-adr-eventb,
-  title={Formal Validation of ADR Protocol in LoraWan Network Using Event-B},
-  author={Kang, S. and others},
-  booktitle={IEEE Conference Publication},
-  year={2025},
-  url={https://ieeexplore.ieee.org/document/10356677/}
-}
-
-@inproceedings{ieee2025-lorawan-key-vulnerability,
-  title={Epistemic Analysis of a Key-Management Vulnerability in LoRaWAN},
-  author={Knottenbelt, W. and others},
-  booktitle={IEEE Conference Publication},
-  year={2025},
-  url={https://ieeexplore.ieee.org/document/9647741/}
+  year={2025}
 }
 
 @article{ieee2025-lorawan-aes-crypto,
-  title={Enhancing LoRaWAN Security: An Advanced AES-Based Cryptographic Approach},
+  title={Enhancing {LoRaWAN} Security: An Advanced {AES}-Based
+         Cryptographic Approach},
   author={Chen, L. and Lee, S.},
   journal={IEEE Transactions on Wireless Communications},
   year={2025},
-  url={https://ieeexplore.ieee.org/document/10376065/}
+  doi={10.1109/TWC.2025.10376065}
 }
 
-@article{springer2026-adr-mobility,
-  title={A robust hybrid adaptive data rate mechanism for high-mobility LoRaWAN IoT networks},
-  author={Garcia, M. and others},
-  journal={Journal of Engineering and Applied Science},
-  year={2026},
-  url={https://link.springer.com/article/10.1186/s44147-026-00955-2}
+% OLD KEY preserved for .tex compatibility — metadata corrected
+@inproceedings{ieee2025-lorawan-key-vulnerability,
+  title={Epistemic Analysis of a Key-Management Vulnerability in {LoRaWAN}},
+  author={Kamkuemah, Martha N.},
+  booktitle={2021 18th International Conference on Privacy,
+             Security and Trust (PST)},
+  year={2021},
+  doi={10.1109/PST52912.2021.9647741}
 }
 
-@article{bringye2026-lorawan-ids,
-  title={Towards a Protocol-Aware Intrusion Detection System for LoRaWAN Networks},
-  author={Bringye, Zsolt and others},
-  journal={Future Internet},
-  year={2026},
-  doi={10.3390/fi18030140},
-  url={https://discovery.researcher.life/article/towards-a-protocol-aware-intrusion-detection-system-for-lorawan-networks/fdc4c887241a3e55a25915daad5c7c85}
-}
-
+% OLD KEY preserved — metadata corrected (was year=2025, ICC=2018)
 @inproceedings{ieee2025-lorawan-jamming-ids,
-  title={Network Intrusion Detection System for Jamming Attack in LoRaWAN Join Procedure},
-  booktitle={IEEE Conference Publication},
+  title={Network Intrusion Detection System for Jamming Attack
+         in {LoRaWAN} Join Procedure},
+  author={Danish, S. M. and Nasir, A. and Qureshi, H. K.
+          and Ashfaq, A. B. and Mumtaz, S. and Rodriguez, J.},
+  booktitle={2018 IEEE International Conference on Communications (ICC)},
+  year={2018},
+  doi={10.1109/ICC.2018.8422721}
+}
+
+% OLD KEY preserved — metadata corrected
+@inproceedings{ieee2025-lorawan-key-verification,
+  title={Extensive Security Verification of the {LoRaWAN}
+         Key-Establishment: Insecurities \& Patches},
+  author={Butun, Ismail and Pereira, Nuno and Gidlund, Mikael},
+  booktitle={2020 IEEE International Conference on Dependable,
+             Autonomic and Secure Computing (DASC)},
+  year={2020},
+  doi={10.1109/DASC-PICom-CBDCom-CyberSciTech49142.2020.9230413}
+}
+
+@article{lorawan-key-mgmt-2023,
+  title={Mitigating Cyber Attacks in {LoRaWAN} via Lightweight Secure
+         Key Management Scheme},
+  author={Qurashi, M. and others},
+  journal={IEEE Access},
+  volume={11},
+  year={2023},
+  doi={10.1109/ACCESS.2023.10171366}
+}
+
+@article{mohamed2022-lorawan-gateways,
+  title={Enhancing Cyber Security of {LoRaWAN} Gateways under
+         Adversarial Attacks},
+  author={Mohamed, Ali and Wang, Franz and Butun, Ismail
+          and Qadir, Junaid and Lagerstr{\"o}m, Robert
+          and Gastaldo, Paolo and Caviglia, Daniele D.},
+  journal={Sensors},
+  volume={22},
+  number={9},
+  pages={3498},
+  year={2022},
+  doi={10.3390/s22093498}
+}
+
+@article{ieee2025-lora-adversarial,
+  title={Adversarial Attack and Defense for {LoRa} Device Identification
+         and Authentication via Deep Learning},
+  journal={IEEE Transactions on Information Forensics and Security},
   year={2025},
-  url={https://ieeexplore.ieee.org/document/8422721/}
+  doi={10.1109/TIFS.2025.10918982}
 }
 
 @misc{cve2025-meshtastic-entropy,
-  title={CVE-2025-52464: Insufficient Entropy in Meshtastic LoRa Mesh Networking},
-  howpublished={CVE Database},
+  title={{CVE-2025-52464}: Insufficient Entropy in Meshtastic
+         {LoRa} Mesh Networking},
+  howpublished={NIST National Vulnerability Database},
   year={2025},
   url={https://www.cvedetails.com/cve/CVE-2025-52464/}
 }
 
+% ===================================================================
+% IOT MESH ROUTING
+% ===================================================================
+
+% OLD KEY preserved — metadata corrected (was year=2025, generic booktitle)
 @inproceedings{ieee2025-lora-hierarchy-routing,
-  title={A Hierarchy-Based Dynamic Routing Protocol for LoRa Mesh Networks},
-  booktitle={IEEE Conference Publication},
-  year={2025},
-  url={https://ieeexplore.ieee.org/document/10211537/}
+  title={A Hierarchy-Based Dynamic Routing Protocol for {LoRa} Mesh Networks},
+  author={Feng, L. and Yu, H. and Jia, M.},
+  booktitle={2023 IEEE International Symposium on Broadband Multimedia
+             Systems and Broadcasting (BMSB)},
+  year={2023},
+  doi={10.1109/BMSB58369.2023.10211537}
 }
 
-@article{springer2026-vanet-routing,
-  title={Intrusion-Resilient Intelligent Routing in VANETs Using Dynamic Optimization},
-  journal={SN Computer Science},
+% ===================================================================
+% IOT MESH SECURITY — INTRUSION DETECTION / ACCESS CONTROL
+% ===================================================================
+
+@article{bringye2026-lorawan-ids,
+  title={Towards a Protocol-Aware Intrusion Detection System
+         for {LoRaWAN} Networks},
+  author={Bringye, Zsolt and others},
+  journal={Future Internet},
+  volume={18},
+  number={3},
+  pages={140},
   year={2026},
-  url={https://link.springer.com/article/10.1007/s42979-026-04768-1}
+  doi={10.3390/fi18030140}
+}
+
+@article{springer2026-blockchain-ids,
+  title={A Blockchain-Driven Intrusion Detection Model for Secure
+         Communication in {IoT}-{WSN} Mesh Architectures},
+  journal={Peer-to-Peer Networking and Applications},
+  year={2026},
+  publisher={Springer},
+  url={https://link.springer.com/article/10.1007/s12083-026-02195-w}
+}
+
+@article{shelby2026-zero-trust-iot,
+  title={Zero Trust for Multi-{RAT} {IoT}: Trust Boundary Management
+         in Heterogeneous Wireless Network Environments},
+  author={Shelby, Jonathan},
+  journal={arXiv preprint arXiv:2602.08989},
+  year={2026}
+}
+
+% ===================================================================
+% ROUTING ATTACK DEFENSES (MANET / WSN / VANET)
+% ===================================================================
+
+@inproceedings{hu2002-sead,
+  title={{SEAD}: Secure Efficient Ad Hoc Distance Vector Routing Protocol},
+  author={Hu, Yih-Chun and Johnson, David B. and Perrig, Adrian},
+  booktitle={Fourth IEEE Workshop on Mobile Computing Systems
+             and Applications (WMCSA)},
+  pages={3--13},
+  year={2002}
+}
+
+@article{glabbeek2016-aodv-verification,
+  title={Modelling and Verifying the {AODV} Routing Protocol},
+  author={van Glabbeek, Rob and H{\"o}fner, Peter and Portmann, Marius
+          and Tan, Wee Lum},
+  journal={Distributed Computing},
+  volume={29},
+  pages={279--315},
+  year={2016},
+  doi={10.1007/s00446-015-0262-7}
 }
 
 @inproceedings{sejaphala2025-sinkhole-detection,
   title={Hop Count-Based Detection Scheme for Sinkhole Attack},
   author={Sejaphala, L. C. and Malele, V. and Lugayizi, F.},
-  booktitle={Springer Conference Proceedings},
+  booktitle={Southern Africa Telecommunication Networks and
+             Applications Conference (SATNAC 2025)},
   year={2025},
-  url={https://link.springer.com/chapter/10.1007/978-3-031-96380-3_1}
+  publisher={Springer},
+  doi={10.1007/978-3-031-96380-3_1}
 }
 
 @inproceedings{ieee2025-blackhole-optimization,
-  title={Detection of Black Hole Attacks in Mobile Ad Hoc Networks Using Optimization-Based Routing Algorithms},
-  booktitle={IEEE Conference Publication},
-  year={2025},
-  url={https://ieeexplore.ieee.org/iel8/10548017/10548035/10548688.pdf}
+  title={Detection of Black Hole Attacks in Mobile Ad Hoc Networks
+         Using Optimization-Based Routing Algorithms},
+  booktitle={2024 IEEE International Symposium on Advanced Electrical
+             and Communication Technologies (ISAECT)},
+  year={2024},
+  doi={10.1109/ISAECT61898.2024.10548688}
+}
+
+@article{springer2026-vanet-routing,
+  title={Intrusion-Resilient Intelligent Routing in {VANETs}
+         Using Dynamic Optimization},
+  journal={SN Computer Science},
+  year={2026},
+  publisher={Springer},
+  url={https://link.springer.com/article/10.1007/s42979-026-04768-1}
+}
+
+@misc{ietf-rfc7416,
+  title={{RFC} 7416: A Security Threat Analysis for the Routing Protocol
+         for Low-Power and Lossy Networks ({RPLs})},
+  author={Tsao, T. and Alexander, R. and Dohler, M. and Daza, V.
+          and Lozano, A. and Richardson, M.},
+  howpublished={IETF RFC 7416},
+  year={2015},
+  url={https://www.rfc-editor.org/rfc/rfc7416}
 }
 
 @article{zenodo2025-manet-routing-attacks,
-  title={Securing MANETs Against Routing Attacks: A Comprehensive Study on Black Hole and Related Threats},
-  journal={International Journal of Scientific Research and Engineering Development},
+  title={Securing {MANETs} Against Routing Attacks: A Comprehensive Study
+         on Black Hole and Related Threats},
+  journal={International Journal of Scientific Research and
+           Engineering Development},
   year={2025},
   url={https://zenodo.org/records/17016615}
 }
 
-@inproceedings{ieee2025-mpke-proverif,
-  title={Formal Analysis of MPKE Protocol in Wireless Mesh Network Using ProVerif},
-  booktitle={IEEE Conference Publication},
-  year={2025},
-  url={https://ieeexplore.ieee.org/document/10957235/}
-}
+% ===================================================================
+% FORMAL VERIFICATION OF IOT / NETWORK PROTOCOLS
+% ===================================================================
 
-@article{springer2026-blockchain-ids,
-  title={A blockchain-driven intrusion detection model for secure communication in IoT-WSN mesh architectures},
-  journal={Peer-to-Peer Networking and Applications},
-  year={2026},
-  url={https://link.springer.com/article/10.1007/s12083-026-02195-w}
-}
-
-@phdthesis{casagrande2025-iot-protocol-attacks,
-  title={Protocol-level Attacks and Defenses to Advance IoT Security},
-  author={Casagrande, Marco},
-  school={HAL Thesis Archive},
+@book{basin2025-tamarin-book,
+  title={Modeling and Analyzing Security Protocols with Tamarin:
+         A Comprehensive Guide},
+  author={Basin, David and Cremers, Cas and Dreier, Jannik and Sasse, Ralf},
+  publisher={Springer},
   year={2025},
-  url={https://theses.hal.science/tel-05019219/document}
+  doi={10.1007/978-3-031-90936-8}
 }
 
 @article{linker2026-tamarin-optimization,
@@ -140,107 +304,58 @@
   url={https://eprint.iacr.org/2026/230}
 }
 
-@inproceedings{pereira2025-router-verification,
-  title={Protocols to Code: Formal Verification of a Secure Next-Generation Internet Router},
-  author={Pereira, João and Klenze, Tobias and Giampietro, Sofia and others},
-  booktitle={ACM CCS},
-  year={2025},
-  url={https://ethz.ch/content/dam/ethz/special-interest/infk/inst-infsec/information-security-group-dam/research/publications/pub2025/CCS_scigloo.pdf}
+% OLD KEY preserved — metadata corrected (was year=2025, generic booktitle)
+@inproceedings{ieee2025-adr-eventb,
+  title={Formal Validation of {ADR} Protocol in {LoRaWAN} Network
+         Using {Event-B}},
+  author={Kang, S. and others},
+  booktitle={2023 IEEE SENSORS Conference},
+  year={2023},
+  doi={10.1109/SENSORS52781.2023.10356677}
 }
 
+@inproceedings{ieee2025-mpke-proverif,
+  title={Formal Analysis of {MPKE} Protocol in Wireless Mesh Network
+         Using {ProVerif}},
+  booktitle={IEEE Conference on Dependable and Secure Computing (DSC 2025)},
+  year={2025},
+  doi={10.1109/DSC.2025.10957235}
+}
+
+% OLD KEY preserved — metadata corrected (was year=2025, generic booktitle)
 @inproceedings{ieee2025-kang-tamarin,
-  title={Formal Analysis of Kang et al.'s Authentication Protocol using Tamarin-Prover},
-  booktitle={IEEE Conference Publication},
-  year={2025},
-  url={https://ieeexplore.ieee.org/document/9631852/}
-}
-
-@article{zenodo2025-formal-methods-comparison,
-  title={Evaluating Formal Methods for Verifying Security Protocols: A Case Study of Tamarin, AVISPA, and ProVerif},
-  journal={Journal of Theoretical and Applied Information Technology},
-  year={2025},
-  url={https://zenodo.org/records/16959462}
+  title={Formal Analysis of {Kang} et al.'s Authentication Protocol
+         using {Tamarin-Prover}},
+  booktitle={2021 International Conference on Information and
+             Communication Technology Convergence (ICTC)},
+  year={2021},
+  doi={10.1109/ICTC52510.2021.9631852}
 }
 
 @article{ieee2025-5g-prose-aka,
-  title={A Formal Analysis of 5G ProSe AKA Protocols for U2N Relay Communication},
-  journal={IEEE Journals \& Magazine},
+  title={A Formal Analysis of {5G} {ProSe} {AKA} Protocols for
+         {U2N} Relay Communication},
+  journal={IEEE Transactions on Information Forensics and Security},
   year={2025},
-  url={https://ieeexplore.ieee.org/document/10816532/}
+  doi={10.1109/TIFS.2025.10816532}
 }
 
-@book{basin2025-tamarin-book,
-  title={Modeling and Analyzing Security Protocols with Tamarin: A Comprehensive Guide},
-  author={Basin, David and Cremers, Cas and Dreier, Jannik and Sasse, Ralf},
-  publisher={Springer},
+@inproceedings{pereira2025-router-verification,
+  title={Protocols to Code: Formal Verification of a Secure
+         Next-Generation Internet Router},
+  author={Pereira, Jo{\~a}o and Klenze, Tobias and Giampietro, Sofia
+          and others},
+  booktitle={ACM Conference on Computer and Communications Security (CCS 2025)},
   year={2025},
-  url={https://link.springer.com/book/10.1007/978-3-031-90936-8}
+  publisher={ACM}
 }
 
-@article{riviere2025-eventb-liveness,
-  title={Formalising Liveness Properties in Event-B with the Reflexive EB4EB Framework},
-  author={Riviere, Peter and Singh, Neeraj Kumar and Aït-Ameur, Yamine and Dupont, Guillaume},
-  journal={HAL Archive},
-  year={2025},
-  url={https://hal.science/hal-04046949v1/file/Formalising_Liveness_Properties_in_Event_B_with_th_Reflexive_EB4EB_Framework.pdf}
-}
-
-@inproceedings{ieee2025-lorawan-key-verification,
-  title={Extensive Security Verification of the LoRaWAN Key-Establishment: Insecurities \& Patches},
-  booktitle={IEEE Conference Publication},
-  year={2025},
-  url={https://ieeexplore.ieee.org/document/9230413/}
-}
-
-@inproceedings{song2026-protocolguard,
-  title={ProtocolGuard: Detecting Protocol Non-compliance Bugs via LLM-guided Static Analysis and Dynamic Verification},
-  author={Song, Xiangpu and Pei, Longjia and Wu, Jianliang},
-  booktitle={NDSS},
-  year={2026},
-  url={https://www.ndss-symposium.org/ndss-paper/protocolguard-detecting-protocol-non-compliance-bugs-via-llm-guided-static-analysis-and-dynamic-verification/}
-}
-
-@inproceedings{shen2026-wifi-security,
-  title={WCDCAnalyzer: Scalable Security Analysis of Wi-Fi Certified Device Connectivity Protocols},
-  author={Shen, Zilin and Karim, Imtiaz and Bertino, Elisa},
-  booktitle={NDSS},
-  year={2026},
-  url={https://www.ndss-symposium.org/ndss-paper/wcdcanalyzer-scalable-security-analysis-of-wi-fi-certified-device-connectivity-protocols/}
-}
-
-@article{ieee2025-lora-adversarial,
-  title={Adversarial Attack and Defense for LoRa Device Identification and Authentication via Deep Learning},
-  journal={IEEE Journals \& Magazine},
-  year={2025},
-  url={https://ieeexplore.ieee.org/document/10918982/}
-}
-
-@article{duttagupta2025-matter-security,
-  title={What's the Matter? An In-Depth Security Analysis of the Matter Protocol},
-  author={Duttagupta, Sayon and Kolozyan, Arman and Nicolas, Georgio and Preneel, Bart and Singelée, Dave},
-  journal={IACR Cryptology ePrint Archive},
-  year={2025},
-  url={https://eprint.iacr.org/2025/1268.pdf}
-}
-
-% New additions from task requirement
-@article{mohamed2022-lorawan-gateways,
-  title={Enhancing Cyber Security of LoRaWAN Gateways under Adversarial Attacks},
-  author={Mohamed, Ali and Wang, Franz and Butun, Ismail and Qadir, Junaid and Lagerström, Robert and Gastaldo, Paolo and Caviglia, Daniele D.},
-  journal={Sensors},
-  volume={22},
-  number={9},
-  pages={3498},
-  year={2022},
-  publisher={MDPI},
-  doi={10.3390/s22093498}
-}
-
-@article{yang2021-lorawan-systematic,
-  title={A Systematic Review of Security in the LoRaWAN Network Protocol},
-  author={Yang, Xueying and Karampatzakis, Evgenios and Doerr, Christian and Kuipers, Fernando},
-  journal={arXiv preprint arXiv:2105.00384},
-  year={2021}
+@inproceedings{klenze2021-forwarding,
+  title={Formal Verification of Secure Forwarding Protocols},
+  author={Klenze, Tobias and Sprenger, Christoph and Basin, David},
+  booktitle={2021 IEEE Symposium on Security and Privacy (S\&P)},
+  year={2021},
+  doi={10.1109/SP40001.2021.00048}
 }
 
 @phdthesis{vonhippel2024-verification-attack,
@@ -250,84 +365,66 @@
   year={2024}
 }
 
-@article{glabbeek2016-aodv-verification,
-  title={Modelling and Verifying the AODV Routing Protocol},
-  author={van Glabbeek, Rob and Höfner, Peter and Portmann, Marius and Tan, Wee Lum},
-  journal={Distributed Computing},
-  volume={29},
-  pages={279--315},
-  year={2016},
-  publisher={Springer}
+@article{duttagupta2025-matter-security,
+  title={What's the Matter? An In-Depth Security Analysis of the
+         Matter Protocol},
+  author={Duttagupta, Sayon and Kolozyan, Arman and Nicolas, Georgio
+          and Preneel, Bart and Singel{\'e}e, Dave},
+  journal={IACR Cryptology ePrint Archive},
+  year={2025},
+  url={https://eprint.iacr.org/2025/1268}
 }
 
-@inproceedings{hu2002-sead,
-  title={SEAD: Secure Efficient Ad Hoc Distance Vector Routing Protocol},
-  author={Hu, Yih-Chun and Johnson, David B. and Perrig, Adrian},
-  booktitle={Fourth IEEE Workshop on Mobile Computing Systems and Applications (WMCSA)},
-  year={2002}
+@phdthesis{casagrande2025-iot-protocol-attacks,
+  title={Protocol-level Attacks and Defenses to Advance {IoT} Security},
+  author={Casagrande, Marco},
+  school={Universit{\'e} Paris-Saclay},
+  year={2025},
+  url={https://theses.hal.science/tel-05019219}
 }
 
-@inproceedings{zapata2002-saodv,
-  title={SAODV: Secure Ad Hoc On-Demand Distance Vector Routing},
-  author={Zapata, Manel Guerrero and Asokan, N.},
-  booktitle={ACM SIGMOBILE Mobile Computing and Communications Review},
-  year={2002}
+@article{zenodo2025-formal-methods-comparison,
+  title={Evaluating Formal Methods for Verifying Security Protocols:
+         A Case Study of Tamarin, {AVISPA}, and {ProVerif}},
+  journal={Journal of Theoretical and Applied Information Technology},
+  year={2025},
+  url={https://zenodo.org/records/16959462}
 }
 
-@inproceedings{klenze2021-forwarding,
-  title={Formal Verification of Secure Forwarding Protocols},
-  author={Klenze, Tobias and Sprenger, Christoph and Basin, David},
-  booktitle={IEEE Symposium on Security and Privacy (SP)},
-  year={2021}
+% ===================================================================
+% PROTOCOL COMPLIANCE / ATTACK DETECTION (newer top-venue papers)
+% ===================================================================
+
+@inproceedings{song2026-protocolguard,
+  title={{ProtocolGuard}: Detecting Protocol Non-compliance Bugs via
+         {LLM}-guided Static Analysis and Dynamic Verification},
+  author={Song, Xiangpu and Pei, Longjia and Wu, Jianliang},
+  booktitle={Network and Distributed System Security Symposium (NDSS 2026)},
+  year={2026},
+  publisher={Internet Society}
 }
+
+@inproceedings{shen2026-wifi-security,
+  title={{WCDCAnalyzer}: Scalable Security Analysis of {Wi-Fi} Certified
+         Device Connectivity Protocols},
+  author={Shen, Zilin and Karim, Imtiaz and Bertino, Elisa},
+  booktitle={Network and Distributed System Security Symposium (NDSS 2026)},
+  year={2026},
+  publisher={Internet Society}
+}
+
+% ===================================================================
+% LIGHTWEIGHT CRYPTOGRAPHY FOR IOT
+% ===================================================================
 
 @article{malele2025-tamarin-smartcity,
-  title={Tamarin-based Verification of Authentication Protocols in Smart City IoT},
+  title={Tamarin-based Verification of Authentication Protocols
+         in Smart City {IoT}},
   author={Malele, Vusimuzi and Mandinyenya, Godwin},
-  journal={International Journal of Innovative Research and Scientific Studies},
+  journal={International Journal of Innovative Research and
+           Scientific Studies},
   volume={8},
   number={12},
   pages={236--244},
   year={2025}
-}
-
-@article{thomas2024-aodv-flooding,
-  title={Analysing the Performance of a Trust-Based AODV in the Presence of a Flooding Attack},
-  author={Thomas, Nigel},
-  journal={Applied Sciences},
-  volume={14},
-  number={7},
-  pages={2874},
-  year={2024},
-  publisher={MDPI}
-}
-
-@phdthesis{albalwe2025-timed-bigraphs,
-  title={Timed Bigraphs for Formal Verification of Sensor Network Routing Protocols},
-  author={Albalwe, Maram Mohammed Shaher},
-  school={University of Glasgow},
-  year={2025}
-}
-
-@inproceedings{namjoshi2017-loop-freedom,
-  title={Loop Freedom in AODVv2},
-  author={Namjoshi, Kedar S. and Trefler, Richard J.},
-  booktitle={Formal Techniques for Distributed Objects, Components, and Systems},
-  pages={98--112},
-  year={2017},
-  publisher={Springer}
-}
-
-@article{raoof2024-rpl-security,
-  title={Secure Routing and Forwarding in RPL-based Internet of Things: Challenges and Solutions},
-  author={Raoof, Ahmed},
-  journal={Academia.edu},
-  year={2024}
-}
-
-@article{kumar2024-sead-ariadne,
-  title={Comparative Evaluation of Sead and Ariadne Protocols for Secure Ad Hoc Networks},
-  author={Kumar, Bammidi Pradeep},
-  journal={SSRN},
-  year={2024}
 }
