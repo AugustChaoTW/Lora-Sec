@@ -1,0 +1,122 @@
+changes:
+
+  - change_id: CL-v6-001
+    date: "2026-05-09"
+    type: citation_quality
+    description: >
+      Removed both Zenodo citations from all 4 occurrences; replaced with T1/T2.
+      Added 6 previously uncited bib entries. Fixed dangling ARIADNE reference (L163).
+    details:
+      removed_citations: [zenodo2025-formal-methods-comparison, zenodo2025-manet-routing-attacks]
+      added_citations:
+        - {key: klenze2021-forwarding, venue: "IEEE S&P 2021", tier: T1, location: L1210}
+        - {key: song2026-protocolguard, venue: "NDSS 2026", tier: T1, location: L1230}
+        - {key: shen2026-wifi-security, venue: "NDSS 2026", tier: T1, location: L1235}
+        - {key: repetto2022-lorawan-demo, venue: "IEEE WoWMoM 2022", tier: T2, location: L116}
+        - {key: sole2026-loramesher-swx, venue: "SoftwareX 2026", tier: T3, location: L116}
+        - {key: butun2019-lorawan-security-risk, venue: "MDPI Future Internet 2019", tier: T3, location: L159}
+        - {key: hu2002-ariadne, venue: "ACM MobiCom 2002", tier: T1, location: L163}
+      replacements:
+        L724: "zenodo2025-formal-methods-comparison → basin2025-tamarin-book"
+        L758: "zenodo2025-manet-routing-attacks → hu2002-sead"
+        L1210: "zenodo2025-manet-routing-attacks → klenze2021-forwarding"
+        L1235: "zenodo2025-formal-methods-comparison → shen2026-wifi-security"
+    impact:
+      total_citations: {before: 34, after: 40}
+      zenodo_count: {before: 4, after: 0}
+      t1_papers_added: 4
+
+  - change_id: CL-v6-002
+    date: "2026-05-09"
+    type: bib_entry_added
+    description: >
+      Added hu2002-ariadne (ACM MobiCom 2002) to bibliography.bib.
+      This was referenced by name in §1.2 without a \cite{} — now corrected.
+    file: references/bibliography.bib
+    impact:
+      total_bib_entries: {before: 42, after: 43}
+
+  - change_id: CL-v6-003
+    date: "2026-05-09"
+    type: trace_upgrade
+    description: >
+      Paper trace upgraded v4 → v6. Key state changes:
+      - Hardware board: Heltec WiFi LoRa 32 V3 → Ebyte EoRa PI (ESP32-S3FH4R2 + SX1262)
+      - E5a: planned → complete (98 µs ± 2 µs measured, 10,000 iterations)
+      - E5b: planned → complete (PDR=0% baseline, PDR=87% patched, 3 boards)
+      - R2: open → CLOSED (hardware experiments close this risk)
+      - R6: NEW — E5b PDR=87% gap explained (LoRa channel loss, not security failure)
+      - C3 overhead claim: 0.3 ms (benchmark) → 0.098 ms (measured on real hardware)
+      - Citations: 34 → 40
+    downstream_effects:
+      - "sec:patch §6.1 should state 0.098 ms (measured) not 0.3 ms"
+      - "sec:eval §7.4 should reference E5a/E5b hardware results"
+      - "sec:limitations hardware limitation is now partially addressed"
+
+  - change_id: CL-v6-004
+    date: "2026-05-10"
+    type: numerical_consistency_audit
+    description: >
+      Full numerical consistency audit across IOTJ-Aug.tex. Six inconsistencies
+      corrected in a single pass.
+    corrections:
+      - id: C1
+        severity: critical
+        location: "§6.1 L929"
+        before: "Heltec WiFi LoRa 32 V3"
+        after: "Ebyte EoRa-PI (ESP32-S3FH4R2)"
+        note: "Board was changed in v6 trace; one occurrence missed"
+
+      - id: C2_C3
+        severity: critical
+        location: "§2.2 L407-422 + tab:esp32 L394-395"
+        before:
+          tag_size: "8-byte truncated HMAC tag"
+          hello_size: "6→14 bytes"
+          airtime: "124→165 ms (+33%)"
+          duty_cycle: "1.65%/10s (+0.41 pp)"
+          data_packets: "13→21 bytes, +12%"
+          reduction_option: "reduce to 4 bytes"
+        after:
+          tag_size: "16-byte HMAC-SHA256 tag (128-bit truncation)"
+          hello_size: "6→22 bytes"
+          airtime: "124→206 ms (+66%)"
+          duty_cycle: "2.06%/10s (+0.82 pp)"
+          data_packets: "13→29 bytes, +37%"
+          reduction_option: "reduce to 8 bytes"
+        note: >
+          All other 5 references in the paper used 16 bytes (code listing,
+          message format, tab:notation, Tamarin description, §6.1 prose).
+          §2.2 was the lone inconsistent occurrence.
+        airtime_formula: "LoRa ToA at SF9/BW=125kHz/CR=4/5; verified with Semtech AN1200.13"
+
+      - id: H1
+        severity: high
+        location: "§6.1 L931"
+        before: "Flash footprint: 1.8 KB"
+        after: "Flash footprint: 2.1 KB"
+        note: "Matches tab:esp32 and 1_contribution.yaml C3"
+
+      - id: H2
+        severity: high
+        location: "abstract L83, §1.3 L246, tab:esp32 L391, conclusion L1387"
+        before: "18 B/route entry"
+        after: "2 B/route entry (uint16 MetricVersion counter)"
+        note: >
+          §6.2 has explicit calculation: 49 entries × 2 bytes = 98 bytes.
+          The 16-byte HMAC tag is stack-allocated during verification,
+          not stored per route entry. 18 bytes had no traceable derivation.
+
+      - id: M1
+        severity: medium
+        location: "Appendix L1442"
+        before: "27 JSON result files"
+        after: "135 JSON result files (27 scenarios × 5 seeds)"
+        note: "YAML DS1 records 135 files; seed validation runs included"
+
+      - id: H2_overhead
+        severity: minor
+        location: "§6.1 L931"
+        before: "0.06% of LoRa's 165 ms air-time"
+        after: "0.05% of LoRa's 206 ms patched-Hello air-time"
+        note: "0.098 ms / 206 ms = 0.0476% ≈ 0.05%; 165 ms was from the incorrect 8B tag assumption"

@@ -55,6 +55,8 @@ class LoraMeshRouting
 TopologySpec BuildLinearTopology();
 TopologySpec BuildTreeTopology();
 TopologySpec BuildGridTopology();
+TopologySpec BuildLinear25Topology();
+TopologySpec BuildGrid49Topology();
 
 }
 

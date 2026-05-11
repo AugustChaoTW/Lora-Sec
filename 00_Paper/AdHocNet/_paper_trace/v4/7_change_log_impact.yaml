@@ -1,0 +1,190 @@
+paper_path: /home/augchao/Work/Lora-Sec/00_Paper/AdHocNet/AdHocNet-Aug.tex
+bib_path: /home/augchao/Work/Lora-Sec/references/bibliography.bib
+
+changes:
+
+  - change_id: CH01
+    date: "2026-05-11"
+    category: structural
+    description: "Remove authoryear option from documentclass; remove natbib package"
+    files_changed:
+      - AdHocNet-Aug.tex
+    tex_lines: [1, 10]
+    impact:
+      - "Switches citation style from author-year to numeric [N] format"
+      - "Required for elsarticle-num bibliography style"
+    downstream: [CH02]
+
+  - change_id: CH02
+    date: "2026-05-11"
+    category: structural
+    description: "Change bibliographystyle from elsarticle-harv to elsarticle-num"
+    files_changed:
+      - AdHocNet-Aug.tex
+    tex_lines: [~1800]
+    impact:
+      - "All \\cite{} calls render as [N] numerics, matching Ad Hoc Networks author guidelines"
+    depends_on: [CH01]
+
+  - change_id: CH03
+    date: "2026-05-11"
+    category: framing
+    description: "Rename 9 section/subsection titles: IoT language → ad hoc network language"
+    files_changed:
+      - AdHocNet-Aug.tex
+    changes_detail:
+      - "sec:threat title: 'IoT Deployment Context' → 'Ad Hoc Network Deployment Context and Threat Model'"
+      - "sec:threat.scenarios: 'IoT Deployment Scenarios' → 'Target Deployment Scenarios'"
+      - "sec:threat.esp32: 'IoT Node Resource Constraints' → 'ESP32 Resource Constraints'"
+      - "sec:patch.compat: 'IoT Firmware Backward Compatibility' → 'Backward Compatibility'"
+      - "sec:eval.deploy: 'IoT Deployment Implications' → 'Deployment Implications'"
+      - "sec:related.lorawan: 'LoRa/LoRaWAN and IoT Security' → 'LoRa and LoRaWAN Security'"
+      - "sec:related.mesh: 'IoT Mesh Protocol Security' → 'Constrained-Node Mesh Protocol Security'"
+      - "sec:related.defense: 'IoT Routing Attack Defenses' → 'Routing Attack Defenses'"
+      - "sec:related.lightweight: 'Lightweight Crypto for IoT' → 'Lightweight Cryptography for Constrained Nodes'"
+    impact:
+      - "Aligns section framing with Ad Hoc Networks journal scope"
+      - "Removes IoT-centric framing that does not match target venue"
+
+  - change_id: CH04
+    date: "2026-05-11"
+    category: framing
+    description: "Replace ~15 body text instances of IoT framing with ad hoc mesh language"
+    files_changed:
+      - AdHocNet-Aug.tex
+    impact:
+      - "Consistent ad hoc mesh narrative throughout body"
+      - "Threat model, eval, related work sections now use 'constrained ad hoc nodes'"
+
+  - change_id: CH05
+    date: "2026-05-11"
+    category: bibliography
+    severity: critical
+    description: "Fix TinySec citation: replace wrong shelby2026-zero-trust-iot with karlof2004-tinysec"
+    files_changed:
+      - AdHocNet-Aug.tex
+      - bibliography.bib
+    tex_lines: [1584]
+    old_cite: "shelby2026-zero-trust-iot"
+    new_cite: "karlof2004-tinysec"
+    bib_entry_added: >
+      @inproceedings{karlof2004-tinysec,
+        title={TinySec: A Link Layer Security Architecture for WSN},
+        author={Karlof, Chris and Sastry, Naveen and Wagner, David},
+        booktitle={SenSys 2004},
+        pages={162--175},
+        year={2004},
+        doi={10.1145/1031495.1031515}
+      }
+    impact:
+      - "Corrects factually wrong citation (arXiv zero-trust IoT paper cited as TinySec)"
+      - "Now correctly cites ACM SenSys 2004 — the actual TinySec paper"
+    risk_if_not_fixed: "Reviewer familiar with TinySec would immediately flag as careless error"
+
+  - change_id: CH06
+    date: "2026-05-11"
+    category: bibliography
+    severity: critical
+    description: "Fix ASCON claim: replace ieee2025-lorawan-aes-crypto with nist2025-sp800-232"
+    files_changed:
+      - AdHocNet-Aug.tex
+      - bibliography.bib
+    tex_lines: [1626]
+    old_text: "NIST's lightweight cryptography competition produced ASCON and GIFT-COFB~\\cite{ieee2025-lorawan-aes-crypto}"
+    new_text: "NIST finalized ASCON as its lightweight cryptography standard for constrained devices~\\cite{nist2025-sp800-232}"
+    bib_entry_added: >
+      @techreport{nist2025-sp800-232,
+        title={Ascon-Based Lightweight Cryptography Standards for Constrained Devices},
+        institution={NIST},
+        type={Special Publication},
+        number={800-232},
+        year={2025},
+        doi={10.6028/NIST.SP.800-232}
+      }
+    impact:
+      - "Corrects citation mismatch: old cite was LoRaWAN AES-256 paper, not ASCON"
+      - "Updated claim text is factually accurate (NIST SP 800-232, 2025)"
+    risk_if_not_fixed: "ASCON claim supported by unrelated LoRaWAN paper — verifiable factual error"
+
+  - change_id: CH07
+    date: "2026-05-11"
+    category: bibliography
+    severity: critical
+    description: "Fix ieee2025-lorawan-aes-crypto: replace fake authors Chen/Lee with real authors"
+    files_changed:
+      - bibliography.bib
+    old_authors: "Chen, L. and Lee, S."
+    new_authors: "Abboud, Samira and Abdoun, Nabil"
+    real_doi: "10.1109/ACCESS.2023.3348416"
+    year_corrected: "2023→2024"
+    volume_corrected: "added volume=12, pages=2589-2606"
+    impact:
+      - "Eliminates fake/placeholder author field"
+      - "Entry now verifiable via DOI"
+
+  - change_id: CH08
+    date: "2026-05-11"
+    category: bibliography
+    severity: critical
+    description: "Fix springer2026-blockchain-ids: add missing author field"
+    files_changed:
+      - bibliography.bib
+    old_authors: "(none)"
+    new_authors: "Elumalai, G. and {Arun Kumar}, J. and Sivakumar, P. and Teresa, V. V."
+    doi_added: "10.1007/s12083-026-02195-w"
+    impact:
+      - "Entry was unpublishable without author field"
+      - "Now verifiable via DOI"
+
+  - change_id: CH09
+    date: "2026-05-11"
+    category: bibliography
+    severity: medium
+    description: "Replace vonhippel2024-verification-attack (PhD thesis) with ginesin2024-sctp-formal (USENIX Sec 2024)"
+    files_changed:
+      - bibliography.bib
+      - AdHocNet-Aug.tex
+    new_cite_key: "ginesin2024-sctp-formal"
+    new_venue: "USENIX Security 2024"
+    impact:
+      - "Upgrades weak citation (PhD thesis) to top-tier venue"
+      - "USENIX Sec 2024 provides strong support for Tamarin-based formal analysis"
+
+  - change_id: CH10
+    date: "2026-05-11"
+    category: bibliography
+    severity: medium
+    description: "Replace sejaphala2025-sinkhole-detection (CoMeSySo workshop) with ahmad2024-sinkhole-reputation (IEEE Access 2024)"
+    files_changed:
+      - bibliography.bib
+      - AdHocNet-Aug.tex
+    new_cite_key: "ahmad2024-sinkhole-reputation"
+    new_venue: "IEEE Access 2024"
+    impact:
+      - "Upgrades weak citation (obscure workshop) to indexed journal"
+
+  - change_id: CH11
+    date: "2026-05-11"
+    category: bibliography
+    severity: medium
+    description: "Add DSDV, SAODV, Authenticated OLSR classic ad hoc routing security citations (RR6)"
+    files_changed:
+      - bibliography.bib
+      - AdHocNet-Aug.tex
+    bib_entries_added:
+      - "perkins1994-dsdv (ACM SIGCOMM 1994)"
+      - "zapata2002-saodv (ACM WiSe 2002)"
+      - "raffo2004-authenticated-olsr (ACM SASN 2004)"
+    tex_lines: [1599]
+    impact:
+      - "sec:related.defense now explicitly positions vs. DSDV baseline and two PKI-based secure routing protocols"
+      - "Addresses reviewer risk RR6: ad hoc specialist would expect these citations"
+      - "Differentiation claim strengthened: SAODV + authenticated OLSR require digital signatures (infeasible on 512 KB RAM)"
+
+impact_summary:
+  critical_fixes: 4    # CH05, CH06, CH07, CH08
+  medium_fixes: 2      # CH09, CH10
+  framing_changes: 3   # CH01, CH02, CH03, CH04
+  no_locked_numbers_changed: true
+  no_experiment_data_changed: true
+  compilation_status: "35 pages, 765 KB, no LaTeX errors (verified 2026-05-11)"

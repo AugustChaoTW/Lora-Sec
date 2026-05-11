@@ -1,0 +1,153 @@
+risk_register:
+
+  - risk_id: R1
+    description: >
+      ns-3 simulations use up to 9 nodes. Large-scale mesh networks
+      (>50 nodes) may exhibit different convergence dynamics under
+      attack conditions.
+    severity: medium
+    status: open
+    likely_appears_in: "Reviewer 1 or 2"
+    related_contributions: [C4]
+    related_sections: [sec:eval, sec:limitations]
+    mitigation_evidence:
+      - "Tamarin proof is topology-independent (protocol-level, not scale-dependent)"
+      - "Three qualitatively distinct topology classes cover main structural diversity"
+      - "§9 explicitly acknowledges scale limitation as future work"
+    fallback_claim: >
+      The formal proof (Tamarin) is topology-independent. Simulation
+      covers three structural topology classes representing common IoT
+      deployments. Large-scale validation is listed as future work.
+    response_strategy: >
+      Cite that Tamarin's proof covers all possible executions of the
+      protocol, not just those in 9-node topologies. The patch correctness
+      is scale-independent; the 9-node simulation validates performance
+      overhead in representative deployment sizes.
+    confidence: 0.85
+
+  - risk_id: R2
+    description: >
+      Concern that HMAC overhead is not measured on actual ESP32 hardware.
+    severity: medium
+    status: CLOSED
+    closed_by: E5a (2026-05-06)
+    likely_appears_in: "Reviewer 2 (hardware reviewer)"
+    related_contributions: [C3]
+    related_sections: [sec:patch, sec:eval]
+    hardware_validated:
+      board: "Ebyte EoRa PI (ESP32-S3FH4R2 + E22-900MM22S / SX1262)"
+      chip: "ESP32-S3 rev2 @ 240 MHz"
+      sdk: "ESP-IDF v5.5.4 (mbedTLS)"
+      result_mean_us: 98.17
+      result_std_us: 1.55
+      result_ms: 0.098
+      overhead_pct: 0.06
+      iterations: 10000
+    mitigation_evidence:
+      - "MEASURED on Ebyte EoRa PI (ESP32-S3 @ 240 MHz): 98 µs ± 2 µs (0.098 ms), 10,000 iterations"
+      - "3× better than prior mbedTLS 2.28 benchmark claim (0.3 ms)"
+      - "0.098 ms = 0.06% of LoRa 165 ms air-time — definitionally negligible"
+      - "E5b hardware demo: BASELINE PDR=0% (attack succeeds), PATCHED PDR=87% (attack blocked)"
+    fallback_claim: >
+      HMAC overhead is now directly measured on ESP32-S3 hardware (Ebyte EoRa PI).
+      0.098 ms = 0.06% of LoRa air-time — negligible regardless of measurement variance.
+    confidence: 0.99
+
+  - risk_id: R3
+    description: >
+      Tamarin proves correctness under the Dolev-Yao model only. Implementation
+      vulnerabilities (buffer overflows, timing side-channels, key management
+      errors) are outside the proof scope.
+    severity: low
+    status: open
+    likely_appears_in: "Reviewer with formal methods background"
+    related_contributions: [C2]
+    related_sections: [sec:formal]
+    mitigation_evidence:
+      - "Dolev-Yao is the standard attacker model for protocol verification (cite basin2025-tamarin-book)"
+      - "All Tamarin lemmas clearly specify protocol-level properties"
+      - "Implementation separately validated via ns-3 C++ simulation and physical hardware (E5b)"
+      - "§1 explicitly scopes threat model to control-plane message injection"
+    fallback_claim: >
+      The Tamarin proof establishes protocol-level security under the
+      standard Dolev-Yao model. Implementation correctness is a separate
+      concern; hardware experiments (E5b) validate the deployed behavior.
+    response_strategy: >
+      Standard response for Tamarin papers — cite 5G-AKA, TLS 1.3 papers
+      that accept the same framing. Hardware E5b provides the implementation
+      validation layer.
+    confidence: 0.97
+
+  - risk_id: R4
+    description: >
+      Only a single Dolev-Yao attacker is modeled. Coordinated multi-attacker
+      scenarios (Sybil attacks, colluding compromised nodes) are not evaluated.
+    severity: low
+    status: open
+    likely_appears_in: "Reviewer 3"
+    related_contributions: [C2, C4]
+    related_sections: [sec:eval, sec:limitations]
+    mitigation_evidence:
+      - "Single-attacker is the standard starting point for protocol security analysis"
+      - "G4 (AuthorizedRoutes) already addresses compromised nodes (up to k < n/2)"
+      - "§9 explicitly lists multi-attacker scenarios as future work"
+    fallback_claim: >
+      Single-attacker evaluation is standard baseline. G4 covers up to
+      k < n/2 compromised nodes. HMAC-per-message authentication does
+      not become weaker under multi-attacker scenarios — each message
+      is independently authenticated.
+    confidence: 0.88
+
+  - risk_id: R5
+    description: >
+      Results are specific to LoRaMesher. Generalizability to other LoRa
+      mesh stacks (Meshtastic, custom DV implementations) is assumed but
+      not validated.
+    severity: low
+    status: open
+    likely_appears_in: "Reviewer 1"
+    related_contributions: [C1, C3]
+    related_sections: [sec:related, sec:limitations]
+    mitigation_evidence:
+      - "§8 discusses Meshtastic as a related DV architecture"
+      - "§9 lists Meshtastic portability as planned future contribution"
+      - "Patch design (HMAC + monotonic counter) is protocol-agnostic"
+      - "CVE-2025 for Meshtastic (cve2025-meshtastic-entropy) shows same attack class"
+    fallback_claim: >
+      Results validated for LoRaMesher. The HMAC + monotonic counter design
+      is a general DV routing security primitive applicable to similar
+      architectures; Meshtastic portability is planned.
+    confidence: 0.82
+
+  - risk_id: R6
+    description: >
+      Hardware E5b PDR is 87% under patch (not 100% as in ns-3). Reviewer
+      may question why patched hardware does not achieve perfect PDR.
+    severity: low
+    status: open
+    likely_appears_in: "Reviewer 2 (hardware reviewer)"
+    related_contributions: [C1, C4]
+    related_sections: [sec:eval]
+    mitigation_evidence:
+      - "3 of 23 packets lost (13%) attributable to LoRa channel loss, not security failure"
+      - "Node C's forged Hello was rejected by HMAC on all attempts (logged)"
+      - "PDR gap (87% vs 100%) is within expected LoRa link reliability range at 923 MHz"
+      - "ns-3 simulation uses idealized channel; real LoRa has ~10-15% packet loss typical"
+    fallback_claim: >
+      The 87% patched PDR vs. 100% ns-3 PDR reflects real LoRa channel loss,
+      not a security failure. The attacker's forged Hello packets were rejected
+      in all attempts (confirmed by HMAC_FAILED logs on Node B). The 13% loss
+      is within the expected range for LoRa at AS923.
+    response_strategy: >
+      Show Node B logs: zero successful forged Hello packets. The 3 lost data
+      packets are attributable to channel loss, not routing table corruption.
+      This is consistent with LoRa's known unreliability under real-world conditions.
+    confidence: 0.92
+
+risks:
+  - {risk_id: R1, severity: medium, status: open}
+  - {risk_id: R2, severity: medium, status: CLOSED}
+  - {risk_id: R3, severity: low, status: open}
+  - {risk_id: R4, severity: low, status: open}
+  - {risk_id: R5, severity: low, status: open}
+  - {risk_id: R6, severity: low, status: open}

@@ -1,0 +1,161 @@
+paper_path: /home/augchao/Work/Lora-Sec/00_Paper/AdHocNet/AdHocNet-Aug.tex
+paper_stage: draft
+target_journal: "Ad Hoc Networks (Elsevier)"
+
+citation_policy:
+  style: "elsarticle-num (numeric, [N])"
+  note: >
+    Verify all DOIs before submission. Ad Hoc Networks requires full journal
+    name in references, not abbreviation.
+
+references:
+
+  # --- LoRa / LPWAN background ---
+  - cite_key: semtech_sx1262
+    type: datasheet
+    use_in_sections: [sec:background, sec:hardware-validation]
+    claim_supported: "SX1262 physical layer parameters (SF7-SF12, BW125/250 kHz)"
+    risk: low
+
+  - cite_key: adelantado2017lpwan
+    type: journal
+    use_in_sections: [sec:intro, sec:background]
+    claim_supported: "LoRa LPWAN characteristics and IoT deployment context"
+    risk: low
+
+  - cite_key: bor2016lora
+    type: conference
+    use_in_sections: [sec:background]
+    claim_supported: "LoRa range and duty cycle constraints"
+    risk: low
+
+  # --- LoRaMesher ---
+  - cite_key: loramesh_github
+    type: software
+    use_in_sections: [sec:intro, sec:background, sec:attacks]
+    claim_supported: "LoRaMesher open-source DV routing protocol; v0.8.x"
+    risk: low
+    note: "Cite with commit hash; software citations accepted by Elsevier"
+
+  # --- Ad hoc routing security classics ---
+  - cite_key: hu2002ariadne
+    type: conference
+    use_in_sections: [sec:related, sec:patch]
+    claim_supported: >
+      ARIADNE: first on-demand secure ad hoc routing; requires asymmetric
+      crypto or PKI — infeasible on constrained nodes.
+    risk: low
+
+  - cite_key: hu2003rushing
+    type: conference
+    use_in_sections: [sec:related]
+    claim_supported: "Rushing attacks in on-demand ad hoc routing"
+    risk: low
+
+  - cite_key: papadimitratos2002saodv
+    type: conference
+    use_in_sections: [sec:related]
+    claim_supported: "S-AODV: signed route requests; PKI dependency"
+    risk: low
+
+  - cite_key: hu2003sead
+    type: journal
+    use_in_sections: [sec:related]
+    claim_supported: "SEAD: one-way hash chains for DV routing security"
+    risk: medium
+    note: "Check if SEAD paper is in journal or workshop proceedings"
+
+  - cite_key: guerrero2006authenticated_olsr
+    type: conference
+    use_in_sections: [sec:related, sec:patch]
+    claim_supported: "Authenticated OLSR requires PKI; infeasible on ESP32 class"
+    risk: medium
+    note: "Verify exact citation; may need alternate ref for authenticated OLSR"
+
+  # --- Formal verification of routing protocols ---
+  - cite_key: basin2018tamarin
+    type: journal
+    use_in_sections: [sec:formal]
+    claim_supported: "Tamarin Prover: symbolic security protocol verification"
+    risk: low
+
+  - cite_key: cremers2017automated
+    type: conference
+    use_in_sections: [sec:formal]
+    claim_supported: "Automated verification of cryptographic protocols"
+    risk: low
+
+  - cite_key: cheminod2013ospf_formal
+    type: journal
+    use_in_sections: [sec:related]
+    claim_supported: "Formal analysis of OSPF security (prior routing formal work)"
+    risk: medium
+    note: "Confirm this is the best reference for formal routing verification"
+
+  # --- LPWAN / LoRa security ---
+  - cite_key: aras2017lora_security
+    type: conference
+    use_in_sections: [sec:related]
+    claim_supported: "LoRa physical layer security threats survey"
+    risk: low
+
+  - cite_key: tomasin2017security_lpwan
+    type: journal
+    use_in_sections: [sec:related]
+    claim_supported: "Security analysis of LPWAN protocols"
+    risk: low
+
+  - cite_key: lee2017lorawan_security
+    type: conference
+    use_in_sections: [sec:related]
+    claim_supported: "LoRaWAN security: replay attacks on join procedure"
+    risk: low
+    note: "Useful to distinguish LoRaWAN (centralized) from LoRa mesh (ad hoc)"
+
+  # --- Constrained-node crypto ---
+  - cite_key: liu2008tinyecc
+    type: conference
+    use_in_sections: [sec:related, sec:patch]
+    claim_supported: "TinyECC: ECC on 8-bit MCUs; still >10 ms overhead"
+    risk: low
+
+  - cite_key: rfc2104_hmac
+    type: rfc
+    use_in_sections: [sec:patch]
+    claim_supported: "HMAC-SHA256 algorithm specification"
+    risk: low
+
+  # --- ns-3 simulation ---
+  - cite_key: riley2010ns3
+    type: conference
+    use_in_sections: [sec:eval]
+    claim_supported: "ns-3 network simulator"
+    risk: low
+
+  # --- ESP32 / mbedTLS ---
+  - cite_key: espressif_esp32s3
+    type: datasheet
+    use_in_sections: [sec:background, sec:patch]
+    claim_supported: "ESP32-S3 512 KB RAM, 240 MHz, mbedTLS integration"
+    risk: low
+
+  - cite_key: mbedtls_doc
+    type: software
+    use_in_sections: [sec:patch]
+    claim_supported: "mbedTLS 2.28 HMAC-SHA256 implementation"
+    risk: low
+
+citation_gaps:
+  - gap_id: G1
+    description: >
+      Need at least one reference for formal verification of DV routing protocols
+      specifically (not just link-state). If no direct ref exists, cite closest
+      work and note gap in related work.
+  - gap_id: G2
+    description: >
+      Ad hoc routing security for LPWAN / low-power mesh is underrepresented
+      in literature — this is a gap the paper fills. State explicitly in §2.
+  - gap_id: G3
+    description: >
+      Hardware validation of security patches on ESP32-class LoRa nodes:
+      confirm no prior work has this combination. Add to related work gap table.

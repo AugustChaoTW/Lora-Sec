@@ -11,7 +11,9 @@ enum class TopologyType
 {
     LINEAR,
     TREE,
-    GRID
+    GRID,
+    LINEAR25,
+    GRID49
 };
 
 enum class AttackType

@@ -1,0 +1,86 @@
+paper_path: /home/augchao/Work/Lora-Sec/00_Paper/AdHocNet/AdHocNet-Aug.tex
+paper_stage: draft
+target_journal: "Ad Hoc Networks (Elsevier)"
+
+changes:
+
+  - change_id: CHG-001
+    date: "2026-05-11"
+    type: journal_switch
+    description: >
+      Switched target journal from IEEE IoTJ to Ad Hoc Networks (Elsevier).
+      Reason: IoTJ has four structural issues (novelty threshold, theory-method
+      balance, managerial significance, story-type fit). Ad Hoc Networks scope
+      (routing security, sensor networks, experimental results) is a direct match.
+    downstream_impact:
+      - "Document class changed to elsarticle (preprint, 12pt, authoryear)"
+      - "Bibliography style changed to elsarticle-num"
+      - "Title updated to emphasize 'ad hoc mesh' framing"
+      - "Abstract reframed: 'LoRa-based mesh ad hoc networks', 'self-organizing multi-hop routing'"
+      - "Keywords updated to ad hoc domain terminology (\\sep format)"
+      - "Acknowledgements spelling changed to Elsevier convention"
+      - "IEEE macros removed; Elsevier frontmatter added"
+    status: complete
+
+  - change_id: CHG-002
+    date: "2026-05-11"
+    type: paper_reformat
+    description: >
+      Created AdHocNet-Aug.tex from IOTJ-Aug.tex with Elsevier format adaptations.
+      PDF compiled successfully (682 KB).
+    downstream_impact:
+      - "All figures and tables carry over unchanged"
+      - "Section structure unchanged from IOTJ version"
+      - "Related work still needs ad hoc routing security classics (ARIADNE, S-AODV, SEAD)"
+    status: complete
+
+  - change_id: CHG-003
+    date: "2026-04-12"
+    type: content_addition
+    description: >
+      Added E5c NVS persistence results to paper (§7.5.2 sec:hardware-nvs).
+      Added E6 6-node linear experiment to paper (§7.5.3 sec:hardware-e6, tab:hw-e6).
+      Updated C4 contributions list. Updated abstract.
+    downstream_impact:
+      - "sec:hardware-nvs: Mode 1 (replay window open) vs Mode 2 (window closed)"
+      - "sec:hardware-e6: 3/4 relay nodes poisoned baseline; 0/4 patched; PDR=85%"
+      - "tab:hw-e6: locks E6 numbers"
+      - "sec:intro C4 bullet: '6-node multi-hop relay chain' and 'NVS-persisted MetricVersion'"
+    status: complete
+
+  - change_id: CHG-004
+    date: "2026-05-11"
+    type: paper_trace
+    description: >
+      Paper trace v2 created for AdHocNet-Aug.tex (10 YAML files).
+      v2 supersedes v1 (IoTJ trace). Fills: contributions, research questions,
+      experiments, section outline, citation map, figure/table map, limitations,
+      dataset/protocol, artifact index.
+    downstream_impact:
+      - "All trace files now populated with locked numbers from experiments"
+      - "Use trace files as ground truth when editing paper numbers"
+    status: complete
+
+pending_changes:
+  - change_id: CHG-005-pending
+    description: >
+      Related Work section needs addition of ad hoc routing security classics:
+      ARIADNE (Hu et al. 2002), S-AODV (Papadimitratos), SEAD (Hu et al. 2003),
+      authenticated OLSR. Current sec:related is written for IoTJ framing.
+    priority: high
+    blocking: "submission"
+
+  - change_id: CHG-006-pending
+    description: >
+      §1.1 'The Deployment Security Problem' still contains 'IoT mesh deployments'
+      language — should be reframed to 'ad hoc mesh' throughout.
+    priority: medium
+    blocking: "submission"
+
+  - change_id: CHG-007-pending
+    description: >
+      Consider adding gap table in Related Work: 3 rows (LoRa security /
+      ad hoc routing security / formal routing verification), columns showing
+      this paper fills all three gaps simultaneously.
+    priority: medium
+    blocking: false

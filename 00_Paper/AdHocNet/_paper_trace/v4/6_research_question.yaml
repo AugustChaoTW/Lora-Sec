@@ -1,0 +1,74 @@
+paper_path: /home/augchao/Work/Lora-Sec/00_Paper/AdHocNet/AdHocNet-Aug.tex
+paper_stage: draft
+paper_title: "Securing LoRa Mesh Ad Hoc Networks: Formal Vulnerability Analysis and Lightweight Authenticated Routing"
+target_journal: "Ad Hoc Networks (Elsevier, Ad Hoc Netw., ISSN 1570-8705)"
+
+main_thesis:
+  one_sentence_safe_claim: >
+    LoRaMesher's unauthenticated DV routing control plane admits two formally
+    proven attack classes; a 41-line HMAC-SHA256 + MetricVersion patch closes
+    both with negligible overhead on ESP32-class constrained nodes, validated
+    by Tamarin proofs, 225 ns-3 simulation runs, and six physical boards.
+  safe_claim: >
+    We are the first to formally analyze and patch the control-plane security
+    of a LoRa ad hoc mesh routing protocol, producing machine-checked proofs,
+    a simulation-validated patch, and hardware-confirmed results across three
+    multi-hop topologies.
+
+research_questions:
+  - rq_id: RQ1
+    text: >
+      Does LoRaMesher's distance-vector routing control plane contain
+      formally verifiable vulnerabilities that enable unauthorized route
+      injection or session-replay attacks by a commodity LoRa adversary?
+    motivation: >
+      LoRaMesher is deployed in open, unattended ad hoc mesh fields with no
+      control-plane authentication. No prior work has produced machine-checked
+      proofs of whether these attacks are structurally possible.
+    hypothesis: >
+      The absence of message authentication in Hello and RekeyNotice messages
+      creates an adversarial state injection surface exploitable within one
+      DV convergence cycle (~30 s).
+    status: confirmed_by_tamarin
+    tested_by_experiments: [E1_tamarin_baseline]
+    tested_by_sections: [sec:attacks, sec:formal]
+    tested_by_figures: [fig:attack-seq]
+    tested_by_tables: [tab:tamarin]
+
+  - rq_id: RQ2
+    text: >
+      Can a minimal patch—requiring no PKI, no protocol redesign, and no
+      new hardware—formally eliminate both attack classes while remaining
+      deployable on 512 KB RAM ESP32 microcontrollers?
+    motivation: >
+      Existing secure routing solutions (ARIADNE, TinySec, authenticated OLSR)
+      require asymmetric crypto or PKI, which are infeasible on ESP32-class
+      nodes. A symmetric-key-only patch with formal guarantees is needed.
+    hypothesis: >
+      HMAC-SHA256 per-message authentication plus a per-destination
+      MetricVersion monotonic counter are jointly sufficient to satisfy all
+      four security goals without breaking DV routing convergence.
+    status: confirmed_by_tamarin_and_hardware
+    tested_by_experiments: [E1_tamarin_patched, E2_ns3, E3_hardware_e5b, E4_hardware_e5c, E5_hardware_e6]
+    tested_by_sections: [sec:patch, sec:formal, sec:eval, sec:hardware-validation]
+    tested_by_figures: [fig:eval-results]
+    tested_by_tables: [tab:tamarin, tab:attacks, tab:hw-results, tab:hw-e6]
+
+  - rq_id: RQ3
+    text: >
+      What is the computational, memory, and airtime overhead of the patch
+      on production ESP32-S3 hardware and across linear, tree, and grid
+      ad hoc network topologies under active attack?
+    motivation: >
+      Constrained node deployments require that security overhead be
+      demonstrably negligible relative to LoRa's 100–250 ms link latency
+      and duty-cycle constraints.
+    hypothesis: >
+      HMAC-SHA256 overhead on ESP32-S3 is <0.1 ms per message and
+      airtime overhead is <1%, making the patch practical for
+      AS923 duty-cycle-limited deployments.
+    status: confirmed_by_hardware_and_simulation
+    tested_by_experiments: [E0_hmac_timing, E2_ns3]
+    tested_by_sections: [sec:patch, sec:eval]
+    tested_by_figures: []
+    tested_by_tables: [tab:esp32, tab:overhead, tab:attacks]

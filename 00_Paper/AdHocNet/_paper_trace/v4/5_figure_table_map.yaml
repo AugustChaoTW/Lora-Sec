@@ -1,0 +1,180 @@
+paper_path: /home/augchao/Work/Lora-Sec/00_Paper/AdHocNet/AdHocNet-Aug.tex
+paper_stage: draft
+target_journal: "Ad Hoc Networks (Elsevier)"
+
+figures:
+
+  - fig_id: fig:hero
+    label: fig:hero
+    tex_line: 321
+    caption: "Hero figure: LoRaMesher control-plane security before and after patching."
+    type: "figure* (double-column)"
+    section: sec:intro
+    contributions: [C1, C2]
+    rq_supported: [RQ1, RQ2]
+    content_description: >
+      Side-by-side: (left) unauthenticated DV routing with attacker injecting
+      forged RouteReply; (right) patched protocol with HMAC verification block.
+    status: present
+
+  - fig_id: fig:attack-seq
+    label: fig:attack-seq
+    tex_line: 949
+    caption: "Message sequence diagrams for the two attacks."
+    type: figure
+    section: sec:attacks
+    contributions: [C1]
+    rq_supported: [RQ1]
+    content_description: >
+      Two MSC diagrams: (top) Route Injection — attacker transmits forged
+      RouteReply, nodes converge to attacker path; (bottom) Session Replay —
+      attacker captures and replays RekeyNotice after epoch advance.
+    status: present
+    locked_numbers:
+      - "DV convergence within ~30 s"
+      - "Tamarin counterexample trace verifiable in 0.8 s"
+
+  - fig_id: fig:eval-results
+    label: fig:eval-results
+    tex_line: 1236
+    caption: "PDR degradation across three ad hoc network topologies."
+    type: figure
+    section: sec:eval
+    contributions: [C3]
+    rq_supported: [RQ2, RQ3]
+    content_description: >
+      Bar chart or grouped plot: PDR (%) for baseline/hmac_only/hmac_metricversion
+      across linear_6node, tree_8node, grid_9node; under route_injection and replay.
+      Shows 0% residual PDR degradation after full patching.
+    status: present
+    locked_numbers:
+      - "baseline linear: 0% PDR"
+      - "baseline tree/grid: 77.4% PDR"
+      - "patched all topologies: 100% PDR"
+
+tables:
+
+  - tab_id: tab:esp32
+    label: tab:esp32
+    tex_line: 485
+    caption: "ESP32-S3 Resource Budget for LoRaMesher Security Patch"
+    type: table
+    section: sec:threat
+    also_used_in: [sec:patch]
+    contributions: [C2]
+    rq_supported: [RQ3]
+    locked_numbers:
+      - "HMAC mean latency: 98.17 µs (std: 2.1 µs)"
+      - "HMAC overhead: 0.06% of LoRa airtime"
+      - "RAM per entry: 2 bytes"
+      - "Latency vs LoRa link: 0.098 ms vs 100-250 ms"
+    experiment: E0_hmac_timing
+
+  - tab_id: tab:notation
+    label: tab:notation
+    tex_line: 703
+    caption: "Notation Used Throughout the Paper"
+    type: table
+    section: sec:model
+    contributions: []
+    rq_supported: []
+    content_description: "Symbol table for formal model notation"
+
+  - tab_id: tab:tamarin-mapping
+    label: tab:tamarin-mapping
+    tex_line: 801
+    caption: "Tamarin Abstraction to LoRaMesher Implementation Mapping"
+    type: table
+    section: sec:formal
+    contributions: [C1]
+    rq_supported: [RQ1]
+    content_description: >
+      Maps Tamarin model constructs to LoRaMesher implementation:
+      protocol rules, message types, state facts.
+
+  - tab_id: tab:tamarin
+    label: tab:tamarin
+    tex_line: 859
+    caption: "Tamarin Lemma Results: Baseline vs. Patched Protocol."
+    type: table
+    section: sec:formal
+    contributions: [C1]
+    rq_supported: [RQ1, RQ2]
+    locked_numbers:
+      - "Baseline: 4/5 falsified (L1 MetricAuthenticity, L2 RouteFreshness, L3 RouteConsistency, L4 AuthorizedRoutes)"
+      - "Baseline: 1/5 verified (L5 PSK Confidentiality / Executability)"
+      - "Patched: 8/8 verified"
+      - "Baseline proof time: 0.8 s"
+      - "Patched proof time: 3.6 s"
+    experiment: [E1_tamarin_baseline, E1_tamarin_patched]
+
+  - tab_id: tab:attacks
+    label: tab:attacks
+    tex_line: 1131
+    caption: "PDR Degradation / PDR Across Ad Hoc Network Topologies"
+    type: table
+    section: sec:eval.attacks
+    contributions: [C3]
+    rq_supported: [RQ2, RQ3]
+    locked_numbers:
+      - "linear baseline PDR: 0%"
+      - "tree/grid baseline PDR: 77.4%"
+      - "all patched PDR: 100%"
+      - "residual PDR degradation: 0%"
+    experiment: E2_ns3
+
+  - tab_id: tab:overhead
+    label: tab:overhead
+    tex_line: 1163
+    caption: "Network Performance Under Normal Operation (No Attack, seed=1)"
+    type: table
+    section: sec:eval.overhead
+    contributions: [C3]
+    rq_supported: [RQ3]
+    locked_numbers:
+      - "0% PDR degradation vs unattacked baseline under full patch"
+    experiment: E2_ns3
+
+  - tab_id: tab:scale
+    label: tab:scale
+    tex_line: 1213
+    caption: "Scale validation: PDR under attack across 5 seeds"
+    type: table
+    section: sec:eval.overhead
+    contributions: [C3]
+    rq_supported: [RQ3]
+    locked_numbers:
+      - "25-node patched PDR: 100%"
+      - "49-node patched PDR: 100%"
+    experiment: E2_ns3
+
+  - tab_id: tab:hw-results
+    label: tab:hw-results
+    tex_line: 1362
+    caption: "Hardware experiment results (120 s, 923 MHz AS923)"
+    type: table
+    section: sec:hardware-validation
+    contributions: [C4]
+    rq_supported: [RQ2]
+    locked_numbers:
+      - "baseline PDR: 0.0%"
+      - "patched PDR: 87.0%"
+      - "attacker intercepts patched: 0"
+    experiment: E3_hardware_e5b
+
+  - tab_id: tab:hw-e6
+    label: tab:hw-e6
+    tex_line: 1535
+    caption: "Six-node hardware experiment results (923 MHz AS923, 6 nodes)"
+    type: table
+    section: sec:hardware-e6
+    also_used_in: [sec:hardware-nvs]
+    contributions: [C4]
+    rq_supported: [RQ2, RQ3]
+    locked_numbers:
+      - "baseline relay nodes poisoned: 3/4"
+      - "patched relay nodes poisoned: 0/4"
+      - "patched node_a PDR: 85%"
+      - "NVS Mode 1: accepts mv=21 after reboot"
+      - "NVS Mode 2: rejects mv=21 (stored=32)"
+    experiment: [E4_hardware_e5c, E5_hardware_e6]

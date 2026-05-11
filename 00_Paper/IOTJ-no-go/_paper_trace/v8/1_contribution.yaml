@@ -1,0 +1,230 @@
+paper_path: /home/augchao/Work/Lora-Sec/00_Paper/IOTJ/IOTJ-Aug.tex
+paper_stage: draft
+paper_title: >
+  Securing LoRa Mesh IoT Networks: Formal Vulnerability Analysis and
+  Lightweight Authenticated Routing for Resource-Constrained Deployments
+
+main_thesis:
+  safe_claim: >
+    We formally prove that LoRaMesher's unauthenticated control plane
+    enables two exploitable attack classes, propose a 41-line
+    ESP32-optimized patch, formally verify its correctness, and validate
+    its effectiveness across 135 ns-3 simulation runs and physical
+    hardware experiments on 3 Ebyte EoRa PI boards.
+  one_sentence_safe_claim: >
+    Machine-checked formal proofs, multi-topology ns-3 simulation, and
+    physical hardware experiments confirm that a 41-line HMAC+MetricVersion
+    patch fully secures LoRaMesher IoT mesh deployments with 0.098 ms overhead.
+
+core_research_question:
+  rq_id: RQ1
+  text: >
+    Does LoRaMesher's control plane contain formally provable
+    vulnerabilities exploitable with commodity LoRa hardware?
+  hypothesis: >
+    Missing authentication on Hello/RouteReply/RekeyNotice allows
+    Dolev-Yao adversaries to violate all four security goals (G1–G4).
+  motivation: >
+    Safety-critical IoT deployments (precision agriculture, disaster
+    response) rely on LoRaMesher with no control-plane security.
+
+reviewer_risk: >
+  Reviewers may question whether ns-3 results accurately model real
+  ESP32 hardware. Mitigated by: (1) HMAC timing measured on real
+  Ebyte EoRa PI (ESP32-S3 @ 240 MHz, 10,000 iterations): 98 µs ± 2 µs;
+  (2) Route injection attack and patch validated on 3 physical boards (E5b);
+  (3) Tamarin proofs are topology-independent and hardware-agnostic.
+
+contributions:
+  - contribution_id: C1
+    claim: >
+      We characterize two attack classes against LoRaMesher IoT
+      deployments — Route Injection and Session Replay — with explicit
+      preconditions, attack steps, and field impact assessment for three
+      representative IoT deployment scenarios.
+    why_it_matters: >
+      No prior work characterizes these attacks against LoRaMesher
+      specifically with IoT deployment impact analysis. Field impact
+      (falsified irrigation data, isolated disaster-response teams,
+      false pollution readings) motivates the urgency of the fix.
+    strongest_defensible_wording: >
+      Two attack classes are identified with concrete preconditions,
+      execution steps, and quantified ns-3 success rates (100% route
+      injection on linear topology; 100% replay on linear topology).
+      Hardware E5b confirms: baseline PDR=0%, patched PDR=87% on physical boards.
+    confidence: 0.95
+    status: complete
+    rq_ids: [RQ1]
+    evidence_experiments: [E1, E2, E5b]
+    evidence_figures: [fig:attack-overview, fig:attack-seq]
+    evidence_tables: [tab:attacks]
+    evidence_sections: [sec:threat, sec:attacks]
+    avoid_overclaiming:
+      - "Do not claim these are novel attack types — route injection and replay are known in MANET"
+      - "Novelty is the first systematic study of these attacks on LoRaMesher with IoT impact"
+    reviewer_risk: >
+      "These attacks are well-known in MANET." Response: Novelty is
+      the first formal characterization for LoRaMesher's DV routing
+      with ESP32-specific resource context, not attack invention.
+    response_strategy: >
+      Point to §5 which explicitly cites prior sinkhole/blackhole work
+      (sejaphala2025, hu2002-sead, klenze2021-forwarding) and positions
+      our contribution as LoRaMesher-specific formalization.
+
+  - contribution_id: C2
+    claim: >
+      We construct a Tamarin Prover model of the LoRaMesher control
+      plane (145 rules, 12 lemmas) and obtain machine-checked proofs:
+      4 lemmas falsified for baseline, 8 lemmas proved for patched
+      protocol in <4 seconds.
+    why_it_matters: >
+      Machine-checked proofs provide stronger guarantees than
+      simulation-only or manual analysis. The first Tamarin analysis
+      of a LoRa mesh routing protocol demonstrates tractability for
+      this protocol class.
+    strongest_defensible_wording: >
+      First Tamarin Prover analysis of LoRaMesher DV routing;
+      baseline model produces counterexample traces for 4/4 security
+      goals; patched model verifies all 8 lemmas in 3.6 seconds.
+    confidence: 0.95
+    status: complete
+    rq_ids: [RQ1, RQ2]
+    evidence_experiments: [E4]
+    evidence_figures: []
+    evidence_tables: [tab:tamarin]
+    evidence_sections: [sec:formal]
+    avoid_overclaiming:
+      - "Do not claim 'complete' security — Tamarin proves protocol-level properties under Dolev-Yao model only"
+      - "Implementation vulnerabilities (buffer overflow, timing side-channels) are out of scope"
+    reviewer_risk: >
+      "Two-node model is too simplified." Response: Two-node strategy
+      follows established practice (ieee2025-kang-tamarin, shen2026-wifi-security)
+      — protocol flaws are detectable at minimal scale; topology-independence
+      is a protocol property.
+    response_strategy: >
+      Cite §4.2 which explicitly justifies the two-node strategy with
+      prior Tamarin literature and notes the Executability lemma
+      confirms the model is not trivially overconstrained.
+
+  - contribution_id: C3
+    claim: >
+      We design a 41-line ESP32-optimized security patch comprising
+      HMAC-SHA256 per-message authentication (23 lines) and a
+      per-destination MetricVersion counter (18 lines), calibrated
+      for ESP32-S3 constraints: 0.098 ms CPU overhead (measured),
+      2 B/entry RAM (uint16 MetricVersion counter), no PKI dependency.
+    why_it_matters: >
+      Prior IoT mesh security proposals (TinyECC, PKI-based) are
+      incompatible with ESP32 constraints. Our patch uses only
+      mbedTLS (already in ESP32 firmware) and adds negligible overhead
+      vs. LoRa's 206 ms patched-Hello air-time — enabling immediate adoption.
+    strongest_defensible_wording: >
+      41-line patch is formally verified correct (G1–G4 proved),
+      ESP32-S3 overhead MEASURED at 0.098 ms / 98 µs ± 2 µs
+      (10,000 iterations, Ebyte EoRa PI, mbedTLS in ESP-IDF v5.5.4),
+      and deployable via OTA update in <15 minutes.
+    confidence: 0.97
+    status: complete
+    rq_ids: [RQ2]
+    evidence_experiments: [E3, E5a]
+    evidence_figures: []
+    evidence_tables: [tab:esp32, tab:overhead]
+    evidence_sections: [sec:patch]
+    avoid_overclaiming:
+      - "Timing measured on Ebyte EoRa PI (ESP32-S3 @ 240 MHz, ESP-IDF v5.5.4), 10,000 iterations"
+      - "Result: 98 µs ± 2 µs (0.098 ms) — 0.05% of LoRa 206 ms patched-Hello air-time"
+      - "Board correction: Heltec WiFi LoRa 32 V3 was mentioned in earlier drafts; confirmed board is Ebyte EoRa PI"
+    reviewer_risk: >
+      "HMAC-SHA256 timing is not measured on actual hardware."
+      RESOLVED (E5a): Timing measured on real Ebyte EoRa PI (ESP32-S3 @ 240 MHz).
+      Result (98 µs) is 3× better than prior mbedTLS 2.28 benchmark (0.3 ms).
+    response_strategy: >
+      §6.1 states measured value (0.098 ms, 98 µs ± 2 µs) on real
+      ESP32-S3 hardware (Ebyte EoRa PI). The 0.06% overhead fraction makes
+      any measurement uncertainty irrelevant to the practicality conclusion.
+    hardware_result:
+      status: COMPLETE
+      date: "2026-05-06"
+      board: "Ebyte EoRa PI (ESP32-S3FH4R2 + E22-900MM22S / SX1262)"
+      chip: "ESP32-S3 rev2 @ 240 MHz"
+      sdk: "ESP-IDF v5.5.4 (mbedTLS)"
+      iterations: 10000
+      mean_us: 98.17
+      std_us: 1.55
+      min_us: 97.0
+      p95_us: 102.0
+      mean_ms: 0.098
+      overhead_pct: 0.05
+      log: "hardware_experiments/E5a_hmac_timing/e5a_result.log"
+
+  - contribution_id: C4
+    claim: >
+      We validate security effectiveness and performance overhead
+      across 135 ns-3 simulation runs: 27 base scenarios
+      (3 topologies × 3 protocol states × 3 attack types) × 5 seeds,
+      confirming 0% residual attack success and <1% latency overhead.
+    why_it_matters: >
+      IoT deployments use diverse physical topologies. Multi-topology
+      validation demonstrates that the patch generalizes beyond the
+      formal model's two-node abstraction to realistic field conditions.
+    strongest_defensible_wording: >
+      0% attack success rate across all 135 simulation runs with full
+      patch; latency overhead ≤5 ms (<1%) on all three topology types
+      (linear, tree, grid).
+    confidence: 0.90
+    status: complete
+    rq_ids: [RQ3]
+    evidence_experiments: [E1, E2, E3]
+    evidence_figures: [fig:eval-results]
+    evidence_tables: [tab:attacks, tab:overhead]
+    evidence_sections: [sec:eval]
+    avoid_overclaiming:
+      - "ns-3 simulation, not full hardware deployment — state clearly"
+      - "Maximum topology: 9 nodes; large-scale behavior not validated"
+    reviewer_risk: >
+      "9 nodes is too small to be representative." Response: Topology
+      size matches prior LoRaMesher deployment studies; Tamarin proof
+      is topology-independent. Large-scale simulation is listed as
+      future work in §9.
+    response_strategy: >
+      Emphasize that three qualitatively different topologies
+      (pipeline/hierarchical/dense) are evaluated, covering the main
+      structural diversity of IoT deployments. Hardware E5b confirms
+      core attack/defense behavior on physical boards.
+
+  - contribution_id: C5
+    claim: >
+      All research artifacts — Tamarin models, ns-3 simulation code,
+      patched LoRaMesher firmware, 135 JSON result files, hardware
+      experiment code (E5a/E5b), and a pre-configured Docker image —
+      are released under MIT license.
+    why_it_matters: >
+      Reproducibility is a Q1 journal requirement. Open artifacts
+      enable the community to deploy the patch, reproduce results,
+      and extend the formal model to other mesh protocols (Meshtastic).
+    strongest_defensible_wording: >
+      All primary artifacts available under MIT license with a
+      Docker image pre-installing Tamarin 1.8.0 and ns-3.40 for
+      one-command reproducibility.
+    confidence: 0.98
+    status: complete
+    rq_ids: [RQ3]
+    evidence_experiments: []
+    evidence_figures: []
+    evidence_tables: []
+    evidence_sections: [app:artifact]
+    avoid_overclaiming:
+      - "GitHub URL is anonymized pending review — must be de-anonymized on acceptance"
+    reviewer_risk: >
+      "Artifacts not available before review." Standard blind-review
+      practice; Docker image ensures reproducibility without identity.
+    response_strategy: >
+      Provide Docker image hash and anonymous GitHub link for
+      reviewer access during review.
+
+avoid_overclaiming:
+  - "Hardware timing claims measured on Ebyte EoRa PI (ESP32-S3 @ 240 MHz), 10,000 iterations, mbedTLS in ESP-IDF v5.5.4"
+  - "Tamarin proofs cover protocol-level security under Dolev-Yao; implementation bugs are out of scope"
+  - "ns-3 simulation covers up to 9 nodes; large-scale behavior not validated"
+  - "Single Dolev-Yao attacker; multi-attacker scenarios are future work"
+  - "Hardware validation (E5b) uses 3 nodes; ns-3 covers diverse topologies"

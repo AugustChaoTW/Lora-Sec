@@ -1,0 +1,305 @@
+paper_path: /home/augchao/Work/Lora-Sec/00_Paper/AdHocNet/AdHocNet-Aug.tex
+bib_path: /home/augchao/Work/Lora-Sec/references/bibliography.bib
+total_citations_in_paper: 31
+last_audited: "2026-05-11"
+
+# Session changes applied 2026-05-11:
+# ADDED: karlof2004-tinysec (TinySec SenSys 2004 — replaces wrong shelby2026 citation)
+# ADDED: nist2025-sp800-232 (NIST SP 800-232 ASCON standard — replaces ieee2025-lorawan-aes-crypto for ASCON claim)
+# ADDED: ginesin2024-sctp-formal (USENIX Sec 2024 — replaces vonhippel2024 PhD thesis)
+# ADDED: ahmad2024-sinkhole-reputation (IEEE Access 2024 — replaces sejaphala2025 CoMeSySo)
+# FIXED: ieee2025-lorawan-aes-crypto — corrected fake authors Chen/Lee → Abboud/Abdoun, year 2024
+# FIXED: springer2026-blockchain-ids — added missing author field (Elumalai et al.)
+
+references:
+
+  # --- LoRaMesher / LoRa Protocol ---
+
+  - key: sole2022-loramesher
+    type: conference
+    venue_quality: good
+    claim: "LoRaMesher open-source DV mesh stack"
+    used_in_sections: [sec:intro, sec:related]
+    used_in_tables: []
+    notes: "Original LoRaMesher paper — primary target of this analysis"
+
+  - key: sole2024-loramesher-dv
+    type: journal
+    venue_quality: good
+    claim: "LoRaMesher DV routing details"
+    used_in_sections: [sec:intro, sec:formal]
+    used_in_tables: []
+
+  - key: sole2026-loramesher-swx
+    type: conference
+    venue_quality: acceptable
+    claim: "LoRaMesher swarm extension"
+    used_in_sections: [sec:intro]
+    used_in_tables: []
+
+  - key: repetto2022-lorawan-demo
+    type: conference
+    venue_quality: acceptable
+    claim: "LoRaMesher demo deployment"
+    used_in_sections: [sec:intro]
+    used_in_tables: []
+
+  # --- LoRa / LoRaWAN Security ---
+
+  - key: hessel2022-lorawan-survey
+    type: journal
+    venue_quality: good
+    claim: "LoRaWAN security survey"
+    used_in_sections: [sec:related.lorawan]
+    used_in_tables: []
+
+  - key: butun2019-lorawan-security-risk
+    type: journal
+    venue_quality: good
+    claim: "LoRaWAN security risk assessment"
+    used_in_sections: [sec:threat, sec:related.lorawan]
+    used_in_tables: []
+
+  - key: repetto2025-lorawan-drone-attack
+    type: preprint
+    venue_quality: preprint
+    claim: "LoRaWAN drone-assisted attack — used for specific hardware attack differentiation"
+    used_in_sections: [sec:related.lorawan]
+    used_in_tables: []
+    residual_risk: "arXiv preprint — acceptable because claim is narrow differentiation"
+
+  - key: ieee2025-lorawan-jamming-ids
+    type: journal
+    venue_quality: good
+    claim: "LoRaWAN jamming IDS"
+    used_in_sections: [sec:related.lorawan]
+    used_in_tables: []
+
+  - key: ieee2025-lorawan-key-vulnerability
+    type: journal
+    venue_quality: good
+    claim: "LoRaWAN key vulnerability"
+    used_in_sections: [sec:related.lorawan]
+    used_in_tables: []
+
+  - key: ieee2025-lorawan-key-verification
+    type: journal
+    venue_quality: good
+    claim: "LoRaWAN key verification"
+    used_in_sections: [sec:related.lorawan]
+    used_in_tables: []
+
+  - key: ieee2025-lora-adversarial
+    type: journal
+    venue_quality: good
+    claim: "LoRa adversarial signal"
+    used_in_sections: [sec:related.lorawan]
+    used_in_tables: []
+
+  - key: ieee2025-lora-hierarchy-routing
+    type: journal
+    venue_quality: good
+    claim: "LoRa hierarchy routing / deployment scale"
+    used_in_sections: [sec:intro]
+    used_in_tables: []
+
+  - key: mohamed2022-lorawan-gateways
+    type: journal
+    venue_quality: good
+    claim: "LoRaWAN gateway deployment"
+    used_in_sections: [sec:threat]
+    used_in_tables: []
+
+  - key: bringye2026-lorawan-ids
+    type: journal
+    venue_quality: good
+    claim: "LoRaWAN IDS"
+    used_in_sections: [sec:related.lorawan]
+    used_in_tables: []
+
+  # --- Mesh Protocol Security ---
+
+  - key: karlof2004-tinysec
+    type: conference
+    venue_quality: excellent
+    venue: "SenSys 2004 (ACM)"
+    claim: "TinySec link-layer security for WSN — requires link-layer support unavailable in LoRa PHY"
+    used_in_sections: [sec:related.mesh, sec:intro.existing]
+    used_in_tables: []
+    change: "ADDED 2026-05-11 — replaced wrong shelby2026-zero-trust-iot citation"
+
+  - key: hu2002-ariadne
+    type: conference
+    venue_quality: excellent
+    venue: "MobiCom 2002 (ACM)"
+    claim: "ARIADNE secure on-demand routing — requires PKI, infeasible on ESP32"
+    used_in_sections: [sec:related.mesh, sec:intro.existing]
+    used_in_tables: []
+
+  - key: hu2002-sead
+    type: conference
+    venue_quality: excellent
+    venue: "WMCSA 2002 (IEEE)"
+    claim: "SEAD secure DV routing — requires PKI"
+    used_in_sections: [sec:related.mesh]
+    used_in_tables: []
+
+  - key: ietf-rfc7416
+    type: rfc
+    venue_quality: good
+    claim: "RPL security threat analysis"
+    used_in_sections: [sec:related.mesh]
+    used_in_tables: []
+
+  - key: cve2025-meshtastic-entropy
+    type: misc
+    venue_quality: acceptable
+    claim: "CVE for Meshtastic entropy — shows ad hoc mesh crypto vulnerabilities exist"
+    used_in_sections: [sec:related.mesh]
+    used_in_tables: []
+    residual_risk: "CVE misc entry — only use for illustrative precedent, not quantitative claim"
+
+  - key: springer2026-blockchain-ids
+    type: journal
+    venue_quality: acceptable
+    claim: "Blockchain-based IDS for mesh"
+    used_in_sections: [sec:related.mesh]
+    used_in_tables: []
+    change: "FIXED 2026-05-11 — added missing author field (Elumalai et al.)"
+
+  - key: ieee2025-blackhole-optimization
+    type: journal
+    venue_quality: good
+    claim: "Blackhole attack detection"
+    used_in_sections: [sec:related.defense]
+    used_in_tables: []
+
+  - key: ahmad2024-sinkhole-reputation
+    type: journal
+    venue_quality: good
+    venue: "IEEE Access 2024"
+    claim: "Sinkhole detection with reputation-based IDS"
+    used_in_sections: [sec:related.defense]
+    used_in_tables: []
+    change: "ADDED 2026-05-11 — replaced sejaphala2025 CoMeSySo workshop paper"
+
+  - key: springer2026-vanet-routing
+    type: journal
+    venue_quality: acceptable
+    claim: "VANET secure routing"
+    used_in_sections: [sec:related.defense]
+    used_in_tables: []
+
+  # --- Formal Verification ---
+
+  - key: basin2025-tamarin-book
+    type: book
+    venue_quality: excellent
+    claim: "Tamarin Prover reference"
+    used_in_sections: [sec:formal, sec:related.formal]
+    used_in_tables: []
+
+  - key: glabbeek2016-aodv-verification
+    type: journal
+    venue_quality: good
+    claim: "Formal verification of AODV routing"
+    used_in_sections: [sec:related.formal]
+    used_in_tables: []
+
+  - key: pereira2025-router-verification
+    type: journal
+    venue_quality: good
+    claim: "Formal router protocol verification"
+    used_in_sections: [sec:related.formal]
+    used_in_tables: []
+
+  - key: ginesin2024-sctp-formal
+    type: conference
+    venue_quality: excellent
+    venue: "USENIX Security 2024"
+    claim: "Formal analysis of SCTP — attack synthesis and patch verification via Tamarin"
+    used_in_sections: [sec:related.formal]
+    used_in_tables: []
+    change: "ADDED 2026-05-11 — replaced vonhippel2024 PhD thesis"
+
+  - key: ieee2025-mpke-proverif
+    type: conference
+    venue_quality: acceptable
+    claim: "Mesh PKE ProVerif verification — unique mesh+formal combination"
+    used_in_sections: [sec:related.formal]
+    used_in_tables: []
+    residual_risk: "ICIMCIS conference — acceptable because claim is unique mesh+ProVerif positioning"
+
+  - key: song2026-protocolguard
+    type: conference
+    venue_quality: good
+    claim: "ProtocolGuard automated protocol security checking"
+    used_in_sections: [sec:related.formal]
+    used_in_tables: []
+
+  - key: ieee2025-5g-prose-aka
+    type: journal
+    venue_quality: good
+    claim: "5G ProSe AKA formal analysis"
+    used_in_sections: [sec:related.formal]
+    used_in_tables: []
+
+  # --- Lightweight Cryptography ---
+
+  - key: nist2025-sp800-232
+    type: techreport
+    venue_quality: authoritative
+    venue: "NIST Special Publication 800-232"
+    claim: "NIST finalized ASCON as lightweight cryptography standard for constrained devices"
+    used_in_sections: [sec:related.lightweight]
+    used_in_tables: []
+    change: "ADDED 2026-05-11 — replaces ieee2025-lorawan-aes-crypto for ASCON claim"
+
+  - key: ieee2025-lorawan-aes-crypto
+    type: journal
+    venue_quality: good
+    claim: "AES-256 overhead in LoRaWAN — used for overhead comparison"
+    used_in_sections: [sec:related.lightweight, sec:eval.overhead]
+    used_in_tables: []
+    change: "FIXED 2026-05-11 — corrected fake authors Chen/Lee → Abboud/Abdoun; year 2024; volume/pages updated"
+    notes: "No longer cited for ASCON claim (moved to nist2025-sp800-232)"
+
+  - key: perkins1994-dsdv
+    type: conference
+    venue_quality: excellent
+    venue: "ACM SIGCOMM 1994"
+    claim: "DSDV proactive DV routing — the paradigm LoRaMesher inherits"
+    used_in_sections: [sec:related.defense]
+    used_in_tables: []
+    change: "ADDED 2026-05-11 — explicit citation for DSDV baseline protocol"
+
+  - key: zapata2002-saodv
+    type: conference
+    venue_quality: good
+    venue: "ACM WiSe 2002"
+    claim: "SAODV: digital signatures for on-demand AODV — requires PKI infeasible on ESP32"
+    used_in_sections: [sec:related.defense]
+    used_in_tables: []
+    change: "ADDED 2026-05-11 — addresses RR6 (missing classic ad hoc routing security papers)"
+
+  - key: raffo2004-authenticated-olsr
+    type: conference
+    venue_quality: good
+    venue: "ACM SASN 2004"
+    claim: "Authenticated OLSR: digital signatures for link-state routing — requires PKI"
+    used_in_sections: [sec:related.defense]
+    used_in_tables: []
+    change: "ADDED 2026-05-11 — addresses RR6 (missing classic ad hoc routing security papers)"
+
+quality_summary:
+  total_references_in_bib: 53
+  referenced_in_paper: 34
+  venue_breakdown:
+    excellent: 6    # MobiCom, SenSys, USENIX Sec, Tamarin book, WMCSA, NIST SP
+    good: 16
+    acceptable: 6
+    preprint_residual: 1   # repetto2025 (narrow differentiation claim)
+    misc_residual: 1       # cve2025-meshtastic-entropy (illustrative only)
+  no_fake_authors: true
+  no_missing_authors: true
+  arXiv_in_key_claims: false

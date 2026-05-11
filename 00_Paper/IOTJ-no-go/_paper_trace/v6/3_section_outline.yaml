@@ -1,0 +1,145 @@
+sections:
+
+  - section_id: sec:intro
+    title: "Introduction"
+    label: "\\section{Introduction}"
+    writing_contract: >
+      Opens with IEEEPARstart. Establishes LoRa IoT deployment scale.
+      §1.1: Two concrete attack vectors with cost barrier ($20 radio).
+      §1.2: Why existing solutions (LoRaWAN, 802.15.4, TinyECC, ARIADNE) don't apply.
+      §1.3: Five contributions enumerated.
+      Includes figure* attack overview (fig:attack-overview).
+    rqs_addressed: [RQ1]
+    contributions_introduced: [C1, C2, C3, C4, C5]
+    status: complete
+    citation_changes_v6:
+      - "L116: added sole2026-loramesher-swx, repetto2022-lorawan-demo"
+      - "L159: added butun2019-lorawan-security-risk"
+      - "L163: ARIADNE now cites hu2002-ariadne (MobiCom 2002) — was dangling"
+
+  - section_id: sec:threat
+    title: "IoT Deployment Context and Threat Model"
+    label: "\\section{IoT Deployment Context and Threat Model}"
+    writing_contract: >
+      §2.1: Three IoT deployment scenarios with attack impact.
+      §2.2: ESP32-S3 resource budget table (tab:esp32) — CPU overhead now 0.098 ms (measured).
+      §2.3: Dolev-Yao attacker model adapted to LoRa IoT.
+      §2.4: Security goals G1–G4 (Tamarin lemmas preview).
+    rqs_addressed: [RQ1, RQ2]
+    contributions_introduced: [C1]
+    status: complete
+
+  - section_id: sec:model
+    title: "System Model and Problem Formulation"
+    label: "\\section{System Model and Problem Formulation}"
+    writing_contract: >
+      §3.1: Definition 1 — LoRa Mesh Network N=(V,E,K,T).
+      §3.2: Protocol state σ_v=(rt_v, e_v, sk_v, mv_v).
+      §3.3: Definitions 2–3 — Authenticated Accept (HMAC) and Fresh Route.
+      §3.4: Definition 4 — Secure LoRa Mesh Routing (G1–G4).
+      §3.5: Notation table (tab:notation).
+    rqs_addressed: [RQ1, RQ2]
+    contributions_introduced: [C2, C3]
+    status: complete
+
+  - section_id: sec:formal
+    title: "LoRaMesher Protocol and Formal Model"
+    label: "\\section{LoRaMesher Protocol and Formal Model}"
+    writing_contract: >
+      §4.1: Control-plane message format (Hello, RouteReply, RekeyNotice lstlisting).
+      §4.2: 3-state machine + Tamarin encoding; two-node model justification.
+      §4.3: Formal analysis results with tab:tamarin.
+    rqs_addressed: [RQ1, RQ2]
+    contributions_introduced: [C2]
+    status: complete
+    citation_changes_v6:
+      - "L724: zenodo2025-formal-methods-comparison → basin2025-tamarin-book"
+
+  - section_id: sec:attacks
+    title: "Attack Analysis for IoT Deployments"
+    label: "\\section{Attack Analysis for IoT Deployments}"
+    writing_contract: >
+      §5.1: Attack 1 — Route Hijacking via forged RouteReply. IoT scenario, 4-step execution, ns-3 result.
+      §5.2: Attack 2 — Session Confusion via RekeyNotice Replay. Disaster-response scenario.
+      Includes fig:attack-seq.
+    rqs_addressed: [RQ1]
+    contributions_introduced: [C1]
+    status: complete
+    citation_changes_v6:
+      - "L758: zenodo2025-manet-routing-attacks → hu2002-sead"
+
+  - section_id: sec:patch
+    title: "Lightweight Security Patch for ESP32 Deployments"
+    label: "\\section{Lightweight Security Patch for ESP32 Deployments}"
+    writing_contract: >
+      §6.1: Patch 1 — HMAC-SHA256 (23-line listing, 0.098 ms measured overhead).
+      §6.2: Patch 2 — MetricVersion counter (18-line listing, 18 B/entry RAM).
+      §6.3: Backward compatibility (#define PATCH_AUTH, OTA <15 min).
+    rqs_addressed: [RQ2]
+    contributions_introduced: [C3]
+    status: complete
+    note: "CPU overhead updated from 0.3 ms (benchmark) to 0.098 ms (measured on Ebyte EoRa PI)"
+
+  - section_id: sec:eval
+    title: "Experimental Evaluation"
+    label: "\\section{Experimental Evaluation}"
+    writing_contract: >
+      §7.1: ns-3.40 setup (3 topologies, 27×5=135 runs, SF9, 300 s).
+      §7.2: Attack effectiveness (tab:attacks).
+      §7.3: Performance overhead (tab:overhead) — ≤5 ms, 100% PDR.
+      §7.4: Hardware validation (E5a: 0.098 ms HMAC; E5b: PDR 0%→87%).
+      §7.5: Implications for IoT operators.
+    rqs_addressed: [RQ3]
+    contributions_introduced: [C4]
+    status: complete
+
+  - section_id: sec:related
+    title: "Related Work"
+    label: "\\section{Related Work}"
+    writing_contract: >
+      §8.1: LoRa/LoRaWAN security (star-topology WAN layer).
+      §8.2: IoT mesh protocol security (TinySec, blockchain IDS, MPKE ProVerif).
+      §8.3: Routing attack defenses (SEAD, ARIADNE, AODV, sinkhole/blackhole, klenze2021).
+      §8.4: Formal verification (Tamarin 5G-AKA, LoRaWAN ADR, song2026-protocolguard, shen2026).
+      §8.5: Lightweight cryptography for IoT.
+      §8.6: Positioning vs. prior work (tab:related-comparison).
+    rqs_addressed: []
+    contributions_introduced: []
+    status: complete
+    citation_changes_v6:
+      - "L1210: zenodo2025-manet-routing-attacks → klenze2021-forwarding"
+      - "L1230: added song2026-protocolguard"
+      - "L1235: zenodo2025-formal-methods-comparison → shen2026-wifi-security"
+
+  - section_id: sec:limitations
+    title: "Limitations and Future Work"
+    label: "\\section{Limitations and Future Work}"
+    writing_contract: >
+      5 limitations: hardware validation (PARTIALLY addressed by E5a/E5b),
+      scale (>50 nodes), single attacker, Meshtastic portability, lightweight crypto (ASCON).
+    rqs_addressed: []
+    contributions_introduced: []
+    status: complete
+    risks_addressed: [R1, R3, R4, R5]
+
+  - section_id: sec:conclusion
+    title: "Conclusion"
+    label: "\\section{Conclusion}"
+    writing_contract: >
+      Restates the security gap ($20 radio → IoT field hijacking).
+      Summarizes full-stack approach (formal proofs + simulation + hardware).
+      States two generalizable principles for IoT mesh security.
+    rqs_addressed: [RQ1, RQ2, RQ3]
+    contributions_introduced: []
+    status: complete
+
+  - section_id: app:artifact
+    title: "Code and Data Availability"
+    label: "\\section*{Code and Data Availability}"
+    writing_contract: >
+      Lists 6 artifact categories: Tamarin models, ns-3 module, patched firmware,
+      simulation data, Docker image, hardware experiment code (E5a/E5b).
+      GitHub URL anonymized pending review.
+    rqs_addressed: []
+    contributions_introduced: [C5]
+    status: complete

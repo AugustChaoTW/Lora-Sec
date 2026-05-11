@@ -1,0 +1,144 @@
+paper_path: /home/augchao/Work/Lora-Sec/00_Paper/AdHocNet/AdHocNet-Aug.tex
+paper_stage: draft
+target_journal: "Ad Hoc Networks (Elsevier)"
+
+# ─── Protocol Under Study ───────────────────────────────────────────────────
+
+protocol_under_study:
+  name: "LoRaMesher"
+  version: "v0.8.x"
+  repo: "https://github.com/LoRaMesher/LoRaMesher"
+  routing_algorithm: "Distance-Vector (DV)"
+  control_messages: [Hello, RouteUpdate, RekeyNotice, DataPacket]
+  convergence_time_s: ~30
+  authentication: "None (baseline); HMAC-SHA256 + MetricVersion (patched)"
+  hardware_target: "ESP32-S3FH4R2 + SX1262 (Ebyte EoRa-PI)"
+  frequency: "923 MHz (AS923 band)"
+  note: >
+    LoRaMesher is open-source (MIT license) and actively maintained.
+    Paper analyzes and patches v0.8.x; patch is designed as drop-in
+    for this version without protocol redesign.
+
+# ─── Datasets ───────────────────────────────────────────────────────────────
+
+datasets:
+
+  - dataset_id: D1_tamarin_logs
+    description: "Tamarin Prover verification logs — baseline and patched models"
+    source: "supplementary/verification/"
+    files:
+      - "baseline_verification.log"
+      - "patched_2node_verification.log"
+    size: "~200 KB total"
+    format: "Tamarin text log (lemma-by-lemma output)"
+    reproducible: true
+    reproduce_cmd: "docker run --rm loramesher-artifact tamarin --prove"
+    used_in_experiments: [E1_tamarin_baseline, E1_tamarin_patched]
+
+  - dataset_id: D2_ns3_results
+    description: "ns-3 simulation PDR results (225 runs + 90 scale-validation)"
+    source: "phase4_ns3_simulation/results/"
+    files: ["*.json (per-run output)"]
+    size: "~15 MB"
+    format: "JSON per run; analyzed by analyze_pdr.py"
+    reproducible: true
+    reproduce_cmd: "cd phase4_ns3_simulation && python3 run_experiment_matrix.py"
+    used_in_experiments: [E2_ns3]
+
+  - dataset_id: D3_hardware_e5b
+    description: "3-node injection experiment serial logs (E3)"
+    source: "hardware_experiments/E5b_3node_injection/"
+    size: "<100 KB"
+    format: "Arduino Serial Monitor text"
+    reproducible: false
+    note: "Requires physical EoRa-PI boards; log shows HMAC FAILED messages"
+    used_in_experiments: [E3_hardware_e5b]
+
+  - dataset_id: D4_hardware_e5c
+    description: "NVS reboot-replay serial logs (E4)"
+    source: "hardware_experiments/E5c_nvs_demo/results/"
+    size: "<50 KB"
+    format: "Arduino Serial Monitor text"
+    reproducible: false
+    note: "Requires physical EoRa-PI boards; shows mv=21 rejected (stored=32)"
+    used_in_experiments: [E4_hardware_e5c]
+
+  - dataset_id: D5_hardware_e6
+    description: "6-node linear experiment serial logs (E5)"
+    source: "hardware_experiments/E6_6node_linear_demo/results/"
+    files:
+      - "mode0_baseline_all_nodes.log"
+      - "mode1_patched_all_nodes.log"
+    size: "<200 KB total"
+    format: "Arduino Serial Monitor text"
+    reproducible: false
+    note: "Requires 6 EoRa-PI boards; shows route poisoning (baseline) and HMAC rejection (patched)"
+    used_in_experiments: [E5_hardware_e6]
+
+  - dataset_id: D6_hmac_timing
+    description: "HMAC-SHA256 timing measurements on ESP32-S3 (10,000 iterations)"
+    source: "hardware_experiments/E5a_hmac_timing/"
+    size: "<10 KB"
+    format: "CSV / serial log"
+    reproducible: false
+    note: "Requires physical ESP32-S3 board; mean=98.17 µs"
+    used_in_experiments: [E0_hmac_timing]
+
+# ─── Baselines ───────────────────────────────────────────────────────────────
+
+baselines:
+
+  - baseline_id: B1_unpatched_loramesh
+    description: >
+      Unmodified LoRaMesher v0.8.x with no control-plane authentication.
+      This is the production baseline against which the patch is compared.
+    metrics_reported: [PDR, relay_nodes_poisoned, lemmas_falsified]
+    used_in_experiments: [E1_tamarin_baseline, E2_ns3, E3_hardware_e5b, E5_hardware_e6]
+
+  - baseline_id: B2_hmac_only
+    description: >
+      LoRaMesher + HMAC-SHA256 per-message authentication, without
+      MetricVersion counter. Used in Tamarin and ns-3 to show that
+      HMAC alone is insufficient for L2 RouteFreshness.
+    metrics_reported: [PDR, lemmas_verified]
+    used_in_experiments: [E1_tamarin_patched, E2_ns3, E4_hardware_e5c]
+
+  - baseline_id: B3_full_patch
+    description: >
+      LoRaMesher + HMAC-SHA256 + per-destination MetricVersion counter
+      + NVS persistence. The complete proposed patch.
+    metrics_reported: [PDR, relay_nodes_poisoned, lemmas_verified, hmac_latency_us]
+    used_in_experiments: [E1_tamarin_patched, E2_ns3, E3_hardware_e5b, E4_hardware_e5c, E5_hardware_e6]
+
+# ─── Protocol Rules (invariants that must not be violated) ──────────────────
+
+protocol_rules:
+  - rule_id: PR1
+    description: >
+      Do not modify the DV routing algorithm (Bellman-Ford metric selection).
+      Patch must be additive only — no changes to route selection logic.
+    rationale: >
+      Ensures patch cannot introduce routing loops or convergence failures.
+      ns-3 confirms DV convergence is preserved post-patch.
+
+  - rule_id: PR2
+    description: >
+      MetricVersion counter must be monotonically non-decreasing per destination
+      per key epoch. Counter resets only on PSK rotation.
+    rationale: >
+      Tamarin lemma L2 RouteFreshness depends on strict monotonicity.
+      NVS persistence ensures counter survives power-cycle reboots.
+
+  - rule_id: PR3
+    description: >
+      HMAC key is a pre-shared symmetric key (PSK); no asymmetric crypto, no PKI.
+    rationale: >
+      ESP32-S3 has 512 KB RAM; asymmetric operations (e.g., ECDSA) require
+      >10 ms on this hardware class (TinyECC benchmark) — infeasible for
+      30 s convergence cycle with duty-cycle constraints.
+
+  - rule_id: PR4
+    description: >
+      All numbers in paper (PDR %, timing, lemma counts) must match locked
+      values in 2_experiment.yaml and 5_figure_table_map.yaml.
+    rationale: "Prevents drift between claim and evidence."

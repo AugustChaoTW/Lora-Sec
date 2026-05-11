@@ -1,0 +1,183 @@
+paper_path: /home/augchao/Work/Lora-Sec/00_Paper/AdHocNet/AdHocNet-Aug.tex
+paper_stage: draft
+target_journal: "Ad Hoc Networks (Elsevier)"
+
+limitations:
+
+  - lim_id: L1
+    description: "Tamarin model covers 2 nodes only (not full n-node mesh)"
+    section: sec:limitations
+    severity: medium
+    mitigation: >
+      Tamarin's symbolic model is computationally unbounded — proving security
+      for 2 nodes under Dolev-Yao attacker is equivalent to proving it for
+      any number of honest nodes. The counter-attack scenario does not require
+      n-node model. Scale coverage provided by ns-3 (up to 49 nodes).
+    response_strategy: >
+      State explicitly: "Tamarin symbolic analysis is protocol-level, not
+      topology-level; 2-node model is standard practice (e.g., TLS, SSH proofs)
+      and sufficient for the control-plane message authentication properties claimed."
+
+  - lim_id: L2
+    description: "Tamarin uses symbolic channel — does not model LoRa physical layer (fading, collision, RSSI)"
+    section: sec:limitations
+    severity: low
+    mitigation: >
+      Physical-layer properties are orthogonal to control-plane authentication.
+      Hardware experiments on real 923 MHz AS923 hardware provide empirical
+      grounding for channel behavior. ns-3 log-distance model captures
+      path-loss trends at mesh scale.
+    response_strategy: >
+      "The attacks and defenses are control-plane protocol properties, not
+      physical-layer properties. Physical validation (6 boards, AS923) covers
+      real channel effects."
+
+  - lim_id: L3
+    description: "ns-3 uses simplified log-distance channel model, not LoRa SX1262 chip model"
+    section: sec:limitations
+    severity: low
+    mitigation: >
+      ns-3 provides scale and repeatability that hardware cannot (135 runs, 49 nodes).
+      Physical hardware experiments provide real LoRa channel grounding.
+      Complementary validation strategy.
+
+  - lim_id: L4
+    description: "Hardware testbed: 6 co-located boards (<1 m), not real field deployment"
+    section: sec:limitations
+    severity: medium
+    mitigation: >
+      Hardware validates security properties (attack/defense behavior), not
+      channel propagation. Residual 13-15% PDR gap is bench-distance channel
+      loss, not a security failure. Scale is provided by ns-3.
+    key_clarification: "PDR 87% / 85% residual gap is channel loss at <1 m, NOT patch failure"
+
+  - lim_id: L5
+    description: "Pre-shared key distribution not addressed — assumes PSK provisioned at manufacture"
+    section: sec:limitations
+    severity: low
+    mitigation: >
+      Key provisioning is an orthogonal problem (addressed by LoRaWAN key management
+      literature). This paper focuses on control-plane runtime security given PSK.
+      Tamarin L5 PSK Confidentiality verifies PSK is not leaked.
+
+  - lim_id: L6
+    description: "Single-attacker model only — no colluding or distributed attacker"
+    section: sec:limitations
+    severity: low
+    mitigation: >
+      Dolev-Yao model already grants attacker full network access (intercept/replay/inject).
+      A colluding multi-attacker cannot gain additional capability beyond one Dolev-Yao attacker
+      in a symmetric-key setting.
+
+reviewer_risks:
+
+  - risk_id: RR1
+    description: "Tamarin is unnecessary given HMAC simplicity — informal argument suffices"
+    severity: medium
+    confidence: 0.5
+    likely_appears_in: "Reviewer with protocols background, no formal methods background"
+    related_contributions: [C1]
+    related_sections: [sec:formal, sec:hardware-nvs]
+    mitigation_evidence:
+      - "Tamarin L2 RouteFreshness caught the MetricVersion reboot replay window — HMAC alone insufficient"
+      - "Informal analysis missed the reboot attack; formal model identified it as a distinct property"
+    response_strategy: >
+      "The formal model identified a non-obvious attack: HMAC-only firmware accepts
+      replayed stale MetricVersion after reboot (Mode 1 hardware result). This was
+      confirmed physically (E4_hardware_e5c). Informal argument did not catch this.
+      Tamarin proof of L2 RouteFreshness is the justification for the MetricVersion
+      counter addition — it is not just verification theater."
+    fallback_claim: >
+      "Even if reviewers view Tamarin as belt-and-suspenders, the hardware experiment
+      (E4) independently validates the claim and the formal model serves as
+      machine-checkable documentation."
+
+  - risk_id: RR2
+    description: "HMAC + counter is not a novel cryptographic contribution"
+    severity: medium
+    confidence: 0.7
+    likely_appears_in: "Security reviewer"
+    related_contributions: [C2]
+    related_sections: [sec:patch, sec:related.mesh]
+    mitigation_evidence:
+      - "No prior work applies HMAC to LoRa DV ad hoc mesh routing control plane"
+      - "Novelty is: (1) first application to LoRa DV mesh, (2) formal proof, (3) ESP32-S3 hardware calibration"
+      - "Existing approaches (ARIADNE, TinySec, authenticated OLSR) require PKI — infeasible on 512 KB RAM"
+    response_strategy: >
+      "We do not claim HMAC or monotonic counters are new constructs. Our contribution
+      is their first formally verified application to LoRa ad hoc mesh routing,
+      with hardware-measured overhead confirming deployability on constrained nodes."
+    avoid_overclaiming:
+      - "Never claim HMAC itself is novel"
+
+  - risk_id: RR3
+    description: "Only 6 nodes in hardware — too small for real deployment claims"
+    severity: medium
+    confidence: 0.6
+    likely_appears_in: "Networks reviewer"
+    related_contributions: [C4]
+    related_sections: [sec:hardware-validation, sec:hardware-e6]
+    mitigation_evidence:
+      - "ns-3 scale validation: 49 nodes, 100% PDR, across 90 runs (tab:scale)"
+      - "Hardware validates security properties (attack/defense behavior), not channel at scale"
+      - "6-board co-located bench is standard for embedded protocol validation"
+    response_strategy: >
+      "Hardware testbed validates correctness of attack and defense behavior, not
+      channel propagation at scale. Scale is addressed by ns-3 (up to 49 nodes, 90 runs).
+      Physical and simulation validation are complementary."
+
+  - risk_id: RR4
+    description: "Scope too narrow — LoRaMesher is one library; generalizability unclear"
+    severity: medium
+    confidence: 0.4
+    likely_appears_in: "Broad networking reviewer"
+    related_contributions: [C1, C2]
+    related_sections: [sec:intro, sec:limitations]
+    mitigation_evidence:
+      - "LoRaMesher is the leading open-source LoRa ad hoc mesh stack (cite sole2022, sole2024)"
+      - "Vulnerabilities stem from absence of control-plane authentication — structural gap shared by all unauthenticated DV protocols"
+      - "Patch methodology (HMAC + monotonic counter) applicable to any unauthenticated DV routing"
+    response_strategy: >
+      "The structural root cause (unauthenticated DV control plane) is not unique to
+      LoRaMesher. Our formal analysis and patch methodology apply to any protocol
+      sharing this design. LoRaMesher is used as a concrete, widely-deployed instance."
+
+  - risk_id: RR5
+    description: "ns-3 results show 77.4% PDR in tree/grid under attack — not 0%"
+    severity: low
+    confidence: 0.3
+    likely_appears_in: "Reviewer 2"
+    related_contributions: [C3]
+    related_sections: [sec:eval.attacks]
+    mitigation_evidence:
+      - "77.4% vs 0% reflects topology: linear topology has single path (0%), tree/grid have alternate paths"
+      - "Attack still causes significant PDR degradation in tree/grid; full poisoning requires converging all paths"
+      - "Patched topology: 100% in all cases — this is the key result"
+    response_strategy: >
+      "PDR under attack varies by topology: linear has a single dominant path so
+      one injected route poisons all traffic (0%). Tree/grid have alternate paths,
+      so partial poisoning results in 77.4% PDR. The key claim is 0% residual
+      degradation after patching — not that the attack fully destroys all topologies."
+
+  - risk_id: RR6
+    description: "Related work missing key ad hoc routing papers (DSDV, authenticated OLSR, S-AODV)"
+    severity: medium
+    confidence: 0.4
+    likely_appears_in: "Ad hoc networks specialist reviewer"
+    related_contributions: []
+    related_sections: [sec:related.mesh, sec:related.defense]
+    mitigation_evidence:
+      - "Paper currently cites ARIADNE (hu2002-ariadne) and SEAD (hu2002-sead)"
+      - "DSDV (Perkins 1994), authenticated OLSR, S-AODV not yet explicitly cited"
+    response_strategy: >
+      "Add citations for DSDV (Perkins & Bhagwat 1994), authenticated OLSR (Jacquet 2003),
+      and S-AODV (Zapata 2002) in sec:related.defense positioning table."
+    status: resolved
+    action_required: false
+    resolved_at: "2026-05-11"
+    action_taken: >
+      Added perkins1994-dsdv (SIGCOMM 1994), zapata2002-saodv (WiSe 2002),
+      raffo2004-authenticated-olsr (SASN 2004) to bibliography.bib.
+      Updated sec:related.defense to explicitly cite all three with
+      differentiation claim: SAODV + authenticated OLSR require digital
+      signatures infeasible on 512 KB RAM.

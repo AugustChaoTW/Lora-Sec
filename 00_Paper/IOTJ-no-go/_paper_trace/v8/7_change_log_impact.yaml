@@ -1,0 +1,228 @@
+changes:
+
+  - change_id: CL-v6-001
+    date: "2026-05-09"
+    type: citation_quality
+    description: >
+      Removed both Zenodo citations from all 4 occurrences; replaced with T1/T2.
+      Added 6 previously uncited bib entries. Fixed dangling ARIADNE reference (L163).
+    details:
+      removed_citations: [zenodo2025-formal-methods-comparison, zenodo2025-manet-routing-attacks]
+      added_citations:
+        - {key: klenze2021-forwarding, venue: "IEEE S&P 2021", tier: T1, location: L1210}
+        - {key: song2026-protocolguard, venue: "NDSS 2026", tier: T1, location: L1230}
+        - {key: shen2026-wifi-security, venue: "NDSS 2026", tier: T1, location: L1235}
+        - {key: repetto2022-lorawan-demo, venue: "IEEE WoWMoM 2022", tier: T2, location: L116}
+        - {key: sole2026-loramesher-swx, venue: "SoftwareX 2026", tier: T3, location: L116}
+        - {key: butun2019-lorawan-security-risk, venue: "MDPI Future Internet 2019", tier: T3, location: L159}
+        - {key: hu2002-ariadne, venue: "ACM MobiCom 2002", tier: T1, location: L163}
+      replacements:
+        L724: "zenodo2025-formal-methods-comparison → basin2025-tamarin-book"
+        L758: "zenodo2025-manet-routing-attacks → hu2002-sead"
+        L1210: "zenodo2025-manet-routing-attacks → klenze2021-forwarding"
+        L1235: "zenodo2025-formal-methods-comparison → shen2026-wifi-security"
+    impact:
+      total_citations: {before: 34, after: 40}
+      zenodo_count: {before: 4, after: 0}
+      t1_papers_added: 4
+
+  - change_id: CL-v6-002
+    date: "2026-05-09"
+    type: bib_entry_added
+    description: >
+      Added hu2002-ariadne (ACM MobiCom 2002) to bibliography.bib.
+      This was referenced by name in §1.2 without a \cite{} — now corrected.
+    file: references/bibliography.bib
+    impact:
+      total_bib_entries: {before: 42, after: 43}
+
+  - change_id: CL-v6-003
+    date: "2026-05-09"
+    type: trace_upgrade
+    description: >
+      Paper trace upgraded v4 → v6. Key state changes:
+      - Hardware board: Heltec WiFi LoRa 32 V3 → Ebyte EoRa PI (ESP32-S3FH4R2 + SX1262)
+      - E5a: planned → complete (98 µs ± 2 µs measured, 10,000 iterations)
+      - E5b: planned → complete (PDR=0% baseline, PDR=87% patched, 3 boards)
+      - R2: open → CLOSED (hardware experiments close this risk)
+      - R6: NEW — E5b PDR=87% gap explained (LoRa channel loss, not security failure)
+      - C3 overhead claim: 0.3 ms (benchmark) → 0.098 ms (measured on real hardware)
+      - Citations: 34 → 40
+    downstream_effects:
+      - "sec:patch §6.1 should state 0.098 ms (measured) not 0.3 ms"
+      - "sec:eval §7.4 should reference E5a/E5b hardware results"
+      - "sec:limitations hardware limitation is now partially addressed"
+
+  - change_id: CL-v6-004
+    date: "2026-05-10"
+    type: numerical_consistency_audit
+    description: >
+      Full numerical consistency audit across IOTJ-Aug.tex. Six inconsistencies
+      corrected in a single pass.
+    corrections:
+      - id: C1
+        severity: critical
+        location: "§6.1 L929"
+        before: "Heltec WiFi LoRa 32 V3"
+        after: "Ebyte EoRa-PI (ESP32-S3FH4R2)"
+        note: "Board was changed in v6 trace; one occurrence missed"
+
+      - id: C2_C3
+        severity: critical
+        location: "§2.2 L407-422 + tab:esp32 L394-395"
+        before:
+          tag_size: "8-byte truncated HMAC tag"
+          hello_size: "6→14 bytes"
+          airtime: "124→165 ms (+33%)"
+          duty_cycle: "1.65%/10s (+0.41 pp)"
+          data_packets: "13→21 bytes, +12%"
+          reduction_option: "reduce to 4 bytes"
+        after:
+          tag_size: "16-byte HMAC-SHA256 tag (128-bit truncation)"
+          hello_size: "6→22 bytes"
+          airtime: "124→206 ms (+66%)"
+          duty_cycle: "2.06%/10s (+0.82 pp)"
+          data_packets: "13→29 bytes, +37%"
+          reduction_option: "reduce to 8 bytes"
+        note: >
+          All other 5 references in the paper used 16 bytes (code listing,
+          message format, tab:notation, Tamarin description, §6.1 prose).
+          §2.2 was the lone inconsistent occurrence.
+        airtime_formula: "LoRa ToA at SF9/BW=125kHz/CR=4/5; verified with Semtech AN1200.13"
+
+      - id: H1
+        severity: high
+        location: "§6.1 L931"
+        before: "Flash footprint: 1.8 KB"
+        after: "Flash footprint: 2.1 KB"
+        note: "Matches tab:esp32 and 1_contribution.yaml C3"
+
+      - id: H2
+        severity: high
+        location: "abstract L83, §1.3 L246, tab:esp32 L391, conclusion L1387"
+        before: "18 B/route entry"
+        after: "2 B/route entry (uint16 MetricVersion counter)"
+        note: >
+          §6.2 has explicit calculation: 49 entries × 2 bytes = 98 bytes.
+          The 16-byte HMAC tag is stack-allocated during verification,
+          not stored per route entry. 18 bytes had no traceable derivation.
+
+      - id: M1
+        severity: medium
+        location: "Appendix L1442"
+        before: "27 JSON result files"
+        after: "135 JSON result files (27 scenarios × 5 seeds)"
+        note: "YAML DS1 records 135 files; seed validation runs included"
+
+      - id: H2_overhead
+        severity: minor
+        location: "§6.1 L931"
+        before: "0.06% of LoRa's 165 ms air-time"
+        after: "0.05% of LoRa's 206 ms patched-Hello air-time"
+        note: "0.098 ms / 206 ms = 0.0476% ≈ 0.05%; 165 ms was from the incorrect 8B tag assumption"
+
+  - change_id: CL-v8-001
+    date: "2026-05-11"
+    type: argumentation_patch
+    description: >
+      Three argumentation gaps identified via Feynman + LeCun methodology review
+      and patched to pre-empt likely reviewer objections.
+    patches:
+      - id: P1
+        location: "§7.4 hardware validation prose"
+        reviewer_objection: >
+          "PDR=87% in patched mode — does the 13% loss represent a security gap?"
+        fix: >
+          Added explicit statement: attacker interception count = 0 in patched mode
+          (cross-referenced to tab:hw-results column "Attacker intercepts").
+          Clarified 13% is channel loss (near-field RSSI≈-15dBm), not a security failure.
+        status: merged
+
+      - id: P2
+        location: "§2.3 MetricVersion counter reset"
+        reviewer_objection: >
+          "The one-reboot attack window — how large is it? Is this a serious threat?"
+        fix: >
+          Quantified window as T_hello = 10s after reboot. Added that window closes
+          automatically on first legitimate Hello from any honest neighbor.
+          Clarified NVS persistence would eliminate window entirely (future work).
+        status: merged
+
+      - id: P3
+        location: "§7.1 simulation setup"
+        reviewer_objection: >
+          "HMAC outcomes are 0% or 100% — is this a real experiment or a hardcoded simulation?"
+        fix: >
+          Added 'Evaluation discriminability' paragraph: HMAC verification is
+          deterministic by construction; evaluation value is PDR measurement across
+          qualitatively distinct topologies (pipeline/hierarchical/dense),
+          not probabilistic attack estimation. Confirmed by 5-seed sensitivity check.
+        status: merged
+
+  - change_id: CL-v8-003
+    date: "2026-05-10"
+    type: qualitative_consistency_audit
+    description: >
+      Full qualitative + numerical consistency audit. Four issues identified (N1-N4);
+      N1-N3 corrected; N4 confirmed non-issue.
+    corrections:
+      - id: N1
+        severity: high
+        location: "§7.1 simulation setup"
+        before: "SF9, 868~MHz"
+        after: "SF9, 923~MHz (AS923 band)"
+        note: "Taiwan LoRa band is AS923 (920-925 MHz). 868 MHz is European ISM."
+
+      - id: N2a
+        severity: high
+        location: "§1.3 L238"
+        before: "(145 rules, 12 lemmas)"
+        after: "(145 rules; baseline model: 10 lemmas, 4 falsified; patched model: 8 lemmas, all proved)"
+        note: "Actual .spthy files: baseline=10 lemmas, patched=8 lemmas. 12 had no traceable derivation."
+
+      - id: N2b
+        severity: high
+        location: "tab:tamarin L5"
+        before: "L5 | Executability | PROVED | PROVED"
+        after: "L5 | PSK Confidentiality (G5) | PROVED | PROVED"
+        note: >
+          Actual L5 in both .spthy models is PSKConfidentiality.
+          Executability is L_Ex1-L_Ex4 (baseline) / L_Sanity1-3 (patched).
+          Table caption updated to show full lemma counts; footnote added for sanity lemmas.
+
+      - id: N3
+        severity: medium
+        location: "§2.2 data packet airtime L417"
+        before: "For data packets (13~bytes → 29~bytes), the airtime increase is ≈37%."
+        after: >
+          "For a minimal sensor data packet (13→29 bytes), airtime increase ≈37%;
+          the 64-byte simulation payload (64→80 bytes) increases airtime by ≈16%."
+        note: "ns-3 simulation uses 64-byte payloads, not 13-byte. Both figures now shown."
+
+      - id: N4
+        severity: none
+        location: "§2.1/$18, abstract/$20, caption/$18-50"
+        status: non_issue
+        note: >
+          $18 is specific TTGO device price; $20 is abstract round-number; $18-50 is
+          documented range. These are complementary levels of precision, not contradictions.
+
+  - change_id: CL-v8-002
+    date: "2026-05-11"
+    type: trace_upgrade
+    description: >
+      Paper trace upgraded v6 → v8. Key state changes from v6:
+      - CL-v6-004: 6 numerical inconsistencies corrected (board name, HMAC 8→16B,
+        airtime 165→206ms, RAM 18→2 B/entry, flash 1.8→2.1KB, JSON 27→135 files)
+      - CL-v8-001: 3 argumentation patches (PDR=87% clarification, reboot window
+        quantification, ns-3 discriminability statement)
+      - CL-v8-003: 4 qualitative consistency issues (N1: frequency band, N2: lemma
+        count/L5 label, N3: data packet airtime qualifier; N4: non-issue)
+      - PR4 added to protocol_rules: HMAC tag 16-byte canonical record
+      - Overall: paper is argumentation-complete for IoTJ submission
+    crane_score: {before: 80.22, after: 80.22}
+    crane_note: >
+      Score unchanged because patches are prose-level argumentation improvements,
+      not structural additions (new sections/tables). Human reviewer impact is
+      significant; crane pattern-based scoring does not capture this.
+    readiness: ready

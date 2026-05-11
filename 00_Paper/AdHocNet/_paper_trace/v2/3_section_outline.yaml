@@ -1,0 +1,197 @@
+paper_path: /home/augchao/Work/Lora-Sec/00_Paper/AdHocNet/AdHocNet-Aug.tex
+paper_stage: draft
+target_journal: "Ad Hoc Networks (Elsevier)"
+
+sections:
+
+  - section_id: sec:intro
+    label: "\\label{sec:intro}"
+    title: "Introduction"
+    rq_ids: []
+    contribution_ids: []
+    word_budget: 800
+    writing_contract: >
+      Open with the LoRa ad hoc mesh deployment problem (unattended, open-air,
+      no central authority). State the gap: no prior formal security analysis
+      of any LoRa DV mesh routing protocol. State the thesis in one sentence.
+      List four contributions (C1–C4) as numbered items. End with paper
+      organization paragraph.
+    avoid:
+      - "Do not claim LoRaMesher is the only LoRa mesh stack."
+      - "Do not overclaim that formal proofs cover the deployed firmware."
+    subsections:
+      - sec_id: sec:problem
+        title: "The Deployment Security Problem"
+        note: "Reframe from IoT to ad hoc mesh context (update any IoT-only language)"
+
+  - section_id: sec:background
+    label: "\\label{sec:background}"
+    title: "Background"
+    rq_ids: []
+    contribution_ids: []
+    word_budget: 600
+    writing_contract: >
+      Cover LoRa physical layer (SF, BW, duty cycle), LoRaMesher DV routing
+      (Hello/RouteUpdate, convergence ~30 s), and ESP32-S3 hardware constraints
+      (512 KB RAM, mbedTLS). Keep brief; reviewers know networking basics.
+    subsections:
+      - sec_id: sec:lora-phy
+        title: "LoRa Physical Layer"
+      - sec_id: sec:loramesh-protocol
+        title: "LoRaMesher Distance-Vector Routing"
+      - sec_id: sec:hardware-constraints
+        title: "ESP32-S3 Hardware Constraints"
+
+  - section_id: sec:related
+    label: "\\label{sec:related}"
+    title: "Related Work"
+    rq_ids: []
+    contribution_ids: []
+    word_budget: 700
+    writing_contract: >
+      Cover four clusters: (1) LoRa/LPWAN security, (2) ad hoc routing security
+      (ARIADNE, S-AODV, SEAD, authenticated OLSR), (3) formal verification of
+      routing protocols (Tamarin/ProVerif for OLSR/OSPF), (4) constrained-node
+      security (TinyECC, microcontroller HMAC). Conclude with 3-row gap table
+      showing this paper fills all gaps simultaneously.
+    avoid:
+      - "Do not omit ad hoc routing security classics (Hu et al. 2002/2003)."
+    subsections: []
+
+  - section_id: sec:threat
+    label: "\\label{sec:threat}"
+    title: "Threat Model"
+    rq_ids: [RQ1]
+    contribution_ids: []
+    word_budget: 400
+    writing_contract: >
+      Define Dolev-Yao network adversary: intercept, replay, inject any LoRa
+      frame; no physical access to nodes; single-hop radio range assumed.
+      State what is out of scope (physical compromise, jamming, gateway-side
+      attacks). Map attacker capabilities to two attack classes (injection,
+      replay).
+
+  - section_id: sec:attacks
+    label: "\\label{sec:attacks}"
+    title: "Attack Analysis"
+    rq_ids: [RQ1]
+    contribution_ids: [C1]
+    word_budget: 600
+    writing_contract: >
+      Describe Metric Spoofing and Metric Replay attacks concretely with message
+      sequences. Reference fig:attack-sequence. State which lemmas each attack
+      violates in the Tamarin model. Confirm attacks are exploitable within one
+      DV convergence cycle (~30 s).
+    subsections:
+      - sec_id: sec:attack-injection
+        title: "Route Injection (Metric Spoofing)"
+      - sec_id: sec:attack-replay
+        title: "Session Replay (Metric Replay)"
+
+  - section_id: sec:patch
+    label: "\\label{sec:patch}"
+    title: "Patch Design"
+    rq_ids: [RQ2, RQ3]
+    contribution_ids: [C2]
+    word_budget: 600
+    writing_contract: >
+      Present 41-line patch: (1) HMAC-SHA256 per-message authentication,
+      (2) per-destination MetricVersion monotonic counter. Show code snippet.
+      Justify each design choice (no PKI, symmetric-only, minimal state).
+      Present tab:constraints (overhead numbers). State that formal verification
+      motivates the MetricVersion counter addition (HMAC alone insufficient for L2).
+    subsections:
+      - sec_id: sec:patch-hmac
+        title: "HMAC-SHA256 Authentication"
+      - sec_id: sec:patch-metricversion
+        title: "MetricVersion Counter"
+
+  - section_id: sec:formal
+    label: "\\label{sec:formal}"
+    title: "Formal Verification"
+    rq_ids: [RQ1, RQ2]
+    contribution_ids: [C1]
+    word_budget: 700
+    writing_contract: >
+      Introduce Tamarin Prover and applied pi-calculus encoding. Describe
+      baseline model (4/5 lemmas falsified) and patched model (8/8 verified).
+      Present tab:lemma-results. Explain lemma L2 RouteFreshness separately
+      (requires MetricVersion counter, not just HMAC). Note proof time <4 s.
+    subsections:
+      - sec_id: sec:formal-model
+        title: "Protocol Model"
+      - sec_id: sec:formal-lemmas
+        title: "Security Lemmas"
+      - sec_id: sec:formal-results
+        title: "Verification Results"
+
+  - section_id: sec:eval
+    label: "\\label{sec:eval}"
+    title: "Simulation Evaluation"
+    rq_ids: [RQ2, RQ3]
+    contribution_ids: [C3]
+    word_budget: 700
+    writing_contract: >
+      Describe ns-3 experiment matrix (3 topologies × 3 security modes ×
+      3 attack types × 5 seeds = 135 runs + 90 scale-validation).
+      Present tab:attacks (PDR by scenario). Highlight 0% residual PDR
+      degradation under full patching and grid topology partial-resilience
+      finding. Note channel model limitation.
+
+  - section_id: sec:hardware-validation
+    label: "\\label{sec:hardware-validation}"
+    title: "Hardware Validation — 3-Node Injection"
+    rq_ids: [RQ2]
+    contribution_ids: [C4]
+    word_budget: 400
+    writing_contract: >
+      Describe 3-node testbench setup. Report baseline PDR=0% (route fully
+      poisoned to Node C), patched PDR=87%. Explain 13% residual loss as
+      channel loss (not security failure). Show HMAC rejection log excerpt.
+
+  - section_id: sec:hardware-nvs
+    label: "\\label{sec:hardware-nvs}"
+    title: "Hardware Validation — NVS Reboot-Replay"
+    rq_ids: [RQ2]
+    contribution_ids: [C4]
+    word_budget: 300
+    writing_contract: >
+      Describe Mode 1 (HMAC-only, accepts mv=21 after reboot) and Mode 2
+      (NVS-persistent MetricVersion, rejects mv=21; stored=32). Show serial
+      log snippets. Connect to Tamarin lemma L2 RouteFreshness.
+
+  - section_id: sec:hardware-e6
+    label: "\\label{sec:hardware-e6}"
+    title: "Hardware Validation — 6-Node Linear Topology"
+    rq_ids: [RQ2, RQ3]
+    contribution_ids: [C4]
+    word_budget: 500
+    writing_contract: >
+      Describe 6-node linear testbench (Sender → R1 → R2 → R3 → Gateway +
+      Attacker). Report baseline: 3/4 relay nodes poisoned. Patched: 0/4
+      poisoned, PDR=85%. Describe cross-layer finding (dst = next-hop, not
+      final-dst) as implementation subtlety invisible to Tamarin and ns-3.
+      Present tab:hw-e6.
+
+  - section_id: sec:discussion
+    label: "\\label{sec:discussion}"
+    title: "Discussion"
+    rq_ids: []
+    contribution_ids: []
+    word_budget: 400
+    writing_contract: >
+      Summarize three-layer validation synergy (formal → simulation → hardware).
+      Discuss deployment considerations (key distribution, firmware update).
+      Acknowledge limitations: bench-scale testbed, simplified channel model,
+      single-link hop model.
+
+  - section_id: sec:conclusion
+    label: "\\label{sec:conclusion}"
+    title: "Conclusion"
+    rq_ids: []
+    contribution_ids: [C1, C2, C3, C4, C5]
+    word_budget: 250
+    writing_contract: >
+      Restate thesis in one sentence. List four confirmed contributions.
+      Point to open artifact suite. One sentence on future work
+      (multi-key distribution, LoRaWAN integration).

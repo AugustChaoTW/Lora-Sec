@@ -1,0 +1,153 @@
+paper_path: /home/augchao/Work/Lora-Sec/00_Paper/AdHocNet/AdHocNet-Aug.tex
+paper_stage: draft
+target_journal: "Ad Hoc Networks (Elsevier)"
+
+artifact_registry:
+
+  # ─── Tamarin Models ────────────────────────────────────────────────────────
+
+  - artifact_id: A1_tamarin_baseline
+    path: "phase2_tamarin_models/baseline/baseline_lora_dv.spthy"
+    type: formal_model
+    language: "Tamarin Prover (.spthy)"
+    description: >
+      Baseline LoRaMesher DV routing protocol model without authentication.
+      4/5 lemmas falsified; counterexample traces in D1.
+    used_in_experiments: [E1_tamarin_baseline]
+    reproducible: true
+    reproduce_cmd: "tamarin-prover phase2_tamarin_models/baseline/baseline_lora_dv.spthy --prove"
+    status: complete
+
+  - artifact_id: A2_tamarin_patched_2node
+    path: "phase2_tamarin_models/patched/patched_lora_dv_2node.spthy"
+    type: formal_model
+    language: "Tamarin Prover (.spthy)"
+    description: >
+      Patched protocol model (HMAC-SHA256 + MetricVersion). Primary model.
+      8/8 lemmas verified in <4 s. This is the main proof artifact.
+    used_in_experiments: [E1_tamarin_patched]
+    reproducible: true
+    reproduce_cmd: "tamarin-prover phase2_tamarin_models/patched/patched_lora_dv_2node.spthy --prove"
+    status: complete
+
+  - artifact_id: A3_tamarin_patched_metrics_v2
+    path: "phase2_tamarin_models/patched/patched_lora_dv_with_metrics_v2.spthy"
+    type: formal_model
+    language: "Tamarin Prover (.spthy)"
+    description: >
+      Extended patched model with per-destination MetricVersion counter.
+      7/8 lemmas verified (alternative encoding; superceded by A2 for paper).
+    used_in_experiments: []
+    reproducible: true
+    status: supplementary
+
+  # ─── ns-3 Simulation ──────────────────────────────────────────────────────
+
+  - artifact_id: A4_ns3_module
+    path: "phase4_ns3_simulation/src/"
+    type: simulation_code
+    language: "C++17 (ns-3 3.38 module)"
+    description: >
+      Custom ns-3 module: LoRaMesh DV routing (baseline/HMAC/MetricVersion),
+      Dolev-Yao attacker (spoofing/replay/selective drop), topology generator.
+    files:
+      - "src/common/sim-types.h"
+      - "src/routing/loramesh-routing.{h,cc}"
+      - "src/attack/attacker-node.{h,cc}"
+      - "scratch/lora-mesh-sim.cc"
+      - "run_experiment_matrix.py"
+    used_in_experiments: [E2_ns3]
+    reproducible: true
+    reproduce_cmd: "cd phase4_ns3_simulation && python3 run_experiment_matrix.py"
+    status: complete
+
+  # ─── Hardware Firmware ────────────────────────────────────────────────────
+
+  - artifact_id: A5_firmware_e5a
+    path: "hardware_experiments/E5a_hmac_timing/"
+    type: firmware
+    language: "Arduino (C++)"
+    description: "HMAC timing benchmark firmware for ESP32-S3; 10,000 iteration measurement."
+    used_in_experiments: [E0_hmac_timing]
+    reproducible: false
+    note: "Requires physical ESP32-S3 board and Arduino CLI"
+    status: complete
+
+  - artifact_id: A6_firmware_e5b
+    path: "hardware_experiments/E5b_3node_injection/"
+    type: firmware
+    language: "Arduino (C++)"
+    description: "3-node injection experiment firmware (node_a, node_b, node_c)."
+    used_in_experiments: [E3_hardware_e5b]
+    reproducible: false
+    status: complete
+
+  - artifact_id: A7_firmware_e5c
+    path: "hardware_experiments/E5c_nvs_demo/"
+    type: firmware
+    language: "Arduino (C++)"
+    description: >
+      NVS reboot-replay demo firmware. node_a: sender with MetricVersion.
+      node_b: gateway with NVS persistence (Mode 1 or Mode 2 configurable).
+      node_c: replayer.
+    used_in_experiments: [E4_hardware_e5c]
+    reproducible: false
+    status: complete
+
+  - artifact_id: A8_firmware_e6
+    path: "hardware_experiments/E6_6node_linear_demo/"
+    type: firmware
+    language: "Arduino (C++)"
+    description: >
+      6-node linear experiment firmware: node_a (sender), node_relay (×3,
+      configurable NODE_ID), node_gateway, node_c (attacker). SECURITY_MODE
+      compile-time flag (0=baseline, 1=patched).
+    files:
+      - "e6_common.h"
+      - "node_a/node_a.ino"
+      - "node_relay/node_relay.ino"
+      - "node_gateway/node_gateway.ino"
+      - "node_c/node_c.ino"
+    used_in_experiments: [E5_hardware_e6]
+    reproducible: false
+    status: complete
+
+  # ─── Experiment Logs ──────────────────────────────────────────────────────
+
+  - artifact_id: A9_logs_e6
+    path: "hardware_experiments/E6_6node_linear_demo/results/"
+    type: experimental_data
+    description: "Serial logs from E6 6-node experiment (baseline + patched modes)."
+    files:
+      - "mode0_baseline_all_nodes.log (95 lines)"
+      - "mode1_patched_all_nodes.log (142 lines)"
+    used_in_experiments: [E5_hardware_e6]
+    status: complete
+
+  # ─── Docker Reproducibility ───────────────────────────────────────────────
+
+  - artifact_id: A10_docker
+    path: "supplementary/docker/"
+    type: reproducibility_image
+    description: >
+      Docker image reproducing Tamarin proofs and ns-3 simulation runs
+      with single command. Tamarin + ns-3 + Python analysis tools pre-installed.
+    used_in_experiments: [E1_tamarin_baseline, E1_tamarin_patched, E2_ns3]
+    reproducible: true
+    reproduce_cmd: "docker run --rm loramesher-artifact ./scripts/verify.sh patched_2node"
+    status: complete
+
+  # ─── Paper Source ─────────────────────────────────────────────────────────
+
+  - artifact_id: A11_paper_source
+    path: "00_Paper/AdHocNet/AdHocNet-Aug.tex"
+    type: paper_source
+    language: "LaTeX (elsarticle)"
+    description: "Main paper manuscript (AdHocNet-Aug.tex) for Ad Hoc Networks (Elsevier)."
+    status: draft
+
+artifact_release_plan:
+  license: "MIT"
+  platform: "GitHub (public release upon acceptance)"
+  doi_plan: "Zenodo DOI for artifact archive"
+  completeness: "All artifacts listed above will be included; hardware logs anonymized"

@@ -1,3 +1,4 @@
+#include <cmath>
 #include <fstream>
 #include <iomanip>
 #include <numeric>
@@ -45,14 +46,10 @@ TopologySpec
 ParseTopology(const std::string& input)
 {
     std::string t = ToLower(input);
-    if (t == "linear")
-    {
-        return BuildLinearTopology();
-    }
-    if (t == "tree")
-    {
-        return BuildTreeTopology();
-    }
+    if (t == "linear")   { return BuildLinearTopology(); }
+    if (t == "tree")     { return BuildTreeTopology(); }
+    if (t == "linear25") { return BuildLinear25Topology(); }
+    if (t == "grid49")   { return BuildGrid49Topology(); }
     return BuildGridTopology();
 }
 
@@ -120,43 +117,45 @@ UsesMetricVersion(SecurityMode mode)
 uint32_t
 DefaultVictim(const TopologySpec& topology)
 {
-    if (topology.type == TopologyType::LINEAR)
+    switch (topology.type)
     {
-        return 5;
+    case TopologyType::LINEAR:   return 5;
+    case TopologyType::TREE:     return 7;
+    case TopologyType::LINEAR25: return 24;
+    case TopologyType::GRID49:   return 48;
+    default:                     return 8;
     }
-    if (topology.type == TopologyType::TREE)
-    {
-        return 7;
-    }
-    return 8;
 }
 
 uint32_t
 DefaultAttacker(const TopologySpec& topology)
 {
-    if (topology.type == TopologyType::LINEAR)
+    switch (topology.type)
     {
-        return 2;
+    case TopologyType::LINEAR:   return 2;
+    case TopologyType::TREE:     return 2;
+    case TopologyType::LINEAR25: return 8;   // ~1/3 into 25-node chain
+    case TopologyType::GRID49:   return 24;  // centre of 7×7 grid
+    default:                     return 4;
     }
-    if (topology.type == TopologyType::TREE)
-    {
-        return 2;
-    }
-    return 4;
 }
 
 std::vector<std::pair<uint32_t, uint32_t>>
 TrafficPairs(const TopologySpec& topology)
 {
-    if (topology.type == TopologyType::LINEAR)
+    switch (topology.type)
     {
+    case TopologyType::LINEAR:
         return {{0, 5}};
-    }
-    if (topology.type == TopologyType::TREE)
-    {
+    case TopologyType::TREE:
         return {{0, 3}, {0, 6}, {0, 7}};
+    case TopologyType::LINEAR25:
+        return {{0, 24}};
+    case TopologyType::GRID49:
+        return {{0, 48}, {6, 42}, {42, 6}};
+    default:
+        return {{0, 8}, {2, 6}, {6, 2}};
     }
-    return {{0, 8}, {2, 6}, {6, 2}};
 }
 
 bool
@@ -295,9 +294,10 @@ main(int argc, char* argv[])
     uint32_t helloPeriodSec = 10;
     uint32_t samplePeriodSec = 10;
     uint32_t payloadBytes = 64;
+    uint32_t dataStartSec = 0;  // 0 = auto-compute from topology diameter
 
     CommandLine cmd;
-    cmd.AddValue("topology", "linear|tree|grid", topologyName);
+    cmd.AddValue("topology", "linear|tree|grid|linear25|grid49", topologyName);
     cmd.AddValue("attack", "spoofing|replay|selective|none", attackName);
     cmd.AddValue("state", "baseline|patched|metricversion", securityState);
     cmd.AddValue("usePatch", "0/1", usePatch);
@@ -307,6 +307,7 @@ main(int argc, char* argv[])
     cmd.AddValue("helloPeriod", "seconds", helloPeriodSec);
     cmd.AddValue("samplePeriod", "seconds", samplePeriodSec);
     cmd.AddValue("payloadBytes", "application payload bytes", payloadBytes);
+    cmd.AddValue("dataStart", "seconds before data traffic begins (0=auto)", dataStartSec);
     cmd.AddValue("output", "json output path", outputPath);
     cmd.Parse(argc, argv);
 
@@ -342,8 +343,17 @@ main(int argc, char* argv[])
     uint32_t packetId = 0;
     auto trafficPairs = TrafficPairs(topology);
 
-    // Delay data traffic start to allow route convergence (linear: 60s, tree: 100s, grid: 80s)
-    uint32_t dataStartSec = 120;
+    // Auto-compute convergence wait from topology diameter × hello period
+    if (dataStartSec == 0)
+    {
+        uint32_t diameter = topology.nodeCount;   // conservative upper bound
+        if (topology.type == TopologyType::GRID || topology.type == TopologyType::GRID49)
+        {
+            uint32_t side = static_cast<uint32_t>(std::sqrt(static_cast<double>(topology.nodeCount)) + 0.5);
+            diameter = 2 * (side - 1);
+        }
+        dataStartSec = diameter * helloPeriodSec + helloPeriodSec;
+    }
     
     for (uint32_t sec = 1; sec <= durationSec; ++sec)
     {

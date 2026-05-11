@@ -1,0 +1,73 @@
+figure_table_registry:
+  - {ft_id: "fig:attack-overview", type: figure, purpose: "LoRaMesher IoT mesh attack surface — two attack vectors, $20 radio cost barrier"}
+  - {ft_id: "fig:attack-seq", type: figure, purpose: "Message sequence diagrams for Attack 1 (route injection) and Attack 2 (epoch replay)"}
+  - {ft_id: "fig:eval-results", type: figure, purpose: "Attack success rate bar charts across 3 topologies for spoofing and replay attacks"}
+  - {ft_id: "tab:esp32", type: table, purpose: "ESP32-S3 resource budget: patch overhead 0.098 ms CPU, +2.1 KB flash, 18 B/route RAM"}
+  - {ft_id: "tab:notation", type: table, purpose: "Mathematical notation reference"}
+  - {ft_id: "tab:tamarin", type: table, purpose: "Tamarin lemma results: 4 FALSIFIED baseline vs. 8 PROVED patched"}
+  - {ft_id: "tab:attacks", type: table, purpose: "Attack success rate / PDR across topologies and security modes"}
+  - {ft_id: "tab:overhead", type: table, purpose: "Latency and PDR overhead under normal operation (mean±std, 5 seeds)"}
+  - {ft_id: "tab:related-comparison", type: table, purpose: "Comparison with closest related work across four capability axes"}
+
+entries:
+  - ft_id: "tab:esp32"
+    type: table
+    caption_draft: "ESP32-S3 Resource Budget for LoRaMesher Security Patch"
+    purpose: "Quantifies ESP32 constraints and shows patch overhead is negligible"
+    claim_supported: "C3"
+    related_rqs: [RQ2]
+    source_experiments: [E3, E5a]
+    mentioned_in: [sec:threat, sec:patch]
+    exact_numbers:
+      flash_overhead: "+2.1 KB (+0.03%)"
+      ram_overhead: "18 B/route entry"
+      cpu_overhead_measured: "0.098 ms / 98 µs (E5a hardware)"
+      cpu_overhead_vs_airtime: "0.06% of 165 ms LoRa air-time"
+    needs_update_if:
+      - "Hardware board changes (now Ebyte EoRa PI, ESP32-S3)"
+      - "Different mbedTLS version used"
+
+  - ft_id: "tab:tamarin"
+    type: table
+    caption_draft: "Tamarin Lemma Results: Baseline vs. Patched Protocol"
+    purpose: "Machine-checked proof results"
+    claim_supported: "C2"
+    related_rqs: [RQ1, RQ2]
+    source_experiments: [E4]
+    mentioned_in: [sec:formal]
+    exact_numbers:
+      baseline_falsified: 4
+      patched_proved: 8
+      patched_proof_time_s: 3.6
+
+  - ft_id: "tab:attacks"
+    type: table
+    caption_draft: "Attack Success Rate / PDR Across IoT Deployment Topologies"
+    purpose: "Quantified attack effectiveness"
+    claim_supported: "C1 C4"
+    related_rqs: [RQ1, RQ3]
+    source_experiments: [E1, E2]
+    mentioned_in: [sec:eval]
+    exact_numbers:
+      route_inject_linear_baseline: "100%"
+      route_inject_tree_grid_baseline: "9.7%"
+      replay_linear_hmac_only: "100%"
+      full_patch_all: "0%"
+      pdr_linear_baseline: "0%"
+      pdr_tree_grid_baseline: "77.4%"
+      pdr_patched: "100%"
+
+  - ft_id: "tab:overhead"
+    type: table
+    caption_draft: "IoT Network Performance Under Normal Operation (Mean ± Std, 5 Seeds)"
+    purpose: "Performance overhead — ≤5 ms, PDR 100%"
+    claim_supported: "C3 C4"
+    related_rqs: [RQ2, RQ3]
+    source_experiments: [E3]
+    mentioned_in: [sec:eval]
+    exact_numbers:
+      max_overhead_ms: 5
+      max_overhead_pct: "<1%"
+      pdr_all_unattacked: "100%"
+      latency_linear_baseline: "245 ± 8 ms"
+      latency_linear_patched: "250 ± 9 ms"

@@ -1,0 +1,259 @@
+paper_path: /home/augchao/Work/Lora-Sec/00_Paper/AdHocNet/AdHocNet-Aug.tex
+paper_stage: draft
+target_journal: "Ad Hoc Networks (Elsevier)"
+
+experiments:
+
+  - exp_id: E0_hmac_timing
+    goal: >
+      Measure HMAC-SHA256 per-message computational overhead on production
+      ESP32-S3FH4R2 hardware (mbedTLS 2.28) to confirm overhead is negligible
+      relative to LoRa link latency and AS923 duty-cycle budget.
+    related_rqs: [RQ3]
+    related_contributions: [C2]
+    status: complete
+    setting:
+      hardware: "Ebyte EoRa-PI (ESP32-S3FH4R2 + SX1262)"
+      iterations: 10000
+      key_length_bytes: 16
+      input_size_bytes: 37
+      library: "mbedTLS 2.28 (ESP-IDF default)"
+      frequency_mhz: 240
+    final_numbers:
+      mean_us: 98.17
+      std_us: 2.1
+      overhead_pct_of_airtime: 0.06
+      ram_bytes_per_entry: 2
+      latency_vs_lora_link_ms: "0.098 vs 100-250 ms"
+    canonical_metric: "mean HMAC latency µs"
+    locked:
+      value: 98.17
+      locked_at: "2026-04-12"
+    used_in_paper:
+      tables: [tab:constraints]
+      sections: [sec:patch]
+    output_files:
+      - "hardware_experiments/E5a_hmac_timing/node_a/timing_output.txt"
+    citation_needed: []
+    notes: >
+      0.098 ms is 0.06% of minimum LoRa airtime (180 ms for 50B SF9 BW125).
+      AS923 1% duty-cycle allows ~36 s on-time per hour; HMAC adds ~0.004 s
+      overhead per hour — immaterial.
+
+  - exp_id: E1_tamarin_baseline
+    goal: >
+      Establish that LoRaMesher's unauthenticated DV routing control plane
+      admits two attack classes: metric spoofing (route injection) and
+      metric replay (session replay). Obtain machine-checked counterexample
+      attack traces for all four security lemmas.
+    related_rqs: [RQ1]
+    related_contributions: [C1]
+    status: complete
+    setting:
+      tool: "Tamarin Prover 1.8.0"
+      model: "phase2_tamarin_models/baseline/baseline_lora_dv.spthy"
+      lemmas: 5
+      nodes: 2
+      attacker_model: "Dolev-Yao (network adversary; intercept/replay/inject)"
+    final_numbers:
+      lemmas_falsified: 4
+      lemmas_verified: 1
+      proof_time_s: "<4"
+    canonical_metric: "lemmas falsified (4/5)"
+    locked:
+      value: "4/5 falsified"
+      locked_at: "2026-04-12"
+    used_in_paper:
+      tables: [tab:lemma-results]
+      sections: [sec:attacks, sec:formal]
+      figures: [fig:attack-sequence]
+    output_files:
+      - "supplementary/verification/baseline_verification.log"
+    citation_needed: []
+    notes: >
+      Falsified: L1 MetricAuthenticity, L2 RouteFreshness, L3 RouteConsistency,
+      L4 AuthorizedRoutes. Verified: L5 Executability (protocol reachable).
+      Attack traces are the primary RQ1 evidence.
+
+  - exp_id: E1_tamarin_patched
+    goal: >
+      Prove that HMAC-SHA256 + per-destination MetricVersion counter patch
+      satisfies all eight security lemmas, producing machine-checked proof
+      certificates.
+    related_rqs: [RQ2]
+    related_contributions: [C1, C2]
+    status: complete
+    setting:
+      tool: "Tamarin Prover 1.8.0"
+      model: "phase2_tamarin_models/patched/patched_lora_dv_2node.spthy"
+      lemmas: 8
+      nodes: 2
+      attacker_model: "Dolev-Yao (full Dolev-Yao + active injection)"
+    final_numbers:
+      lemmas_verified: 8
+      lemmas_falsified: 0
+      proof_time_s: "<4"
+    canonical_metric: "lemmas verified (8/8)"
+    locked:
+      value: "8/8 verified"
+      locked_at: "2026-04-12"
+    used_in_paper:
+      tables: [tab:lemma-results]
+      sections: [sec:formal]
+    output_files:
+      - "supplementary/verification/patched_2node_verification.log"
+    citation_needed: []
+    notes: >
+      All 8 lemmas verified including L2 RouteFreshness (MetricVersion counter
+      required; HMAC alone does not prove this lemma). This is the key
+      motivator for the MetricVersion addition beyond HMAC.
+
+  - exp_id: E2_ns3
+    goal: >
+      Evaluate PDR (packet delivery ratio) impact of route injection and
+      replay attacks across three topologies (linear, tree, grid) under
+      baseline and patched security modes; confirm 0% residual PDR degradation
+      after full patching across all scenarios.
+    related_rqs: [RQ2, RQ3]
+    related_contributions: [C3]
+    status: complete
+    setting:
+      tool: "ns-3 3.38 + custom LoRaMesh module (C++17)"
+      topologies: [linear, tree, grid]
+      attack_types: [spoofing, replay, selective_drop]
+      security_modes: [baseline, hmac_only, hmac_metricversion]
+      seeds_per_scenario: 5
+      scenarios: 27
+      total_runs: 135
+      scale_validation_runs: 90
+      max_nodes: 49
+      simulation_duration_s: 300
+    final_numbers:
+      baseline_pdr_linear: "~0%"
+      baseline_pdr_tree: "~0%"
+      baseline_pdr_grid: "~30%"
+      patched_pdr_all: "100% (0% degradation vs unattacked baseline)"
+      residual_pdr_degradation: "0%"
+    canonical_metric: "PDR degradation under full patch vs. unattacked baseline"
+    locked:
+      value: "0% residual PDR degradation"
+      locked_at: "2026-04-12"
+    used_in_paper:
+      tables: [tab:attacks]
+      sections: [sec:eval]
+    output_files:
+      - "phase4_ns3_simulation/results/"
+    citation_needed: []
+    notes: >
+      Grid topology shows partial attack impact (~30% degradation) in baseline
+      because redundant paths allow some packets to avoid poisoned routes.
+      All three topologies reach 100% PDR after full patching.
+      90 scale-validation runs used nodes up to 49 to confirm convergence
+      behavior does not break DV routing at scale.
+
+  - exp_id: E3_hardware_e5b
+    goal: >
+      Confirm attack/defense behavior on physical 3-node LoRa testbench:
+      Node A (sender) → Node B (gateway) with Node C (attacker) injecting.
+      Verify baseline PDR=0% (complete route poisoning) and patched PDR≥85%.
+    related_rqs: [RQ2]
+    related_contributions: [C4]
+    status: complete
+    setting:
+      hardware: "3× Ebyte EoRa-PI (ESP32-S3FH4R2 + SX1262)"
+      frequency: "923 MHz (AS923)"
+      topology: "3-node direct: Sender + Gateway + Attacker"
+      experiment_duration_min: 10
+      packets_sent: 20
+      security_modes: [baseline, patched]
+    final_numbers:
+      baseline_pdr_pct: 0
+      patched_pdr_pct: 87
+      residual_loss_cause: "channel loss at <1 m bench distance (not security failure)"
+    canonical_metric: "PDR (%) baseline vs patched"
+    locked:
+      value: "baseline 0%, patched 87%"
+      locked_at: "2026-04-12"
+    used_in_paper:
+      tables: [tab:hw-results]
+      sections: [sec:hardware-validation]
+    output_files:
+      - "hardware_experiments/E5b_3node_injection/"
+    citation_needed: []
+    notes: >
+      13% residual loss is ambient channel loss at bench distance (<1 m),
+      not a security failure. HMAC rejection shown in serial logs.
+
+  - exp_id: E4_hardware_e5c
+    goal: >
+      Validate NVS persistence of MetricVersion counter across ESP32 reboots,
+      confirming that a replayed stale metric (mv=21 vs. stored mv=32) is
+      rejected after reboot, closing the one-reboot attack window identified
+      by Tamarin lemma L2 RouteFreshness.
+    related_rqs: [RQ2]
+    related_contributions: [C4]
+    status: complete
+    setting:
+      hardware: "2× Ebyte EoRa-PI (ESP32-S3FH4R2 + SX1262)"
+      nvs_namespace: "e5c"
+      nvs_key_format: "mv_XX (XX = hex node ID)"
+      api: "ESP32 Preferences (NVS)"
+      security_modes: [mode1_patched, mode2_nvs_persistent]
+    final_numbers:
+      mode1_result: "accepts mv=21 after reboot (replay window open)"
+      mode2_result: "rejects mv=21; stored=32 (window closed)"
+      replay_window_closed: true
+    canonical_metric: "post-reboot replay rejection (pass/fail)"
+    locked:
+      value: "Mode 2 rejects stale mv"
+      locked_at: "2026-04-12"
+    used_in_paper:
+      tables: [tab:hw-e6]
+      sections: [sec:hardware-nvs]
+    output_files:
+      - "hardware_experiments/E5c_nvs_demo/results/"
+    citation_needed: []
+    notes: >
+      This is the only experiment that directly validates Tamarin lemma L2
+      on physical hardware. Mode 1 (HMAC-only) still has the reboot window;
+      Mode 2 (HMAC + NVS-persisted MetricVersion) closes it completely.
+
+  - exp_id: E5_hardware_e6
+    goal: >
+      Validate attack and defense on a 6-node linear topology with 3 relay
+      nodes (R1, R2, R3) enforcing multi-hop DV routing via software relay.
+      Confirm baseline route poisoning propagates through all relay nodes
+      and patched firmware rejects attacker Hellos at every hop.
+    related_rqs: [RQ2, RQ3]
+    related_contributions: [C4]
+    status: complete
+    setting:
+      hardware: "6× Ebyte EoRa-PI (ESP32-S3FH4R2 + SX1262)"
+      topology: "linear: Sender → R1 → R2 → R3 → Gateway + Attacker (Node C)"
+      relay_delay_ms: 500
+      attack_period_s: 8
+      data_interval_s: 10
+      packets_sent: 20
+      security_modes: [baseline, patched]
+    final_numbers:
+      baseline_relay_nodes_poisoned: "3/4 (R1/R2/R3 all route to 0xCC)"
+      patched_relay_nodes_poisoned: "0/4"
+      patched_pdr_pct: 85
+      residual_loss_cause: "channel loss at bench distance"
+    canonical_metric: "relay nodes poisoned (baseline) and PDR (patched)"
+    locked:
+      value: "3/4 poisoned baseline; 0/4 patched; PDR=85%"
+      locked_at: "2026-04-12"
+    used_in_paper:
+      tables: [tab:hw-e6]
+      sections: [sec:hardware-e6]
+    output_files:
+      - "hardware_experiments/E6_6node_linear_demo/results/mode0_baseline_all_nodes.log"
+      - "hardware_experiments/E6_6node_linear_demo/results/mode1_patched_all_nodes.log"
+    citation_needed: []
+    notes: >
+      Cross-layer finding: in LoRaMesher, the `dst` field encodes next-hop
+      (not final destination); each relay rewrites `dst` to its own next-hop.
+      This subtlety is invisible to both Tamarin (symbolic model) and ns-3
+      (packet-level model), confirming hardware validation is necessary for
+      implementation-level security properties.

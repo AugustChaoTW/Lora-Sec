@@ -1,0 +1,260 @@
+paper_path: /home/augchao/Work/Lora-Sec/00_Paper/AdHocNet/AdHocNet-Aug.tex
+paper_stage: draft
+target_journal: "Ad Hoc Networks (Elsevier)"
+
+sections:
+
+  - section_id: S1
+    label: sec:intro
+    title: "Introduction"
+    tex_line: 100
+    type: introduction
+    subsections:
+      - label: sec:intro.deployment
+        title: "The Deployment Security Problem"
+        tex_line: 125
+      - label: sec:intro.existing
+        title: "Why Existing Solutions Do Not Apply"
+        tex_line: 164
+      - label: sec:intro.contributions
+        title: "Contributions"
+        tex_line: 212
+      - label: sec:methodology
+        title: "Methodology Overview"
+        tex_line: 284
+    rq_addressed: [RQ1, RQ2, RQ3]
+    contributions_claimed: [C1, C2, C3, C4, C5]
+    key_claims:
+      - "No prior work has formally analyzed any LoRa ad hoc mesh routing protocol"
+      - "Route injection + session replay exploitable within one DV cycle (~30 s)"
+      - "41-line HMAC-SHA256 + MetricVersion patch: 0.098 ms, 2 B/entry RAM"
+    reviewer_risk: >
+      Intro may over-state novelty of LoRaMesher itself. Scope claim
+      "first formally analyzed" must be guarded to LoRa DV ad hoc mesh.
+    avoid_overclaiming:
+      - "Claim is specific to LoRa DV mesh routing control plane, not all ad hoc routing"
+
+  - section_id: S2
+    label: sec:threat
+    title: "Ad Hoc Network Deployment Context and Threat Model"
+    tex_line: 457
+    type: background
+    subsections:
+      - label: sec:threat.scenarios
+        title: "Target Deployment Scenarios"
+        tex_line: 461
+      - label: sec:threat.esp32
+        title: "ESP32 Resource Constraints"
+        tex_line: 481
+      - label: sec:threat.attacker
+        title: "Attacker Model"
+        tex_line: 529
+      - label: sec:threat.goals
+        title: "Security Goals"
+        tex_line: 588
+    rq_addressed: [RQ1, RQ3]
+    contributions_claimed: []
+    key_claims:
+      - "Dolev-Yao adversary with commodity $20 LoRa transceiver"
+      - "ESP32-S3: 240 MHz, 512 KB RAM — no asymmetric crypto feasible"
+      - "Four security goals: G1 MetricAuthenticity, G2 RouteFreshness, G3 RouteConsistency, G4 AuthorizedRoutes"
+    tables: [tab:esp32]
+
+  - section_id: S3
+    label: sec:model
+    title: "System Model and Problem Formulation"
+    tex_line: 604
+    type: formalization
+    subsections:
+      - label: sec:model.network
+        title: "Network Model"
+        tex_line: 608
+      - label: sec:model.state
+        title: "Protocol State"
+        tex_line: 626
+      - label: sec:model.transitions
+        title: "Control-Plane Transition Rules"
+        tex_line: 641
+      - label: sec:model.problem
+        title: "Security Problem Statement"
+        tex_line: 668
+      - label: sec:model.notation
+        title: "Notation Summary"
+        tex_line: 701
+    rq_addressed: [RQ1]
+    contributions_claimed: [C1]
+    key_claims:
+      - "Formal notation for Hello/RouteReply/RekeyNotice message types"
+      - "Security problem stated as four goal predicates G1-G4"
+    tables: [tab:notation]
+
+  - section_id: S4
+    label: sec:formal
+    title: "LoRaMesher Protocol and Formal Model"
+    tex_line: 726
+    type: formal_analysis
+    subsections:
+      - label: sec:formal.format
+        title: "Control-Plane Message Format"
+        tex_line: 753
+      - label: sec:formal.tamarin
+        title: "State Machine and Tamarin Encoding"
+        tex_line: 770
+      - label: sec:formal.results
+        title: "Formal Analysis Results"
+        tex_line: 857
+    rq_addressed: [RQ1, RQ2]
+    contributions_claimed: [C1]
+    key_claims:
+      - "Baseline: 4/5 lemmas falsified in 0.8 s (L1-L4)"
+      - "Patched: 8/8 lemmas verified in 3.6 s"
+      - "L2 RouteFreshness requires MetricVersion counter — HMAC alone insufficient"
+    tables: [tab:tamarin-mapping, tab:tamarin]
+    experiments: [E1_tamarin_baseline, E1_tamarin_patched]
+
+  - section_id: S5
+    label: sec:attacks
+    title: "Attack Analysis"
+    tex_line: 891
+    type: attack_analysis
+    subsections:
+      - label: sec:attacks.injection
+        title: "Attack 1: Route Hijacking via Forged RouteReply"
+        tex_line: 895
+      - label: sec:attacks.replay
+        title: "Attack 2: Session Confusion via RekeyNotice Replay"
+        tex_line: 927
+    rq_addressed: [RQ1]
+    contributions_claimed: [C1]
+    key_claims:
+      - "Machine-checked Tamarin counterexample traces for both attacks"
+      - "Both attacks exploitable within one DV cycle by $20 hardware"
+    figures: [fig:attack-seq]
+    experiments: [E1_tamarin_baseline]
+
+  - section_id: S6
+    label: sec:patch
+    title: "Lightweight Authenticated Patch Design"
+    tex_line: 1015
+    type: patch_design
+    subsections:
+      - label: sec:patch.hmac
+        title: "Patch 1: HMAC-SHA256 Message Authentication"
+        tex_line: 1023
+      - label: sec:patch.mv
+        title: "Patch 2: MetricVersion Counter"
+        tex_line: 1052
+      - label: sec:patch.compat
+        title: "Backward Compatibility"
+        tex_line: 1078
+    rq_addressed: [RQ2, RQ3]
+    contributions_claimed: [C2]
+    key_claims:
+      - "41-line patch, no PKI, symmetric key only"
+      - "HMAC-SHA256: 98.17 us mean, 0.06% airtime overhead on ESP32-S3"
+      - "MetricVersion: 2 bytes/entry RAM, NVS-persistent across reboots"
+    tables: [tab:esp32]
+    experiments: [E0_hmac_timing, E1_tamarin_patched]
+
+  - section_id: S7
+    label: sec:eval
+    title: "Experimental Evaluation"
+    tex_line: 1089
+    type: evaluation
+    subsections:
+      - label: sec:eval.setup
+        title: "Simulation Setup"
+        tex_line: 1093
+      - label: sec:eval.attacks
+        title: "Attack Effectiveness"
+        tex_line: 1129
+      - label: sec:eval.overhead
+        title: "Performance Overhead"
+        tex_line: 1161
+      - label: sec:eval.deploy
+        title: "Deployment Implications"
+        tex_line: 1301
+      - label: sec:hardware-validation
+        title: "Hardware Validation on Physical ESP32-S3 Boards"
+        tex_line: 1321
+      - label: sec:cross-layer-finding
+        title: "Cross-Layer Implementation Finding"
+        tex_line: 1399
+      - label: sec:hardware-nvs
+        title: "NVS-Persisted MetricVersion Reboot Validation"
+        tex_line: 1451
+      - label: sec:hardware-e6
+        title: "Six-Node Linear Hardware Validation"
+        tex_line: 1493
+    rq_addressed: [RQ2, RQ3]
+    contributions_claimed: [C3, C4]
+    key_claims:
+      - "PDR baseline 0% (linear) / 77.4% (tree, grid); patched 100% all topologies"
+      - "0% residual PDR degradation after full patching"
+      - "Scale: 100% PDR at 25 and 49 nodes under attack"
+      - "Hardware: baseline PDR=0%, patched PDR=87% (3-node) / 85% (6-node)"
+      - "NVS Mode 2 rejects stale mv=21 when stored=32"
+      - "Cross-layer: dst=next-hop (not final gateway), invisible to Tamarin and ns-3"
+      - "6-node: 3/4 relays poisoned (baseline); 0/4 (patched)"
+    tables: [tab:attacks, tab:overhead, tab:scale, tab:hw-results, tab:hw-e6]
+    figures: [fig:eval-results]
+    experiments: [E2_ns3, E3_hardware_e5b, E4_hardware_e5c, E5_hardware_e6]
+
+  - section_id: S8
+    label: sec:related
+    title: "Related Work"
+    tex_line: 1559
+    type: related_work
+    subsections:
+      - label: sec:related.lorawan
+        title: "LoRa and LoRaWAN Security"
+        tex_line: 1563
+      - label: sec:related.mesh
+        title: "Constrained-Node Mesh Protocol Security"
+        tex_line: 1578
+      - label: sec:related.defense
+        title: "Routing Attack Defenses"
+        tex_line: 1594
+      - label: sec:related.formal
+        title: "Formal Verification of Mesh Routing Protocols"
+        tex_line: 1612
+      - label: sec:related.lightweight
+        title: "Lightweight Cryptography for Constrained Nodes"
+        tex_line: 1624
+      - label: sec:positioning
+        title: "Positioning vs. Prior Work"
+        tex_line: 1636
+    rq_addressed: []
+    contributions_claimed: []
+    key_claims:
+      - "No prior work formally analyzes LoRa ad hoc mesh routing control plane"
+      - "Existing secure routing (ARIADNE, TinySec, authenticated OLSR) require PKI"
+
+  - section_id: S9
+    label: sec:limitations
+    title: "Limitations and Future Work"
+    tex_line: 1704
+    type: limitations
+    rq_addressed: []
+    contributions_claimed: []
+    key_claims:
+      - "Tamarin model: 2 nodes, symbolic channel (not physical LoRa propagation)"
+      - "ns-3: simplified log-distance channel model"
+      - "Hardware: 6 co-located boards, not field deployment"
+      - "Future: group key rotation, multi-attacker scenarios, LoRaWAN backend integration"
+
+  - section_id: S10
+    label: sec:conclusion
+    title: "Conclusion"
+    tex_line: 1737
+    type: conclusion
+    rq_addressed: [RQ1, RQ2, RQ3]
+    contributions_claimed: [C1, C2, C3, C4, C5]
+
+  - section_id: S11
+    label: app:artifact
+    title: "Artifact Availability"
+    tex_line: 1792
+    type: appendix
+    rq_addressed: []
+    contributions_claimed: [C5]

@@ -1,0 +1,140 @@
+artifact_registry:
+
+  - artifact_id: A1
+    name: Tamarin Baseline Model
+    file: phase2_tamarin_models/baseline/baseline_lora_dv.spthy
+    type: formal_model
+    description: >
+      Unpatched LoRaMesher DV protocol. 4/5 lemmas falsified (L1–L4);
+      counterexample traces generated for all four security violations.
+    linked_experiments: [E4]
+    linked_contributions: [C2]
+    license: MIT
+    status: complete
+
+  - artifact_id: A2
+    name: Tamarin Patched 2-Node Model
+    file: phase2_tamarin_models/patched/patched_lora_dv_2node.spthy
+    type: formal_model
+    description: >
+      Primary patched model with HMAC-SHA256. All 8 lemmas verified in 3.6 s.
+    linked_experiments: [E4]
+    linked_contributions: [C2]
+    license: MIT
+    status: complete
+
+  - artifact_id: A3
+    name: Tamarin Patched with MetricVersion v2
+    file: phase2_tamarin_models/patched/patched_lora_dv_with_metrics_v2.spthy
+    type: formal_model
+    description: >
+      Extended model with per-destination MetricVersion counter. 7/8 lemmas verified.
+    linked_experiments: [E4]
+    linked_contributions: [C2]
+    license: MIT
+    status: complete
+
+  - artifact_id: A4
+    name: Tamarin Verification Logs
+    file: supplementary/verification/
+    type: verification_log
+    description: >
+      Full Tamarin stdout logs for all three models plus parsed JSON result summaries.
+    linked_experiments: [E4]
+    linked_contributions: [C2]
+    license: MIT
+    status: complete
+
+  - artifact_id: A5
+    name: ns-3 LoRaMesher Simulation Module
+    file: phase4_ns3_simulation/src/
+    type: simulation_code
+    description: >
+      C++17 ns-3.40 module: LoRaMesher DV routing (baseline/patched/MetricVersion),
+      Dolev-Yao attacker node, three topology setups, metrics collection.
+    linked_experiments: [E1, E2, E3]
+    linked_contributions: [C4]
+    license: MIT
+    status: complete
+
+  - artifact_id: A6
+    name: ns-3 Experiment Matrix Runner
+    file: phase4_ns3_simulation/run_experiment_matrix.py
+    type: simulation_script
+    description: >
+      Python script orchestrating 27 base scenarios × 5 seeds = 135 total runs.
+    linked_experiments: [E1, E2, E3]
+    linked_contributions: [C4]
+    license: MIT
+    status: complete
+
+  - artifact_id: A7
+    name: Simulation Results (135 JSON files)
+    file: phase4_ns3_simulation/results/
+    type: raw_data
+    description: >
+      Raw simulation output for all 135 runs (latency, PDR, attack success metrics).
+    linked_experiments: [E1, E2, E3]
+    linked_contributions: [C4]
+    license: MIT
+    status: complete
+
+  - artifact_id: A8
+    name: Patched LoRaMesher Firmware
+    file: phase4_ns3_simulation/src/routing/loramesh-routing.cc
+    type: patch_code
+    description: >
+      C++ patch: +23 lines HMAC verification, +18 lines MetricVersion counter,
+      guarded by #define PATCH_AUTH for backward compatibility.
+    linked_experiments: [E3]
+    linked_contributions: [C3]
+    license: MIT
+    status: complete
+
+  - artifact_id: A9
+    name: Docker Image
+    file: supplementary/docker/Dockerfile
+    type: reproducibility_environment
+    description: >
+      Pre-configured Docker with Tamarin 1.8.0 and ns-3.40. One-command
+      reproduction of all experiments and formal proofs.
+    linked_experiments: [E1, E2, E3, E4]
+    linked_contributions: [C5]
+    license: MIT
+    status: complete
+
+  - artifact_id: A10
+    name: E5a HMAC Timing Benchmark (Hardware)
+    file: hardware_experiments/E5a_hmac_timing/
+    type: hardware_experiment
+    description: >
+      Arduino sketch measuring HMAC-SHA256 timing on Ebyte EoRa PI
+      (ESP32-S3 @ 240 MHz, ESP-IDF v5.5.4, 10,000 iterations).
+      Result: 98 µs ± 2 µs (0.098 ms).
+    linked_experiments: [E5a]
+    linked_contributions: [C3]
+    license: MIT
+    status: complete
+    result_log: hardware_experiments/E5a_hmac_timing/e5a_result.log
+
+  - artifact_id: A11
+    name: E5b Route Injection Attack Demo (Hardware)
+    file: hardware_experiments/E5b_attack_demo/
+    type: hardware_experiment
+    description: >
+      Arduino sketches for 3-board attack demo (Node A sender, Node B gateway,
+      Node C attacker). SECURITY_MODE=0 (baseline): PDR=0%. SECURITY_MODE=1
+      (patched): PDR=87%. Common header in e5b_common.h.
+    linked_experiments: [E5b]
+    linked_contributions: [C1, C3, C4]
+    license: MIT
+    status: complete
+    boards:
+      node_a: {mac: "1C:DB:D4:85:6E:58", role: sender}
+      node_b: {mac: "D0:CF:13:0A:48:88", role: gateway}
+      node_c: {mac: "1C:DB:D4:85:6C:E8", role: attacker}
+    result_logs:
+      - hardware_experiments/E5b_attack_demo/results/node_a_baseline.log
+      - hardware_experiments/E5b_attack_demo/results/node_a_patched.log
+      - hardware_experiments/E5b_attack_demo/results/node_b_baseline.log
+      - hardware_experiments/E5b_attack_demo/results/node_b_patched.log

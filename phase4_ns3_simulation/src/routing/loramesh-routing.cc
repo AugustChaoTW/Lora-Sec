@@ -302,4 +302,41 @@ BuildGridTopology()
     return t;
 }
 
+TopologySpec
+BuildLinear25Topology()
+{
+    TopologySpec t;
+    t.type = TopologyType::LINEAR25;
+    t.nodeCount = 25;
+    t.adjacency.assign(t.nodeCount, {});
+    for (uint32_t i = 0; i + 1 < t.nodeCount; ++i)
+    {
+        t.adjacency[i].push_back(i + 1);
+        t.adjacency[i + 1].push_back(i);
+    }
+    return t;
+}
+
+TopologySpec
+BuildGrid49Topology()
+{
+    TopologySpec t;
+    t.type = TopologyType::GRID49;
+    t.nodeCount = 49;
+    t.adjacency.assign(t.nodeCount, {});
+    auto id = [](uint32_t r, uint32_t c) { return r * 7 + c; };
+    for (uint32_t r = 0; r < 7; ++r)
+    {
+        for (uint32_t c = 0; c < 7; ++c)
+        {
+            uint32_t n = id(r, c);
+            if (r > 0) { t.adjacency[n].push_back(id(r - 1, c)); }
+            if (r < 6) { t.adjacency[n].push_back(id(r + 1, c)); }
+            if (c > 0) { t.adjacency[n].push_back(id(r, c - 1)); }
+            if (c < 6) { t.adjacency[n].push_back(id(r, c + 1)); }
+        }
+    }
+    return t;
+}
+
 }

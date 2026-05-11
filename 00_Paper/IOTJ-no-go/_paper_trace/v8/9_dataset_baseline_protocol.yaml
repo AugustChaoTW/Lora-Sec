@@ -1,0 +1,96 @@
+dataset_registry:
+
+  - dataset_id: DS1
+    name: ns-3 Simulation Results (135 JSON)
+    path: phase4_ns3_simulation/results/
+    type: raw_simulation_output
+    size: "135 JSON files"
+    generated_by: [E1, E2, E3]
+    schema: "{topology, security_mode, attack_type, seed, latency_ms, pdr_pct, attack_success_pct}"
+    license: MIT
+
+  - dataset_id: DS2
+    name: Tamarin Verification Logs
+    path: supplementary/verification/
+    type: formal_proof_log
+    size: "3 log files + 3 JSON summaries"
+    generated_by: [E4]
+    license: MIT
+
+  - dataset_id: DS3
+    name: E5a HMAC Timing Log
+    path: hardware_experiments/E5a_hmac_timing/e5a_result.log
+    type: hardware_measurement
+    size: "1 log file"
+    generated_by: [E5a]
+    content: "10,000 iteration HMAC-SHA256 timing on Ebyte EoRa PI (ESP32-S3 @ 240 MHz)"
+    key_result: "mean=98.17 µs, std=1.55 µs, p95=102 µs"
+    license: MIT
+
+  - dataset_id: DS4
+    name: E5b Hardware Attack Demo Logs
+    path: hardware_experiments/E5b_attack_demo/results/
+    type: hardware_experiment_log
+    size: "4 log files (node_a baseline/patched, node_b baseline/patched)"
+    generated_by: [E5b]
+    key_results:
+      baseline_pdr: "0.0% (28 sent, 0 acked)"
+      patched_pdr: "87.0% (23 sent, 20 acked)"
+    license: MIT
+
+baseline_registry:
+
+  - baseline_id: B1
+    name: LoRaMesher Baseline (Unauthenticated)
+    description: >
+      Unpatched LoRaMesher DV routing with no control-plane authentication.
+      SECURITY_MODE=0 in hardware experiments.
+    tamarin_model: phase2_tamarin_models/baseline/baseline_lora_dv.spthy
+    ns3_mode: "--usePatch=0 --useMetricVersion=0"
+    hardware_mode: "SECURITY_MODE 0"
+    result: "All 4 security goals violated; 100% attack success on linear topology"
+
+  - baseline_id: B2
+    name: LoRaMesher Patched (HMAC only)
+    description: >
+      Intermediate patch with HMAC-SHA256 only (no MetricVersion counter).
+      Closes G1 (MetricAuthenticity) but not G2 (RouteFreshness).
+    ns3_mode: "--usePatch=1 --useMetricVersion=0"
+    result: "Replay attack still 100% success on linear; route injection blocked"
+
+protocol_rules:
+
+  - rule_id: PR1
+    name: DV first-come-first-served
+    description: >
+      LoRaMesher accepts a route update only if the new metric is strictly less
+      than the stored metric (< not ≤). First-arriving Hello with metric m sets
+      the route; equal-metric arrivals are rejected. This creates the timing
+      vulnerability exploited in E5b.
+
+  - rule_id: PR2
+    name: HMAC signing scope
+    description: >
+      In the patched protocol, HMAC covers: msg_type || src || dst_gw || metric || seq.
+      Key is a 32-byte pre-shared symmetric key provisioned at deployment.
+      Tag is 16 bytes (HMAC-SHA256 truncated to 128 bits).
+
+  - rule_id: PR3
+    name: MetricVersion monotonicity
+    description: >
+      Each destination maintains a per-destination MetricVersion counter (uint16,
+      2 B per route entry, stored in SRAM). A RouteUpdate is accepted only if
+      MetricVersion_new > MetricVersion_stored. Counter resets on power cycle;
+      the one-reboot attack window is bounded to one Hello period (T_hello=10s)
+      and closes on receipt of any legitimate Hello from an honest neighbor.
+      Persisting to NVS (read at boot before processing any Hello) would
+      eliminate the window entirely and is planned as future work.
+
+  - rule_id: PR4
+    name: HMAC tag size
+    description: >
+      HMAC-SHA256 tag is 16 bytes (128-bit truncation). This is consistent
+      with the code listing (uint8_t expected[16], memcmp 16 bytes), message
+      format ([HMAC:16B*]), tab:notation, and Tamarin model description.
+      Hello grows from 6 bytes (baseline) to 22 bytes (patched), increasing
+      LoRa ToA from 124 ms to 206 ms (+66%) at SF9/BW=125kHz/CR=4/5.

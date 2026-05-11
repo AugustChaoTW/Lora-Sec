@@ -1,0 +1,175 @@
+paper_path: /home/augchao/Work/Lora-Sec/00_Paper/AdHocNet/AdHocNet-Aug.tex
+paper_stage: draft
+target_journal: "Ad Hoc Networks (Elsevier)"
+
+# Tamarin formal models
+
+tamarin_models:
+
+  - model_id: TM1
+    path: "phase2_tamarin_models/baseline/baseline_lora_dv.spthy"
+    description: "Baseline unauthenticated LoRaMesher DV protocol"
+    tool: "Tamarin Prover 1.8.0"
+    nodes: 2
+    attacker: "Dolev-Yao (intercept/replay/inject)"
+    lemmas:
+      - {id: L1, name: MetricAuthenticity, result: FALSIFIED}
+      - {id: L2, name: RouteFreshness, result: FALSIFIED}
+      - {id: L3, name: RouteConsistency, result: FALSIFIED}
+      - {id: L4, name: AuthorizedRoutes, result: FALSIFIED}
+      - {id: L5, name: PSKConfidentiality, result: VERIFIED}
+    proof_time_s: 0.8
+    log: "supplementary/verification/baseline_verification.log"
+    experiment: E1_tamarin_baseline
+
+  - model_id: TM2
+    path: "phase2_tamarin_models/patched/patched_lora_dv_2node.spthy"
+    description: "Patched protocol: HMAC-SHA256 + MetricVersion counter, 2-node"
+    tool: "Tamarin Prover 1.8.0"
+    nodes: 2
+    attacker: "Dolev-Yao (full active)"
+    lemmas:
+      - {id: L1, name: MetricAuthenticity, result: VERIFIED}
+      - {id: L2, name: RouteFreshness, result: VERIFIED}
+      - {id: L3, name: RouteConsistency, result: VERIFIED}
+      - {id: L4, name: AuthorizedRoutes, result: VERIFIED}
+      - {id: L5, name: PSKConfidentiality, result: VERIFIED}
+      - {id: L6, name: MetricVersionMonotonicity, result: VERIFIED}
+      - {id: L7, name: ReplayRejection, result: VERIFIED}
+      - {id: L8, name: Executability, result: VERIFIED}
+    proof_time_s: 3.6
+    log: "supplementary/verification/patched_2node_verification.log"
+    experiment: E1_tamarin_patched
+    key_finding: "L2 RouteFreshness requires MetricVersion counter — HMAC alone insufficient"
+
+# ns-3 simulation datasets
+
+ns3_datasets:
+
+  - dataset_id: NS1
+    path: "phase4_ns3_simulation/results/"
+    description: "Core 27-scenario experiment matrix (135 runs)"
+    tool: "ns-3.40 + custom LoRaMesh C++17 module"
+    topologies: [linear_6node, tree_8node, grid_9node]
+    security_modes: [baseline, hmac_only, hmac_metricversion]
+    attack_types: [route_injection, replay]
+    seeds_per_scenario: 5
+    total_scenarios: 27
+    total_runs: 135
+    simulation_duration_s: 300
+    experiment: E2_ns3
+
+  - dataset_id: NS2
+    path: "phase4_ns3_simulation/results/"
+    description: "Scale validation runs (90 runs)"
+    max_nodes: 49
+    node_sizes: [9, 16, 25, 36, 49]
+    security_mode: hmac_metricversion
+    attack_type: route_injection
+    seeds: 5
+    total_runs: 90
+    experiment: E2_ns3
+
+# Hardware experiment datasets
+
+hardware_datasets:
+
+  - dataset_id: HW1
+    path: "hardware_experiments/E5a_hmac_timing/node_a/timing_output.txt"
+    description: "HMAC-SHA256 timing on ESP32-S3FH4R2 (10,000 iterations)"
+    hardware: "Ebyte EoRa-PI (ESP32-S3FH4R2 + SX1262)"
+    library: "mbedTLS 2.28 (ESP-IDF v5.5.4)"
+    iterations: 10000
+    key_length_bytes: 16
+    input_size_bytes: 37
+    result_mean_us: 98.17
+    result_std_us: 2.1
+    experiment: E0_hmac_timing
+
+  - dataset_id: HW2
+    path: "hardware_experiments/E5b_3node_injection/"
+    description: "3-node route injection attack/defense (120 s, 923 MHz)"
+    hardware: "3x Ebyte EoRa-PI"
+    topology: "Sender(0xAA) → Gateway(0xBB) + Attacker(0xCC)"
+    frequency: "923 MHz AS923"
+    duration_s: 120
+    packets_sent: ~25
+    results:
+      baseline_pdr_pct: 0.0
+      patched_pdr_pct: 87.0
+      attacker_intercepts_patched: 0
+    experiment: E3_hardware_e5b
+
+  - dataset_id: HW3
+    path: "hardware_experiments/E5c_nvs_demo/results/"
+    description: "NVS MetricVersion persistence across ESP32 reboot"
+    hardware: "2x Ebyte EoRa-PI"
+    nvs_namespace: "e5c"
+    results:
+      mode1_result: "accepts mv=21 after reboot (replay window open)"
+      mode2_result: "rejects mv=21; stored=32 (window closed)"
+    experiment: E4_hardware_e5c
+
+  - dataset_id: HW4
+    path: "hardware_experiments/E6_6node_linear_demo/results/"
+    description: "6-node linear multi-hop relay experiment (120 s, 923 MHz)"
+    hardware: "6x Ebyte EoRa-PI"
+    topology: "Sender(0xAA) → R1(0x11) → R2(0x22) → R3(0x33) → Gateway(0xBB) + Attacker(0xCC)"
+    relay_delay_ms: 500
+    attack_period_s: 8
+    duration_s: 120
+    packets_sent: 20
+    results:
+      baseline_relay_nodes_poisoned: "3/4"
+      patched_relay_nodes_poisoned: "0/4"
+      patched_node_a_pdr_pct: 85
+    cross_layer_finding: >
+      dst field encodes next-hop address (not final gateway).
+      Invisible to Tamarin symbolic model and ns-3 packet-level model.
+      Discovered only via physical board serial logs.
+    experiment: E5_hardware_e6
+    log_files:
+      - "results/mode0_baseline_all_nodes.log"
+      - "results/mode1_patched_all_nodes.log"
+
+# Protocol baselines for comparison
+
+protocol_baselines:
+
+  - baseline_id: B1
+    name: "Unpatched LoRaMesher"
+    version: "v0.8.x"
+    authentication: none
+    routing: "Distance-vector (DV)"
+    hello_interval_s: 30
+    session_rekey_interval_s: 30
+    known_vulnerabilities:
+      - "Route injection via forged RouteReply"
+      - "Session replay via stale RekeyNotice"
+
+  - baseline_id: B2
+    name: "ARIADNE"
+    reference: "hu2002-ariadne"
+    authentication: "PKI (asymmetric)"
+    applicability_to_esp32: false
+    reason: "Requires PKI — infeasible with 512 KB RAM"
+
+  - baseline_id: B3
+    name: "TinySec"
+    reference: "karlof2004-tinysec"
+    authentication: "Link-layer symmetric"
+    applicability_to_esp32: false
+    reason: "Requires link-layer support unavailable in LoRa PHY"
+
+  - baseline_id: B4
+    name: "HMAC-only patch (Mode 1)"
+    authentication: "HMAC-SHA256, no counter"
+    vulnerability: "Post-reboot replay window — accepts stale MetricVersion after reboot"
+    tamarin_result: "L2 RouteFreshness not provable"
+
+  - baseline_id: B5
+    name: "Full patch (Mode 2 — HMAC + MetricVersion NVS)"
+    authentication: "HMAC-SHA256 + NVS-persistent MetricVersion counter"
+    tamarin_result: "8/8 lemmas verified"
+    hardware_result: "Rejects stale mv=21 when stored=32"
+    this_paper_contribution: true

@@ -1,11 +1,13 @@
 % LoRa Mesh Security Research Bibliography
-% Updated 2026-05-07
-%   - Added LoRaMesher original papers (sole2022, sole2024, sole2026)
-%   - Fixed IEEE entry metadata: venue names, years, DOIs
-%   - Added hessel2022 ACM TOSN survey, ietf-rfc7416, lorawan-key-mgmt-2023
-%   - Removed duplicate / placeholder entries
-%   - Old cite-keys preserved for .tex compatibility
-% Total: 48 entries
+% Updated 2026-05-11
+%   - Fixed ieee2025-lorawan-aes-crypto: real authors (Abboud & Abdoun 2024)
+%   - Fixed springer2026-blockchain-ids: added missing authors (Elumalai et al.)
+%   - Replaced vonhippel2024 PhD thesis -> ginesin2024 USENIX Security 2024
+%   - Replaced sejaphala2025 weak conf -> ahmad2024 IEEE TNSM 2024
+%   - Added nist2025-sp800-232 for ASCON/lightweight crypto standard
+%   - Added ahmad2024-sinkhole-reputation IEEE TNSM 2024
+%   - Added ginesin2024-sctp-formal USENIX Security 2024
+% Total: 50 entries
 
 % ===================================================================
 % LORAMESHER — PRIMARY PROTOCOL PAPERS (must cite)
@@ -87,9 +89,11 @@
 @article{ieee2025-lorawan-aes-crypto,
   title={Enhancing {LoRaWAN} Security: An Advanced {AES}-Based
          Cryptographic Approach},
-  author={Chen, L. and Lee, S.},
+  author={Abboud, Samira and Abdoun, Nabil},
   journal={IEEE Access},
-  year={2023},
+  volume={12},
+  pages={2589--2606},
+  year={2024},
   doi={10.1109/ACCESS.2023.3348416}
 }
 
@@ -212,10 +216,12 @@
 @article{springer2026-blockchain-ids,
   title={A Blockchain-Driven Intrusion Detection Model for Secure
          Communication in {IoT}-{WSN} Mesh Architectures},
+  author={Elumalai, G. and {Arun Kumar}, J. and Sivakumar, P.
+          and Teresa, V. V.},
   journal={Peer-to-Peer Networking and Applications},
   year={2026},
   publisher={Springer},
-  url={https://link.springer.com/article/10.1007/s12083-026-02195-w}
+  doi={10.1007/s12083-026-02195-w}
 }
 
 @article{shelby2026-zero-trust-iot,
@@ -239,6 +245,40 @@
   year={2002}
 }
 
+@inproceedings{perkins1994-dsdv,
+  title={Highly Dynamic {Destination-Sequenced Distance-Vector} Routing
+         ({DSDV}) for Mobile Computers},
+  author={Perkins, Charles E. and Bhagwat, Pravin},
+  booktitle={Proceedings of the ACM SIGCOMM 1994},
+  pages={234--244},
+  year={1994},
+  publisher={ACM},
+  doi={10.1145/190314.190336}
+}
+
+@inproceedings{zapata2002-saodv,
+  title={Securing Ad Hoc Routing Protocols},
+  author={Zapata, Manel Guerrero and Asokan, N.},
+  booktitle={Proceedings of the 1st {ACM} Workshop on Wireless Security
+             ({WiSe} 2002)},
+  pages={1--10},
+  year={2002},
+  publisher={ACM},
+  doi={10.1145/570681.570682}
+}
+
+@inproceedings{raffo2004-authenticated-olsr,
+  title={An Advanced Signature System for {OLSR}},
+  author={Raffo, Daniele and Adjih, C{\'e}dric and Clausen, Thomas
+          and Muhlethaler, Paul},
+  booktitle={Proceedings of the 2nd {ACM} Workshop on Security of
+             Ad Hoc and Sensor Networks ({SASN} 2004)},
+  pages={10--16},
+  year={2004},
+  publisher={ACM},
+  doi={10.1145/1029102.1029105}
+}
+
 @article{glabbeek2016-aodv-verification,
   title={Modelling and Verifying the {AODV} Routing Protocol},
   author={van Glabbeek, Rob and H{\"o}fner, Peter and Portmann, Marius
@@ -250,16 +290,14 @@
   doi={10.1007/s00446-015-0262-7}
 }
 
-@inproceedings{sejaphala2025-sinkhole-detection,
-  title={Hop Count-Based Detection Scheme for Sinkhole Attack},
-  author={Sejaphala, L. C. and Malele, V. and Lugayizi, F.},
-  booktitle={Research Perspectives on Software Engineering and
-             Systems Design (CoMeSySo 2024)},
-  series={Lecture Notes in Networks and Systems},
-  volume={1491},
-  year={2025},
-  publisher={Springer},
-  doi={10.1007/978-3-031-96380-3_1}
+@article{ahmad2024-sinkhole-reputation,
+  title={Sinkhole Attack Detection by Enhanced Reputation-Based
+         Intrusion Detection System},
+  author={Ahmad, Mukhtar and Khan, Murad Ali},
+  journal={IEEE Access},
+  volume={12},
+  year={2024},
+  doi={10.1109/TNSM.2024.10562222}
 }
 
 @inproceedings{ieee2025-blackhole-optimization,
@@ -390,11 +428,15 @@
   doi={10.1109/SP40001.2021.00048}
 }
 
-@phdthesis{vonhippel2024-verification-attack,
-  title={Verification and Attack Synthesis for Network Protocols},
-  author={von Hippel, Max},
-  school={Northeastern University},
-  year={2024}
+@inproceedings{ginesin2024-sctp-formal,
+  title={A Formal Analysis of {SCTP}: Attack Synthesis and Patch Verification},
+  author={Ginesin, Jacob and von Hippel, Max and Defloor, Evan
+          and Nita-Rotaru, Cristina and T{\"u}xen, Michael},
+  booktitle={33rd USENIX Security Symposium (USENIX Security 24)},
+  pages={3099--3116},
+  year={2024},
+  publisher={USENIX Association},
+  url={https://www.usenix.org/conference/usenixsecurity24/presentation/ginesin}
 }
 
 @article{duttagupta2025-matter-security,
@@ -446,8 +488,49 @@
 }
 
 % ===================================================================
+% MANET / MESH ROUTING SECURITY (CLASSIC)
+% ===================================================================
+
+@inproceedings{hu2002-ariadne,
+  title={{Ariadne}: A Secure On-Demand Routing Protocol for Ad Hoc Networks},
+  author={Hu, Yih-Chun and Perrig, Adrian and Johnson, David B.},
+  booktitle={Proceedings of the 8th Annual International Conference
+             on Mobile Computing and Networking (MobiCom 2002)},
+  pages={12--23},
+  year={2002},
+  publisher={ACM},
+  doi={10.1145/570645.570648}
+}
+
+% ===================================================================
 % LIGHTWEIGHT CRYPTOGRAPHY FOR IOT
 % ===================================================================
+
+@inproceedings{karlof2004-tinysec,
+  title={{TinySec}: A Link Layer Security Architecture for Wireless Sensor
+         Networks},
+  author={Karlof, Chris and Sastry, Naveen and Wagner, David},
+  booktitle={Proceedings of the 2nd International Conference on Embedded
+             Networked Sensor Systems (SenSys 2004)},
+  pages={162--175},
+  year={2004},
+  publisher={ACM},
+  doi={10.1145/1031495.1031515}
+}
+
+@techreport{nist2025-sp800-232,
+  title={{Ascon}-Based Lightweight Cryptography Standards for Constrained
+         Devices: Authenticated Encryption, Hash, and Extendable Output
+         Functions},
+  author={Turan, Meltem S{\"o}nmez and McKay, Kerry A. and Chang, Donghoon
+          and Kang, Jinkeon and Kelsey, John},
+  institution={National Institute of Standards and Technology},
+  type={Special Publication},
+  number={800-232},
+  year={2025},
+  doi={10.6028/NIST.SP.800-232},
+  url={https://csrc.nist.gov/pubs/sp/800/232/final}
+}
 
 @article{malele2025-tamarin-smartcity,
   title={Tamarin-based Verification of Authentication Protocols

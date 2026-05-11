@@ -1,0 +1,274 @@
+citation_coverage:
+  total_references: 40
+  as_of: "2026-05-09"
+  lora_lorawan: 11
+  tamarin_formal: 9
+  routing_attacks: 7
+  iot_security: 8
+  lightweight_crypto: 3
+  other: 2
+  changes_from_v4:
+    - removed: [zenodo2025-formal-methods-comparison, zenodo2025-manet-routing-attacks]
+    - added: [klenze2021-forwarding, song2026-protocolguard, shen2026-wifi-security,
+              repetto2022-lorawan-demo, sole2026-loramesher-swx, butun2019-lorawan-security-risk,
+              hu2002-ariadne]
+    - replaced_at:
+        L724: "zenodo2025-formal-methods-comparison → basin2025-tamarin-book"
+        L758: "zenodo2025-manet-routing-attacks → hu2002-sead"
+        L1210: "zenodo2025-manet-routing-attacks → klenze2021-forwarding"
+        L1235: "zenodo2025-formal-methods-comparison → shen2026-wifi-security"
+    - fixed_dangling_ref: "L163 ARIADNE now cites hu2002-ariadne (MobiCom 2002)"
+
+references:
+
+  # --- LoRa / LoRaWAN ---
+  - key: yang2021-lorawan-systematic
+    tier: T3
+    section: sec:intro
+    purpose: "LoRa deployment scale — large-scale IoT deployments motivation"
+    claim_supported: intro framing
+
+  - key: ieee2025-lora-hierarchy-routing
+    tier: T3
+    section: sec:intro
+    purpose: "LoRa mesh multi-hop routing context"
+    claim_supported: intro framing
+
+  - key: repetto2025-lorawan-drone-attack
+    tier: T3
+    section: sec:intro, sec:related
+    purpose: "LoRa security in drone scenario; existing LoRa security work"
+    claim_supported: C1 context
+
+  - key: repetto2022-lorawan-demo
+    tier: T2
+    section: sec:intro
+    purpose: "LoRaMesher demo deployment — establishes real-world usage"
+    claim_supported: L116 LoRaMesher intro citation
+
+  - key: sole2022-loramesher
+    tier: T2
+    section: sec:intro
+    purpose: "LoRaMesher primary protocol paper"
+    claim_supported: L116
+
+  - key: sole2024-loramesher-dv
+    tier: T2
+    section: sec:intro
+    purpose: "LoRaMesher DV routing algorithm paper"
+    claim_supported: L116
+
+  - key: sole2026-loramesher-swx
+    tier: T3
+    section: sec:intro
+    purpose: "LoRaMesher SoftwareX release artifact"
+    claim_supported: L116
+
+  - key: ieee2025-lorawan-key-vulnerability
+    tier: T3
+    section: sec:intro, sec:related
+    purpose: "LoRaWAN key vulnerability — existing LoRaWAN security limitations"
+    claim_supported: "§1.2 (why existing solutions don't apply)"
+
+  - key: ieee2025-lorawan-key-verification
+    tier: T1
+    section: sec:intro, sec:related
+    purpose: "LoRaWAN key verification (EuroS&P 2020) — formal verification context"
+    claim_supported: "§1.2, §8.1"
+
+  - key: mohamed2022-lorawan-gateways
+    tier: T3
+    section: sec:intro
+    purpose: "LoRaWAN gateway-centric security"
+    claim_supported: "§1.2"
+
+  - key: butun2019-lorawan-security-risk
+    tier: T3
+    section: sec:intro
+    purpose: "LoRaWAN security risk analysis — background motivation"
+    claim_supported: "§1.2 LoRaWAN security citations"
+
+  # --- Tamarin / Formal Methods ---
+  - key: basin2025-tamarin-book
+    tier: T1
+    section: sec:formal, sec:eval
+    purpose: "Tamarin Prover methodology; proof time comparison baseline"
+    claim_supported: "C2, L724"
+
+  - key: linker2026-tamarin-optimization
+    tier: T3
+    section: sec:formal
+    purpose: "Tamarin proof optimization techniques"
+    claim_supported: C2
+
+  - key: ieee2025-kang-tamarin
+    tier: T3
+    section: sec:formal, sec:related
+    purpose: "Tamarin applied to IoT protocol — comparable proof time"
+    claim_supported: "C2 (tractability argument)"
+
+  - key: ieee2025-5g-prose-aka
+    tier: T2
+    section: sec:formal
+    purpose: "Tamarin for 5G ProSe AKA — establishes Tamarin for networking protocols"
+    claim_supported: C2
+
+  - key: pereira2025-router-verification
+    tier: T1
+    section: sec:formal, sec:related
+    purpose: "Router protocol verification with Tamarin (CCS 2025)"
+    claim_supported: C2
+
+  - key: shen2026-wifi-security
+    tier: T1
+    section: sec:related
+    purpose: "NDSS 2026 WiFi security verification — two-node model strategy precedent"
+    claim_supported: "§8.4 tractable model sizes"
+
+  - key: song2026-protocolguard
+    tier: T1
+    section: sec:related
+    purpose: "NDSS 2026 ProtocolGuard — attack synthesis framework"
+    claim_supported: "§8.4 automated reasoning for protocol correctness"
+
+  - key: vonhippel2024-verification-attack
+    tier: T3
+    section: sec:related
+    purpose: "Attack synthesis via formal verification"
+    claim_supported: "§8.4"
+
+  - key: glabbeek2016-aodv-verification
+    tier: T3
+    section: sec:related
+    purpose: "Formal models for AODV on-demand routing"
+    claim_supported: "§8.3"
+
+  - key: klenze2021-forwarding
+    tier: T1
+    section: sec:related
+    purpose: "IEEE S&P 2021 forwarding protocol verification — routing attack defense context"
+    claim_supported: "§8.3 Routing Attack Defenses"
+
+  # --- Routing Attacks ---
+  - key: hu2002-sead
+    tier: T2
+    section: sec:intro, sec:attacks, sec:related
+    purpose: "SEAD: secure DSDV with hash chains — closest prior secure routing work"
+    claim_supported: "§1.2, §5.1 MANET routing attacks, §8.3"
+
+  - key: hu2002-ariadne
+    tier: T1
+    section: sec:intro
+    purpose: "ARIADNE secure on-demand routing (MobiCom 2002) — standard mesh security reference"
+    claim_supported: "L163 (was dangling reference, now cited)"
+
+  - key: sejaphala2025-sinkhole-detection
+    tier: T2
+    section: sec:attacks, sec:related
+    purpose: "Sinkhole attack detection in IoT/MANET"
+    claim_supported: "C1 (Attack 1 context)"
+
+  - key: ieee2025-blackhole-optimization
+    tier: T3
+    section: sec:attacks, sec:related
+    purpose: "Black-hole attack in mesh networks"
+    claim_supported: "C1 (Attack 1 context)"
+
+  - key: springer2026-vanet-routing
+    tier: T2
+    section: sec:related
+    purpose: "Intrusion-resilient routing in VANETs"
+    claim_supported: "§8.3"
+
+  # --- IoT Security ---
+  - key: duttagupta2025-matter-security
+    tier: T3
+    section: sec:intro
+    purpose: "IoT protocols without formal analysis — motivates formal approach"
+    claim_supported: "§1.2"
+
+  - key: casagrande2025-iot-protocol-attacks
+    tier: T3
+    section: sec:intro
+    purpose: "IoT protocol attacks survey — validates problem space"
+    claim_supported: "§1.2"
+
+  - key: cve2025-meshtastic-entropy
+    tier: T3
+    section: sec:attacks, sec:limitations
+    purpose: "Meshtastic mesh key entropy CVE — same attack class in related system"
+    claim_supported: "C1, R5"
+
+  - key: springer2026-blockchain-ids
+    tier: T2
+    section: sec:related
+    purpose: "Blockchain-assisted IDS for IoT mesh — heavy alternative"
+    claim_supported: "§8.2"
+
+  - key: bringye2026-lorawan-ids
+    tier: T3
+    section: sec:related
+    purpose: "LoRaWAN IDS — protocol-aware intrusion detection"
+    claim_supported: "§8.2"
+
+  - key: shelby2026-zero-trust-iot
+    tier: T3
+    section: sec:related
+    purpose: "TinySec-inspired zero-trust IoT approach"
+    claim_supported: "§8.2"
+
+  - key: ieee2025-lorawan-jamming-ids
+    tier: T2
+    section: sec:related
+    purpose: "No jamming assumption validation; LoRaWAN IDS (IEEE ICC 2018)"
+    claim_supported: "§8.2"
+
+  - key: ieee2025-lora-adversarial
+    tier: T2
+    section: sec:related
+    purpose: "Physical-layer adversarial attacks on LoRa; deep-learning auth"
+    claim_supported: "§8.5"
+
+  - key: ieee2025-mpke-proverif
+    tier: T3
+    section: sec:related
+    purpose: "ProVerif analysis of MPKE mesh protocol"
+    claim_supported: "§8.2"
+
+  # --- Lightweight Cryptography ---
+  - key: ieee2025-lorawan-aes-crypto
+    tier: T2
+    section: sec:related
+    purpose: "NIST lightweight crypto (ASCON/GIFT-COFB) for LoRaWAN"
+    claim_supported: "§8.5"
+
+  # --- LoRaWAN Security (Additional) ---
+  - key: hessel2022-lorawan-survey
+    tier: T1
+    section: sec:related
+    purpose: "ACM TOSN LoRaWAN security survey — comprehensive baseline"
+    claim_supported: "§8.1"
+
+  - key: lorawan-key-mgmt-2023
+    tier: T2
+    section: sec:related
+    purpose: "LoRaWAN key management schemes"
+    claim_supported: "§8.1"
+
+  - key: ieee2025-adr-eventb
+    tier: T3
+    section: sec:related
+    purpose: "Formal verification of LoRaWAN ADR with Event-B"
+    claim_supported: "§8.4"
+
+  - key: ietf-rfc7416
+    tier: T2
+    section: sec:related
+    purpose: "IETF RPL threat analysis — parallel routing threats enumerated"
+    claim_supported: "§8.3"
+
+  - key: malele2025-tamarin-smartcity
+    tier: T3
+    section: "(uncited — bib-only)"
+    purpose: "Tamarin for smart city IoT — not currently needed in text"
+    claim_supported: null

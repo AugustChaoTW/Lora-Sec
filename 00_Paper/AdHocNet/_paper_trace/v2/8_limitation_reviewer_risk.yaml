@@ -1,0 +1,130 @@
+paper_path: /home/augchao/Work/Lora-Sec/00_Paper/AdHocNet/AdHocNet-Aug.tex
+paper_stage: draft
+target_journal: "Ad Hoc Networks (Elsevier)"
+
+risks:
+
+  - risk_id: R1
+    severity: low
+    likely_appears_in: "Reviewer 1 or 2"
+    description: >
+      "HMAC + monotonic counter is not a novel cryptographic contribution —
+      these are standard primitives."
+    related_contributions: [C1, C2]
+    related_sections: [sec:intro, sec:patch, sec:formal]
+    mitigation_evidence:
+      - "C1: First application of Tamarin Prover to LoRa DV mesh routing"
+      - "C2: First hardware-calibrated, formally-verified patch for this protocol class"
+      - "tab:lemma-results: Formal proof distinguishes HMAC-only from HMAC+MV (L2 gap)"
+    response_strategy: >
+      Novelty is in the application domain (first for LoRa DV ad hoc mesh),
+      the formal machine-checked proof (Tamarin), and the hardware calibration
+      (ESP32-S3 measurement + AS923 duty-cycle analysis). Emphasize that the
+      formal model identified the one-reboot attack window (L2 RouteFreshness)
+      as a distinct security property not covered by HMAC alone — this is a
+      non-trivial finding that informal analysis missed.
+    fallback_claim: >
+      "We do not claim HMAC or monotonic counters as new concepts; the
+      contribution is the first formal proof that their composition is
+      sufficient for LoRa DV mesh routing security, and the first empirical
+      measurement of their overhead on production ESP32-class nodes."
+    status: open
+
+  - risk_id: R2
+    severity: medium
+    likely_appears_in: "Reviewer 2"
+    description: >
+      "The hardware testbed is only 6 nodes on a bench — too small and
+      too idealized to represent real deployment."
+    related_contributions: [C3, C4]
+    related_sections: [sec:hardware-validation, sec:hardware-e6, sec:eval]
+    mitigation_evidence:
+      - "ns-3 scales to 49 nodes (135 + 90 runs) providing coverage hardware cannot"
+      - "Hardware validates security properties (attack/defense behavior), not channel propagation"
+      - "Cross-layer dst=next-hop finding is invisible to both Tamarin and ns-3 — hardware found it"
+    response_strategy: >
+      Hardware and simulation serve different roles. ns-3 provides scale (49 nodes)
+      and attack coverage (225 runs). Hardware provides implementation-level
+      fidelity that simulation cannot: we found a cross-layer subtlety (dst field
+      encodes next-hop, not final destination) invisible to both Tamarin and ns-3.
+      This justifies both layers.
+    fallback_claim: >
+      "Hardware experiments are not claimed to replace field deployment;
+      they validate that the patch's security properties hold at the
+      implementation level, which symbolic and simulation models cannot guarantee."
+    status: open
+
+  - risk_id: R3
+    severity: medium
+    likely_appears_in: "Reviewer 1"
+    description: >
+      "ns-3 uses a simplified log-distance channel model — results may not
+      reflect real LoRa propagation (shadowing, interference, duty-cycle
+      enforcement)."
+    related_contributions: [C3]
+    related_sections: [sec:eval, sec:discussion]
+    mitigation_evidence:
+      - "Physical hardware experiments provide empirical grounding on real LoRa hardware"
+      - "Simulation purpose is to test DV routing security logic, not channel propagation"
+      - "PDR metric under attack is dominated by routing decisions, not channel model"
+    response_strategy: >
+      The ns-3 evaluation tests routing-layer security (whether injected routes
+      propagate), not physical-layer propagation accuracy. The channel model
+      affects packet delivery probability but not the attack/defense mechanism.
+      Hardware experiments on real AS923 hardware provide the channel-accurate
+      baseline. Acknowledge the limitation in §Discussion.
+    fallback_claim: >
+      "ns-3 results bound routing-layer attack impact; hardware experiments
+      provide channel-accurate ground truth at smaller scale."
+    status: open
+
+  - risk_id: R4
+    severity: low
+    likely_appears_in: "Reviewer 2"
+    description: >
+      "Tamarin model proves security for a 2-node abstraction — does it
+      generalize to n-node topologies?"
+    related_contributions: [C1]
+    related_sections: [sec:formal]
+    mitigation_evidence:
+      - "Tamarin's symbolic model is topology-agnostic: unbounded message interleaving"
+      - "Attack classes are per-message (not topology-dependent)"
+      - "ns-3 and hardware experiments confirm attack/defense at 3, 6, and 49 nodes"
+    response_strategy: >
+      Tamarin's attacker model (Dolev-Yao) is already topology-agnostic: it
+      can intercept, inject, and replay any message from any node. The 2-node
+      abstraction in the model is standard practice and does not limit generality
+      for authentication lemmas. ns-3 scale-validation (up to 49 nodes) and
+      hardware experiments provide empirical evidence across scales.
+    fallback_claim: >
+      "Tamarin proofs for authentication properties are topology-independent
+      by the Dolev-Yao model assumption; scale is validated empirically."
+    status: open
+
+  - risk_id: R5
+    severity: low
+    likely_appears_in: "Area editor"
+    description: >
+      "Key distribution is not addressed — how do nodes share the HMAC key?"
+    related_contributions: [C2]
+    related_sections: [sec:patch, sec:discussion]
+    mitigation_evidence:
+      - "Paper explicitly assumes pre-shared key (PSK) provisioned at manufacturing/deployment"
+      - "PSK is standard for constrained ad hoc networks (ZigBee, Thread)"
+      - "Key rotation and distribution is acknowledged as future work"
+    response_strategy: >
+      PSK provisioning is the standard bootstrap assumption for constrained ad hoc
+      networks. The patch design deliberately avoids PKI (infeasible on ESP32-class
+      nodes). Key distribution is out of scope and acknowledged in §Discussion.
+    fallback_claim: >
+      "PSK provisioning is a deployment engineering concern, not a protocol
+      security property; the paper's contribution is the formal proof that
+      the patch satisfies all security goals given PSK."
+    status: open
+
+limitations:
+  - "Tamarin model covers protocol logic only; deployed LoRaMesher firmware has additional implementation surface."
+  - "Hardware testbed is bench-scale (≤6 nodes, <1 m distance); field deployment may reveal additional channel-level issues."
+  - "ns-3 uses log-distance path loss, not full LoRa link-budget simulation (LoRaSim or similar)."
+  - "Single pre-shared key assumed; multi-group key management is future work."
+  - "MetricVersion counter currently persisted per-boot via NVS; synchronization after long-term node replacement not addressed."

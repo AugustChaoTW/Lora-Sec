@@ -1,0 +1,182 @@
+paper_path: /home/augchao/Work/Lora-Sec/00_Paper/AdHocNet/AdHocNet-Aug.tex
+paper_stage: draft
+target_journal: "Ad Hoc Networks (Elsevier)"
+license: "MIT"
+artifact_section_label: app:artifact
+artifact_section_tex_line: 1792
+
+artifacts:
+
+  # --- Tamarin Formal Models ---
+
+  - artifact_id: A1
+    type: formal_model
+    path: "phase2_tamarin_models/baseline/baseline_lora_dv.spthy"
+    description: "Tamarin model: baseline unauthenticated LoRaMesher protocol"
+    contribution: C1
+    experiment: E1_tamarin_baseline
+    reproducible_by: "tamarin-prover baseline_lora_dv.spthy --prove"
+    expected_output: "4/5 lemmas falsified in ~0.8 s"
+
+  - artifact_id: A2
+    type: formal_model
+    path: "phase2_tamarin_models/patched/patched_lora_dv_2node.spthy"
+    description: "Tamarin model: patched protocol with HMAC + MetricVersion (2-node)"
+    contribution: C1
+    experiment: E1_tamarin_patched
+    reproducible_by: "tamarin-prover patched_lora_dv_2node.spthy --prove"
+    expected_output: "8/8 lemmas verified in ~3.6 s"
+
+  # --- Verification Logs ---
+
+  - artifact_id: A3
+    type: log
+    path: "supplementary/verification/baseline_verification.log"
+    description: "Tamarin verification output: baseline (4/5 falsified)"
+    contribution: C1
+    experiment: E1_tamarin_baseline
+
+  - artifact_id: A4
+    type: log
+    path: "supplementary/verification/patched_2node_verification.log"
+    description: "Tamarin verification output: patched 2-node (8/8 verified)"
+    contribution: C1
+    experiment: E1_tamarin_patched
+
+  # --- ns-3 Simulation ---
+
+  - artifact_id: A5
+    type: source_code
+    path: "phase4_ns3_simulation/src/routing/loramesh-routing.{h,cc}"
+    description: "ns-3 LoRaMesh DV routing module (baseline/patched/metricversion)"
+    contribution: C3
+    experiment: E2_ns3
+
+  - artifact_id: A6
+    type: source_code
+    path: "phase4_ns3_simulation/src/attack/attacker-node.{h,cc}"
+    description: "ns-3 Dolev-Yao attacker node (SPOOFING, REPLAY, SELECTIVE)"
+    contribution: C3
+    experiment: E2_ns3
+
+  - artifact_id: A7
+    type: source_code
+    path: "phase4_ns3_simulation/scratch/lora-mesh-sim.cc"
+    description: "ns-3 main simulator: topology setup, metrics collection, JSON output"
+    contribution: C3
+    experiment: E2_ns3
+
+  - artifact_id: A8
+    type: script
+    path: "phase4_ns3_simulation/run_experiment_matrix.py"
+    description: "Orchestrates 27-scenario × 5-seed experiment matrix (135 runs)"
+    contribution: C3
+    experiment: E2_ns3
+    run_time: "2-4 hours"
+
+  - artifact_id: A9
+    type: data
+    path: "phase4_ns3_simulation/results/"
+    description: "Raw ns-3 JSON results (225 runs: 135 core + 90 scale)"
+    contribution: C3
+    experiment: E2_ns3
+
+  # --- Hardware Firmware ---
+
+  - artifact_id: A10
+    type: firmware
+    path: "hardware_experiments/E5a_hmac_timing/"
+    description: "ESP32-S3 HMAC-SHA256 timing firmware (mbedTLS 2.28)"
+    contribution: C2
+    experiment: E0_hmac_timing
+    hardware: "Ebyte EoRa-PI (ESP32-S3FH4R2 + SX1262)"
+
+  - artifact_id: A11
+    type: firmware
+    path: "hardware_experiments/E5b_3node_injection/"
+    description: "3-node route injection attack/defense firmware"
+    contribution: C4
+    experiment: E3_hardware_e5b
+    hardware: "3x Ebyte EoRa-PI"
+
+  - artifact_id: A12
+    type: firmware
+    path: "hardware_experiments/E5c_nvs_demo/"
+    description: "NVS MetricVersion persistence firmware (Mode 1 vs Mode 2)"
+    contribution: C4
+    experiment: E4_hardware_e5c
+    hardware: "2x Ebyte EoRa-PI"
+
+  - artifact_id: A13
+    type: firmware
+    path: "hardware_experiments/E6_6node_linear_demo/"
+    description: "6-node linear multi-hop relay firmware (baseline + patched)"
+    contribution: C4
+    experiment: E5_hardware_e6
+    hardware: "6x Ebyte EoRa-PI"
+
+  - artifact_id: A14
+    type: log
+    path: "hardware_experiments/E6_6node_linear_demo/results/mode0_baseline_all_nodes.log"
+    description: "Serial log: 6-node baseline (3/4 relays poisoned)"
+    contribution: C4
+    experiment: E5_hardware_e6
+
+  - artifact_id: A15
+    type: log
+    path: "hardware_experiments/E6_6node_linear_demo/results/mode1_patched_all_nodes.log"
+    description: "Serial log: 6-node patched (0/4 relays poisoned; PDR=85%)"
+    contribution: C4
+    experiment: E5_hardware_e6
+
+  # --- Patch Source ---
+
+  - artifact_id: A16
+    type: source_code
+    path: "patch/loramesher_hmac_metricversion.patch"
+    description: "41-line drop-in patch for LoRaMesher v0.8.x firmware"
+    contribution: C2
+    applies_to: "LoRaMesher v0.8.x"
+    install: "git apply loramesher_hmac_metricversion.patch"
+
+  # --- Reproducibility ---
+
+  - artifact_id: A17
+    type: docker
+    path: "supplementary/docker/"
+    description: "Docker image reproducing Tamarin proofs and ns-3 runs"
+    contribution: C5
+    command: "docker run --rm lora-sec-artifact:latest make all"
+    expected_output: "Tamarin 8/8 verified; ns-3 135-run matrix completed"
+
+  - artifact_id: A18
+    type: documentation
+    path: "supplementary/README.md"
+    description: "12 KB artifact guide for reviewers: file index, reproduction steps"
+    contribution: C5
+
+  # --- Paper ---
+
+  - artifact_id: A19
+    type: paper
+    path: "00_Paper/AdHocNet/AdHocNet-Aug.tex"
+    description: "Main paper LaTeX source"
+    pages: 35
+    compiled_size_kb: 765
+    bibliography: "references/bibliography.bib"
+    compilation: "cd 00_Paper/AdHocNet && make"
+
+artifact_completeness:
+  total_artifacts: 19
+  type_breakdown:
+    formal_model: 2
+    log: 4
+    source_code: 4
+    firmware: 4
+    data: 1
+    script: 1
+    docker: 1
+    documentation: 1
+    paper: 1
+  all_locked_numbers_traceable: true
+  docker_reproduces_key_results: true
