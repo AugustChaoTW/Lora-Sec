@@ -151,6 +151,9 @@ void loop() {
 
   MeshPacket *pkt = (MeshPacket*)buf;
 
+  // Ignore our own ROUTE_POISON (from=0xFE) — avoid self-defeating forward loop
+  if (buf[0] == 0xFE) return;
+
   // Only process packets where next_hop == self (hijacked relay path)
   if (pkt->next_hop != NODE_ID) return;
 
