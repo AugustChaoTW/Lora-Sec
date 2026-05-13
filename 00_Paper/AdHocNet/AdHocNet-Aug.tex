@@ -1949,9 +1949,11 @@ No prior study assembles all three for any LoRa mesh routing protocol.
     Black Hole indicator (V4: DATA~dst\,=\,known-attacker address);
     (ii)~KLD + Hamming-distance Hello-interval IDS (E13), adapted
     from~\cite{ieee2025-lorawan-jamming-ids}, running entirely on
-    ESP32-S3 without floating-point operations; and (iii)~on-device
-    autoencoder (E15, 169~parameters, 676~bytes RAM, TPR=100\%,
-    FPR=5\%), extending~\cite{springer2026-blockchain-ids}
+    ESP32-S3 without floating-point operations (measured KLD score
+    754 for flood-attack vs.\ threshold 200, 2 alerts in 120~s); and
+    (iii)~on-device autoencoder (E15, 169~parameters, 676~bytes RAM,
+    TPR=100\%, FPR=5\%, inference 6--7~$\mu$s on ESP32-S3 at 240~MHz),
+    extending~\cite{springer2026-blockchain-ids}
     to constrained hardware.
     All three require per-deployment baseline calibration and are
     deferred to a companion paper.
@@ -1961,9 +1963,13 @@ No prior study assembles all three for any LoRa mesh routing protocol.
     physical-layer device authentication.
     RSSI-based attacker localization (E14) demonstrates that
     mesh-layer promiscuous RSSI data already available from SX1262
-    can estimate attacker position within 20--50~cm at bench scale
-    via weighted least-squares multilateration over five observer
-    nodes—without SDR infrastructure.
+    can estimate attacker position via weighted least-squares
+    multilateration over five observer nodes—without SDR
+    infrastructure.
+    Hardware validation produced 205 stable position estimates in
+    120~s (all converging to $<$1~cm error at bench scale);
+    path-loss calibration is required for meter-scale accuracy
+    at LoRa operating distances.
     RF fingerprinting based on hardware oscillator
     characteristics~\cite{ieee2025-lora-adversarial} can further
     complement HMAC but requires SDR infrastructure not
