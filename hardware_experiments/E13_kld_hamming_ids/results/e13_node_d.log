@@ -1,0 +1,117 @@
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0x15 (USB_UART_CHIP_RESET),boot:0x39 (SPI_FAST_FLASH_BOOT)
+Saved PC:0x4037ce2a
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2820,len:0x10cc
+load:0x403c8700,len:0xc2c
+load:0x403cb700,len:0x30c0
+entry 0x403c88b8
+
+=== E13 Node D (KLD+HD IDS) ===
+[INFO] Baseline: 60s  KLD threshold: 200  HD threshold: 3
+[INFO] Adapts ieee2025-lorawan-jamming-ids to LoRaMesher DV routing layer.
+[RADIO] SX1262 ready — promiscuous IDS mode
+[IDS] New node tracked: 0xBB
+[IDS] New node tracked: 0x22
+[IDS] New node tracked: 0x11
+[IDS] HD=2 src=0x22 seq 177→178 (near-replay suspect, alerts=1)
+[IDS] BASELINE src=0x22 interval=1523ms bin=0 (1 samples)
+[IDS] HD=1 src=0x11 seq 0→1 (near-replay suspect, alerts=1)
+[IDS] BASELINE src=0x11 interval=1523ms bin=0 (1 samples)
+[IDS] HD=1 src=0x22 seq 178→179 (near-replay suspect, alerts=2)
+[IDS] BASELINE src=0x22 interval=7597ms bin=3 (2 samples)
+[IDS] HD=1 src=0xBB seq 0→1 (near-replay suspect, alerts=1)
+[IDS] BASELINE src=0xBB interval=10257ms bin=5 (1 samples)
+[IDS] HD=1 src=0x11 seq 1→3 (near-replay suspect, alerts=2)
+[IDS] BASELINE src=0x11 interval=7597ms bin=3 (2 samples)
+[IDS] HD=3 src=0x22 seq=180 → normal
+[IDS] BASELINE src=0x22 interval=1137ms bin=0 (3 samples)
+[IDS] HD=3 src=0x11 seq=4 → normal
+[IDS] BASELINE src=0x11 interval=1137ms bin=0 (3 samples)
+[IDS] HD=1 src=0x22 seq 180→181 (near-replay suspect, alerts=3)
+[IDS] BASELINE src=0x22 interval=1523ms bin=0 (4 samples)
+[IDS] HD=1 src=0x11 seq 4→5 (near-replay suspect, alerts=3)
+[IDS] BASELINE src=0x11 interval=1523ms bin=0 (4 samples)
+[IDS] New node tracked: 0xCC
+[IDS] HD=2 src=0x11 seq 5→6 (near-replay suspect, alerts=4)
+[IDS] BASELINE src=0x11 interval=3817ms bin=1 (5 samples)
+[IDS] HD=2 src=0xBB seq 1→2 (near-replay suspect, alerts=2)
+[IDS] BASELINE src=0xBB interval=10000ms bin=5 (2 samples)
+[IDS] HD=1 src=0x11 seq 6→7 (near-replay suspect, alerts=5)
+[IDS] BASELINE src=0x11 interval=3899ms bin=1 (6 samples)
+[IDS] HD=1 src=0xBB seq 2→3 (near-replay suspect, alerts=3)
+[IDS] BASELINE src=0xBB interval=10000ms bin=5 (3 samples)
+[IDS] HD=4 src=0x11 seq=8 → normal
+[IDS] BASELINE src=0x11 interval=10000ms bin=5 (7 samples)
+[IDS] HD=2 src=0xCC seq 2→4 (near-replay suspect, alerts=1)
+[IDS] BASELINE src=0xCC interval=16000ms bin=7 (1 samples)
+[IDS] HD=1 src=0x11 seq 8→9 (near-replay suspect, alerts=6)
+[IDS] BASELINE src=0x11 interval=2101ms bin=1 (8 samples)
+[IDS] HD=3 src=0xBB seq=4 → normal
+[IDS] BASELINE src=0xBB interval=10000ms bin=5 (4 samples)
+[IDS] HD=4 src=0x22 seq=186 → normal
+[IDS] BASELINE src=0x22 interval=28477ms bin=7 (5 samples)
+[IDS] HD=2 src=0x11 seq 9→10 (near-replay suspect, alerts=7)
+[IDS] BASELINE src=0x11 interval=8660ms bin=4 (9 samples)
+[IDS] HD=1 src=0x22 seq 186→187 (near-replay suspect, alerts=4)
+[IDS] BASELINE src=0x22 interval=1523ms bin=0 (6 samples)
+[IDS] HD=1 src=0x11 seq 10→11 (near-replay suspect, alerts=8)
+[IDS] BASELINE src=0x11 interval=1523ms bin=0 (10 samples)
+[IDS] HD=3 src=0x22 seq=188 → normal
+[IDS] BASELINE src=0x22 interval=7341ms bin=3 (7 samples)
+[IDS] HD=1 src=0xBB seq 4→5 (near-replay suspect, alerts=4)
+[IDS] BASELINE src=0xBB interval=10000ms bin=5 (5 samples)
+[IDS] HD=2 src=0x11 seq 11→13 (near-replay suspect, alerts=9)
+[IDS] BASELINE src=0x11 interval=7341ms bin=3 (11 samples)
+[IDS] HD=1 src=0x22 seq 188→189 (near-replay suspect, alerts=5)
+[IDS] BASELINE src=0x22 interval=1136ms bin=0 (8 samples)
+[IDS] HD=2 src=0x11 seq 13→14 (near-replay suspect, alerts=10)
+[IDS] BASELINE src=0x11 interval=1136ms bin=0 (12 samples)
+[IDS] HD=2 src=0x22 seq 189→190 (near-replay suspect, alerts=6)
+[IDS] BASELINE src=0x22 interval=1522ms bin=0 (9 samples)
+[IDS] HD=1 src=0x11 seq 14→15 (near-replay suspect, alerts=11)
+[IDS] BASELINE src=0x11 interval=1522ms bin=0 (13 samples)
+[IDS] HD=2 src=0xCC seq 4→7 (near-replay suspect, alerts=2)
+[IDS] BASELINE src=0xCC interval=24000ms bin=7 (2 samples)
+[IDS] HD=5 src=0x11 seq=16 → normal
+[IDS] BASELINE src=0x11 interval=3819ms bin=1 (14 samples)
+[IDS] HD=2 src=0xBB seq 5→6 (near-replay suspect, alerts=5)
+[IDS] BASELINE COMPLETE src=0xBB (5 samples) — detection active
+[IDS] HD=1 src=0xBB seq 6→7 (near-replay suspect, alerts=6)
+[IDS] HD=3 src=0xCC seq=9 → normal
+[IDS] BASELINE src=0xCC interval=16000ms bin=7 (3 samples)
+[IDS] HD=4 src=0xBB seq=8 → normal
+[IDS] HD=6 src=0x22 seq=195 → normal
+[IDS] BASELINE COMPLETE src=0x22 (9 samples) — detection active
+[IDS] HD=1 src=0x11 seq 16→20 (near-replay suspect, alerts=12)
+[IDS] BASELINE COMPLETE src=0x11 (14 samples) — detection active
+[IDS] HD=3 src=0x22 seq=196 → normal
+[IDS] HD=1 src=0x11 seq 20→21 (near-replay suspect, alerts=13)
+[IDS] HD=1 src=0x22 seq 196→197 (near-replay suspect, alerts=7)
+[IDS] HD=1 src=0xBB seq 8→9 (near-replay suspect, alerts=7)
+[IDS] HD=1 src=0x11 seq 21→23 (near-replay suspect, alerts=14)
+[IDS] HD=2 src=0x22 seq 197→198 (near-replay suspect, alerts=8)
+[IDS] HD=4 src=0x11 seq=24 → normal
+[IDS] HD=1 src=0x22 seq 198→199 (near-replay suspect, alerts=9)
+[IDS] KLD=129 src=0x22 interval=1522ms (threshold=200)
+[IDS] HD=1 src=0x11 seq 24→25 (near-replay suspect, alerts=15)
+[IDS] KLD=754 src=0x11 interval=1522ms (threshold=200)
+[IDS] KLD ALERT src=0x11 KLD=754 > 200 — ROUTING FLOOD / STORM (alerts=1)
+[IDS] HD=2 src=0xCC seq 9→12 (near-replay suspect, alerts=3)
+[IDS] BASELINE COMPLETE src=0xCC (3 samples) — detection active
+[IDS] HD=2 src=0x11 seq 25→26 (near-replay suspect, alerts=16)
+[IDS] KLD=262 src=0x11 interval=3819ms (threshold=200)
+[IDS] KLD ALERT src=0x11 KLD=262 > 200 — ROUTING FLOOD / STORM (alerts=2)
+[IDS] HD=2 src=0xBB seq 9→10 (near-replay suspect, alerts=8)
+[IDS] KLD=7 src=0xBB interval=10000ms (threshold=200)
+[IDS] HD=1 src=0x11 seq 26→27 (near-replay suspect, alerts=17)
+[IDS] KLD=169 src=0x11 interval=3898ms (threshold=200)
+[IDS] HD=1 src=0xBB seq 10→11 (near-replay suspect, alerts=9)
+[IDS] KLD=7 src=0xBB interval=10000ms (threshold=200)
+[IDS] HD=3 src=0x11 seq=28 → normal
+[IDS] KLD=145 src=0x11 interval=10000ms (threshold=200)
+[IDS] HD=1 src=0xCC seq 12→14 (near-replay suspect, alerts=4)
+[IDS] HD=1 src=0x11 seq 28→29 (near-replay suspect, alerts=18)
+[IDS] KLD=151 src=0x11 interval=2102ms (threshold=200)

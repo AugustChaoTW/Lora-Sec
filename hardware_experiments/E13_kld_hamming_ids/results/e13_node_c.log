@@ -1,0 +1,183 @@
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0x15 (USB_UART_CHIP_RESET),boot:0x19 (SPI_FAST_FLASH_BOOT)
+Saved PC:0x4037ce2a
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2820,len:0x10cc
+load:0x403c8700,len:0xc2c
+load:0x403cb700,len:0x30c0
+entry 0x403c88b8
+
+=== E13 Node C (BLACK HOLE ATTACKER — INSIDER) ===
+[INFO] This node holds NETWORK_PSK and signs Hellos validly.
+[INFO] Finding: HMAC patch does NOT prevent insider black hole.
+[INFO] Authentication proves origin, not forwarding behavior.
+[RADIO] SX1262 ready @ 923 MHz AS923
+[BLACKHOLE] Hello sent: seq=0 metric=0 HMAC=VALID (#1)
+[BLACKHOLE] Honest nodes will update: NH=0xCC metric=1
+[BLACKHOLE] HMAC patch: ACCEPTS (PSK valid) → route poisoned
+[SNIFF] Hello from 0x22 metric=1 seq=177
+[SNIFF] Hello from 0x11 metric=2 seq=0
+[SNIFF] Hello from 0x22 metric=3 seq=178
+[SNIFF] Hello from 0x11 metric=4 seq=1
+[BLACKHOLE] DROP data src=0xAA dst=0x22 pkt_id=0 (total_dropped=1)
+[BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[BLACKHOLE] DROP data src=0x22 dst=0xBB pkt_id=244 (total_dropped=2)
+[BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[BLACKHOLE] Hello sent: seq=1 metric=0 HMAC=VALID (#2)
+[BLACKHOLE] Honest nodes will update: NH=0xCC metric=1
+[BLACKHOLE] HMAC patch: ACCEPTS (PSK valid) → route poisoned
+[SNIFF] Hello from 0x11 metric=1 seq=2
+[BLACKHOLE] DROP data src=0x11 dst=0xCC pkt_id=1 (total_dropped=3)
+[BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[SNIFF] Hello from 0x22 metric=2 seq=179
+[SNIFF] Hello from 0xBB metric=0 seq=1
+[SNIFF] Hello from 0x11 metric=3 seq=3
+[SNIFF] Hello from 0x22 metric=1 seq=180
+[SNIFF] Hello from 0x11 metric=2 seq=4
+[SNIFF] Hello from 0x22 metric=3 seq=181
+[SNIFF] Hello from 0x11 metric=4 seq=5
+[BLACKHOLE] DROP data src=0xAA dst=0xCC pkt_id=2 (total_dropped=4)
+[BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[BLACKHOLE] Hello sent: seq=2 metric=0 HMAC=VALID (#3)
+[BLACKHOLE] Honest nodes will update: NH=0xCC metric=1
+[BLACKHOLE] HMAC patch: ACCEPTS (PSK valid) → route poisoned
+[SNIFF] Hello from 0x11 metric=1 seq=6
+[BLACKHOLE] DROP data src=0x22 dst=0xBB pkt_id=246 (total_dropped=5)
+[BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[BLACKHOLE] DROP data src=0xAA dst=0xCC pkt_id=3 (total_dropped=6)
+[BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[SNIFF] Hello from 0xBB metric=0 seq=2
+[SNIFF] Hello from 0x11 metric=1 seq=7
+[BLACKHOLE] DROP data src=0x22 dst=0xBB pkt_id=247 (total_dropped=7)
+[BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[BLACKHOLE] Hello sent: seq=3 metric=0 HMAC=VALID (#4)
+[BLACKHOLE] Honest nodes will update: NH=0xCC metric=1
+[BLACKHOLE] HMAC patch: ACCEPTS (PSK valid) → route poisoned
+[BLACKHOLE] DROP data src=0x22 dst=0xBB pkt_id=248 (total_dropped=8)
+[BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[BLACKHOLE] DROP data src=0xAA dst=0xCC pkt_id=5 (total_dropped=9)
+[BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[SNIFF] Hello from 0xBB metric=0 seq=3
+[SNIFF] Hello from 0x11 metric=1 seq=8
+[BLACKHOLE] Hello sent: seq=4 metric=0 HMAC=VALID (#5)
+[BLACKHOLE] Honest nodes will update: NH=0xCC metric=1
+[BLACKHOLE] HMAC patch: ACCEPTS (PSK valid) → route poisoned
+[SNIFF] Hello from 0x11 metric=1 seq=9
+[BLACKHOLE] DROP data src=0x22 dst=0xBB pkt_id=249 (total_dropped=10)
+[BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[BLACKHOLE] DROP data src=0xAA dst=0xCC pkt_id=6 (total_dropped=11)
+[BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[BLACKHOLE] DROP data src=0x22 dst=0xBB pkt_id=250 (total_dropped=12)
+[BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[BLACKHOLE] DROP data src=0xAA dst=0xCC pkt_id=7 (total_dropped=13)
+[BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[BLACKHOLE] Hello sent: seq=5 metric=0 HMAC=VALID (#6)
+[BLACKHOLE] Honest nodes will update: NH=0xCC metric=1
+[BLACKHOLE] HMAC patch: ACCEPTS (PSK valid) → route poisoned
+[SNIFF] Hello from 0x22 metric=1 seq=186
+[SNIFF] Hello from 0x11 metric=2 seq=10
+[SNIFF] Hello from 0x22 metric=3 seq=187
+[SNIFF] Hello from 0x11 metric=4 seq=11
+[BLACKHOLE] DROP data src=0xAA dst=0x22 pkt_id=8 (total_dropped=14)
+[BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[BLACKHOLE] Hello sent: seq=6 metric=0 HMAC=VALID (#7)
+[BLACKHOLE] Honest nodes will update: NH=0xCC metric=1
+[BLACKHOLE] HMAC patch: ACCEPTS (PSK valid) → route poisoned
+[BLACKHOLE] DROP data src=0x11 dst=0xCC pkt_id=9 (total_dropped=15)
+[BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[SNIFF] Hello from 0x22 metric=2 seq=188
+[SNIFF] Hello from 0xBB metric=0 seq=5
+[SNIFF] Hello from 0x11 metric=3 seq=13
+[SNIFF] Hello from 0x22 metric=1 seq=189
+[SNIFF] Hello from 0x11 metric=2 seq=14
+[SNIFF] Hello from 0x22 metric=3 seq=190
+[SNIFF] Hello from 0x11 metric=4 seq=15
+[BLACKHOLE] DROP data src=0xAA dst=0xCC pkt_id=10 (total_dropped=16)
+[BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[BLACKHOLE] Hello sent: seq=7 metric=0 HMAC=VALID (#8)
+[BLACKHOLE] Honest nodes will update: NH=0xCC metric=1
+[BLACKHOLE] HMAC patch: ACCEPTS (PSK valid) → route poisoned
+[SNIFF] Hello from 0x11 metric=1 seq=16
+[BLACKHOLE] DROP data src=0x22 dst=0xBB pkt_id=254 (total_dropped=17)
+[BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[BLACKHOLE] DROP data src=0xAA dst=0xCC pkt_id=11 (total_dropped=18)
+[BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[SNIFF] Hello from 0xBB metric=0 seq=6
+[SNIFF] Hello from 0x11 metric=1 seq=17
+[BLACKHOLE] DROP data src=0x22 dst=0xBB pkt_id=255 (total_dropped=19)
+[BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[BLACKHOLE] Hello sent: seq=8 metric=0 HMAC=VALID (#9)
+[BLACKHOLE] Honest nodes will update: NH=0xCC metric=1
+[BLACKHOLE] HMAC patch: ACCEPTS (PSK valid) → route poisoned
+[BLACKHOLE] DROP data src=0x22 dst=0xBB pkt_id=256 (total_dropped=20)
+[BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[BLACKHOLE] DROP data src=0xAA dst=0xCC pkt_id=13 (total_dropped=21)
+[BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[SNIFF] Hello from 0xBB metric=0 seq=7
+[SNIFF] Hello from 0x11 metric=1 seq=18
+[BLACKHOLE] Hello sent: seq=9 metric=0 HMAC=VALID (#10)
+[BLACKHOLE] Honest nodes will update: NH=0xCC metric=1
+[BLACKHOLE] HMAC patch: ACCEPTS (PSK valid) → route poisoned
+[SNIFF] Hello from 0x11 metric=1 seq=19
+[BLACKHOLE] DROP data src=0x22 dst=0xBB pkt_id=257 (total_dropped=22)
+[BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[BLACKHOLE] DROP data src=0xAA dst=0xCC pkt_id=14 (total_dropped=23)
+[BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[BLACKHOLE] DROP data src=0x22 dst=0xBB pkt_id=258 (total_dropped=24)
+[BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[BLACKHOLE] DROP data src=0xAA dst=0xCC pkt_id=15 (total_dropped=25)
+[BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[BLACKHOLE] Hello sent: seq=10 metric=0 HMAC=VALID (#11)
+[BLACKHOLE] Honest nodes will update: NH=0xCC metric=1
+[BLACKHOLE] HMAC patch: ACCEPTS (PSK valid) → route poisoned
+[SNIFF] Hello from 0x22 metric=1 seq=195
+[SNIFF] Hello from 0x11 metric=2 seq=20
+[SNIFF] Hello from 0x22 metric=3 seq=196
+[SNIFF] Hello from 0x11 metric=4 seq=21
+[BLACKHOLE] DROP data src=0xAA dst=0x22 pkt_id=16 (total_dropped=26)
+[BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[BLACKHOLE] Hello sent: seq=11 metric=0 HMAC=VALID (#12)
+[BLACKHOLE] Honest nodes will update: NH=0xCC metric=1
+[BLACKHOLE] HMAC patch: ACCEPTS (PSK valid) → route poisoned
+[SNIFF] Hello from 0x22 metric=2 seq=197
+[SNIFF] Hello from 0xBB metric=0 seq=9
+[SNIFF] Hello from 0x11 metric=3 seq=23
+[SNIFF] Hello from 0x22 metric=1 seq=198
+[SNIFF] Hello from 0x11 metric=2 seq=24
+[SNIFF] Hello from 0x22 metric=3 seq=199
+[SNIFF] Hello from 0x11 metric=4 seq=25
+[BLACKHOLE] DROP data src=0xAA dst=0xCC pkt_id=18 (total_dropped=27)
+[BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[BLACKHOLE] Hello sent: seq=12 metric=0 HMAC=VALID (#13)
+[BLACKHOLE] Honest nodes will update: NH=0xCC metric=1
+[BLACKHOLE] HMAC patch: ACCEPTS (PSK valid) → route poisoned
+[SNIFF] Hello from 0x11 metric=1 seq=26
+[BLACKHOLE] DROP data src=0x22 dst=0xBB pkt_id=262 (total_dropped=28)
+[BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[BLACKHOLE] DROP data src=0xAA dst=0xCC pkt_id=19 (total_dropped=29)
+[BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[SNIFF] Hello from 0xBB metric=0 seq=10
+[SNIFF] Hello from 0x11 metric=1 seq=27
+[BLACKHOLE] DROP data src=0x22 dst=0xBB pkt_id=263 (total_dropped=30)
+[BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[BLACKHOLE] Hello sent: seq=13 metric=0 HMAC=VALID (#14)
+[BLACKHOLE] Honest nodes will update: NH=0xCC metric=1
+[BLACKHOLE] HMAC patch: ACCEPTS (PSK valid) → route poisoned
+[BLACKHOLE] DROP data src=0x22 dst=0xBB pkt_id=264 (total_dropped=31)
+[BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[BLACKHOLE] DROP data src=0xAA dst=0xCC pkt_id=21 (total_dropped=32)
+[BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[SNIFF] Hello from 0xBB metric=0 seq=11
+[SNIFF] Hello from 0x11 metric=1 seq=28
+[BLACKHOLE] Hello sent: seq=14 metric=0 HMAC=VALID (#15)
+[BLACKHOLE] Honest nodes will update: NH=0xCC metric=1
+[BLACKHOLE] HMAC patch: ACCEPTS (PSK valid) → route poisoned
+[SNIFF] Hello from 0x11 metric=1 seq=29
+[BLACKHOLE] DROP data src=0x22 dst=0xBB pkt_id=265 (total_dropped=33)
+[BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[BLACKHOLE] DROP data src=0xAA dst=0xCC pkt_id=22 (total_dropped=34)
+[BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[BLACKHOLE] DROP data src=0x22 dst=0xBB pkt_id=266 (total_dropped=35)
+[BLACKHOLE] Gateway sees: SILENCE (PDR=0%)

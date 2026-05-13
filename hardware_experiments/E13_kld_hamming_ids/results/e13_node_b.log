@@ -1,0 +1,76 @@
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0x15 (USB_UART_CHIP_RESET),boot:0x19 (SPI_FAST_FLASH_BOOT)
+Saved PC:0x4037ce2a
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2820,len:0x10cc
+load:0x403c8700,len:0xc2c
+load:0x403cb700,len:0x30c0
+entry 0x403c88b8
+
+=== E13 Node B (GATEWAY — honest, SECURITY_MODE=1) ===
+[INFO] Gateway broadcasts Hello. Insider attacker (0xCC) races with own Hello.
+[INFO] All honest nodes route to 0xCC (Black Hole). PDR drops to 0%.
+[INFO] This gateway cannot detect the Black Hole — it just observes silence.
+[RADIO] SX1262 ready @ 923 MHz AS923
+[TX] Hello seq=0 (hello #1)
+[RX] DATA id=243 from 0x22 payload=220243 (total=1)
+[TX] ACK id=243 → 0x22
+[RX] DATA id=0 from 0x11 payload=110000 (total=2)
+[TX] ACK id=0 → 0x11
+[RX] DATA id=244 from 0x22 payload=220244 (total=3)
+[TX] ACK id=244 → 0x22
+[RX] DATA id=1 from 0x11 payload=110001 (total=4)
+[TX] ACK id=1 → 0x11
+[TX] Hello seq=1 (hello #2)
+[RX] DATA id=245 from 0x22 payload=220245 (total=5)
+[TX] ACK id=245 → 0x22
+[RX] DATA id=246 from 0x22 payload=220246 (total=6)
+[TX] ACK id=246 → 0x22
+[TX] Hello seq=2 (hello #3)
+[RX] DATA id=247 from 0x22 payload=220247 (total=7)
+[TX] ACK id=247 → 0x22
+[RX] DATA id=248 from 0x22 payload=220248 (total=8)
+[TX] ACK id=248 → 0x22
+[TX] Hello seq=3 (hello #4)
+[RX] DATA id=249 from 0x22 payload=220249 (total=9)
+[TX] ACK id=249 → 0x22
+[RX] DATA id=250 from 0x22 payload=220250 (total=10)
+[TX] ACK id=250 → 0x22
+[TX] Hello seq=4 (hello #5)
+[RX] DATA id=252 from 0x22 payload=220252 (total=11)
+[TX] ACK id=252 → 0x22
+[RX] DATA id=9 from 0x11 payload=110009 (total=12)
+[TX] ACK id=9 → 0x11
+[TX] Hello seq=5 (hello #6)
+[RX] DATA id=254 from 0x22 payload=220254 (total=13)
+[TX] ACK id=254 → 0x22
+[TX] Hello seq=6 (hello #7)
+[RX] DATA id=255 from 0x22 payload=220255 (total=14)
+[TX] ACK id=255 → 0x22
+[RX] DATA id=256 from 0x22 payload=220256 (total=15)
+[TX] ACK id=256 → 0x22
+[TX] Hello seq=7 (hello #8)
+[RX] DATA id=257 from 0x22 payload=220257 (total=16)
+[TX] ACK id=257 → 0x22
+[RX] DATA id=258 from 0x22 payload=220258 (total=17)
+[TX] ACK id=258 → 0x22
+[TX] Hello seq=8 (hello #9)
+[RX] DATA id=260 from 0x22 payload=220260 (total=18)
+[TX] ACK id=260 → 0x22
+[RX] DATA id=17 from 0x11 payload=110017 (total=19)
+[TX] ACK id=17 → 0x11
+[TX] Hello seq=9 (hello #10)
+[RX] DATA id=262 from 0x22 payload=220262 (total=20)
+[TX] ACK id=262 → 0x22
+[TX] Hello seq=10 (hello #11)
+[RX] DATA id=263 from 0x22 payload=220263 (total=21)
+[TX] ACK id=263 → 0x22
+[RX] DATA id=264 from 0x22 payload=220264 (total=22)
+[TX] ACK id=264 → 0x22
+[TX] Hello seq=11 (hello #12)
+[RX] DATA id=265 from 0x22 payload=220265 (total=23)
+[TX] ACK id=265 → 0x22
+[RX] DATA id=266 from 0x22 payload=220266 (total=24)
+[TX] ACK id=266 → 0x22
