@@ -1,0 +1,35 @@
+=== E14 RSSI Localization ===
+Path loss: RSSI_ref=-40.0dBm n=2.0 d_ref=0.1m
+Observers: 5 ports
+Grid: A(0,0) B(200,0) C(100,100) D(0,200) E(200,200) cm
+
+Output: [LOC] seq=N est=(x,y)cm residual=Rcm
+Press Ctrl+C to stop.
+
+[SERIAL] Connected: /dev/cu.usbmodem1134401[SERIAL] Connected: /dev/cu.usbmodem1134201
+[SERIAL] Connected: /dev/cu.usbmodem1134601
+[SERIAL] Connected: /dev/cu.usbmodem11341301
+
+[SERIAL] Connected: /dev/cu.usbmodem1134701
+  [/dev/cu.usbmodem1134601] RSSIOR,C,124,-4.00,10,10  [/dev/cu.usbmodem11341301] RSI_ERT,0xEE,12,6002
+  [/dev/cu.usbmodem1134401] SREPO,0xB,124.00,
+
+  [/dev/cu.usbmodem1134701] RRO244.20
+  [/dev/cu.usbmodem1134201] _REPORT,0xAA,125,-15.00,0,0
+  [/dev/cu.usbmodem11341301] RSI
+  [/dev/cu.usbmodem1134701] RSIR20
+  [/dev/cu.usbmodem1134601] RS
+  [/dev/cu.usbmodem11341301] EOR,0xEE,2,-6.00,200,200
+  [/dev/cu.usbmodem1134701] RIPOR2,1020
+  [/dev/cu.usbmodem1134201] I_REPORT,0xAA,126,-1.
+  [/dev/cu.usbmodem1134401] SIT,0xBB,120.0,00,0
+  [/dev/cu.usbmodem1134701] I_REP0,20
+  [/dev/cu.usbmodem1134401] RSI_REPORT,0xBB,127,-0,0
+  [/dev/cu.usbmodem11341301] IE,,6.00,20
+  [/dev/cu.usbmodem1134201] SSO,A,127,-.0,00  [/dev/cu.usbmodem1134601] RSI_ORT,0,1,400
+
+  [/dev/cu.usbmodem1134701] RSS_RORT,xDD,128,-13.
+  [/dev/cu.usbmodem1134201] RSSIRPR,0xAA,1250
+  [/dev/cu.usbmodem11341301] S0020
+  [/dev/cu.usbmodem1134401] RSSIPRTB2,0,200,0
+  [/dev/cu.usbmodem1134201] SEP,-10
