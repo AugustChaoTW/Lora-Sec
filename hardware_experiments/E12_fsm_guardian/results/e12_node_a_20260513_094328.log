@@ -1,0 +1,70 @@
+[A(0xAA)] 09:43:28.715 ESP-ROM:esp32s3-20210327
+[A(0xAA)] 09:43:28.715 Build:Mar 27 2021
+[A(0xAA)] 09:43:28.716 rst:0x15 (USB_UART_CHIP_RESET),boot:0x19 (SPI_FAST_FLASH_BOOT)
+[A(0xAA)] 09:43:28.716 Saved PC:0x4037ce2a
+[A(0xAA)] 09:43:28.717 SPIWP:0xee
+[A(0xAA)] 09:43:28.718 mode:DIO, clock div:1
+[A(0xAA)] 09:43:28.718 load:0x3fce2820,len:0x10cc
+[A(0xAA)] 09:43:28.718 load:0x403c8700,len:0xc2c
+[A(0xAA)] 09:43:28.719 load:0x403cb700,len:0x30c0
+[A(0xAA)] 09:43:28.719 entry 0x403c88b8
+[A(0xAA)] 09:43:28.881 
+[A(0xAA)] 09:43:28.882 === E12 Node A (SENDER — honest, SECURITY_MODE=1) ===
+[A(0xAA)] 09:43:28.882 [INFO] Demonstrates: insider Black Hole bypasses HMAC patch.
+[A(0xAA)] 09:43:28.882 [INFO] Watch for NH=0xCC after attacker broadcasts signed Hello.
+[A(0xAA)] 09:43:28.882 [INFO] PDR should drop to 0% when routing to 0xCC.
+[A(0xAA)] 09:43:28.965 [RADIO] SX1262 ready @ 923 MHz AS923
+[A(0xAA)] 09:43:30.082 [ROUTE] Best NH=0x22 metric=2
+[A(0xAA)] 09:43:33.662 [TX] DATA id=0 via=0x22 PDR=0.0%
+[A(0xAA)] 09:43:37.690 [ROUTE] NH=0xCC metric=1 — ATTACKER INSERTED (HMAC passed!)
+[A(0xAA)] 09:43:37.690 [ROUTE] Black Hole attack SUCCESS: route table poisoned
+[A(0xAA)] 09:43:38.656 [TX] DATA id=1 via=0xCC (BLACK HOLE!) PDR=0.0%
+[A(0xAA)] 09:43:38.657 [WARN] Routing to attacker 0xCC — expect no ACK
+[A(0xAA)] 09:43:43.655 [TX] DATA id=2 via=0xCC (BLACK HOLE!) PDR=0.0%
+[A(0xAA)] 09:43:43.655 [WARN] Routing to attacker 0xCC — expect no ACK
+[A(0xAA)] 09:43:48.662 [TX] DATA id=3 via=0xCC (BLACK HOLE!) PDR=0.0%
+[A(0xAA)] 09:43:48.662 [WARN] Routing to attacker 0xCC — expect no ACK
+[A(0xAA)] 09:43:53.662 [TX] DATA id=4 via=0xCC (BLACK HOLE!) PDR=0.0%
+[A(0xAA)] 09:43:53.662 [WARN] Routing to attacker 0xCC — expect no ACK
+[A(0xAA)] 09:43:58.659 [TX] DATA id=5 via=0xCC (BLACK HOLE!) PDR=0.0%
+[A(0xAA)] 09:43:58.660 [WARN] Routing to attacker 0xCC — expect no ACK
+[A(0xAA)] 09:44:03.663 [TX] DATA id=6 via=0xCC (BLACK HOLE!) PDR=0.0%
+[A(0xAA)] 09:44:03.663 [WARN] Routing to attacker 0xCC — expect no ACK
+[A(0xAA)] 09:44:08.654 [TX] DATA id=7 via=0xCC (BLACK HOLE!) PDR=0.0%
+[A(0xAA)] 09:44:08.655 [WARN] Routing to attacker 0xCC — expect no ACK
+[A(0xAA)] 09:44:10.348 [ROUTE] Best NH=0x22 metric=2
+[A(0xAA)] 09:44:13.658 [TX] DATA id=8 via=0x22 PDR=0.0%
+[A(0xAA)] 09:44:17.683 [ROUTE] NH=0xCC metric=1 — ATTACKER INSERTED (HMAC passed!)
+[A(0xAA)] 09:44:17.684 [ROUTE] Black Hole attack SUCCESS: route table poisoned
+[A(0xAA)] 09:44:18.662 [TX] DATA id=9 via=0xCC (BLACK HOLE!) PDR=0.0%
+[A(0xAA)] 09:44:18.663 [WARN] Routing to attacker 0xCC — expect no ACK
+[A(0xAA)] 09:44:23.653 [TX] DATA id=10 via=0xCC (BLACK HOLE!) PDR=0.0%
+[A(0xAA)] 09:44:23.653 [WARN] Routing to attacker 0xCC — expect no ACK
+[A(0xAA)] 09:44:28.653 [TX] DATA id=11 via=0xCC (BLACK HOLE!) PDR=0.0%
+[A(0xAA)] 09:44:28.654 [WARN] Routing to attacker 0xCC — expect no ACK
+[A(0xAA)] 09:44:33.653 [TX] DATA id=12 via=0xCC (BLACK HOLE!) PDR=0.0%
+[A(0xAA)] 09:44:33.654 [WARN] Routing to attacker 0xCC — expect no ACK
+[A(0xAA)] 09:44:38.661 [TX] DATA id=13 via=0xCC (BLACK HOLE!) PDR=0.0%
+[A(0xAA)] 09:44:38.662 [WARN] Routing to attacker 0xCC — expect no ACK
+[A(0xAA)] 09:44:43.656 [TX] DATA id=14 via=0xCC (BLACK HOLE!) PDR=0.0%
+[A(0xAA)] 09:44:43.657 [WARN] Routing to attacker 0xCC — expect no ACK
+[A(0xAA)] 09:44:48.656 [TX] DATA id=15 via=0xCC (BLACK HOLE!) PDR=0.0%
+[A(0xAA)] 09:44:48.657 [WARN] Routing to attacker 0xCC — expect no ACK
+[A(0xAA)] 09:44:50.355 [ROUTE] Best NH=0x22 metric=2
+[A(0xAA)] 09:44:53.660 [TX] DATA id=16 via=0x22 PDR=0.0%
+[A(0xAA)] 09:44:57.690 [ROUTE] NH=0xCC metric=1 — ATTACKER INSERTED (HMAC passed!)
+[A(0xAA)] 09:44:57.690 [ROUTE] Black Hole attack SUCCESS: route table poisoned
+[A(0xAA)] 09:44:58.653 [TX] DATA id=17 via=0xCC (BLACK HOLE!) PDR=0.0%
+[A(0xAA)] 09:44:58.653 [WARN] Routing to attacker 0xCC — expect no ACK
+[A(0xAA)] 09:45:03.656 [TX] DATA id=18 via=0xCC (BLACK HOLE!) PDR=0.0%
+[A(0xAA)] 09:45:03.657 [WARN] Routing to attacker 0xCC — expect no ACK
+[A(0xAA)] 09:45:08.653 [TX] DATA id=19 via=0xCC (BLACK HOLE!) PDR=0.0%
+[A(0xAA)] 09:45:08.654 [WARN] Routing to attacker 0xCC — expect no ACK
+[A(0xAA)] 09:45:13.653 [TX] DATA id=20 via=0xCC (BLACK HOLE!) PDR=0.0%
+[A(0xAA)] 09:45:13.654 [WARN] Routing to attacker 0xCC — expect no ACK
+[A(0xAA)] 09:45:18.661 [TX] DATA id=21 via=0xCC (BLACK HOLE!) PDR=0.0%
+[A(0xAA)] 09:45:18.661 [WARN] Routing to attacker 0xCC — expect no ACK
+[A(0xAA)] 09:45:23.653 [TX] DATA id=22 via=0xCC (BLACK HOLE!) PDR=0.0%
+[A(0xAA)] 09:45:23.654 [WARN] Routing to attacker 0xCC — expect no ACK
+[A(0xAA)] 09:45:28.654 [TX] DATA id=23 via=0xCC (BLACK HOLE!) PDR=0.0%
+[A(0xAA)] 09:45:28.654 [WARN] Routing to attacker 0xCC — expect no ACK

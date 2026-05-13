@@ -1,0 +1,163 @@
+[D(FSM)] 09:43:28.712 ESP-ROM:esp32s3-20210327
+[D(FSM)] 09:43:28.713 Build:Mar 27 2021
+[D(FSM)] 09:43:28.713 rst:0x15 (USB_UART_CHIP_RESET),boot:0x39 (SPI_FAST_FLASH_BOOT)
+[D(FSM)] 09:43:28.713 Saved PC:0x4037ce2a
+[D(FSM)] 09:43:28.713 SPIWP:0xee
+[D(FSM)] 09:43:28.714 mode:DIO, clock div:1
+[D(FSM)] 09:43:28.714 load:0x3fce2820,len:0x10cc
+[D(FSM)] 09:43:28.714 load:0x403c8700,len:0xc2c
+[D(FSM)] 09:43:28.715 load:0x403cb700,len:0x30c0
+[D(FSM)] 09:43:28.715 entry 0x403c88b8
+[D(FSM)] 09:43:28.876 
+[D(FSM)] 09:43:28.877 === E12 Node D (FSM GUARDIAN — routing IDS) ===
+[D(FSM)] 09:43:28.877 [INFO] Promiscuous mode. Monitors V1(replay) V2(injection) V3(storm) V4(blackhole) V5(sybil).
+[D(FSM)] 09:43:28.967 [RADIO] SX1262 ready — promiscuous FSM monitor
+[D(FSM)] 09:43:29.331 [SNIFF] Hello src=0xBB metric=0 seq=0 rssi=-13dBm
+[D(FSM)] 09:43:30.086 [SNIFF] Hello src=0x22 metric=1 seq=0 rssi=-14dBm
+[D(FSM)] 09:43:30.843 [SNIFF] Hello src=0x11 metric=2 seq=0 rssi=-10dBm
+[D(FSM)] 09:43:31.614 [SNIFF] Hello src=0x22 metric=3 seq=1 rssi=-14dBm
+[D(FSM)] 09:43:31.614 [GUARDIAN] ALERT V:V3 src=0x22 — gap=1523ms < min=5000ms (routing storm / flood) (total=1)
+[D(FSM)] 09:43:32.367 [SNIFF] Hello src=0x11 metric=4 seq=1 rssi=-10dBm
+[D(FSM)] 09:43:32.367 [GUARDIAN] ALERT V:V3 src=0x11 — gap=1522ms < min=5000ms (routing storm / flood) (total=2)
+[D(FSM)] 09:43:33.134 [SNIFF] Hello src=0x22 metric=5 seq=2 rssi=-13dBm
+[D(FSM)] 09:43:33.134 [GUARDIAN] ALERT V:V3 src=0x22 — gap=1522ms < min=5000ms (routing storm / flood) (total=3)
+[D(FSM)] 09:43:33.664 [SNIFF] Data src=0xAA dst=0x22 id=0 rssi=-0dBm
+[D(FSM)] 09:43:34.181 [SNIFF] Data src=0x11 dst=0x22 id=0 rssi=-10dBm
+[D(FSM)] 09:43:34.468 [SNIFF] Data src=0x11 dst=0xBB id=0 rssi=-14dBm
+[D(FSM)] 09:43:37.689 [SNIFF] Hello src=0xCC metric=0 seq=1 rssi=-19dBm
+[D(FSM)] 09:43:39.188 [SNIFF] Data src=0x11 dst=0xCC id=1 rssi=-11dBm
+[D(FSM)] 09:43:39.188 [GUARDIAN] ALERT V:V4 src=0x11 — DATA dst=0xCC (known attacker — Black Hole route active) (total=4)
+[D(FSM)] 09:43:39.587 [SNIFF] Hello src=0xBB metric=0 seq=1 rssi=-12dBm
+[D(FSM)] 09:43:40.349 [SNIFF] Hello src=0x11 metric=1 seq=4 rssi=-10dBm
+[D(FSM)] 09:43:43.655 [SNIFF] Data src=0xAA dst=0xCC id=2 rssi=-0dBm
+[D(FSM)] 09:43:43.655 [GUARDIAN] ALERT V:V4 src=0xAA — DATA dst=0xCC (known attacker — Black Hole route active) (total=5)
+[D(FSM)] 09:43:44.186 [SNIFF] Data src=0x11 dst=0xCC id=2 rssi=-10dBm
+[D(FSM)] 09:43:44.186 [GUARDIAN] ALERT V:V4 src=0x11 — DATA dst=0xCC (known attacker — Black Hole route active) (total=6)
+[D(FSM)] 09:43:45.690 [SNIFF] Hello src=0xCC metric=0 seq=2 rssi=-19dBm
+[D(FSM)] 09:43:46.440 [SNIFF] Hello src=0x11 metric=1 seq=5 rssi=-10dBm
+[D(FSM)] 09:43:48.655 [SNIFF] Data src=0xAA dst=0xCC id=3 rssi=-0dBm
+[D(FSM)] 09:43:48.656 [GUARDIAN] ALERT V:V4 src=0xAA — DATA dst=0xCC (known attacker — Black Hole route active) (total=7)
+[D(FSM)] 09:43:49.177 [SNIFF] Data src=0x11 dst=0xCC id=3 rssi=-10dBm
+[D(FSM)] 09:43:49.178 [GUARDIAN] ALERT V:V4 src=0x11 — DATA dst=0xCC (known attacker — Black Hole route active) (total=8)
+[D(FSM)] 09:43:49.584 [SNIFF] Hello src=0xBB metric=0 seq=2 rssi=-12dBm
+[D(FSM)] 09:43:50.347 [SNIFF] Hello src=0x11 metric=1 seq=6 rssi=-9dBm
+[D(FSM)] 09:43:50.347 [GUARDIAN] ALERT V:V3 src=0x11 — gap=3905ms < min=5000ms (routing storm / flood) (total=9)
+[D(FSM)] 09:43:53.657 [SNIFF] Data src=0xAA dst=0xCC id=4 rssi=-0dBm
+[D(FSM)] 09:43:53.657 [GUARDIAN] ALERT V:V4 src=0xAA — DATA dst=0xCC (known attacker — Black Hole route active) (total=10)
+[D(FSM)] 09:43:54.184 [SNIFF] Data src=0x11 dst=0xCC id=4 rssi=-10dBm
+[D(FSM)] 09:43:54.185 [GUARDIAN] ALERT V:V4 src=0x11 — DATA dst=0xCC (known attacker — Black Hole route active) (total=11)
+[D(FSM)] 09:43:58.664 [SNIFF] Data src=0xAA dst=0xCC id=5 rssi=-0dBm
+[D(FSM)] 09:43:58.665 [GUARDIAN] ALERT V:V4 src=0xAA — DATA dst=0xCC (known attacker — Black Hole route active) (total=12)
+[D(FSM)] 09:43:59.182 [SNIFF] Data src=0x11 dst=0xCC id=5 rssi=-10dBm
+[D(FSM)] 09:43:59.183 [GUARDIAN] ALERT V:V4 src=0x11 — DATA dst=0xCC (known attacker — Black Hole route active) (total=13)
+[D(FSM)] 09:43:59.591 [SNIFF] Hello src=0xBB metric=0 seq=3 rssi=-13dBm
+[D(FSM)] 09:44:00.353 [SNIFF] Hello src=0x11 metric=1 seq=7 rssi=-10dBm
+[D(FSM)] 09:44:01.689 [SNIFF] Hello src=0xCC metric=0 seq=4 rssi=-18dBm
+[D(FSM)] 09:44:02.452 [SNIFF] Hello src=0x11 metric=1 seq=8 rssi=-10dBm
+[D(FSM)] 09:44:02.452 [GUARDIAN] ALERT V:V3 src=0x11 — gap=2095ms < min=5000ms (routing storm / flood) (total=14)
+[D(FSM)] 09:44:03.663 [SNIFF] Data src=0xAA dst=0xCC id=6 rssi=-0dBm
+[D(FSM)] 09:44:03.664 [GUARDIAN] ALERT V:V4 src=0xAA — DATA dst=0xCC (known attacker — Black Hole route active) (total=15)
+[D(FSM)] 09:44:04.184 [SNIFF] Data src=0x11 dst=0xCC id=6 rssi=-10dBm
+[D(FSM)] 09:44:04.185 [GUARDIAN] ALERT V:V4 src=0x11 — DATA dst=0xCC (known attacker — Black Hole route active) (total=16)
+[D(FSM)] 09:44:08.666 [SNIFF] Data src=0xAA dst=0xCC id=7 rssi=-0dBm
+[D(FSM)] 09:44:08.667 [GUARDIAN] ALERT V:V4 src=0xAA — DATA dst=0xCC (known attacker — Black Hole route active) (total=17)
+[D(FSM)] 09:44:09.177 [SNIFF] Data src=0x11 dst=0xCC id=7 rssi=-10dBm
+[D(FSM)] 09:44:09.177 [GUARDIAN] ALERT V:V4 src=0x11 — DATA dst=0xCC (known attacker — Black Hole route active) (total=18)
+[D(FSM)] 09:44:09.593 [SNIFF] Hello src=0xBB metric=0 seq=4 rssi=-13dBm
+[D(FSM)] 09:44:10.351 [SNIFF] Hello src=0x22 metric=1 seq=9 rssi=-14dBm
+[D(FSM)] 09:44:11.113 [SNIFF] Hello src=0x11 metric=2 seq=9 rssi=-10dBm
+[D(FSM)] 09:44:11.113 [GUARDIAN] ALERT V:V2 src=0x11 — metric 1 → 2 in 30000ms (injection candidate) (total=19)
+[D(FSM)] 09:44:11.871 [SNIFF] Hello src=0x22 metric=3 seq=10 rssi=-13dBm
+[D(FSM)] 09:44:11.871 [GUARDIAN] ALERT V:V3 src=0x22 — gap=1523ms < min=5000ms (routing storm / flood) (total=20)
+[D(FSM)] 09:44:11.871 [GUARDIAN] ALERT V:V2 src=0x22 — metric 1 → 3 in 30000ms (injection candidate) (total=21)
+[D(FSM)] 09:44:12.632 [SNIFF] Hello src=0x11 metric=4 seq=10 rssi=-10dBm
+[D(FSM)] 09:44:12.632 [GUARDIAN] ALERT V:V3 src=0x11 — gap=1523ms < min=5000ms (routing storm / flood) (total=22)
+[D(FSM)] 09:44:12.632 [GUARDIAN] ALERT V:V2 src=0x11 — metric 1 → 4 in 30000ms (injection candidate) (total=23)
+[D(FSM)] 09:44:14.181 [SNIFF] Data src=0x11 dst=0x22 id=8 rssi=-10dBm
+[D(FSM)] 09:44:14.474 [SNIFF] Data src=0x11 dst=0xBB id=8 rssi=-14dBm
+[D(FSM)] 09:44:17.686 [SNIFF] Hello src=0xCC metric=0 seq=6 rssi=-18dBm
+[D(FSM)] 09:44:19.184 [SNIFF] Data src=0x11 dst=0xCC id=9 rssi=-10dBm
+[D(FSM)] 09:44:19.185 [GUARDIAN] ALERT V:V4 src=0x11 — DATA dst=0xCC (known attacker — Black Hole route active) (total=24)
+[D(FSM)] 09:44:19.596 [SNIFF] Hello src=0xBB metric=0 seq=5 rssi=-12dBm
+[D(FSM)] 09:44:20.351 [SNIFF] Hello src=0x11 metric=1 seq=12 rssi=-10dBm
+[D(FSM)] 09:44:23.656 [SNIFF] Data src=0xAA dst=0xCC id=10 rssi=-0dBm
+[D(FSM)] 09:44:23.657 [GUARDIAN] ALERT V:V4 src=0xAA — DATA dst=0xCC (known attacker — Black Hole route active) (total=25)
+[D(FSM)] 09:44:24.182 [SNIFF] Data src=0x11 dst=0xCC id=10 rssi=-10dBm
+[D(FSM)] 09:44:24.182 [GUARDIAN] ALERT V:V4 src=0x11 — DATA dst=0xCC (known attacker — Black Hole route active) (total=26)
+[D(FSM)] 09:44:25.685 [SNIFF] Hello src=0xCC metric=0 seq=7 rssi=-18dBm
+[D(FSM)] 09:44:26.445 [SNIFF] Hello src=0x11 metric=1 seq=13 rssi=-11dBm
+[D(FSM)] 09:44:28.655 [SNIFF] Data src=0xAA dst=0xCC id=11 rssi=-0dBm
+[D(FSM)] 09:44:28.655 [GUARDIAN] ALERT V:V4 src=0xAA — DATA dst=0xCC (known attacker — Black Hole route active) (total=27)
+[D(FSM)] 09:44:29.188 [SNIFF] Data src=0x11 dst=0xCC id=11 rssi=-10dBm
+[D(FSM)] 09:44:29.188 [GUARDIAN] ALERT V:V4 src=0x11 — DATA dst=0xCC (known attacker — Black Hole route active) (total=28)
+[D(FSM)] 09:44:29.589 [SNIFF] Hello src=0xBB metric=0 seq=6 rssi=-13dBm
+[D(FSM)] 09:44:30.356 [SNIFF] Hello src=0x11 metric=1 seq=14 rssi=-10dBm
+[D(FSM)] 09:44:30.356 [GUARDIAN] ALERT V:V3 src=0x11 — gap=3905ms < min=5000ms (routing storm / flood) (total=29)
+[D(FSM)] 09:44:33.656 [SNIFF] Data src=0xAA dst=0xCC id=12 rssi=-0dBm
+[D(FSM)] 09:44:33.657 [GUARDIAN] ALERT V:V4 src=0xAA — DATA dst=0xCC (known attacker — Black Hole route active) (total=30)
+[D(FSM)] 09:44:34.181 [SNIFF] Data src=0x11 dst=0xCC id=12 rssi=-10dBm
+[D(FSM)] 09:44:34.181 [GUARDIAN] ALERT V:V4 src=0x11 — DATA dst=0xCC (known attacker — Black Hole route active) (total=31)
+[D(FSM)] 09:44:38.663 [SNIFF] Data src=0xAA dst=0xCC id=13 rssi=-0dBm
+[D(FSM)] 09:44:38.664 [GUARDIAN] ALERT V:V4 src=0xAA — DATA dst=0xCC (known attacker — Black Hole route active) (total=32)
+[D(FSM)] 09:44:39.178 [SNIFF] Data src=0x11 dst=0xCC id=13 rssi=-10dBm
+[D(FSM)] 09:44:39.178 [GUARDIAN] ALERT V:V4 src=0x11 — DATA dst=0xCC (known attacker — Black Hole route active) (total=33)
+[D(FSM)] 09:44:39.585 [SNIFF] Hello src=0xBB metric=0 seq=7 rssi=-13dBm
+[D(FSM)] 09:44:40.346 [SNIFF] Hello src=0x11 metric=1 seq=15 rssi=-10dBm
+[D(FSM)] 09:44:41.687 [SNIFF] Hello src=0xCC metric=0 seq=9 rssi=-18dBm
+[D(FSM)] 09:44:42.449 [SNIFF] Hello src=0x11 metric=1 seq=16 rssi=-10dBm
+[D(FSM)] 09:44:42.449 [GUARDIAN] ALERT V:V3 src=0x11 — gap=2095ms < min=5000ms (routing storm / flood) (total=34)
+[D(FSM)] 09:44:43.656 [SNIFF] Data src=0xAA dst=0xCC id=14 rssi=-0dBm
+[D(FSM)] 09:44:43.657 [GUARDIAN] ALERT V:V4 src=0xAA — DATA dst=0xCC (known attacker — Black Hole route active) (total=35)
+[D(FSM)] 09:44:44.183 [SNIFF] Data src=0x11 dst=0xCC id=14 rssi=-10dBm
+[D(FSM)] 09:44:44.183 [GUARDIAN] ALERT V:V4 src=0x11 — DATA dst=0xCC (known attacker — Black Hole route active) (total=36)
+[D(FSM)] 09:44:48.656 [SNIFF] Data src=0xAA dst=0xCC id=15 rssi=-0dBm
+[D(FSM)] 09:44:48.657 [GUARDIAN] ALERT V:V4 src=0xAA — DATA dst=0xCC (known attacker — Black Hole route active) (total=37)
+[D(FSM)] 09:44:49.188 [SNIFF] Data src=0x11 dst=0xCC id=15 rssi=-10dBm
+[D(FSM)] 09:44:49.188 [GUARDIAN] ALERT V:V4 src=0x11 — DATA dst=0xCC (known attacker — Black Hole route active) (total=38)
+[D(FSM)] 09:44:49.593 [SNIFF] Hello src=0xBB metric=0 seq=8 rssi=-13dBm
+[D(FSM)] 09:44:50.357 [SNIFF] Hello src=0x22 metric=1 seq=18 rssi=-13dBm
+[D(FSM)] 09:44:51.116 [SNIFF] Hello src=0x11 metric=2 seq=17 rssi=-10dBm
+[D(FSM)] 09:44:51.116 [GUARDIAN] ALERT V:V2 src=0x11 — metric 1 → 2 in 30000ms (injection candidate) (total=39)
+[D(FSM)] 09:44:51.871 [SNIFF] Hello src=0x22 metric=3 seq=19 rssi=-13dBm
+[D(FSM)] 09:44:51.871 [GUARDIAN] ALERT V:V3 src=0x22 — gap=1523ms < min=5000ms (routing storm / flood) (total=40)
+[D(FSM)] 09:44:51.871 [GUARDIAN] ALERT V:V2 src=0x22 — metric 1 → 3 in 30000ms (injection candidate) (total=41)
+[D(FSM)] 09:44:52.640 [SNIFF] Hello src=0x11 metric=4 seq=18 rssi=-10dBm
+[D(FSM)] 09:44:52.640 [GUARDIAN] ALERT V:V3 src=0x11 — gap=1523ms < min=5000ms (routing storm / flood) (total=42)
+[D(FSM)] 09:44:52.640 [GUARDIAN] ALERT V:V2 src=0x11 — metric 1 → 4 in 30000ms (injection candidate) (total=43)
+[D(FSM)] 09:44:54.182 [SNIFF] Data src=0x11 dst=0x22 id=16 rssi=-10dBm
+[D(FSM)] 09:44:54.476 [SNIFF] Data src=0x11 dst=0xBB id=16 rssi=-14dBm
+[D(FSM)] 09:44:57.683 [SNIFF] Hello src=0xCC metric=0 seq=11 rssi=-18dBm
+[D(FSM)] 09:44:59.186 [SNIFF] Data src=0x11 dst=0xCC id=17 rssi=-10dBm
+[D(FSM)] 09:44:59.186 [GUARDIAN] ALERT V:V4 src=0x11 — DATA dst=0xCC (known attacker — Black Hole route active) (total=44)
+[D(FSM)] 09:44:59.591 [SNIFF] Hello src=0xBB metric=0 seq=9 rssi=-13dBm
+[D(FSM)] 09:45:00.353 [SNIFF] Hello src=0x11 metric=1 seq=20 rssi=-10dBm
+[D(FSM)] 09:45:03.656 [SNIFF] Data src=0xAA dst=0xCC id=18 rssi=-0dBm
+[D(FSM)] 09:45:03.657 [GUARDIAN] ALERT V:V4 src=0xAA — DATA dst=0xCC (known attacker — Black Hole route active) (total=45)
+[D(FSM)] 09:45:04.189 [SNIFF] Data src=0x11 dst=0xCC id=18 rssi=-10dBm
+[D(FSM)] 09:45:04.189 [GUARDIAN] ALERT V:V4 src=0x11 — DATA dst=0xCC (known attacker — Black Hole route active) (total=46)
+[D(FSM)] 09:45:05.686 [SNIFF] Hello src=0xCC metric=0 seq=12 rssi=-19dBm
+[D(FSM)] 09:45:06.442 [SNIFF] Hello src=0x11 metric=1 seq=21 rssi=-10dBm
+[D(FSM)] 09:45:08.665 [SNIFF] Data src=0xAA dst=0xCC id=19 rssi=-0dBm
+[D(FSM)] 09:45:08.665 [GUARDIAN] ALERT V:V4 src=0xAA — DATA dst=0xCC (known attacker — Black Hole route active) (total=47)
+[D(FSM)] 09:45:09.181 [SNIFF] Data src=0x11 dst=0xCC id=19 rssi=-10dBm
+[D(FSM)] 09:45:09.182 [GUARDIAN] ALERT V:V4 src=0x11 — DATA dst=0xCC (known attacker — Black Hole route active) (total=48)
+[D(FSM)] 09:45:09.595 [SNIFF] Hello src=0xBB metric=0 seq=10 rssi=-13dBm
+[D(FSM)] 09:45:10.356 [SNIFF] Hello src=0x11 metric=1 seq=22 rssi=-10dBm
+[D(FSM)] 09:45:10.356 [GUARDIAN] ALERT V:V3 src=0x11 — gap=3905ms < min=5000ms (routing storm / flood) (total=49)
+[D(FSM)] 09:45:13.665 [SNIFF] Data src=0xAA dst=0xCC id=20 rssi=-0dBm
+[D(FSM)] 09:45:13.666 [GUARDIAN] ALERT V:V4 src=0xAA — DATA dst=0xCC (known attacker — Black Hole route active) (total=50)
+[D(FSM)] 09:45:14.188 [SNIFF] Data src=0x11 dst=0xCC id=20 rssi=-10dBm
+[D(FSM)] 09:45:14.189 [GUARDIAN] ALERT V:V4 src=0x11 — DATA dst=0xCC (known attacker — Black Hole route active) (total=51)
+[D(FSM)] 09:45:18.656 [SNIFF] Data src=0xAA dst=0xCC id=21 rssi=-0dBm
+[D(FSM)] 09:45:18.657 [GUARDIAN] ALERT V:V4 src=0xAA — DATA dst=0xCC (known attacker — Black Hole route active) (total=52)
+[D(FSM)] 09:45:19.182 [SNIFF] Data src=0x11 dst=0xCC id=21 rssi=-11dBm
+[D(FSM)] 09:45:19.182 [GUARDIAN] ALERT V:V4 src=0x11 — DATA dst=0xCC (known attacker — Black Hole route active) (total=53)
+[D(FSM)] 09:45:19.590 [SNIFF] Hello src=0xBB metric=0 seq=11 rssi=-13dBm
+[D(FSM)] 09:45:20.355 [SNIFF] Hello src=0x11 metric=1 seq=23 rssi=-10dBm
+[D(FSM)] 09:45:21.684 [SNIFF] Hello src=0xCC metric=0 seq=14 rssi=-18dBm
+[D(FSM)] 09:45:22.444 [SNIFF] Hello src=0x11 metric=1 seq=24 rssi=-10dBm
+[D(FSM)] 09:45:22.444 [GUARDIAN] ALERT V:V3 src=0x11 — gap=2095ms < min=5000ms (routing storm / flood) (total=54)
+[D(FSM)] 09:45:23.660 [SNIFF] Data src=0xAA dst=0xCC id=22 rssi=-0dBm
+[D(FSM)] 09:45:23.661 [GUARDIAN] ALERT V:V4 src=0xAA — DATA dst=0xCC (known attacker — Black Hole route active) (total=55)
+[D(FSM)] 09:45:24.186 [SNIFF] Data src=0x11 dst=0xCC id=22 rssi=-10dBm
+[D(FSM)] 09:45:24.186 [GUARDIAN] ALERT V:V4 src=0x11 — DATA dst=0xCC (known attacker — Black Hole route active) (total=56)

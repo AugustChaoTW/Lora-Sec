@@ -1,0 +1,682 @@
+[C(ATK)] 09:43:28.712 ESP-ROM:esp32s3-20210327
+[C(ATK)] 09:43:28.712 Build:Mar 27 2021
+[D(FSM)] 09:43:28.712 ESP-ROM:esp32s3-20210327
+[C(ATK)] 09:43:28.712 rst:0x15 (USB_UART_CHIP_RESET),boot:0x19 (SPI_FAST_FLASH_BOOT)
+[D(FSM)] 09:43:28.713 Build:Mar 27 2021
+[C(ATK)] 09:43:28.713 Saved PC:0x4037ce2a
+[D(FSM)] 09:43:28.713 rst:0x15 (USB_UART_CHIP_RESET),boot:0x39 (SPI_FAST_FLASH_BOOT)
+[C(ATK)] 09:43:28.713 SPIWP:0xee
+[D(FSM)] 09:43:28.713 Saved PC:0x4037ce2a
+[C(ATK)] 09:43:28.713 mode:DIO, clock div:1
+[D(FSM)] 09:43:28.713 SPIWP:0xee
+[C(ATK)] 09:43:28.714 load:0x3fce2820,len:0x10cc
+[D(FSM)] 09:43:28.714 mode:DIO, clock div:1
+[C(ATK)] 09:43:28.714 load:0x403c8700,len:0xc2c
+[D(FSM)] 09:43:28.714 load:0x3fce2820,len:0x10cc
+[C(ATK)] 09:43:28.714 load:0x403cb700,len:0x30c0
+[C(ATK)] 09:43:28.714 entry 0x403c88b8
+[D(FSM)] 09:43:28.714 load:0x403c8700,len:0xc2c
+[R1(0x11)] 09:43:28.715 ESP-ROM:esp32s3-20210327
+[B(0xBB)] 09:43:28.715 ESP-ROM:esp32s3-20210327
+[D(FSM)] 09:43:28.715 load:0x403cb700,len:0x30c0
+[A(0xAA)] 09:43:28.715 ESP-ROM:esp32s3-20210327
+[R2(0x22)] 09:43:28.715 ESP-ROM:esp32s3-20210327
+[R1(0x11)] 09:43:28.715 Build:Mar 27 2021
+[B(0xBB)] 09:43:28.715 Build:Mar 27 2021
+[D(FSM)] 09:43:28.715 entry 0x403c88b8
+[A(0xAA)] 09:43:28.715 Build:Mar 27 2021
+[R2(0x22)] 09:43:28.716 Build:Mar 27 2021
+[R1(0x11)] 09:43:28.716 rst:0x15 (USB_UART_CHIP_RESET),boot:0x19 (SPI_FAST_FLASH_BOOT)
+[B(0xBB)] 09:43:28.716 rst:0x15 (USB_UART_CHIP_RESET),boot:0x19 (SPI_FAST_FLASH_BOOT)
+[A(0xAA)] 09:43:28.716 rst:0x15 (USB_UART_CHIP_RESET),boot:0x19 (SPI_FAST_FLASH_BOOT)
+[R2(0x22)] 09:43:28.716 rst:0x15 (USB_UART_CHIP_RESET),boot:0x3b (SPI_FAST_FLASH_BOOT)
+[R1(0x11)] 09:43:28.716 Saved PC:0x4037ce2a
+[R1(0x11)] 09:43:28.717 SPIWP:0xee
+[A(0xAA)] 09:43:28.716 Saved PC:0x4037ce2a
+[R2(0x22)] 09:43:28.717 Saved PC:0x4037ce2a
+[B(0xBB)] 09:43:28.716 Saved PC:0x4037ce2a
+[R1(0x11)] 09:43:28.717 mode:DIO, clock div:1
+[R1(0x11)] 09:43:28.717 load:0x3fce2820,len:0x10cc
+[R1(0x11)] 09:43:28.717 load:0x403c8700,len:0xc2c
+[B(0xBB)] 09:43:28.717 SPIWP:0xee
+[A(0xAA)] 09:43:28.717 SPIWP:0xee
+[R2(0x22)] 09:43:28.717 SPIWP:0xee
+[R1(0x11)] 09:43:28.717 load:0x403cb700,len:0x30c0
+[B(0xBB)] 09:43:28.717 mode:DIO, clock div:1
+[B(0xBB)] 09:43:28.718 load:0x3fce2820,len:0x10cc
+[R2(0x22)] 09:43:28.718 mode:DIO, clock div:1
+[R1(0x11)] 09:43:28.718 entry 0x403c88b8
+[A(0xAA)] 09:43:28.718 mode:DIO, clock div:1
+[B(0xBB)] 09:43:28.718 load:0x403c8700,len:0xc2c
+[R2(0x22)] 09:43:28.718 load:0x3fce2820,len:0x10cc
+[A(0xAA)] 09:43:28.718 load:0x3fce2820,len:0x10cc
+[B(0xBB)] 09:43:28.718 load:0x403cb700,len:0x30c0
+[R2(0x22)] 09:43:28.718 load:0x403c8700,len:0xc2c
+[A(0xAA)] 09:43:28.718 load:0x403c8700,len:0xc2c
+[B(0xBB)] 09:43:28.719 entry 0x403c88b8
+[R2(0x22)] 09:43:28.719 load:0x403cb700,len:0x30c0
+[A(0xAA)] 09:43:28.719 load:0x403cb700,len:0x30c0
+[R2(0x22)] 09:43:28.719 entry 0x403c88b8
+[A(0xAA)] 09:43:28.719 entry 0x403c88b8
+[R2(0x22)] 09:43:28.872 
+[R2(0x22)] 09:43:28.872 === E12 Relay 0x22 (honest, SECURITY_MODE=1) ===
+[R2(0x22)] 09:43:28.873 [INFO] Demonstrates: insider Black Hole bypasses HMAC patch.
+[R2(0x22)] 09:43:28.873 [INFO] This relay will accept 0xCC's Hello (valid HMAC) and route into black hole.
+[R1(0x11)] 09:43:28.873 
+[C(ATK)] 09:43:28.873 
+[R1(0x11)] 09:43:28.873 === E12 Relay 0x11 (honest, SECURITY_MODE=1) ===
+[C(ATK)] 09:43:28.874 === E12 Node C (BLACK HOLE ATTACKER — INSIDER) ===
+[R1(0x11)] 09:43:28.874 [INFO] Demonstrates: insider Black Hole bypasses HMAC patch.
+[C(ATK)] 09:43:28.874 [INFO] This node holds NETWORK_PSK and signs Hellos validly.
+[R1(0x11)] 09:43:28.874 [INFO] This relay will accept 0xCC's Hello (valid HMAC) and route into black hole.
+[C(ATK)] 09:43:28.875 [INFO] Finding: HMAC patch does NOT prevent insider black hole.
+[C(ATK)] 09:43:28.875 [INFO] Authentication proves origin, not forwarding behavior.
+[D(FSM)] 09:43:28.876 
+[D(FSM)] 09:43:28.877 === E12 Node D (FSM GUARDIAN — routing IDS) ===
+[D(FSM)] 09:43:28.877 [INFO] Promiscuous mode. Monitors V1(replay) V2(injection) V3(storm) V4(blackhole) V5(sybil).
+[B(0xBB)] 09:43:28.880 
+[B(0xBB)] 09:43:28.880 === E12 Node B (GATEWAY — honest, SECURITY_MODE=1) ===
+[B(0xBB)] 09:43:28.880 [INFO] Gateway broadcasts Hello. Insider attacker (0xCC) races with own Hello.
+[B(0xBB)] 09:43:28.880 [INFO] All honest nodes route to 0xCC (Black Hole). PDR drops to 0%.
+[B(0xBB)] 09:43:28.881 [INFO] This gateway cannot detect the Black Hole — it just observes silence.
+[A(0xAA)] 09:43:28.881 
+[A(0xAA)] 09:43:28.882 === E12 Node A (SENDER — honest, SECURITY_MODE=1) ===
+[A(0xAA)] 09:43:28.882 [INFO] Demonstrates: insider Black Hole bypasses HMAC patch.
+[A(0xAA)] 09:43:28.882 [INFO] Watch for NH=0xCC after attacker broadcasts signed Hello.
+[A(0xAA)] 09:43:28.882 [INFO] PDR should drop to 0% when routing to 0xCC.
+[R2(0x22)] 09:43:28.957 [RADIO] SX1262 ready @ 923 MHz AS923
+[A(0xAA)] 09:43:28.965 [RADIO] SX1262 ready @ 923 MHz AS923
+[R1(0x11)] 09:43:28.967 [RADIO] SX1262 ready @ 923 MHz AS923
+[D(FSM)] 09:43:28.967 [RADIO] SX1262 ready — promiscuous FSM monitor
+[B(0xBB)] 09:43:28.967 [RADIO] SX1262 ready @ 923 MHz AS923
+[C(ATK)] 09:43:28.967 [RADIO] SX1262 ready @ 923 MHz AS923
+[R2(0x22)] 09:43:29.324 [ROUTE] NH=0xBB metric=1
+[B(0xBB)] 09:43:29.324 [TX] Hello seq=0 (hello #1)
+[D(FSM)] 09:43:29.331 [SNIFF] Hello src=0xBB metric=0 seq=0 rssi=-13dBm
+[C(ATK)] 09:43:29.427 [BLACKHOLE] Hello sent: seq=0 metric=0 HMAC=VALID (#1)
+[C(ATK)] 09:43:29.428 [BLACKHOLE] Honest nodes will update: NH=0xCC metric=1
+[C(ATK)] 09:43:29.428 [BLACKHOLE] HMAC patch: ACCEPTS (PSK valid) → route poisoned
+[R2(0x22)] 09:43:30.080 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[A(0xAA)] 09:43:30.082 [ROUTE] Best NH=0x22 metric=2
+[D(FSM)] 09:43:30.086 [SNIFF] Hello src=0x22 metric=1 seq=0 rssi=-14dBm
+[R1(0x11)] 09:43:30.092 [ROUTE] NH=0x22 metric=2
+[C(ATK)] 09:43:30.092 [SNIFF] Hello from 0x22 metric=1 seq=0
+[D(FSM)] 09:43:30.843 [SNIFF] Hello src=0x11 metric=2 seq=0 rssi=-10dBm
+[R1(0x11)] 09:43:30.848 [RELAY] Re-broadcast Hello metric=2 (learned from 0x22 metric=1)
+[C(ATK)] 09:43:30.848 [SNIFF] Hello from 0x11 metric=2 seq=0
+[C(ATK)] 09:43:31.611 [SNIFF] Hello from 0x22 metric=3 seq=1
+[R2(0x22)] 09:43:31.611 [RELAY] Re-broadcast Hello metric=3 (learned from 0x11 metric=2)
+[D(FSM)] 09:43:31.614 [SNIFF] Hello src=0x22 metric=3 seq=1 rssi=-14dBm
+[D(FSM)] 09:43:31.614 [GUARDIAN] ALERT V:V3 src=0x22 — gap=1523ms < min=5000ms (routing storm / flood) (total=1)
+[R1(0x11)] 09:43:32.365 [RELAY] Re-broadcast Hello metric=4 (learned from 0x22 metric=3)
+[D(FSM)] 09:43:32.367 [SNIFF] Hello src=0x11 metric=4 seq=1 rssi=-10dBm
+[D(FSM)] 09:43:32.367 [GUARDIAN] ALERT V:V3 src=0x11 — gap=1522ms < min=5000ms (routing storm / flood) (total=2)
+[C(ATK)] 09:43:32.373 [SNIFF] Hello from 0x11 metric=4 seq=1
+[C(ATK)] 09:43:33.128 [SNIFF] Hello from 0x22 metric=5 seq=2
+[R2(0x22)] 09:43:33.133 [RELAY] Re-broadcast Hello metric=5 (learned from 0x11 metric=4)
+[D(FSM)] 09:43:33.134 [SNIFF] Hello src=0x22 metric=5 seq=2 rssi=-13dBm
+[D(FSM)] 09:43:33.134 [GUARDIAN] ALERT V:V3 src=0x22 — gap=1522ms < min=5000ms (routing storm / flood) (total=3)
+[R2(0x22)] 09:43:33.658 [TX] DATA id=0 via=0xBB
+[A(0xAA)] 09:43:33.662 [TX] DATA id=0 via=0x22 PDR=0.0%
+[D(FSM)] 09:43:33.664 [SNIFF] Data src=0xAA dst=0x22 id=0 rssi=-0dBm
+[C(ATK)] 09:43:33.664 [BLACKHOLE] DROP data src=0xAA dst=0x22 pkt_id=0 (total_dropped=1)
+[C(ATK)] 09:43:33.664 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[B(0xBB)] 09:43:33.665 [RX] DATA id=0 from 0x22 payload=220000 (total=1)
+[B(0xBB)] 09:43:33.810 [TX] ACK id=0 → 0x22
+[R2(0x22)] 09:43:33.815 [RX] ACK id=0 PDR=100.0%
+[R1(0x11)] 09:43:33.893 [RELAY] Re-broadcast Hello metric=6 (learned from 0x22 metric=5)
+[R1(0x11)] 09:43:34.176 [TX] DATA id=0 via=0x22
+[B(0xBB)] 09:43:34.179 [RX] DATA id=0 from 0x11 payload=110000 (total=2)
+[D(FSM)] 09:43:34.181 [SNIFF] Data src=0x11 dst=0x22 id=0 rssi=-10dBm
+[C(ATK)] 09:43:34.181 [BLACKHOLE] DROP data src=0x11 dst=0x22 pkt_id=0 (total_dropped=2)
+[C(ATK)] 09:43:34.182 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[B(0xBB)] 09:43:34.325 [TX] ACK id=0 → 0x11
+[D(FSM)] 09:43:34.468 [SNIFF] Data src=0x11 dst=0xBB id=0 rssi=-14dBm
+[R2(0x22)] 09:43:34.468 [FWD] DATA id=0 src=0x11 → 0xBB
+[C(ATK)] 09:43:37.678 [BLACKHOLE] Hello sent: seq=1 metric=0 HMAC=VALID (#2)
+[C(ATK)] 09:43:37.679 [BLACKHOLE] Honest nodes will update: NH=0xCC metric=1
+[C(ATK)] 09:43:37.679 [BLACKHOLE] HMAC patch: ACCEPTS (PSK valid) → route poisoned
+[R1(0x11)] 09:43:37.681 [ROUTE] NH=0xCC metric=1 — BLACK HOLE inserted (HMAC valid!)
+[D(FSM)] 09:43:37.689 [SNIFF] Hello src=0xCC metric=0 seq=1 rssi=-19dBm
+[A(0xAA)] 09:43:37.690 [ROUTE] NH=0xCC metric=1 — ATTACKER INSERTED (HMAC passed!)
+[A(0xAA)] 09:43:37.690 [ROUTE] Black Hole attack SUCCESS: route table poisoned
+[R1(0x11)] 09:43:38.443 [RELAY] Re-broadcast Hello metric=1 (learned from 0xCC metric=0)
+[R2(0x22)] 09:43:38.445 [RELAY] Re-broadcast Hello metric=1 (learned from 0xCC metric=0)
+[A(0xAA)] 09:43:38.656 [TX] DATA id=1 via=0xCC (BLACK HOLE!) PDR=0.0%
+[A(0xAA)] 09:43:38.657 [WARN] Routing to attacker 0xCC — expect no ACK
+[R2(0x22)] 09:43:38.732 [TX] DATA id=1 via=0xBB
+[B(0xBB)] 09:43:38.733 [RX] DATA id=1 from 0x22 payload=220001 (total=3)
+[B(0xBB)] 09:43:38.888 [TX] ACK id=1 → 0x22
+[R2(0x22)] 09:43:38.888 [RX] ACK id=1 PDR=100.0%
+[R1(0x11)] 09:43:39.177 [TX] DATA id=1 via=0xCC
+[B(0xBB)] 09:43:39.178 [RX] DATA id=1 from 0x11 payload=110001 (total=4)
+[C(ATK)] 09:43:39.178 [BLACKHOLE] DROP data src=0x11 dst=0xCC pkt_id=1 (total_dropped=3)
+[C(ATK)] 09:43:39.178 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[D(FSM)] 09:43:39.188 [SNIFF] Data src=0x11 dst=0xCC id=1 rssi=-11dBm
+[D(FSM)] 09:43:39.188 [GUARDIAN] ALERT V:V4 src=0x11 — DATA dst=0xCC (known attacker — Black Hole route active) (total=4)
+[B(0xBB)] 09:43:39.334 [TX] ACK id=1 → 0x11
+[R1(0x11)] 09:43:39.336 [RX] ACK id=1 PDR=50.0%
+[B(0xBB)] 09:43:39.584 [TX] Hello seq=1 (hello #2)
+[D(FSM)] 09:43:39.587 [SNIFF] Hello src=0xBB metric=0 seq=1 rssi=-12dBm
+[C(ATK)] 09:43:39.594 [SNIFF] Hello from 0xBB metric=0 seq=1
+[R2(0x22)] 09:43:40.342 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R1(0x11)] 09:43:40.346 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[D(FSM)] 09:43:40.349 [SNIFF] Hello src=0x11 metric=1 seq=4 rssi=-10dBm
+[C(ATK)] 09:43:40.349 [SNIFF] Hello from 0x11 metric=1 seq=4
+[D(FSM)] 09:43:43.655 [SNIFF] Data src=0xAA dst=0xCC id=2 rssi=-0dBm
+[A(0xAA)] 09:43:43.655 [TX] DATA id=2 via=0xCC (BLACK HOLE!) PDR=0.0%
+[D(FSM)] 09:43:43.655 [GUARDIAN] ALERT V:V4 src=0xAA — DATA dst=0xCC (known attacker — Black Hole route active) (total=5)
+[A(0xAA)] 09:43:43.655 [WARN] Routing to attacker 0xCC — expect no ACK
+[C(ATK)] 09:43:43.658 [BLACKHOLE] DROP data src=0xAA dst=0xCC pkt_id=2 (total_dropped=4)
+[C(ATK)] 09:43:43.658 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[R2(0x22)] 09:43:43.729 [TX] DATA id=2 via=0xBB
+[B(0xBB)] 09:43:43.730 [RX] DATA id=2 from 0x22 payload=220002 (total=5)
+[B(0xBB)] 09:43:43.879 [TX] ACK id=2 → 0x22
+[R2(0x22)] 09:43:43.886 [RX] ACK id=2 PDR=100.0%
+[R1(0x11)] 09:43:44.173 [TX] DATA id=2 via=0xCC
+[B(0xBB)] 09:43:44.185 [RX] DATA id=2 from 0x11 payload=110002 (total=6)
+[D(FSM)] 09:43:44.186 [SNIFF] Data src=0x11 dst=0xCC id=2 rssi=-10dBm
+[D(FSM)] 09:43:44.186 [GUARDIAN] ALERT V:V4 src=0x11 — DATA dst=0xCC (known attacker — Black Hole route active) (total=6)
+[C(ATK)] 09:43:44.188 [BLACKHOLE] DROP data src=0x11 dst=0xCC pkt_id=2 (total_dropped=5)
+[C(ATK)] 09:43:44.188 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[B(0xBB)] 09:43:44.328 [TX] ACK id=2 → 0x11
+[R1(0x11)] 09:43:44.330 [RX] ACK id=2 PDR=66.7%
+[C(ATK)] 09:43:45.676 [BLACKHOLE] Hello sent: seq=2 metric=0 HMAC=VALID (#3)
+[C(ATK)] 09:43:45.677 [BLACKHOLE] Honest nodes will update: NH=0xCC metric=1
+[C(ATK)] 09:43:45.677 [BLACKHOLE] HMAC patch: ACCEPTS (PSK valid) → route poisoned
+[D(FSM)] 09:43:45.690 [SNIFF] Hello src=0xCC metric=0 seq=2 rssi=-19dBm
+[R1(0x11)] 09:43:46.437 [RELAY] Re-broadcast Hello metric=1 (learned from 0xCC metric=0)
+[D(FSM)] 09:43:46.440 [SNIFF] Hello src=0x11 metric=1 seq=5 rssi=-10dBm
+[C(ATK)] 09:43:46.440 [SNIFF] Hello from 0x11 metric=1 seq=5
+[R2(0x22)] 09:43:46.444 [RELAY] Re-broadcast Hello metric=1 (learned from 0xCC metric=0)
+[C(ATK)] 09:43:48.655 [BLACKHOLE] DROP data src=0xAA dst=0xCC pkt_id=3 (total_dropped=6)
+[D(FSM)] 09:43:48.655 [SNIFF] Data src=0xAA dst=0xCC id=3 rssi=-0dBm
+[C(ATK)] 09:43:48.656 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[D(FSM)] 09:43:48.656 [GUARDIAN] ALERT V:V4 src=0xAA — DATA dst=0xCC (known attacker — Black Hole route active) (total=7)
+[A(0xAA)] 09:43:48.662 [TX] DATA id=3 via=0xCC (BLACK HOLE!) PDR=0.0%
+[A(0xAA)] 09:43:48.662 [WARN] Routing to attacker 0xCC — expect no ACK
+[B(0xBB)] 09:43:48.733 [RX] DATA id=3 from 0x22 payload=220003 (total=7)
+[R2(0x22)] 09:43:48.736 [TX] DATA id=3 via=0xBB
+[B(0xBB)] 09:43:48.877 [TX] ACK id=3 → 0x22
+[R2(0x22)] 09:43:48.879 [RX] ACK id=3 PDR=100.0%
+[D(FSM)] 09:43:49.177 [SNIFF] Data src=0x11 dst=0xCC id=3 rssi=-10dBm
+[C(ATK)] 09:43:49.177 [BLACKHOLE] DROP data src=0x11 dst=0xCC pkt_id=3 (total_dropped=7)
+[D(FSM)] 09:43:49.178 [GUARDIAN] ALERT V:V4 src=0x11 — DATA dst=0xCC (known attacker — Black Hole route active) (total=8)
+[C(ATK)] 09:43:49.178 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[B(0xBB)] 09:43:49.179 [RX] DATA id=3 from 0x11 payload=110003 (total=8)
+[R1(0x11)] 09:43:49.185 [TX] DATA id=3 via=0xCC
+[B(0xBB)] 09:43:49.323 [TX] ACK id=3 → 0x11
+[R1(0x11)] 09:43:49.329 [RX] ACK id=3 PDR=75.0%
+[D(FSM)] 09:43:49.584 [SNIFF] Hello src=0xBB metric=0 seq=2 rssi=-12dBm
+[B(0xBB)] 09:43:49.591 [TX] Hello seq=2 (hello #3)
+[C(ATK)] 09:43:49.592 [SNIFF] Hello from 0xBB metric=0 seq=2
+[R1(0x11)] 09:43:50.342 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R2(0x22)] 09:43:50.343 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[D(FSM)] 09:43:50.347 [SNIFF] Hello src=0x11 metric=1 seq=6 rssi=-9dBm
+[C(ATK)] 09:43:50.347 [SNIFF] Hello from 0x11 metric=1 seq=6
+[D(FSM)] 09:43:50.347 [GUARDIAN] ALERT V:V3 src=0x11 — gap=3905ms < min=5000ms (routing storm / flood) (total=9)
+[D(FSM)] 09:43:53.657 [SNIFF] Data src=0xAA dst=0xCC id=4 rssi=-0dBm
+[D(FSM)] 09:43:53.657 [GUARDIAN] ALERT V:V4 src=0xAA — DATA dst=0xCC (known attacker — Black Hole route active) (total=10)
+[A(0xAA)] 09:43:53.662 [TX] DATA id=4 via=0xCC (BLACK HOLE!) PDR=0.0%
+[A(0xAA)] 09:43:53.662 [WARN] Routing to attacker 0xCC — expect no ACK
+[C(ATK)] 09:43:53.686 [BLACKHOLE] Hello sent: seq=3 metric=0 HMAC=VALID (#4)
+[C(ATK)] 09:43:53.687 [BLACKHOLE] Honest nodes will update: NH=0xCC metric=1
+[C(ATK)] 09:43:53.687 [BLACKHOLE] HMAC patch: ACCEPTS (PSK valid) → route poisoned
+[R2(0x22)] 09:43:53.727 [TX] DATA id=4 via=0xBB
+[B(0xBB)] 09:43:53.740 [RX] DATA id=4 from 0x22 payload=220004 (total=9)
+[R2(0x22)] 09:43:53.880 [RX] ACK id=4 PDR=100.0%
+[B(0xBB)] 09:43:53.881 [TX] ACK id=4 → 0x22
+[R1(0x11)] 09:43:54.178 [TX] DATA id=4 via=0xCC
+[C(ATK)] 09:43:54.181 [BLACKHOLE] DROP data src=0x11 dst=0xCC pkt_id=4 (total_dropped=8)
+[C(ATK)] 09:43:54.182 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[B(0xBB)] 09:43:54.184 [RX] DATA id=4 from 0x11 payload=110004 (total=10)
+[D(FSM)] 09:43:54.184 [SNIFF] Data src=0x11 dst=0xCC id=4 rssi=-10dBm
+[D(FSM)] 09:43:54.185 [GUARDIAN] ALERT V:V4 src=0x11 — DATA dst=0xCC (known attacker — Black Hole route active) (total=11)
+[B(0xBB)] 09:43:54.327 [TX] ACK id=4 → 0x11
+[R1(0x11)] 09:43:54.331 [RX] ACK id=4 PDR=80.0%
+[A(0xAA)] 09:43:58.659 [TX] DATA id=5 via=0xCC (BLACK HOLE!) PDR=0.0%
+[A(0xAA)] 09:43:58.660 [WARN] Routing to attacker 0xCC — expect no ACK
+[D(FSM)] 09:43:58.664 [SNIFF] Data src=0xAA dst=0xCC id=5 rssi=-0dBm
+[C(ATK)] 09:43:58.664 [BLACKHOLE] DROP data src=0xAA dst=0xCC pkt_id=5 (total_dropped=9)
+[D(FSM)] 09:43:58.665 [GUARDIAN] ALERT V:V4 src=0xAA — DATA dst=0xCC (known attacker — Black Hole route active) (total=12)
+[C(ATK)] 09:43:58.665 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[R2(0x22)] 09:43:58.725 [TX] DATA id=5 via=0xBB
+[R1(0x11)] 09:43:59.173 [TX] DATA id=5 via=0xCC
+[C(ATK)] 09:43:59.182 [BLACKHOLE] DROP data src=0x11 dst=0xCC pkt_id=5 (total_dropped=10)
+[C(ATK)] 09:43:59.182 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[D(FSM)] 09:43:59.182 [SNIFF] Data src=0x11 dst=0xCC id=5 rssi=-10dBm
+[B(0xBB)] 09:43:59.182 [RX] DATA id=5 from 0x11 payload=110005 (total=11)
+[D(FSM)] 09:43:59.183 [GUARDIAN] ALERT V:V4 src=0x11 — DATA dst=0xCC (known attacker — Black Hole route active) (total=13)
+[B(0xBB)] 09:43:59.323 [TX] ACK id=5 → 0x11
+[R1(0x11)] 09:43:59.326 [RX] ACK id=5 PDR=83.3%
+[D(FSM)] 09:43:59.591 [SNIFF] Hello src=0xBB metric=0 seq=3 rssi=-13dBm
+[R2(0x22)] 09:43:59.591 [ROUTE] NH=0xBB metric=1
+[B(0xBB)] 09:43:59.591 [TX] Hello seq=3 (hello #4)
+[C(ATK)] 09:43:59.592 [SNIFF] Hello from 0xBB metric=0 seq=3
+[R2(0x22)] 09:44:00.346 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[D(FSM)] 09:44:00.353 [SNIFF] Hello src=0x11 metric=1 seq=7 rssi=-10dBm
+[R1(0x11)] 09:44:00.353 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[C(ATK)] 09:44:00.357 [SNIFF] Hello from 0x11 metric=1 seq=7
+[C(ATK)] 09:44:01.675 [BLACKHOLE] Hello sent: seq=4 metric=0 HMAC=VALID (#5)
+[C(ATK)] 09:44:01.676 [BLACKHOLE] Honest nodes will update: NH=0xCC metric=1
+[C(ATK)] 09:44:01.676 [BLACKHOLE] HMAC patch: ACCEPTS (PSK valid) → route poisoned
+[D(FSM)] 09:44:01.689 [SNIFF] Hello src=0xCC metric=0 seq=4 rssi=-18dBm
+[R1(0x11)] 09:44:02.439 [RELAY] Re-broadcast Hello metric=1 (learned from 0xCC metric=0)
+[R2(0x22)] 09:44:02.442 [RELAY] Re-broadcast Hello metric=1 (learned from 0xCC metric=0)
+[D(FSM)] 09:44:02.452 [SNIFF] Hello src=0x11 metric=1 seq=8 rssi=-10dBm
+[C(ATK)] 09:44:02.452 [SNIFF] Hello from 0x11 metric=1 seq=8
+[D(FSM)] 09:44:02.452 [GUARDIAN] ALERT V:V3 src=0x11 — gap=2095ms < min=5000ms (routing storm / flood) (total=14)
+[A(0xAA)] 09:44:03.663 [TX] DATA id=6 via=0xCC (BLACK HOLE!) PDR=0.0%
+[D(FSM)] 09:44:03.663 [SNIFF] Data src=0xAA dst=0xCC id=6 rssi=-0dBm
+[A(0xAA)] 09:44:03.663 [WARN] Routing to attacker 0xCC — expect no ACK
+[D(FSM)] 09:44:03.664 [GUARDIAN] ALERT V:V4 src=0xAA — DATA dst=0xCC (known attacker — Black Hole route active) (total=15)
+[C(ATK)] 09:44:03.665 [BLACKHOLE] DROP data src=0xAA dst=0xCC pkt_id=6 (total_dropped=11)
+[C(ATK)] 09:44:03.665 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[R2(0x22)] 09:44:03.730 [TX] DATA id=6 via=0xBB
+[C(ATK)] 09:44:04.181 [BLACKHOLE] DROP data src=0x11 dst=0xCC pkt_id=6 (total_dropped=12)
+[C(ATK)] 09:44:04.182 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[R1(0x11)] 09:44:04.184 [TX] DATA id=6 via=0xCC
+[D(FSM)] 09:44:04.184 [SNIFF] Data src=0x11 dst=0xCC id=6 rssi=-10dBm
+[B(0xBB)] 09:44:04.184 [RX] DATA id=6 from 0x11 payload=110006 (total=12)
+[D(FSM)] 09:44:04.185 [GUARDIAN] ALERT V:V4 src=0x11 — DATA dst=0xCC (known attacker — Black Hole route active) (total=16)
+[R1(0x11)] 09:44:04.332 [RX] ACK id=6 PDR=85.7%
+[B(0xBB)] 09:44:04.332 [TX] ACK id=6 → 0x11
+[A(0xAA)] 09:44:08.654 [TX] DATA id=7 via=0xCC (BLACK HOLE!) PDR=0.0%
+[A(0xAA)] 09:44:08.655 [WARN] Routing to attacker 0xCC — expect no ACK
+[D(FSM)] 09:44:08.666 [SNIFF] Data src=0xAA dst=0xCC id=7 rssi=-0dBm
+[C(ATK)] 09:44:08.667 [BLACKHOLE] DROP data src=0xAA dst=0xCC pkt_id=7 (total_dropped=13)
+[D(FSM)] 09:44:08.667 [GUARDIAN] ALERT V:V4 src=0xAA — DATA dst=0xCC (known attacker — Black Hole route active) (total=17)
+[C(ATK)] 09:44:08.667 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[R2(0x22)] 09:44:08.729 [TX] DATA id=7 via=0xBB
+[D(FSM)] 09:44:09.177 [SNIFF] Data src=0x11 dst=0xCC id=7 rssi=-10dBm
+[D(FSM)] 09:44:09.177 [GUARDIAN] ALERT V:V4 src=0x11 — DATA dst=0xCC (known attacker — Black Hole route active) (total=18)
+[B(0xBB)] 09:44:09.178 [RX] DATA id=7 from 0x11 payload=110007 (total=13)
+[R1(0x11)] 09:44:09.181 [TX] DATA id=7 via=0xCC
+[C(ATK)] 09:44:09.186 [BLACKHOLE] DROP data src=0x11 dst=0xCC pkt_id=7 (total_dropped=14)
+[C(ATK)] 09:44:09.187 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[B(0xBB)] 09:44:09.332 [TX] ACK id=7 → 0x11
+[R1(0x11)] 09:44:09.335 [RX] ACK id=7 PDR=87.5%
+[B(0xBB)] 09:44:09.593 [TX] Hello seq=4 (hello #5)
+[D(FSM)] 09:44:09.593 [SNIFF] Hello src=0xBB metric=0 seq=4 rssi=-13dBm
+[C(ATK)] 09:44:09.683 [BLACKHOLE] Hello sent: seq=5 metric=0 HMAC=VALID (#6)
+[C(ATK)] 09:44:09.684 [BLACKHOLE] Honest nodes will update: NH=0xCC metric=1
+[C(ATK)] 09:44:09.684 [BLACKHOLE] HMAC patch: ACCEPTS (PSK valid) → route poisoned
+[R2(0x22)] 09:44:10.348 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[A(0xAA)] 09:44:10.348 [ROUTE] Best NH=0x22 metric=2
+[D(FSM)] 09:44:10.351 [SNIFF] Hello src=0x22 metric=1 seq=9 rssi=-14dBm
+[C(ATK)] 09:44:10.353 [SNIFF] Hello from 0x22 metric=1 seq=9
+[R1(0x11)] 09:44:10.356 [ROUTE] NH=0x22 metric=2
+[R1(0x11)] 09:44:11.104 [RELAY] Re-broadcast Hello metric=2 (learned from 0x22 metric=1)
+[C(ATK)] 09:44:11.111 [SNIFF] Hello from 0x11 metric=2 seq=9
+[D(FSM)] 09:44:11.113 [SNIFF] Hello src=0x11 metric=2 seq=9 rssi=-10dBm
+[D(FSM)] 09:44:11.113 [GUARDIAN] ALERT V:V2 src=0x11 — metric 1 → 2 in 30000ms (injection candidate) (total=19)
+[D(FSM)] 09:44:11.871 [SNIFF] Hello src=0x22 metric=3 seq=10 rssi=-13dBm
+[D(FSM)] 09:44:11.871 [GUARDIAN] ALERT V:V3 src=0x22 — gap=1523ms < min=5000ms (routing storm / flood) (total=20)
+[D(FSM)] 09:44:11.871 [GUARDIAN] ALERT V:V2 src=0x22 — metric 1 → 3 in 30000ms (injection candidate) (total=21)
+[R2(0x22)] 09:44:11.873 [RELAY] Re-broadcast Hello metric=3 (learned from 0x11 metric=2)
+[C(ATK)] 09:44:11.873 [SNIFF] Hello from 0x22 metric=3 seq=10
+[R1(0x11)] 09:44:12.630 [RELAY] Re-broadcast Hello metric=4 (learned from 0x22 metric=3)
+[D(FSM)] 09:44:12.632 [SNIFF] Hello src=0x11 metric=4 seq=10 rssi=-10dBm
+[D(FSM)] 09:44:12.632 [GUARDIAN] ALERT V:V3 src=0x11 — gap=1523ms < min=5000ms (routing storm / flood) (total=22)
+[D(FSM)] 09:44:12.632 [GUARDIAN] ALERT V:V2 src=0x11 — metric 1 → 4 in 30000ms (injection candidate) (total=23)
+[C(ATK)] 09:44:12.637 [SNIFF] Hello from 0x11 metric=4 seq=10
+[R2(0x22)] 09:44:13.395 [RELAY] Re-broadcast Hello metric=5 (learned from 0x11 metric=4)
+[A(0xAA)] 09:44:13.658 [TX] DATA id=8 via=0x22 PDR=0.0%
+[R2(0x22)] 09:44:13.728 [TX] DATA id=8 via=0xBB
+[B(0xBB)] 09:44:13.733 [RX] DATA id=8 from 0x22 payload=220008 (total=14)
+[R2(0x22)] 09:44:13.881 [RX] ACK id=8 PDR=66.7%
+[B(0xBB)] 09:44:13.884 [TX] ACK id=8 → 0x22
+[R1(0x11)] 09:44:14.173 [TX] DATA id=8 via=0x22
+[D(FSM)] 09:44:14.181 [SNIFF] Data src=0x11 dst=0x22 id=8 rssi=-10dBm
+[C(ATK)] 09:44:14.186 [BLACKHOLE] DROP data src=0x11 dst=0x22 pkt_id=8 (total_dropped=15)
+[C(ATK)] 09:44:14.186 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[B(0xBB)] 09:44:14.189 [RX] DATA id=8 from 0x11 payload=110008 (total=15)
+[B(0xBB)] 09:44:14.331 [TX] ACK id=8 → 0x11
+[D(FSM)] 09:44:14.474 [SNIFF] Data src=0x11 dst=0xBB id=8 rssi=-14dBm
+[R2(0x22)] 09:44:14.475 [FWD] DATA id=8 src=0x11 → 0xBB
+[C(ATK)] 09:44:17.679 [BLACKHOLE] Hello sent: seq=6 metric=0 HMAC=VALID (#7)
+[C(ATK)] 09:44:17.679 [BLACKHOLE] Honest nodes will update: NH=0xCC metric=1
+[C(ATK)] 09:44:17.680 [BLACKHOLE] HMAC patch: ACCEPTS (PSK valid) → route poisoned
+[A(0xAA)] 09:44:17.683 [ROUTE] NH=0xCC metric=1 — ATTACKER INSERTED (HMAC passed!)
+[A(0xAA)] 09:44:17.684 [ROUTE] Black Hole attack SUCCESS: route table poisoned
+[R1(0x11)] 09:44:17.686 [ROUTE] NH=0xCC metric=1 — BLACK HOLE inserted (HMAC valid!)
+[D(FSM)] 09:44:17.686 [SNIFF] Hello src=0xCC metric=0 seq=6 rssi=-18dBm
+[R1(0x11)] 09:44:18.443 [RELAY] Re-broadcast Hello metric=1 (learned from 0xCC metric=0)
+[R2(0x22)] 09:44:18.443 [RELAY] Re-broadcast Hello metric=1 (learned from 0xCC metric=0)
+[A(0xAA)] 09:44:18.662 [TX] DATA id=9 via=0xCC (BLACK HOLE!) PDR=0.0%
+[A(0xAA)] 09:44:18.663 [WARN] Routing to attacker 0xCC — expect no ACK
+[B(0xBB)] 09:44:18.731 [RX] DATA id=9 from 0x22 payload=220009 (total=16)
+[R2(0x22)] 09:44:18.733 [TX] DATA id=9 via=0xBB
+[B(0xBB)] 09:44:18.883 [TX] ACK id=9 → 0x22
+[R2(0x22)] 09:44:18.890 [RX] ACK id=9 PDR=70.0%
+[R1(0x11)] 09:44:19.177 [TX] DATA id=9 via=0xCC
+[B(0xBB)] 09:44:19.180 [RX] DATA id=9 from 0x11 payload=110009 (total=17)
+[C(ATK)] 09:44:19.180 [BLACKHOLE] DROP data src=0x11 dst=0xCC pkt_id=9 (total_dropped=16)
+[C(ATK)] 09:44:19.181 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[D(FSM)] 09:44:19.184 [SNIFF] Data src=0x11 dst=0xCC id=9 rssi=-10dBm
+[D(FSM)] 09:44:19.185 [GUARDIAN] ALERT V:V4 src=0x11 — DATA dst=0xCC (known attacker — Black Hole route active) (total=24)
+[B(0xBB)] 09:44:19.324 [TX] ACK id=9 → 0x11
+[R1(0x11)] 09:44:19.337 [RX] ACK id=9 PDR=80.0%
+[B(0xBB)] 09:44:19.590 [TX] Hello seq=5 (hello #6)
+[D(FSM)] 09:44:19.596 [SNIFF] Hello src=0xBB metric=0 seq=5 rssi=-12dBm
+[C(ATK)] 09:44:19.596 [SNIFF] Hello from 0xBB metric=0 seq=5
+[R1(0x11)] 09:44:20.345 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[C(ATK)] 09:44:20.346 [SNIFF] Hello from 0x11 metric=1 seq=12
+[R2(0x22)] 09:44:20.348 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[D(FSM)] 09:44:20.351 [SNIFF] Hello src=0x11 metric=1 seq=12 rssi=-10dBm
+[A(0xAA)] 09:44:23.653 [TX] DATA id=10 via=0xCC (BLACK HOLE!) PDR=0.0%
+[A(0xAA)] 09:44:23.653 [WARN] Routing to attacker 0xCC — expect no ACK
+[D(FSM)] 09:44:23.656 [SNIFF] Data src=0xAA dst=0xCC id=10 rssi=-0dBm
+[D(FSM)] 09:44:23.657 [GUARDIAN] ALERT V:V4 src=0xAA — DATA dst=0xCC (known attacker — Black Hole route active) (total=25)
+[C(ATK)] 09:44:23.659 [BLACKHOLE] DROP data src=0xAA dst=0xCC pkt_id=10 (total_dropped=17)
+[C(ATK)] 09:44:23.659 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[R2(0x22)] 09:44:23.729 [TX] DATA id=10 via=0xBB
+[R1(0x11)] 09:44:24.177 [TX] DATA id=10 via=0xCC
+[D(FSM)] 09:44:24.182 [SNIFF] Data src=0x11 dst=0xCC id=10 rssi=-10dBm
+[D(FSM)] 09:44:24.182 [GUARDIAN] ALERT V:V4 src=0x11 — DATA dst=0xCC (known attacker — Black Hole route active) (total=26)
+[C(ATK)] 09:44:24.184 [BLACKHOLE] DROP data src=0x11 dst=0xCC pkt_id=10 (total_dropped=18)
+[B(0xBB)] 09:44:24.184 [RX] DATA id=10 from 0x11 payload=110010 (total=18)
+[C(ATK)] 09:44:24.184 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[B(0xBB)] 09:44:24.325 [TX] ACK id=10 → 0x11
+[R1(0x11)] 09:44:24.337 [RX] ACK id=10 PDR=81.8%
+[C(ATK)] 09:44:25.678 [BLACKHOLE] Hello sent: seq=7 metric=0 HMAC=VALID (#8)
+[C(ATK)] 09:44:25.678 [BLACKHOLE] Honest nodes will update: NH=0xCC metric=1
+[C(ATK)] 09:44:25.678 [BLACKHOLE] HMAC patch: ACCEPTS (PSK valid) → route poisoned
+[D(FSM)] 09:44:25.685 [SNIFF] Hello src=0xCC metric=0 seq=7 rssi=-18dBm
+[R2(0x22)] 09:44:26.442 [RELAY] Re-broadcast Hello metric=1 (learned from 0xCC metric=0)
+[C(ATK)] 09:44:26.444 [SNIFF] Hello from 0x11 metric=1 seq=13
+[D(FSM)] 09:44:26.445 [SNIFF] Hello src=0x11 metric=1 seq=13 rssi=-11dBm
+[R1(0x11)] 09:44:26.445 [RELAY] Re-broadcast Hello metric=1 (learned from 0xCC metric=0)
+[A(0xAA)] 09:44:28.653 [TX] DATA id=11 via=0xCC (BLACK HOLE!) PDR=0.0%
+[A(0xAA)] 09:44:28.654 [WARN] Routing to attacker 0xCC — expect no ACK
+[D(FSM)] 09:44:28.655 [SNIFF] Data src=0xAA dst=0xCC id=11 rssi=-0dBm
+[C(ATK)] 09:44:28.655 [BLACKHOLE] DROP data src=0xAA dst=0xCC pkt_id=11 (total_dropped=19)
+[D(FSM)] 09:44:28.655 [GUARDIAN] ALERT V:V4 src=0xAA — DATA dst=0xCC (known attacker — Black Hole route active) (total=27)
+[C(ATK)] 09:44:28.656 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[R2(0x22)] 09:44:28.729 [TX] DATA id=11 via=0xBB
+[R1(0x11)] 09:44:29.180 [TX] DATA id=11 via=0xCC
+[B(0xBB)] 09:44:29.184 [RX] DATA id=11 from 0x11 payload=110011 (total=19)
+[C(ATK)] 09:44:29.188 [BLACKHOLE] DROP data src=0x11 dst=0xCC pkt_id=11 (total_dropped=20)
+[D(FSM)] 09:44:29.188 [SNIFF] Data src=0x11 dst=0xCC id=11 rssi=-10dBm
+[C(ATK)] 09:44:29.188 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[D(FSM)] 09:44:29.188 [GUARDIAN] ALERT V:V4 src=0x11 — DATA dst=0xCC (known attacker — Black Hole route active) (total=28)
+[B(0xBB)] 09:44:29.324 [TX] ACK id=11 → 0x11
+[R1(0x11)] 09:44:29.327 [RX] ACK id=11 PDR=83.3%
+[D(FSM)] 09:44:29.589 [SNIFF] Hello src=0xBB metric=0 seq=6 rssi=-13dBm
+[B(0xBB)] 09:44:29.589 [TX] Hello seq=6 (hello #7)
+[C(ATK)] 09:44:29.590 [SNIFF] Hello from 0xBB metric=0 seq=6
+[R2(0x22)] 09:44:30.345 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R1(0x11)] 09:44:30.345 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[C(ATK)] 09:44:30.350 [SNIFF] Hello from 0x11 metric=1 seq=14
+[D(FSM)] 09:44:30.356 [SNIFF] Hello src=0x11 metric=1 seq=14 rssi=-10dBm
+[D(FSM)] 09:44:30.356 [GUARDIAN] ALERT V:V3 src=0x11 — gap=3905ms < min=5000ms (routing storm / flood) (total=29)
+[A(0xAA)] 09:44:33.653 [TX] DATA id=12 via=0xCC (BLACK HOLE!) PDR=0.0%
+[A(0xAA)] 09:44:33.654 [WARN] Routing to attacker 0xCC — expect no ACK
+[D(FSM)] 09:44:33.656 [SNIFF] Data src=0xAA dst=0xCC id=12 rssi=-0dBm
+[D(FSM)] 09:44:33.657 [GUARDIAN] ALERT V:V4 src=0xAA — DATA dst=0xCC (known attacker — Black Hole route active) (total=30)
+[C(ATK)] 09:44:33.678 [BLACKHOLE] Hello sent: seq=8 metric=0 HMAC=VALID (#9)
+[C(ATK)] 09:44:33.679 [BLACKHOLE] Honest nodes will update: NH=0xCC metric=1
+[C(ATK)] 09:44:33.679 [BLACKHOLE] HMAC patch: ACCEPTS (PSK valid) → route poisoned
+[R2(0x22)] 09:44:33.730 [TX] DATA id=12 via=0xBB
+[B(0xBB)] 09:44:33.737 [RX] DATA id=12 from 0x22 payload=220012 (total=20)
+[B(0xBB)] 09:44:33.883 [TX] ACK id=12 → 0x22
+[R2(0x22)] 09:44:33.888 [RX] ACK id=12 PDR=61.5%
+[R1(0x11)] 09:44:34.179 [TX] DATA id=12 via=0xCC
+[C(ATK)] 09:44:34.179 [BLACKHOLE] DROP data src=0x11 dst=0xCC pkt_id=12 (total_dropped=21)
+[C(ATK)] 09:44:34.180 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[D(FSM)] 09:44:34.181 [SNIFF] Data src=0x11 dst=0xCC id=12 rssi=-10dBm
+[D(FSM)] 09:44:34.181 [GUARDIAN] ALERT V:V4 src=0x11 — DATA dst=0xCC (known attacker — Black Hole route active) (total=31)
+[B(0xBB)] 09:44:34.187 [RX] DATA id=12 from 0x11 payload=110012 (total=21)
+[B(0xBB)] 09:44:34.332 [TX] ACK id=12 → 0x11
+[R1(0x11)] 09:44:34.336 [RX] ACK id=12 PDR=84.6%
+[A(0xAA)] 09:44:38.661 [TX] DATA id=13 via=0xCC (BLACK HOLE!) PDR=0.0%
+[A(0xAA)] 09:44:38.662 [WARN] Routing to attacker 0xCC — expect no ACK
+[D(FSM)] 09:44:38.663 [SNIFF] Data src=0xAA dst=0xCC id=13 rssi=-0dBm
+[D(FSM)] 09:44:38.664 [GUARDIAN] ALERT V:V4 src=0xAA — DATA dst=0xCC (known attacker — Black Hole route active) (total=32)
+[C(ATK)] 09:44:38.666 [BLACKHOLE] DROP data src=0xAA dst=0xCC pkt_id=13 (total_dropped=22)
+[C(ATK)] 09:44:38.666 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[R2(0x22)] 09:44:38.726 [TX] DATA id=13 via=0xBB
+[R1(0x11)] 09:44:39.177 [TX] DATA id=13 via=0xCC
+[D(FSM)] 09:44:39.178 [SNIFF] Data src=0x11 dst=0xCC id=13 rssi=-10dBm
+[D(FSM)] 09:44:39.178 [GUARDIAN] ALERT V:V4 src=0x11 — DATA dst=0xCC (known attacker — Black Hole route active) (total=33)
+[C(ATK)] 09:44:39.188 [BLACKHOLE] DROP data src=0x11 dst=0xCC pkt_id=13 (total_dropped=23)
+[B(0xBB)] 09:44:39.188 [RX] DATA id=13 from 0x11 payload=110013 (total=22)
+[C(ATK)] 09:44:39.188 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[R1(0x11)] 09:44:39.329 [RX] ACK id=13 PDR=85.7%
+[B(0xBB)] 09:44:39.330 [TX] ACK id=13 → 0x11
+[D(FSM)] 09:44:39.585 [SNIFF] Hello src=0xBB metric=0 seq=7 rssi=-13dBm
+[B(0xBB)] 09:44:39.585 [TX] Hello seq=7 (hello #8)
+[R2(0x22)] 09:44:39.585 [ROUTE] NH=0xBB metric=1
+[C(ATK)] 09:44:39.592 [SNIFF] Hello from 0xBB metric=0 seq=7
+[R2(0x22)] 09:44:40.344 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R1(0x11)] 09:44:40.344 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[D(FSM)] 09:44:40.346 [SNIFF] Hello src=0x11 metric=1 seq=15 rssi=-10dBm
+[C(ATK)] 09:44:40.356 [SNIFF] Hello from 0x11 metric=1 seq=15
+[C(ATK)] 09:44:41.680 [BLACKHOLE] Hello sent: seq=9 metric=0 HMAC=VALID (#10)
+[C(ATK)] 09:44:41.680 [BLACKHOLE] Honest nodes will update: NH=0xCC metric=1
+[C(ATK)] 09:44:41.681 [BLACKHOLE] HMAC patch: ACCEPTS (PSK valid) → route poisoned
+[D(FSM)] 09:44:41.687 [SNIFF] Hello src=0xCC metric=0 seq=9 rssi=-18dBm
+[R2(0x22)] 09:44:42.437 [RELAY] Re-broadcast Hello metric=1 (learned from 0xCC metric=0)
+[R1(0x11)] 09:44:42.441 [RELAY] Re-broadcast Hello metric=1 (learned from 0xCC metric=0)
+[D(FSM)] 09:44:42.449 [SNIFF] Hello src=0x11 metric=1 seq=16 rssi=-10dBm
+[D(FSM)] 09:44:42.449 [GUARDIAN] ALERT V:V3 src=0x11 — gap=2095ms < min=5000ms (routing storm / flood) (total=34)
+[C(ATK)] 09:44:42.451 [SNIFF] Hello from 0x11 metric=1 seq=16
+[C(ATK)] 09:44:43.656 [BLACKHOLE] DROP data src=0xAA dst=0xCC pkt_id=14 (total_dropped=24)
+[D(FSM)] 09:44:43.656 [SNIFF] Data src=0xAA dst=0xCC id=14 rssi=-0dBm
+[A(0xAA)] 09:44:43.656 [TX] DATA id=14 via=0xCC (BLACK HOLE!) PDR=0.0%
+[C(ATK)] 09:44:43.657 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[D(FSM)] 09:44:43.657 [GUARDIAN] ALERT V:V4 src=0xAA — DATA dst=0xCC (known attacker — Black Hole route active) (total=35)
+[A(0xAA)] 09:44:43.657 [WARN] Routing to attacker 0xCC — expect no ACK
+[R2(0x22)] 09:44:43.733 [TX] DATA id=14 via=0xBB
+[B(0xBB)] 09:44:44.178 [RX] DATA id=14 from 0x11 payload=110014 (total=23)
+[R1(0x11)] 09:44:44.181 [TX] DATA id=14 via=0xCC
+[C(ATK)] 09:44:44.182 [BLACKHOLE] DROP data src=0x11 dst=0xCC pkt_id=14 (total_dropped=25)
+[C(ATK)] 09:44:44.182 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[D(FSM)] 09:44:44.183 [SNIFF] Data src=0x11 dst=0xCC id=14 rssi=-10dBm
+[D(FSM)] 09:44:44.183 [GUARDIAN] ALERT V:V4 src=0x11 — DATA dst=0xCC (known attacker — Black Hole route active) (total=36)
+[R1(0x11)] 09:44:44.327 [RX] ACK id=14 PDR=86.7%
+[B(0xBB)] 09:44:44.327 [TX] ACK id=14 → 0x11
+[A(0xAA)] 09:44:48.656 [TX] DATA id=15 via=0xCC (BLACK HOLE!) PDR=0.0%
+[D(FSM)] 09:44:48.656 [SNIFF] Data src=0xAA dst=0xCC id=15 rssi=-0dBm
+[A(0xAA)] 09:44:48.657 [WARN] Routing to attacker 0xCC — expect no ACK
+[D(FSM)] 09:44:48.657 [GUARDIAN] ALERT V:V4 src=0xAA — DATA dst=0xCC (known attacker — Black Hole route active) (total=37)
+[C(ATK)] 09:44:48.659 [BLACKHOLE] DROP data src=0xAA dst=0xCC pkt_id=15 (total_dropped=26)
+[C(ATK)] 09:44:48.660 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[R2(0x22)] 09:44:48.731 [TX] DATA id=15 via=0xBB
+[R1(0x11)] 09:44:49.180 [TX] DATA id=15 via=0xCC
+[C(ATK)] 09:44:49.183 [BLACKHOLE] DROP data src=0x11 dst=0xCC pkt_id=15 (total_dropped=27)
+[C(ATK)] 09:44:49.184 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[B(0xBB)] 09:44:49.188 [RX] DATA id=15 from 0x11 payload=110015 (total=24)
+[D(FSM)] 09:44:49.188 [SNIFF] Data src=0x11 dst=0xCC id=15 rssi=-10dBm
+[D(FSM)] 09:44:49.188 [GUARDIAN] ALERT V:V4 src=0x11 — DATA dst=0xCC (known attacker — Black Hole route active) (total=38)
+[B(0xBB)] 09:44:49.331 [TX] ACK id=15 → 0x11
+[R1(0x11)] 09:44:49.337 [RX] ACK id=15 PDR=87.5%
+[B(0xBB)] 09:44:49.588 [TX] Hello seq=8 (hello #9)
+[D(FSM)] 09:44:49.593 [SNIFF] Hello src=0xBB metric=0 seq=8 rssi=-13dBm
+[C(ATK)] 09:44:49.687 [BLACKHOLE] Hello sent: seq=10 metric=0 HMAC=VALID (#11)
+[C(ATK)] 09:44:49.687 [BLACKHOLE] Honest nodes will update: NH=0xCC metric=1
+[C(ATK)] 09:44:49.688 [BLACKHOLE] HMAC patch: ACCEPTS (PSK valid) → route poisoned
+[R2(0x22)] 09:44:50.344 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[C(ATK)] 09:44:50.349 [SNIFF] Hello from 0x22 metric=1 seq=18
+[R1(0x11)] 09:44:50.354 [ROUTE] NH=0x22 metric=2
+[A(0xAA)] 09:44:50.355 [ROUTE] Best NH=0x22 metric=2
+[D(FSM)] 09:44:50.357 [SNIFF] Hello src=0x22 metric=1 seq=18 rssi=-13dBm
+[R1(0x11)] 09:44:51.115 [RELAY] Re-broadcast Hello metric=2 (learned from 0x22 metric=1)
+[C(ATK)] 09:44:51.116 [SNIFF] Hello from 0x11 metric=2 seq=17
+[D(FSM)] 09:44:51.116 [SNIFF] Hello src=0x11 metric=2 seq=17 rssi=-10dBm
+[D(FSM)] 09:44:51.116 [GUARDIAN] ALERT V:V2 src=0x11 — metric 1 → 2 in 30000ms (injection candidate) (total=39)
+[D(FSM)] 09:44:51.871 [SNIFF] Hello src=0x22 metric=3 seq=19 rssi=-13dBm
+[D(FSM)] 09:44:51.871 [GUARDIAN] ALERT V:V3 src=0x22 — gap=1523ms < min=5000ms (routing storm / flood) (total=40)
+[D(FSM)] 09:44:51.871 [GUARDIAN] ALERT V:V2 src=0x22 — metric 1 → 3 in 30000ms (injection candidate) (total=41)
+[C(ATK)] 09:44:51.873 [SNIFF] Hello from 0x22 metric=3 seq=19
+[R2(0x22)] 09:44:51.873 [RELAY] Re-broadcast Hello metric=3 (learned from 0x11 metric=2)
+[R1(0x11)] 09:44:52.636 [RELAY] Re-broadcast Hello metric=4 (learned from 0x22 metric=3)
+[D(FSM)] 09:44:52.640 [SNIFF] Hello src=0x11 metric=4 seq=18 rssi=-10dBm
+[D(FSM)] 09:44:52.640 [GUARDIAN] ALERT V:V3 src=0x11 — gap=1523ms < min=5000ms (routing storm / flood) (total=42)
+[D(FSM)] 09:44:52.640 [GUARDIAN] ALERT V:V2 src=0x11 — metric 1 → 4 in 30000ms (injection candidate) (total=43)
+[C(ATK)] 09:44:52.642 [SNIFF] Hello from 0x11 metric=4 seq=18
+[R2(0x22)] 09:44:53.390 [RELAY] Re-broadcast Hello metric=5 (learned from 0x11 metric=4)
+[C(ATK)] 09:44:53.393 [SNIFF] Hello from 0x22 metric=5 seq=20
+[A(0xAA)] 09:44:53.660 [TX] DATA id=16 via=0x22 PDR=0.0%
+[B(0xBB)] 09:44:53.737 [RX] DATA id=16 from 0x22 payload=220016 (total=25)
+[R2(0x22)] 09:44:53.737 [TX] DATA id=16 via=0xBB
+[B(0xBB)] 09:44:53.880 [TX] ACK id=16 → 0x22
+[R2(0x22)] 09:44:53.880 [RX] ACK id=16 PDR=52.9%
+[R1(0x11)] 09:44:54.177 [TX] DATA id=16 via=0x22
+[D(FSM)] 09:44:54.182 [SNIFF] Data src=0x11 dst=0x22 id=16 rssi=-10dBm
+[C(ATK)] 09:44:54.182 [BLACKHOLE] DROP data src=0x11 dst=0x22 pkt_id=16 (total_dropped=28)
+[C(ATK)] 09:44:54.183 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[B(0xBB)] 09:44:54.185 [RX] DATA id=16 from 0x11 payload=110016 (total=26)
+[B(0xBB)] 09:44:54.333 [TX] ACK id=16 → 0x11
+[R2(0x22)] 09:44:54.467 [FWD] DATA id=16 src=0x11 → 0xBB
+[D(FSM)] 09:44:54.476 [SNIFF] Data src=0x11 dst=0xBB id=16 rssi=-14dBm
+[C(ATK)] 09:44:57.676 [BLACKHOLE] Hello sent: seq=11 metric=0 HMAC=VALID (#12)
+[C(ATK)] 09:44:57.677 [BLACKHOLE] Honest nodes will update: NH=0xCC metric=1
+[C(ATK)] 09:44:57.677 [BLACKHOLE] HMAC patch: ACCEPTS (PSK valid) → route poisoned
+[D(FSM)] 09:44:57.683 [SNIFF] Hello src=0xCC metric=0 seq=11 rssi=-18dBm
+[R1(0x11)] 09:44:57.690 [ROUTE] NH=0xCC metric=1 — BLACK HOLE inserted (HMAC valid!)
+[A(0xAA)] 09:44:57.690 [ROUTE] NH=0xCC metric=1 — ATTACKER INSERTED (HMAC passed!)
+[A(0xAA)] 09:44:57.690 [ROUTE] Black Hole attack SUCCESS: route table poisoned
+[R2(0x22)] 09:44:58.447 [RELAY] Re-broadcast Hello metric=1 (learned from 0xCC metric=0)
+[R1(0x11)] 09:44:58.447 [RELAY] Re-broadcast Hello metric=1 (learned from 0xCC metric=0)
+[A(0xAA)] 09:44:58.653 [TX] DATA id=17 via=0xCC (BLACK HOLE!) PDR=0.0%
+[A(0xAA)] 09:44:58.653 [WARN] Routing to attacker 0xCC — expect no ACK
+[R2(0x22)] 09:44:58.737 [TX] DATA id=17 via=0xBB
+[B(0xBB)] 09:44:58.739 [RX] DATA id=17 from 0x22 payload=220017 (total=27)
+[R2(0x22)] 09:44:58.887 [RX] ACK id=17 PDR=55.6%
+[B(0xBB)] 09:44:58.887 [TX] ACK id=17 → 0x22
+[C(ATK)] 09:44:59.182 [BLACKHOLE] DROP data src=0x11 dst=0xCC pkt_id=17 (total_dropped=29)
+[C(ATK)] 09:44:59.183 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[R1(0x11)] 09:44:59.184 [TX] DATA id=17 via=0xCC
+[B(0xBB)] 09:44:59.186 [RX] DATA id=17 from 0x11 payload=110017 (total=28)
+[D(FSM)] 09:44:59.186 [SNIFF] Data src=0x11 dst=0xCC id=17 rssi=-10dBm
+[D(FSM)] 09:44:59.186 [GUARDIAN] ALERT V:V4 src=0x11 — DATA dst=0xCC (known attacker — Black Hole route active) (total=44)
+[B(0xBB)] 09:44:59.329 [TX] ACK id=17 → 0x11
+[R1(0x11)] 09:44:59.338 [RX] ACK id=17 PDR=83.3%
+[C(ATK)] 09:44:59.587 [SNIFF] Hello from 0xBB metric=0 seq=9
+[B(0xBB)] 09:44:59.589 [TX] Hello seq=9 (hello #10)
+[D(FSM)] 09:44:59.591 [SNIFF] Hello src=0xBB metric=0 seq=9 rssi=-13dBm
+[R2(0x22)] 09:45:00.345 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R1(0x11)] 09:45:00.351 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[D(FSM)] 09:45:00.353 [SNIFF] Hello src=0x11 metric=1 seq=20 rssi=-10dBm
+[C(ATK)] 09:45:00.357 [SNIFF] Hello from 0x11 metric=1 seq=20
+[A(0xAA)] 09:45:03.656 [TX] DATA id=18 via=0xCC (BLACK HOLE!) PDR=0.0%
+[D(FSM)] 09:45:03.656 [SNIFF] Data src=0xAA dst=0xCC id=18 rssi=-0dBm
+[C(ATK)] 09:45:03.657 [BLACKHOLE] DROP data src=0xAA dst=0xCC pkt_id=18 (total_dropped=30)
+[A(0xAA)] 09:45:03.657 [WARN] Routing to attacker 0xCC — expect no ACK
+[D(FSM)] 09:45:03.657 [GUARDIAN] ALERT V:V4 src=0xAA — DATA dst=0xCC (known attacker — Black Hole route active) (total=45)
+[C(ATK)] 09:45:03.657 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[R2(0x22)] 09:45:03.729 [TX] DATA id=18 via=0xBB
+[R1(0x11)] 09:45:04.178 [TX] DATA id=18 via=0xCC
+[C(ATK)] 09:45:04.185 [BLACKHOLE] DROP data src=0x11 dst=0xCC pkt_id=18 (total_dropped=31)
+[C(ATK)] 09:45:04.186 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[D(FSM)] 09:45:04.189 [SNIFF] Data src=0x11 dst=0xCC id=18 rssi=-10dBm
+[B(0xBB)] 09:45:04.189 [RX] DATA id=18 from 0x11 payload=110018 (total=29)
+[D(FSM)] 09:45:04.189 [GUARDIAN] ALERT V:V4 src=0x11 — DATA dst=0xCC (known attacker — Black Hole route active) (total=46)
+[B(0xBB)] 09:45:04.327 [TX] ACK id=18 → 0x11
+[R1(0x11)] 09:45:04.329 [RX] ACK id=18 PDR=84.2%
+[C(ATK)] 09:45:05.678 [BLACKHOLE] Hello sent: seq=12 metric=0 HMAC=VALID (#13)
+[C(ATK)] 09:45:05.679 [BLACKHOLE] Honest nodes will update: NH=0xCC metric=1
+[C(ATK)] 09:45:05.679 [BLACKHOLE] HMAC patch: ACCEPTS (PSK valid) → route poisoned
+[D(FSM)] 09:45:05.686 [SNIFF] Hello src=0xCC metric=0 seq=12 rssi=-19dBm
+[R2(0x22)] 09:45:06.441 [RELAY] Re-broadcast Hello metric=1 (learned from 0xCC metric=0)
+[D(FSM)] 09:45:06.442 [SNIFF] Hello src=0x11 metric=1 seq=21 rssi=-10dBm
+[C(ATK)] 09:45:06.446 [SNIFF] Hello from 0x11 metric=1 seq=21
+[R1(0x11)] 09:45:06.446 [RELAY] Re-broadcast Hello metric=1 (learned from 0xCC metric=0)
+[A(0xAA)] 09:45:08.653 [TX] DATA id=19 via=0xCC (BLACK HOLE!) PDR=0.0%
+[A(0xAA)] 09:45:08.654 [WARN] Routing to attacker 0xCC — expect no ACK
+[C(ATK)] 09:45:08.660 [BLACKHOLE] DROP data src=0xAA dst=0xCC pkt_id=19 (total_dropped=32)
+[C(ATK)] 09:45:08.661 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[D(FSM)] 09:45:08.665 [SNIFF] Data src=0xAA dst=0xCC id=19 rssi=-0dBm
+[D(FSM)] 09:45:08.665 [GUARDIAN] ALERT V:V4 src=0xAA — DATA dst=0xCC (known attacker — Black Hole route active) (total=47)
+[R2(0x22)] 09:45:08.734 [TX] DATA id=19 via=0xBB
+[B(0xBB)] 09:45:08.739 [RX] DATA id=19 from 0x22 payload=220019 (total=30)
+[B(0xBB)] 09:45:08.884 [TX] ACK id=19 → 0x22
+[R2(0x22)] 09:45:08.888 [RX] ACK id=19 PDR=55.0%
+[D(FSM)] 09:45:09.181 [SNIFF] Data src=0x11 dst=0xCC id=19 rssi=-10dBm
+[D(FSM)] 09:45:09.182 [GUARDIAN] ALERT V:V4 src=0x11 — DATA dst=0xCC (known attacker — Black Hole route active) (total=48)
+[R1(0x11)] 09:45:09.182 [TX] DATA id=19 via=0xCC
+[C(ATK)] 09:45:09.182 [BLACKHOLE] DROP data src=0x11 dst=0xCC pkt_id=19 (total_dropped=33)
+[C(ATK)] 09:45:09.183 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[B(0xBB)] 09:45:09.187 [RX] DATA id=19 from 0x11 payload=110019 (total=31)
+[B(0xBB)] 09:45:09.333 [TX] ACK id=19 → 0x11
+[R1(0x11)] 09:45:09.333 [RX] ACK id=19 PDR=85.0%
+[B(0xBB)] 09:45:09.585 [TX] Hello seq=10 (hello #11)
+[C(ATK)] 09:45:09.588 [SNIFF] Hello from 0xBB metric=0 seq=10
+[D(FSM)] 09:45:09.595 [SNIFF] Hello src=0xBB metric=0 seq=10 rssi=-13dBm
+[R2(0x22)] 09:45:10.346 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[C(ATK)] 09:45:10.348 [SNIFF] Hello from 0x11 metric=1 seq=22
+[R1(0x11)] 09:45:10.350 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[D(FSM)] 09:45:10.356 [SNIFF] Hello src=0x11 metric=1 seq=22 rssi=-10dBm
+[D(FSM)] 09:45:10.356 [GUARDIAN] ALERT V:V3 src=0x11 — gap=3905ms < min=5000ms (routing storm / flood) (total=49)
+[A(0xAA)] 09:45:13.653 [TX] DATA id=20 via=0xCC (BLACK HOLE!) PDR=0.0%
+[A(0xAA)] 09:45:13.654 [WARN] Routing to attacker 0xCC — expect no ACK
+[D(FSM)] 09:45:13.665 [SNIFF] Data src=0xAA dst=0xCC id=20 rssi=-0dBm
+[D(FSM)] 09:45:13.666 [GUARDIAN] ALERT V:V4 src=0xAA — DATA dst=0xCC (known attacker — Black Hole route active) (total=50)
+[C(ATK)] 09:45:13.686 [BLACKHOLE] Hello sent: seq=13 metric=0 HMAC=VALID (#14)
+[C(ATK)] 09:45:13.687 [BLACKHOLE] Honest nodes will update: NH=0xCC metric=1
+[C(ATK)] 09:45:13.687 [BLACKHOLE] HMAC patch: ACCEPTS (PSK valid) → route poisoned
+[R2(0x22)] 09:45:13.733 [TX] DATA id=20 via=0xBB
+[B(0xBB)] 09:45:13.733 [RX] DATA id=20 from 0x22 payload=220020 (total=32)
+[B(0xBB)] 09:45:13.885 [TX] ACK id=20 → 0x22
+[R2(0x22)] 09:45:13.886 [RX] ACK id=20 PDR=57.1%
+[C(ATK)] 09:45:14.180 [BLACKHOLE] DROP data src=0x11 dst=0xCC pkt_id=20 (total_dropped=34)
+[C(ATK)] 09:45:14.180 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[R1(0x11)] 09:45:14.181 [TX] DATA id=20 via=0xCC
+[B(0xBB)] 09:45:14.188 [RX] DATA id=20 from 0x11 payload=110020 (total=33)
+[D(FSM)] 09:45:14.188 [SNIFF] Data src=0x11 dst=0xCC id=20 rssi=-10dBm
+[D(FSM)] 09:45:14.189 [GUARDIAN] ALERT V:V4 src=0x11 — DATA dst=0xCC (known attacker — Black Hole route active) (total=51)
+[B(0xBB)] 09:45:14.325 [TX] ACK id=20 → 0x11
+[R1(0x11)] 09:45:14.329 [RX] ACK id=20 PDR=85.7%
+[C(ATK)] 09:45:18.656 [BLACKHOLE] DROP data src=0xAA dst=0xCC pkt_id=21 (total_dropped=35)
+[D(FSM)] 09:45:18.656 [SNIFF] Data src=0xAA dst=0xCC id=21 rssi=-0dBm
+[C(ATK)] 09:45:18.657 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[D(FSM)] 09:45:18.657 [GUARDIAN] ALERT V:V4 src=0xAA — DATA dst=0xCC (known attacker — Black Hole route active) (total=52)
+[A(0xAA)] 09:45:18.661 [TX] DATA id=21 via=0xCC (BLACK HOLE!) PDR=0.0%
+[A(0xAA)] 09:45:18.661 [WARN] Routing to attacker 0xCC — expect no ACK
+[R2(0x22)] 09:45:18.731 [TX] DATA id=21 via=0xBB
+[R1(0x11)] 09:45:19.176 [TX] DATA id=21 via=0xCC
+[B(0xBB)] 09:45:19.180 [RX] DATA id=21 from 0x11 payload=110021 (total=34)
+[C(ATK)] 09:45:19.181 [BLACKHOLE] DROP data src=0x11 dst=0xCC pkt_id=21 (total_dropped=36)
+[C(ATK)] 09:45:19.181 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[D(FSM)] 09:45:19.182 [SNIFF] Data src=0x11 dst=0xCC id=21 rssi=-11dBm
+[D(FSM)] 09:45:19.182 [GUARDIAN] ALERT V:V4 src=0x11 — DATA dst=0xCC (known attacker — Black Hole route active) (total=53)
+[B(0xBB)] 09:45:19.324 [TX] ACK id=21 → 0x11
+[R1(0x11)] 09:45:19.329 [RX] ACK id=21 PDR=86.4%
+[R2(0x22)] 09:45:19.589 [ROUTE] NH=0xBB metric=1
+[B(0xBB)] 09:45:19.589 [TX] Hello seq=11 (hello #12)
+[D(FSM)] 09:45:19.590 [SNIFF] Hello src=0xBB metric=0 seq=11 rssi=-13dBm
+[C(ATK)] 09:45:19.593 [SNIFF] Hello from 0xBB metric=0 seq=11
+[R2(0x22)] 09:45:20.349 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R1(0x11)] 09:45:20.350 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[D(FSM)] 09:45:20.355 [SNIFF] Hello src=0x11 metric=1 seq=23 rssi=-10dBm
+[C(ATK)] 09:45:20.356 [SNIFF] Hello from 0x11 metric=1 seq=23
+[C(ATK)] 09:45:21.683 [BLACKHOLE] Hello sent: seq=14 metric=0 HMAC=VALID (#15)
+[D(FSM)] 09:45:21.684 [SNIFF] Hello src=0xCC metric=0 seq=14 rssi=-18dBm
+[C(ATK)] 09:45:21.684 [BLACKHOLE] Honest nodes will update: NH=0xCC metric=1
+[C(ATK)] 09:45:21.685 [BLACKHOLE] HMAC patch: ACCEPTS (PSK valid) → route poisoned
+[D(FSM)] 09:45:22.444 [SNIFF] Hello src=0x11 metric=1 seq=24 rssi=-10dBm
+[D(FSM)] 09:45:22.444 [GUARDIAN] ALERT V:V3 src=0x11 — gap=2095ms < min=5000ms (routing storm / flood) (total=54)
+[R1(0x11)] 09:45:22.445 [RELAY] Re-broadcast Hello metric=1 (learned from 0xCC metric=0)
+[R2(0x22)] 09:45:22.445 [RELAY] Re-broadcast Hello metric=1 (learned from 0xCC metric=0)
+[C(ATK)] 09:45:22.453 [SNIFF] Hello from 0x11 metric=1 seq=24
+[A(0xAA)] 09:45:23.653 [TX] DATA id=22 via=0xCC (BLACK HOLE!) PDR=0.0%
+[A(0xAA)] 09:45:23.654 [WARN] Routing to attacker 0xCC — expect no ACK
+[C(ATK)] 09:45:23.658 [BLACKHOLE] DROP data src=0xAA dst=0xCC pkt_id=22 (total_dropped=37)
+[C(ATK)] 09:45:23.658 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[D(FSM)] 09:45:23.660 [SNIFF] Data src=0xAA dst=0xCC id=22 rssi=-0dBm
+[D(FSM)] 09:45:23.661 [GUARDIAN] ALERT V:V4 src=0xAA — DATA dst=0xCC (known attacker — Black Hole route active) (total=55)
+[R2(0x22)] 09:45:23.732 [TX] DATA id=22 via=0xBB
+[B(0xBB)] 09:45:23.738 [RX] DATA id=22 from 0x22 payload=220022 (total=35)
+[B(0xBB)] 09:45:23.886 [TX] ACK id=22 → 0x22
+[R2(0x22)] 09:45:23.888 [RX] ACK id=22 PDR=56.5%
+[R1(0x11)] 09:45:24.176 [TX] DATA id=22 via=0xCC
+[B(0xBB)] 09:45:24.182 [RX] DATA id=22 from 0x11 payload=110022 (total=36)
+[C(ATK)] 09:45:24.184 [BLACKHOLE] DROP data src=0x11 dst=0xCC pkt_id=22 (total_dropped=38)
+[C(ATK)] 09:45:24.184 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[D(FSM)] 09:45:24.186 [SNIFF] Data src=0x11 dst=0xCC id=22 rssi=-10dBm
+[D(FSM)] 09:45:24.186 [GUARDIAN] ALERT V:V4 src=0x11 — DATA dst=0xCC (known attacker — Black Hole route active) (total=56)
+[B(0xBB)] 09:45:24.327 [TX] ACK id=22 → 0x11
+[R1(0x11)] 09:45:24.334 [RX] ACK id=22 PDR=87.0%
+[A(0xAA)] 09:45:28.654 [TX] DATA id=23 via=0xCC (BLACK HOLE!) PDR=0.0%
+[A(0xAA)] 09:45:28.654 [WARN] Routing to attacker 0xCC — expect no ACK
