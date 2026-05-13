@@ -45,24 +45,22 @@
 \ead{[email]}
 
 \begin{abstract}
-LoRa-based mesh ad~hoc networks are deployed at scale across
-precision agriculture, environmental monitoring, and
-disaster-response systems, with LoRaMesher serving as a
-representative open-source distance-vector routing stack for
-ESP32-class nodes.
-LoRaMesher's control plane carries no cryptographic
-authentication, enabling route injection and session-replay
-attacks by any adversary with a commodity LoRa transceiver.
-Hardware validation of these attacks reveals a
-\textbf{cross-layer finding}: route injection creates a
-\emph{silent traffic black hole}—not an adversarial relay—because
+Route injection in LoRaMesher—an open-source distance-vector mesh
+routing stack for ESP32-class LoRa nodes—creates a
+\emph{silent traffic black hole}, not an adversarial relay:
 the deployed firmware encodes next-hop forwarding state in the
 destination field rather than the final gateway identity assumed
 by symbolic and packet-level analyses.
 This cross-layer semantic mismatch explains the observed
 topology-dependent attack gradient (0\% PDR on linear topologies;
-77.4\% under attack on tree and grid) and is invisible to both
-Tamarin formal models and ns-3 packet-level simulation.
+77.4\% under attack on tree and grid), is invisible to both
+Tamarin formal models and ns-3 packet-level simulation, and only
+becomes visible through physical hardware serial-log inspection.
+
+LoRaMesher's control plane carries no cryptographic authentication,
+enabling this attack by any adversary with a commodity \$20 LoRa
+transceiver in networks deployed across precision agriculture,
+environmental monitoring, and disaster-response systems.
 
 We present \textbf{a formally verified security study} of
 LoRa ad~hoc mesh routing control-plane security—to our knowledge
@@ -188,10 +186,16 @@ goals, and (iii)~validated the outcome across multi-topology
 simulation and physical hardware experiments. This paper closes
 that gap.
 
-\textbf{A cross-layer finding changes the threat model.}
+\subsection{Key Observation}
+\label{sec:key-observation}
+
 Physical hardware validation reveals a finding that formal and
 simulation analysis cannot capture: route injection creates a
 \emph{silent traffic black hole}, not an adversarial relay.
+The deployed firmware encodes the next-hop address in the
+\texttt{dst} field; the gateway silently drops every arriving
+packet because $\texttt{dst} \neq \texttt{0xBB}$, producing
+zero observable anomaly at the legitimate receiver.
 The mechanism and its implications for intrusion detection design
 are developed in full in Section~\ref{sec:cross-layer}; the key
 consequence for deployment is that an IDS monitoring the gateway
