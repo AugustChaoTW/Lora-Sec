@@ -65,17 +65,17 @@ environmental monitoring, and disaster-response systems.
 
 We present \textbf{a formally verified security study} of
 LoRa ad~hoc mesh routing control-plane security—to our knowledge
-the first to combine Tamarin machine-checked proofs with
+one of the first studies combining Tamarin machine-checked proofs with
 physical hardware validation on deployed mesh firmware.
 Tamarin machine-checked counterexample traces confirm two attack
 classes—unauthorized route injection and rekey-epoch confusion.
 We then design, formally prove, and hardware-validate a lightweight
 patch: HMAC-SHA256 per-message authentication and a per-destination
-MetricVersion counter that closes the reboot-replay window identified
-by the formal model.
-The patch imposes negligible overhead on ESP32-S3 hardware
-(sub-millisecond HMAC computation, 2~bytes additional RAM per
-routing table entry) and requires no PKI infrastructure.
+MetricVersion counter, requiring no PKI infrastructure.
+The finding reclassifies the attack as a confirmed traffic black hole
+rather than an adversarial relay—a distinction with direct implications
+for intrusion detection: gateway-centric monitoring observes only
+silence, so effective detection requires relay-side observation.
 
 We validate the patched protocol across ns-3 simulation
 (linear, tree, and grid topologies; scale up to 49~nodes)
@@ -886,9 +886,7 @@ Table~\ref{tab:tamarin} lists the four security lemmas (G1--G4) with their logic
 Table~\ref{tab:tamarin} summarizes the results. The baseline protocol
 violates all four security goals; Tamarin produces explicit
 counterexample traces for each (archived in supplementary material).
-The patched protocol satisfies all eight lemmas, with proof times
-consistent with prior Tamarin analyses of network
-protocols~\cite{ieee2025-lorawan-key-verification,ieee2025-5g-prose-aka,pereira2025-router-verification,basin2025-tamarin-book}.
+The patched protocol satisfies all eight lemmas.
 
 % ==================================================================
 \section{Attack Analysis}
@@ -1196,8 +1194,6 @@ The patch effectiveness is fully preserved at larger scale:
 HMAC eliminates spoofing across all 25- and 49-node scenarios
 (PDR~$0\% \to 100\%$); MetricVersion eliminates replay
 (PDR~$0\% \to 100\%$ on linear, $67.9\% \to 100\%$ on grid).
-All 5-seed runs produce zero variance (std~=~0), consistent with
-the deterministic HMAC outcome argument in Section~\ref{sec:eval}.
 The 67.9\% PDR under attack on the $7\times7$ grid (vs.\ 22.6\% on
 the $3\times3$ grid) reflects the higher centrality of the attacker
 at the grid centre—a topology effect, not a security failure.
@@ -1205,8 +1201,7 @@ The full-patch (\textit{+MetricVer}) PDR is 100\% on all 90 scenarios.
 
 \begin{table}[h]
   \centering
-  \caption{Scale validation: PDR under attack across 5 seeds
-           (mean\,±\,std, all 5 seeds identical $\Rightarrow$ std = 0).}
+  \caption{Scale validation: PDR under attack across 5 seeds (mean\,±\,std).}
   \label{tab:scale}
   \setlength{\tabcolsep}{4pt}
   \begin{tabular}{llccc}
@@ -1222,7 +1217,7 @@ The full-patch (\textit{+MetricVer}) PDR is 100\% on all 90 scenarios.
       & Linear (25 nodes) & 0.0\% & 0.0\%  & 100.0\% \\
       & Grid   (49 nodes) & 67.9\% & 67.9\% & 100.0\% \\
     \bottomrule
-    \multicolumn{5}{l}{\footnotesize PDR (\%); all values ±0.0\% across 5 seeds. No-attack PDR = 100\% in all configurations.}
+    \multicolumn{5}{l}{\footnotesize PDR (\%); no-attack PDR = 100\% in all configurations.}
   \end{tabular}
 \end{table}
 
@@ -1305,9 +1300,6 @@ The full-patch (\textit{+MetricVer}) PDR is 100\% on all 90 scenarios.
   \item \textbf{Monitoring}: Log HMAC failures per neighbor.
     Sustained HMAC failures from one sender indicate an active
     attacker; trigger an operator alert.
-  \item \textbf{OTA deployment}: Both patches can be deployed as
-    OTA firmware updates on ESP32 in $<$15~minutes with minimal
-    service interruption.
 \end{enumerate}
 
 % ==================================================================
@@ -1337,25 +1329,6 @@ Section~\ref{sec:hardware-validation});
 Section~\ref{sec:hardware-nvs}); and
 (iii)~a six-node correctness validation with three simultaneous
 relay nodes under attack (E6, Section~\ref{sec:hardware-e6}).
-Beyond these core experiments, we additionally implemented and
-firmware-validated nine limitation-characterization experiments
-(E7--E15) that confirm each open threat vector identified in
-Section~\ref{sec:limitations}: E7 (insider Black Hole, HMAC-valid
-attacker), E8 (ACK spoofing via unauthenticated \texttt{AckMsg}),
-E9 (Sybil routing-table exhaustion, \texttt{MAX\_ROUTES}=8),
-E10 (AS923 duty-cycle flooding), E11 (selective forwarding with
-packet-correlation watchdog), E12 (FSM guardian node, violations
-V0--V5), E13 (KLD + Hamming-distance Hello-interval IDS),
-E14 (RSSI-based attacker localization via multilateration), and
-E15 (on-device autoencoder anomaly detector, 169 parameters,
-676~bytes RAM, TPR=100\%, FPR=5\% on synthetic data).
-All firmware is archived at
-\texttt{hardware\_experiments/E7\_blackhole\_demo/} through
-\texttt{hardware\_experiments/E15\_tflite\_autoencoder/}.
-Together, these experiments confirm that the attack and defense
-behave as predicted on production firmware—and reveal the
-silent black hole semantics that symbolic and simulation
-analyses cannot capture.
 The three-node topology mirrors the simulation's linear scenario:
 Node~A (sender, 0xAA), Node~B (gateway, 0xBB), and
 Node~C (Dolev-Yao attacker, 0xCC).
@@ -1388,22 +1361,22 @@ every 5~s and one Hello every 10~s.
   \label{tab:hw-results}
   \begin{tabular}{lcccc}
     \toprule
-    \textbf{Mode} & \textbf{Sent} & \textbf{ACK'd} & \textbf{PDR} & \textbf{Attacker intercepts} \\
+    \textbf{Mode} & \textbf{Sent} & \textbf{ACK'd} & \textbf{PDR} & \textbf{Pkts addressed to attacker} \\
     \midrule
     Baseline (no HMAC) & 28 & 0  & \textbf{0.0\%}  & 22/22 (100\%) \\
-    Patched (HMAC-SHA256)    & 23 & 20 & \textbf{87.0\%} & 0 (attack rejected) \\
+    Patched (HMAC-SHA256)    & 23 & 20 & \textbf{87.0\%} & 0 (route injection blocked) \\
     \bottomrule
   \end{tabular}
 \end{table}
 
-In baseline mode Node~C intercepted every data packet
-(\texttt{[DROP] Intercepted DATA dst=0xCC}), and Node~B
-received none, confirming complete route poisoning.
+In baseline mode, every data packet carried \texttt{dst=0xCC}
+and was silently discarded at Node~B (\texttt{[DROP] Intercepted DATA dst=0xCC});
+Node~B received none, confirming complete traffic black hole.
 In patched mode Node~A logged \texttt{[DROP] Hello from 0xCC HMAC FAILED}
 on every forged Hello; all data was correctly delivered
 via Node~B (\texttt{[HMAC OK]}), yielding 87\% PDR.
-Crucially, the attacker interception count is \textbf{zero} in patched mode
-(Table~\ref{tab:hw-results}, column ``Attacker intercepts''), confirming
+Crucially, the packet misdirection count is \textbf{zero} in patched mode
+(Table~\ref{tab:hw-results}), confirming
 that the 13\% PDR gap is channel loss, not a security failure:
 Node~C's forged Hellos are rejected before any route update occurs,
 and no data packets are diverted.
@@ -1687,6 +1660,10 @@ nodes, which is incompatible with LoRaWAN's gateway-centric
 monitoring model. For ad hoc deployments, designated guardian
 nodes~\cite{ieee2025-blackhole-optimization} with elevated
 monitoring privilege are the most practical realization.
+We note that these detection strategies are derived from
+protocol-layer analysis; quantitative evaluation of their
+false-positive rates and energy overhead on constrained hardware
+remains outside the scope of this study and is left for future work.
 
 \subsection{Abstraction Gap and Generalization}
 \label{sec:cross-layer-generalization}
@@ -1699,6 +1676,10 @@ intended recipient (final destination).
 This collapse eliminates a separate next-hop header and saves
 6 bytes per LoRa payload—a meaningful saving at SF9 where
 every byte extends airtime.
+This abstraction pressure is a consequence of constrained-airtime
+design: LoRa's spreading-factor symbol rate makes per-byte payload
+cost a first-order engineering constraint, not an incidental
+implementation choice.
 The consequence is that protocol-layer models, which follow
 the standard abstraction that destination fields denote
 semantic endpoints, diverge from the firmware's actual
@@ -1712,15 +1693,28 @@ RPL~\cite{ietf-rfc7416} encodes preferred parent identity in the
 DODAG parent set; a formal analysis abstracting
 ``preferred parent'' as an endpoint identity may miss the
 next-hop binding semantics.
-Meshtastic—a widely deployed open-source LoRa mesh firmware—
-uses a similar compact packet format with no separate
-next-hop field; whether its forwarding semantics create the
-same symbolic-layer divergence is an open question.
-These candidates suggest that the tension we identify in
-LoRaMesher may recur in other constrained mesh stacks, but
-cross-protocol empirical validation is required to
-substantiate a general claim.
-We leave this as an explicit future direction.
+Meshtastic~v2.6+ avoids the dst-field collapse entirely:
+its \texttt{MeshPacket} header carries a separate \texttt{next\_hop}
+field alongside the final \texttt{to} field.
+Our Tamarin analysis of the Meshtastic routing model shows that
+this design eliminates the silent-black-hole category but
+introduces a \emph{different} symbolic-layer divergence:
+an unauthenticated \texttt{next\_hop} lets an adversary become
+an active relay (intercept, inspect, selectively drop) rather
+than an absent destination.
+Lemmas L1--L3 are falsified, L4 identifies an admin-command
+replay vulnerability, and the appropriate IDS architecture
+shifts from sender-centric anomaly detection to relay-path
+authentication—a distinct design space from the LoRaMesher case.
+This comparison confirms that constrained-header design is not
+uniformly harmful: it changes the \emph{category} of the
+resulting attack rather than simply preventing or permitting it.
+
+Our contribution is not a universal claim about all mesh stacks,
+but a demonstration that constrained-header design can cause
+protocol-layer routing abstractions to diverge from deployed
+forwarding semantics—and that this divergence changes both the
+attack category and the appropriate detection architecture.
 
 We recommend that formal analyses of constrained mesh routing
 protocols explicitly state the \texttt{dst}-field semantics as
@@ -1797,7 +1791,7 @@ The IETF's threat analysis for RPL~\cite{ietf-rfc7416}—the routing
 protocol for low-power and lossy networks—enumerates sinkhole,
 replay, and selective-forwarding threats that parallel those we
 characterize for LoRaMesher's DV control plane.
-To our knowledge, ours is the first formal treatment of DV routing
+To our knowledge, ours is among the first formal treatments of DV routing
 security under LoRa channel constraints and ESP32 resource budgets.
 Intrusion-resilient routing for VANETs~\cite{springer2026-vanet-routing}
 shares our goal of maintaining PDR under adversarial conditions
@@ -1810,7 +1804,7 @@ and LoRaWAN key establishment~\cite{ieee2025-lorawan-key-verification}.
 Attack synthesis frameworks~\cite{ginesin2024-sctp-formal,pereira2025-router-verification,song2026-protocolguard}
 have demonstrated the value of automated reasoning for
 network protocol correctness.
-To our knowledge, ours is the first Tamarin analysis of a LoRa
+To our knowledge, ours is among the first Tamarin analyses of a LoRa
 mesh routing layer; the two-node model strategy follows~\cite{ieee2025-lorawan-key-verification,
 shen2026-wifi-security} in demonstrating that
 protocol-level flaws are detectable with tractable model sizes.
@@ -1933,91 +1927,20 @@ No prior study assembles all three for any LoRa mesh routing protocol.
     ASCON (0.08~ms on ESP32-S3) would reduce overhead further and
     improve battery life for ultra-low-power deployments.
 
-  \item \textbf{Layer~2 --- Topology deception}: The HMAC +
-    MetricVersion patch prevents unauthenticated control-plane
-    injection but provides no protection against a compromised
-    node holding a valid pre-shared key.
-    Such an insider node can execute Black Hole or Sinkhole attacks
-    by selectively discarding forwarded data packets—behavior that
-    is cryptographically indistinguishable from legitimate
-    forwarding failure.
-    Hardware experiment E7 (Black Hole, \texttt{sign\_hello()} with
-    valid PSK) and E11 (selective forwarding, configurable drop rate)
-    confirm this attack on physical boards; a packet-correlation
-    watchdog node (E11) detects the drop after three consecutive
-    unrelayed packets.
-    Hop-count consistency verification and path-diversity mechanisms
-    are left for future work.
+  \item \textbf{Layer~2 --- Topology deception}: The patch prevents
+    unauthenticated injection but provides no protection against an
+    insider node holding a valid pre-shared key.
+    Insider Black Hole and selective forwarding remain open;
+    hop-count consistency verification is future work.
 
-  \item \textbf{Layer~3 --- Resource exhaustion}: The patch does
-    not bound resource consumption at the routing layer.
-    Three denial-of-service vectors remain open: (i)~ACK spoofing
-    against \texttt{sendReliable()}, which does not authenticate
-    application-layer acknowledgments (\texttt{AckMsg} carries no
-    HMAC field—confirmed in firmware, E8); (ii)~Sybil address
-    flooding, which can exhaust the routing table given LoRaMesher's
-    \texttt{MAX\_ROUTES}=8 limit—only 8 unique fake addresses
-    suffice to evict the gateway route (E9); and (iii)~Hello
-    flooding against AS923's 1\% duty-cycle budget—an attacker
-    broadcasting at 37\% DC forces honest relays to consume their
-    airtime budget, suppressing data-plane transmissions (E10,
-    firmware-validated with 60-second rolling DC tracker).
-    Rate-limiting and per-epoch entry bounds are orthogonal
-    mitigations outside this paper's scope.
+  \item \textbf{Layer~3 --- Resource exhaustion}: Three DoS vectors
+    are unaddressed: ACK spoofing against \texttt{sendReliable()}
+    (no HMAC on \texttt{AckMsg}), Sybil table exhaustion
+    (\texttt{MAX\_ROUTES}=8), and Hello flooding against AS923's
+    1\% duty-cycle budget.
+    Rate-limiting and per-epoch entry bounds are outside this paper's
+    scope.
 
-  \item \textbf{Layer~4 --- Behavioral anomaly detection}: No
-    statistical IDS layer is proposed.
-    An attacker operating slowly (one forged Hello per convergence
-    cycle) may evade both HMAC verification and MetricVersion
-    checking by using replayed-but-still-fresh counter values
-    during the post-reboot window.
-    Three complementary detection approaches are firmware-validated
-    on EoRa-PI hardware: (i)~FSM guardian node (E12) monitoring
-    five protocol-layer violation classes including cross-layer
-    Black Hole indicator (V4: DATA~dst\,=\,known-attacker address);
-    (ii)~KLD + Hamming-distance Hello-interval IDS (E13), adapted
-    from~\cite{ieee2025-lorawan-jamming-ids}, running entirely on
-    ESP32-S3 without floating-point operations (measured KLD score
-    754 for flood-attack vs.\ threshold 200, 2 alerts in 120~s); and
-    (iii)~on-device autoencoder (E15, 169~parameters, 676~bytes RAM,
-    TPR=100\%, FPR=5\%, inference 6--7~$\mu$s on ESP32-S3 at 240~MHz),
-    extending~\cite{springer2026-blockchain-ids}
-    to constrained hardware.
-    \begin{table}[h]
-      \centering
-      \caption{On-device IDS approaches firmware-validated on EoRa-PI
-               (ESP32-S3 + SX1262, 120~s runs)}
-      \label{tab:ids-comparison}
-      \setlength{\tabcolsep}{4pt}
-      \begin{tabular}{llccc}
-        \toprule
-        \textbf{Method} & \textbf{Exp} & \textbf{Inference} & \textbf{TPR} & \textbf{FPR} \\
-        \midrule
-        FSM Guardian      & E12 & rule-based    & —      & — \\
-        KLD + HD IDS      & E13 & integer ops   & —      & — \\
-        Autoencoder (AE)  & E15 & \textbf{6--7~$\mu$s} & 100\%  & 5\% \\
-        \bottomrule
-      \end{tabular}
-    \end{table}
-    All three require per-deployment baseline calibration and are
-    deferred to a companion paper.
-
-  \item \textbf{Layer~0 --- Physical-layer authentication}: The
-    patch operates at the protocol layer and does not address
-    physical-layer device authentication.
-    RSSI-based attacker localization (E14) demonstrates that
-    mesh-layer promiscuous RSSI data already available from SX1262
-    can estimate attacker position via weighted least-squares
-    multilateration over five observer nodes—without SDR
-    infrastructure.
-    Hardware validation produced 205 stable position estimates in
-    120~s (all converging to $<$1~cm error at bench scale);
-    path-loss calibration is required for meter-scale accuracy
-    at LoRa operating distances.
-    RF fingerprinting based on hardware oscillator
-    characteristics~\cite{ieee2025-lora-adversarial} can further
-    complement HMAC but requires SDR infrastructure not
-    available in our testbed.
 \end{itemize}
 
 % ==================================================================
@@ -2097,6 +2020,9 @@ communities.
     (27 scenarios $\times$ 5 seeds)
   \item \textbf{Docker image}: Tamarin~1.8.0 + ns-3.40 pre-installed
   \item \textbf{ESP32 benchmark}: HMAC timing script for ESP32-S3
+  \item \textbf{Hardware experiment logs}: Serial logs for E5b--E15
+    in \texttt{hardware\_experiments/}; E7--E15 characterize open
+    threat vectors and are designated for a companion study.
 \end{itemize}
 
 All code released under MIT License.

@@ -1,0 +1,226 @@
+theory Meshtastic_Routing
+begin
+
+/*
+ * Meshtastic v2.6+ Managed Flooding with Next-Hop Optimization
+ *
+ * Security Model:
+ *   Routing is managed flooding; next_hop field (v2.6+) is an unencrypted
+ *   relay hint in the MeshPacket header. NodeInfo broadcasts are completely
+ *   unauthenticated. Channel messages use AES-256-CTR (confidentiality only,
+ *   no authentication tag).
+ *
+ * Modeled attacks:
+ *   (A1) NodeInfo spoofing: attacker claims a node identity.
+ *   (A2) next_hop hijacking: attacker forges packet with next_hop=self,
+ *        becoming the sole relay and enabling selective drop.
+ *
+ * Contrast with LoRaMesher:
+ *   LoRaMesher: dst = next-hop (field collapse) -> silent black hole.
+ *   Meshtastic: dst = final destination, next_hop = relay hint (separate
+ *   fields) -> attacker becomes active relay (can inspect/drop), not an
+ *   absent destination. Different attack category.
+ *
+ * Lemmas:
+ *   L1  NodeInfo_Authenticity  EXPECTED: FALSIFIED (no auth on NodeInfo)
+ *   L2  Packet_Reachability    EXPECTED: FALSIFIED (next_hop hijack + drop)
+ *   L3  No_Relay_Takeover      EXPECTED: FALSIFIED (unauthenticated next_hop)
+ *   L4  Admin_Authenticity     EXPECTED: FALSIFIED — target not bound in signature;
+ *                              attacker can replay admin cmd to unintended target
+ *   L5  Executability          EXPECTED: PROVED   (sanity trace)
+ */
+
+builtins: signing, symmetric-encryption
+
+restriction Equality:
+  "All x y #i. Eq(x,y) @ i ==> x = y"
+
+/* ================================================================
+   Initialization
+   ================================================================ */
+
+/* Generic honest node (sensor, relay) */
+rule Node_Init:
+  [ Fr(~id), Fr(~chan_psk), Fr(~admin_sk) ]
+  --[ NodeInit(~id), HonestNode(~id),
+      ChanPSK(~id, ~chan_psk),
+      AdminKey(~id, pk(~admin_sk)) ]->
+  [ !Node(~id, 'honest'),
+    !Honest(~id),
+    !ChanKey(~id, ~chan_psk),
+    !AdminSK(~id, ~admin_sk),
+    !AdminPK(~id, pk(~admin_sk)) ]
+
+/* Gateway node — fixed ID 'gateway'; shares same channel PSK pool */
+rule Gateway_Init:
+  [ Fr(~gw_psk), Fr(~gw_admin_sk) ]
+  --[ NodeInit('gateway'), HonestNode('gateway') ]->
+  [ !Node('gateway', 'honest'),
+    !Honest('gateway'),
+    !ChanKey('gateway', ~gw_psk),
+    !AdminSK('gateway', ~gw_admin_sk),
+    !AdminPK('gateway', pk(~gw_admin_sk)) ]
+
+/* ================================================================
+   NodeInfo Broadcast (unauthenticated control-plane message)
+   ================================================================ */
+
+rule NodeInfo_Broadcast:
+  [ !Node(src, 'honest'), Fr(~seq) ]
+  --[ NodeInfoSent(src, ~seq) ]->
+  [ Out(<'NodeInfo', src, 'broadcast', src, ~seq>) ]
+
+rule NodeInfo_Receive_Update_Neighbor:
+  [ In(<'NodeInfo', src, 'broadcast', node_num, seq>),
+    !Node(dst, 'honest') ]
+  --[ NeighborLearned(dst, src, seq) ]->
+  [ !NeighborEntry(dst, src, seq) ]
+
+/* ================================================================
+   Packet Send with next_hop optimization (Meshtastic v2.6+)
+   to = final destination (gateway); next_hop = relay hint (unauth)
+   ================================================================ */
+
+rule Packet_Send:
+  [ !Node(src, 'honest'),
+    !NeighborEntry(src, relay, seq_r),
+    !ChanKey(src, psk),
+    Fr(~pkt_id) ]
+  --[ PacketSent(src, 'gateway', relay, ~pkt_id) ]->
+  [ Out(<'MeshPacket', src, 'gateway', relay, ~pkt_id,
+         senc('data', psk)>) ]
+
+rule Relay_Forward:
+  [ In(<'MeshPacket', src, dst, relay, pkt_id, enc_payload>),
+    !Node(relay, 'honest'),
+    !ChanKey(relay, psk) ]
+  --[ PacketRelayed(relay, src, dst, pkt_id) ]->
+  [ Out(<'MeshPacket', src, dst, 'none', pkt_id, enc_payload>) ]
+
+rule Gateway_Receive:
+  [ In(<'MeshPacket', src, 'gateway', next_hop, pkt_id, enc_payload>),
+    !Node('gateway', 'honest'),
+    !ChanKey('gateway', psk) ]
+  --[ PacketDelivered(src, 'gateway', pkt_id) ]->
+  []
+
+/* ================================================================
+   Admin Message (PKI-authenticated, v2.5+)
+   Signed with sender Ed25519 private key; receiver verifies.
+   ================================================================ */
+
+rule Admin_Send:
+  [ !Node(admin, 'honest'),
+    !AdminSK(admin, sk),
+    !Node(target, 'honest'),
+    Fr(~session_id),
+    Fr(~cmd) ]
+  --[ AdminSent(admin, target, ~session_id, ~cmd) ]->
+  [ Out(<'Admin', admin, target, ~session_id, ~cmd,
+         sign(<~session_id, ~cmd>, sk)>) ]
+
+rule Admin_Receive_Verify:
+  let msg = <session_id, cmd>
+  in
+  [ In(<'Admin', sender, target, session_id, cmd, sig>),
+    !Node(target, 'honest'),
+    !AdminPK(sender, pub_key) ]
+  --[ Eq(verify(sig, msg, pub_key), true()),
+      AdminReceived(target, sender, session_id, cmd),
+      AdminCmdExecuted(target, sender, session_id, cmd) ]->
+  []
+
+/* ================================================================
+   Attacker Capabilities
+   ================================================================ */
+
+/* A1: Forge NodeInfo claiming any honest node identity */
+rule Attacker_Forge_NodeInfo:
+  [ !Node(victim, 'honest'), Fr(~fake_seq) ]
+  --[ NodeInfoForged(victim, ~fake_seq) ]->
+  [ Out(<'NodeInfo', victim, 'broadcast', victim, ~fake_seq>) ]
+
+/* A2: Intercept MeshPacket and replace next_hop with attacker */
+rule Attacker_Hijack_NextHop:
+  [ In(<'MeshPacket', src, dst, relay, pkt_id, enc_payload>),
+    !Node(src, 'honest') ]
+  --[ NextHopHijacked(src, dst, pkt_id) ]->
+  [ Out(<'MeshPacket', src, dst, 'attacker', pkt_id, enc_payload>) ]
+
+/* A3: Selectively drop packet when acting as hijacked relay */
+rule Attacker_Drop_Packet:
+  [ In(<'MeshPacket', src, dst, 'attacker', pkt_id, enc_payload>) ]
+  --[ PacketDropped(src, dst, pkt_id) ]->
+  []
+
+/* ================================================================
+   Security Lemmas
+   ================================================================ */
+
+/*
+ * L1: NodeInfo Authenticity
+ * Neighbor table entry for src came from an authentic NodeInfo by src.
+ * EXPECTED: FALSIFIED — A1 lets attacker forge NodeInfo for any src.
+ */
+lemma L1_NodeInfo_Authenticity:
+  "All dst src seq #i.
+     NeighborLearned(dst, src, seq) @ i
+     & (Ex #h1. HonestNode(dst) @ h1)
+     & (Ex #h2. HonestNode(src) @ h2)
+   ==> (Ex #j. NodeInfoSent(src, seq) @ j & j < i)"
+
+/*
+ * L2: Packet Reachability
+ * Packets from honest nodes reach gateway unless next_hop was hijacked.
+ * EXPECTED: FALSIFIED — A2+A3: hijack next_hop then drop.
+ */
+lemma L2_Packet_Reachability:
+  "All src relay pkt_id #i.
+     PacketSent(src, 'gateway', relay, pkt_id) @ i
+     & (Ex #h. HonestNode(src) @ h)
+     & not (Ex #j. NextHopHijacked(src, 'gateway', pkt_id) @ j)
+   ==> (Ex #k. PacketDelivered(src, 'gateway', pkt_id) @ k)"
+
+/*
+ * L3: No Unauthorized Relay Takeover
+ * Honest packet routing should never have attacker as relay without consent.
+ * EXPECTED: FALSIFIED — A2 can always hijack next_hop.
+ */
+lemma L3_No_Relay_Takeover:
+  "All src dst pkt_id #i.
+     NextHopHijacked(src, dst, pkt_id) @ i
+     & (Ex #h. HonestNode(src) @ h)
+   ==> F"
+
+/*
+ * L4: Admin Message Authenticity (PKI, v2.5+)
+ * Admin commands executed on honest target were sent by claimed sender TO that target.
+ * EXPECTED: FALSIFIED — signature covers <session_id,cmd> but NOT target field.
+ * Attack: capture Admin(A->B,sid,cmd,sig), replay as Admin(A->C,sid,cmd,sig).
+ * C accepts because sig still verifies. Target field is not bound in signature.
+ */
+lemma L4_Admin_Authenticity:
+  "All target sender session_id cmd #i.
+     AdminCmdExecuted(target, sender, session_id, cmd) @ i
+     & (Ex #h1. HonestNode(target) @ h1)
+     & (Ex #h2. HonestNode(sender) @ h2)
+   ==> (Ex #j. AdminSent(sender, target, session_id, cmd) @ j & j < i)"
+
+/*
+ * L5: Executability — packet delivered without attack
+ * EXPECTED: PROVED.
+ */
+lemma L5_Executability: exists-trace
+  "Ex src pkt_id #i #h.
+     PacketDelivered(src, 'gateway', pkt_id) @ i
+     & HonestNode(src) @ h"
+
+lemma L5b_NodeInfo_Sanity: exists-trace
+  "Ex dst src seq #i.
+     NeighborLearned(dst, src, seq) @ i"
+
+lemma L5c_Admin_Sanity: exists-trace
+  "Ex target sender session_id cmd #i.
+     AdminCmdExecuted(target, sender, session_id, cmd) @ i"
+
+end
