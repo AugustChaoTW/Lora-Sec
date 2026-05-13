@@ -1,0 +1,98 @@
+[C(SYBIL)] 09:13:34.271 ESP-ROM:esp32s3-20210327
+[C(SYBIL)] 09:13:34.273 Build:Mar 27 2021
+[C(SYBIL)] 09:13:34.275 rst:0x15 (USB_UART_CHIP_RESET),boot:0x19 (SPI_FAST_FLASH_BOOT)
+[C(SYBIL)] 09:13:34.277 Saved PC:0x4037ce2a
+[C(SYBIL)] 09:13:34.278 SPIWP:0xee
+[C(SYBIL)] 09:13:34.279 mode:DIO, clock div:1
+[C(SYBIL)] 09:13:34.280 load:0x3fce2820,len:0x10cc
+[C(SYBIL)] 09:13:34.281 load:0x403c8700,len:0xc2c
+[C(SYBIL)] 09:13:34.281 load:0x403cb700,len:0x30c0
+[C(SYBIL)] 09:13:34.282 entry 0x403c88b8
+[C(SYBIL)] 09:13:34.434 
+[C(SYBIL)] 09:13:34.435 === E9 Node C (SYBIL FLOODER) ===
+[C(SYBIL)] 09:13:34.435 [INFO] Flood mode: INSIDER (valid HMAC)
+[C(SYBIL)] 09:13:34.436 [INFO] Sybil address range: 0xD0–0xFF (48 addresses)
+[C(SYBIL)] 09:13:34.437 [INFO] MAX_ROUTES_ESTIMATE=8 — need 8 floods to saturate table
+[C(SYBIL)] 09:13:34.438 [INFO] Finding: routing table exhaustion DoS not addressed by HMAC patch.
+[C(SYBIL)] 09:13:34.511 [RADIO] SX1262 ready @ 923 MHz AS923
+[C(SYBIL)] 09:13:34.774 [SYBIL] Hello src=0xD0 seq=0 (slot ~1/8 floods=1)
+[C(SYBIL)] 09:13:35.236 [SYBIL] Hello src=0xD1 seq=1 (slot ~2/8 floods=2)
+[C(SYBIL)] 09:13:35.693 [SYBIL] Hello src=0xD2 seq=2 (slot ~3/8 floods=3)
+[C(SYBIL)] 09:13:36.142 [SYBIL] Hello src=0xD3 seq=3 (slot ~4/8 floods=4)
+[C(SYBIL)] 09:13:36.611 [SYBIL] Hello src=0xD4 seq=4 (slot ~5/8 floods=5)
+[C(SYBIL)] 09:13:37.068 [SYBIL] Hello src=0xD5 seq=5 (slot ~6/8 floods=6)
+[C(SYBIL)] 09:13:37.525 [SYBIL] Hello src=0xD6 seq=6 (slot ~7/8 floods=7)
+[C(SYBIL)] 09:13:37.979 [SYBIL] Hello src=0xD7 seq=7 (slot ~8/8 floods=8)
+[C(SYBIL)] 09:13:37.980 [SYBIL] Route table likely FULL — gateway route should be evicted
+[C(SYBIL)] 09:13:37.980 [SYBIL] Honest nodes now have no valid path to 0xBB
+[C(SYBIL)] 09:13:40.439 [SYBIL] Hello src=0xD8 seq=8 (slot ~1/8 floods=9)
+[C(SYBIL)] 09:13:42.437 [SYBIL] Hello src=0xD9 seq=9 (slot ~2/8 floods=10)
+[C(SYBIL)] 09:13:44.433 [SYBIL] Hello src=0xDA seq=10 (slot ~3/8 floods=11)
+[C(SYBIL)] 09:13:46.439 [SYBIL] Hello src=0xDB seq=11 (slot ~4/8 floods=12)
+[C(SYBIL)] 09:13:48.433 [SYBIL] Hello src=0xDC seq=12 (slot ~5/8 floods=13)
+[C(SYBIL)] 09:13:50.445 [SYBIL] Hello src=0xDD seq=13 (slot ~6/8 floods=14)
+[C(SYBIL)] 09:13:52.440 [SYBIL] Hello src=0xDE seq=14 (slot ~7/8 floods=15)
+[C(SYBIL)] 09:13:54.440 [SYBIL] Hello src=0xDF seq=15 (slot ~8/8 floods=16)
+[C(SYBIL)] 09:13:54.440 [SYBIL] Route table likely FULL — gateway route should be evicted
+[C(SYBIL)] 09:13:54.441 [SYBIL] Honest nodes now have no valid path to 0xBB
+[C(SYBIL)] 09:13:56.432 [SYBIL] Hello src=0xE0 seq=16 (slot ~1/8 floods=17)
+[C(SYBIL)] 09:13:58.435 [SYBIL] Hello src=0xE1 seq=17 (slot ~2/8 floods=18)
+[C(SYBIL)] 09:14:00.434 [SYBIL] Hello src=0xE2 seq=18 (slot ~3/8 floods=19)
+[C(SYBIL)] 09:14:02.442 [SYBIL] Hello src=0xE3 seq=19 (slot ~4/8 floods=20)
+[C(SYBIL)] 09:14:04.438 [SYBIL] Hello src=0xE4 seq=20 (slot ~5/8 floods=21)
+[C(SYBIL)] 09:14:06.436 [SYBIL] Hello src=0xE5 seq=21 (slot ~6/8 floods=22)
+[C(SYBIL)] 09:14:08.432 [SYBIL] Hello src=0xE6 seq=22 (slot ~7/8 floods=23)
+[C(SYBIL)] 09:14:10.443 [SYBIL] Hello src=0xE7 seq=23 (slot ~8/8 floods=24)
+[C(SYBIL)] 09:14:10.444 [SYBIL] Route table likely FULL — gateway route should be evicted
+[C(SYBIL)] 09:14:10.445 [SYBIL] Honest nodes now have no valid path to 0xBB
+[C(SYBIL)] 09:14:12.438 [SYBIL] Hello src=0xE8 seq=24 (slot ~1/8 floods=25)
+[C(SYBIL)] 09:14:14.435 [SYBIL] Hello src=0xE9 seq=25 (slot ~2/8 floods=26)
+[C(SYBIL)] 09:14:16.433 [SYBIL] Hello src=0xEA seq=26 (slot ~3/8 floods=27)
+[C(SYBIL)] 09:14:18.440 [SYBIL] Hello src=0xEB seq=27 (slot ~4/8 floods=28)
+[C(SYBIL)] 09:14:20.434 [SYBIL] Hello src=0xEC seq=28 (slot ~5/8 floods=29)
+[C(SYBIL)] 09:14:22.440 [SYBIL] Hello src=0xED seq=29 (slot ~6/8 floods=30)
+[C(SYBIL)] 09:14:24.436 [SYBIL] Hello src=0xEE seq=30 (slot ~7/8 floods=31)
+[C(SYBIL)] 09:14:26.437 [SYBIL] Hello src=0xEF seq=31 (slot ~8/8 floods=32)
+[C(SYBIL)] 09:14:26.438 [SYBIL] Route table likely FULL — gateway route should be evicted
+[C(SYBIL)] 09:14:26.438 [SYBIL] Honest nodes now have no valid path to 0xBB
+[C(SYBIL)] 09:14:28.442 [SYBIL] Hello src=0xF0 seq=32 (slot ~1/8 floods=33)
+[C(SYBIL)] 09:14:30.438 [SYBIL] Hello src=0xF1 seq=33 (slot ~2/8 floods=34)
+[C(SYBIL)] 09:14:32.443 [SYBIL] Hello src=0xF2 seq=34 (slot ~3/8 floods=35)
+[C(SYBIL)] 09:14:34.440 [SYBIL] Hello src=0xF3 seq=35 (slot ~4/8 floods=36)
+[C(SYBIL)] 09:14:36.433 [SYBIL] Hello src=0xF4 seq=36 (slot ~5/8 floods=37)
+[C(SYBIL)] 09:14:38.434 [SYBIL] Hello src=0xF5 seq=37 (slot ~6/8 floods=38)
+[C(SYBIL)] 09:14:40.435 [SYBIL] Hello src=0xF6 seq=38 (slot ~7/8 floods=39)
+[C(SYBIL)] 09:14:42.440 [SYBIL] Hello src=0xF7 seq=39 (slot ~8/8 floods=40)
+[C(SYBIL)] 09:14:42.440 [SYBIL] Route table likely FULL — gateway route should be evicted
+[C(SYBIL)] 09:14:42.440 [SYBIL] Honest nodes now have no valid path to 0xBB
+[C(SYBIL)] 09:14:44.437 [SYBIL] Hello src=0xF8 seq=40 (slot ~1/8 floods=41)
+[C(SYBIL)] 09:14:46.437 [SYBIL] Hello src=0xF9 seq=41 (slot ~2/8 floods=42)
+[C(SYBIL)] 09:14:48.442 [SYBIL] Hello src=0xFA seq=42 (slot ~3/8 floods=43)
+[C(SYBIL)] 09:14:50.434 [SYBIL] Hello src=0xFB seq=43 (slot ~4/8 floods=44)
+[C(SYBIL)] 09:14:52.440 [SYBIL] Hello src=0xFC seq=44 (slot ~5/8 floods=45)
+[C(SYBIL)] 09:14:54.439 [SYBIL] Hello src=0xFD seq=45 (slot ~6/8 floods=46)
+[C(SYBIL)] 09:14:56.433 [SYBIL] Hello src=0xFE seq=46 (slot ~7/8 floods=47)
+[C(SYBIL)] 09:14:58.439 [SYBIL] Hello src=0xFF seq=47 (slot ~8/8 floods=48)
+[C(SYBIL)] 09:14:58.439 [SYBIL] Route table likely FULL — gateway route should be evicted
+[C(SYBIL)] 09:14:58.440 [SYBIL] Honest nodes now have no valid path to 0xBB
+[C(SYBIL)] 09:15:00.434 [SYBIL] Hello src=0xD0 seq=48 (slot ~1/8 floods=49)
+[C(SYBIL)] 09:15:02.440 [SYBIL] Hello src=0xD1 seq=49 (slot ~2/8 floods=50)
+[C(SYBIL)] 09:15:04.435 [SYBIL] Hello src=0xD2 seq=50 (slot ~3/8 floods=51)
+[C(SYBIL)] 09:15:06.443 [SYBIL] Hello src=0xD3 seq=51 (slot ~4/8 floods=52)
+[C(SYBIL)] 09:15:08.438 [SYBIL] Hello src=0xD4 seq=52 (slot ~5/8 floods=53)
+[C(SYBIL)] 09:15:10.435 [SYBIL] Hello src=0xD5 seq=53 (slot ~6/8 floods=54)
+[C(SYBIL)] 09:15:12.439 [SYBIL] Hello src=0xD6 seq=54 (slot ~7/8 floods=55)
+[C(SYBIL)] 09:15:14.444 [SYBIL] Hello src=0xD7 seq=55 (slot ~8/8 floods=56)
+[C(SYBIL)] 09:15:14.444 [SYBIL] Route table likely FULL — gateway route should be evicted
+[C(SYBIL)] 09:15:14.445 [SYBIL] Honest nodes now have no valid path to 0xBB
+[C(SYBIL)] 09:15:16.439 [SYBIL] Hello src=0xD8 seq=56 (slot ~1/8 floods=57)
+[C(SYBIL)] 09:15:18.435 [SYBIL] Hello src=0xD9 seq=57 (slot ~2/8 floods=58)
+[C(SYBIL)] 09:15:20.438 [SYBIL] Hello src=0xDA seq=58 (slot ~3/8 floods=59)
+[C(SYBIL)] 09:15:22.435 [SYBIL] Hello src=0xDB seq=59 (slot ~4/8 floods=60)
+[C(SYBIL)] 09:15:24.439 [SYBIL] Hello src=0xDC seq=60 (slot ~5/8 floods=61)
+[C(SYBIL)] 09:15:26.441 [SYBIL] Hello src=0xDD seq=61 (slot ~6/8 floods=62)
+[C(SYBIL)] 09:15:28.435 [SYBIL] Hello src=0xDE seq=62 (slot ~7/8 floods=63)
+[C(SYBIL)] 09:15:30.443 [SYBIL] Hello src=0xDF seq=63 (slot ~8/8 floods=64)
+[C(SYBIL)] 09:15:30.443 [SYBIL] Route table likely FULL — gateway route should be evicted
+[C(SYBIL)] 09:15:30.443 [SYBIL] Honest nodes now have no valid path to 0xBB
+[C(SYBIL)] 09:15:32.444 [SYBIL] Hello src=0xE0 seq=64 (slot ~1/8 floods=65)

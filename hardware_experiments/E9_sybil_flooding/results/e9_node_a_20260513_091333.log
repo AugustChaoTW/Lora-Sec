@@ -1,0 +1,308 @@
+[A(0xAA)] 09:13:34.270 ESP-ROM:esp32s3-20210327
+[A(0xAA)] 09:13:34.272 Build:Mar 27 2021
+[A(0xAA)] 09:13:34.274 rst:0x15 (USB_UART_CHIP_RESET),boot:0x19 (SPI_FAST_FLASH_BOOT)
+[A(0xAA)] 09:13:34.274 Saved PC:0x4037ce2a
+[A(0xAA)] 09:13:34.276 SPIWP:0xee
+[A(0xAA)] 09:13:34.277 mode:DIO, clock div:1
+[A(0xAA)] 09:13:34.278 load:0x3fce2820,len:0x10cc
+[A(0xAA)] 09:13:34.279 load:0x403c8700,len:0xc2c
+[A(0xAA)] 09:13:34.280 load:0x403cb700,len:0x30c0
+[A(0xAA)] 09:13:34.281 entry 0x403c88b8
+[A(0xAA)] 09:13:34.425 
+[A(0xAA)] 09:13:34.426 === E9 Node A (Sybil victim, SECURITY_MODE=1) ===
+[A(0xAA)] 09:13:34.426 [INFO] Routing table capacity: MAX_ROUTES=8
+[A(0xAA)] 09:13:34.426 [INFO] Watch for [SYBIL ATTACK SUCCESS] when GW route is evicted.
+[A(0xAA)] 09:13:34.512 [RADIO] SX1262 ready @ 923 MHz AS923
+[A(0xAA)] 09:13:34.780 [ROUTE] INSERT dst=0xD0 nh=0xD0 m=2 (table=1/8)
+[A(0xAA)] 09:13:35.240 [ROUTE] INSERT dst=0xD1 nh=0xD1 m=2 (table=2/8)
+[A(0xAA)] 09:13:35.533 [ROUTE] INSERT dst=0x22 nh=0x22 m=3 (table=3/8)
+[A(0xAA)] 09:13:35.996 [ROUTE] INSERT dst=0x11 nh=0x11 m=3 (table=4/8)
+[A(0xAA)] 09:13:36.606 [ROUTE] INSERT dst=0xD4 nh=0xD4 m=2 (table=5/8)
+[A(0xAA)] 09:13:37.072 [ROUTE] INSERT dst=0xD5 nh=0xD5 m=2 (table=6/8)
+[A(0xAA)] 09:13:37.986 [ROUTE] INSERT dst=0xD7 nh=0xD7 m=2 (table=7/8)
+[A(0xAA)] 09:13:38.928 [TX] No route to gateway — packet dropped (Sybil DoS active)
+[A(0xAA)] 09:13:38.928 [RTABLE] 7/8 entries:
+[A(0xAA)] 09:13:38.929   [0] dst=0xD0 nh=0xD0 m=2 age=4148ms
+[A(0xAA)] 09:13:38.929   [1] dst=0xD1 nh=0xD1 m=2 age=3689ms
+[A(0xAA)] 09:13:38.929   [2] dst=0x22 nh=0x22 m=3 age=181ms
+[A(0xAA)] 09:13:38.929   [3] dst=0x11 nh=0x11 m=3 age=2927ms
+[A(0xAA)] 09:13:38.929   [4] dst=0xD4 nh=0xD4 m=2 age=2315ms
+[A(0xAA)] 09:13:38.929   [5] dst=0xD5 nh=0xD5 m=2 age=1857ms
+[A(0xAA)] 09:13:38.929   [6] dst=0xD7 nh=0xD7 m=2 age=941ms
+[A(0xAA)] 09:13:40.443 [ROUTE] INSERT dst=0xD8 nh=0xD8 m=2 (table=8/8)
+[A(0xAA)] 09:13:42.444 [ROUTE] TABLE FULL — evicting dst=0xD0 (age=7664ms)
+[A(0xAA)] 09:13:43.924 [TX] No route to gateway — packet dropped (Sybil DoS active)
+[A(0xAA)] 09:13:43.925 [RTABLE] 8/8 entries:
+[A(0xAA)] 09:13:43.925   [0] dst=0xD9 nh=0xD9 m=2 age=1484ms
+[A(0xAA)] 09:13:43.925   [1] dst=0xD1 nh=0xD1 m=2 age=8689ms
+[A(0xAA)] 09:13:43.926   [2] dst=0x22 nh=0x22 m=3 age=724ms
+[A(0xAA)] 09:13:43.926   [3] dst=0x11 nh=0x11 m=3 age=7927ms
+[A(0xAA)] 09:13:43.926   [4] dst=0xD4 nh=0xD4 m=2 age=7315ms
+[A(0xAA)] 09:13:43.926   [5] dst=0xD5 nh=0xD5 m=2 age=6857ms
+[A(0xAA)] 09:13:43.926   [6] dst=0xD7 nh=0xD7 m=2 age=5941ms
+[A(0xAA)] 09:13:43.926   [7] dst=0xD8 nh=0xD8 m=2 age=3484ms
+[A(0xAA)] 09:13:45.133 [ROUTE] TABLE FULL — evicting dst=0xD1 (age=9900ms)
+[A(0xAA)] 09:13:46.444 [ROUTE] TABLE FULL — evicting dst=0x11 (age=10443ms)
+[A(0xAA)] 09:13:48.445 [ROUTE] TABLE FULL — evicting dst=0xD4 (age=11831ms)
+[A(0xAA)] 09:13:49.214 [TX] DATA id=0 via=0xBB PDR=0.0%
+[A(0xAA)] 09:13:49.214 [RTABLE] 8/8 entries:
+[A(0xAA)] 09:13:49.215   [0] dst=0xD9 nh=0xD9 m=2 age=6770ms
+[A(0xAA)] 09:13:49.215   [1] dst=0xBB nh=0xBB m=1 age=4075ms
+[A(0xAA)] 09:13:49.215   [2] dst=0x22 nh=0x22 m=2 age=2010ms
+[A(0xAA)] 09:13:49.215   [3] dst=0xDB nh=0xDB m=2 age=2770ms
+[A(0xAA)] 09:13:49.215   [4] dst=0xDC nh=0xDC m=2 age=770ms
+[A(0xAA)] 09:13:49.216   [5] dst=0xD5 nh=0xD5 m=2 age=12143ms
+[A(0xAA)] 09:13:49.216   [6] dst=0xD7 nh=0xD7 m=2 age=11228ms
+[A(0xAA)] 09:13:49.216   [7] dst=0xD8 nh=0xD8 m=2 age=8771ms
+[A(0xAA)] 09:13:50.445 [ROUTE] TABLE FULL — evicting dst=0xD5 (age=13373ms)
+[A(0xAA)] 09:13:52.447 [ROUTE] TABLE FULL — evicting dst=0xD7 (age=14457ms)
+[A(0xAA)] 09:13:54.208 [TX] DATA id=1 via=0xBB PDR=0.0%
+[A(0xAA)] 09:13:54.209 [RTABLE] 8/8 entries:
+[A(0xAA)] 09:13:54.209   [0] dst=0xD9 nh=0xD9 m=2 age=11770ms
+[A(0xAA)] 09:13:54.209   [1] dst=0xBB nh=0xBB m=1 age=9075ms
+[A(0xAA)] 09:13:54.209   [2] dst=0x22 nh=0x22 m=2 age=1010ms
+[A(0xAA)] 09:13:54.210   [3] dst=0xDB nh=0xDB m=2 age=7770ms
+[A(0xAA)] 09:13:54.210   [4] dst=0xDC nh=0xDC m=2 age=5770ms
+[A(0xAA)] 09:13:54.210   [5] dst=0xDD nh=0xDD m=2 age=3770ms
+[A(0xAA)] 09:13:54.210   [6] dst=0xDE nh=0xDE m=2 age=1770ms
+[A(0xAA)] 09:13:54.210   [7] dst=0xD8 nh=0xD8 m=2 age=13770ms
+[A(0xAA)] 09:13:56.444 [ROUTE] TABLE FULL — evicting dst=0xD8 (age=16000ms)
+[A(0xAA)] 09:13:58.436 [ROUTE] TABLE FULL — evicting dst=0xD9 (age=16000ms)
+[A(0xAA)] 09:13:59.206 [TX] DATA id=2 via=0xBB PDR=0.0%
+[A(0xAA)] 09:13:59.207 [RTABLE] 8/8 entries:
+[A(0xAA)] 09:13:59.207   [0] dst=0xE1 nh=0xE1 m=2 age=770ms
+[A(0xAA)] 09:13:59.207   [1] dst=0xBB nh=0xBB m=1 age=4075ms
+[A(0xAA)] 09:13:59.207   [2] dst=0x22 nh=0x22 m=2 age=2010ms
+[A(0xAA)] 09:13:59.207   [3] dst=0xDB nh=0xDB m=2 age=12770ms
+[A(0xAA)] 09:13:59.207   [4] dst=0xDC nh=0xDC m=2 age=10770ms
+[A(0xAA)] 09:13:59.207   [5] dst=0xDD nh=0xDD m=2 age=8770ms
+[A(0xAA)] 09:13:59.208   [6] dst=0xDE nh=0xDE m=2 age=6770ms
+[A(0xAA)] 09:13:59.208   [7] dst=0xE0 nh=0xE0 m=2 age=2770ms
+[A(0xAA)] 09:14:00.444 [ROUTE] TABLE FULL — evicting dst=0xDB (age=14000ms)
+[A(0xAA)] 09:14:02.447 [ROUTE] TABLE FULL — evicting dst=0xDC (age=14000ms)
+[A(0xAA)] 09:14:04.215 [TX] DATA id=3 via=0xBB PDR=0.0%
+[A(0xAA)] 09:14:04.215 [RTABLE] 8/8 entries:
+[A(0xAA)] 09:14:04.216   [0] dst=0xE1 nh=0xE1 m=2 age=5770ms
+[A(0xAA)] 09:14:04.216   [1] dst=0xBB nh=0xBB m=1 age=9075ms
+[A(0xAA)] 09:14:04.216   [2] dst=0x22 nh=0x22 m=2 age=1009ms
+[A(0xAA)] 09:14:04.216   [3] dst=0xE2 nh=0xE2 m=2 age=3770ms
+[A(0xAA)] 09:14:04.217   [4] dst=0xE3 nh=0xE3 m=2 age=1770ms
+[A(0xAA)] 09:14:04.217   [5] dst=0xDD nh=0xDD m=2 age=13770ms
+[A(0xAA)] 09:14:04.217   [6] dst=0xDE nh=0xDE m=2 age=11770ms
+[A(0xAA)] 09:14:04.217   [7] dst=0xE0 nh=0xE0 m=2 age=7770ms
+[A(0xAA)] 09:14:06.437 [ROUTE] TABLE FULL — evicting dst=0xDD (age=16000ms)
+[A(0xAA)] 09:14:08.440 [ROUTE] TABLE FULL — evicting dst=0xDE (age=16000ms)
+[A(0xAA)] 09:14:09.215 [TX] DATA id=4 via=0xBB PDR=0.0%
+[A(0xAA)] 09:14:09.215 [RTABLE] 8/8 entries:
+[A(0xAA)] 09:14:09.215   [0] dst=0xE1 nh=0xE1 m=2 age=10770ms
+[A(0xAA)] 09:14:09.216   [1] dst=0xBB nh=0xBB m=1 age=4075ms
+[A(0xAA)] 09:14:09.216   [2] dst=0x22 nh=0x22 m=2 age=2009ms
+[A(0xAA)] 09:14:09.216   [3] dst=0xE2 nh=0xE2 m=2 age=8770ms
+[A(0xAA)] 09:14:09.216   [4] dst=0xE3 nh=0xE3 m=2 age=6770ms
+[A(0xAA)] 09:14:09.216   [5] dst=0xE5 nh=0xE5 m=2 age=2770ms
+[A(0xAA)] 09:14:09.216   [6] dst=0xE6 nh=0xE6 m=2 age=770ms
+[A(0xAA)] 09:14:09.216   [7] dst=0xE0 nh=0xE0 m=2 age=12770ms
+[A(0xAA)] 09:14:10.444 [ROUTE] TABLE FULL — evicting dst=0xE0 (age=14000ms)
+[A(0xAA)] 09:14:12.438 [ROUTE] TABLE FULL — evicting dst=0xE1 (age=14000ms)
+[A(0xAA)] 09:14:14.204 [TX] DATA id=5 via=0xBB PDR=0.0%
+[A(0xAA)] 09:14:14.217 [RTABLE] 8/8 entries:
+[A(0xAA)] 09:14:14.217   [0] dst=0xE8 nh=0xE8 m=2 age=1770ms
+[A(0xAA)] 09:14:14.217   [1] dst=0xBB nh=0xBB m=1 age=9075ms
+[A(0xAA)] 09:14:14.218   [2] dst=0x22 nh=0x22 m=2 age=1009ms
+[A(0xAA)] 09:14:14.218   [3] dst=0xE2 nh=0xE2 m=2 age=13770ms
+[A(0xAA)] 09:14:14.218   [4] dst=0xE3 nh=0xE3 m=2 age=11770ms
+[A(0xAA)] 09:14:14.218   [5] dst=0xE5 nh=0xE5 m=2 age=7770ms
+[A(0xAA)] 09:14:14.218   [6] dst=0xE6 nh=0xE6 m=2 age=5770ms
+[A(0xAA)] 09:14:14.219   [7] dst=0xE7 nh=0xE7 m=2 age=3770ms
+[A(0xAA)] 09:14:16.439 [ROUTE] TABLE FULL — evicting dst=0xE2 (age=16000ms)
+[A(0xAA)] 09:14:18.440 [ROUTE] TABLE FULL — evicting dst=0xE3 (age=16000ms)
+[A(0xAA)] 09:14:19.208 [TX] DATA id=6 via=0xBB PDR=0.0%
+[A(0xAA)] 09:14:19.208 [RTABLE] 8/8 entries:
+[A(0xAA)] 09:14:19.208   [0] dst=0xE8 nh=0xE8 m=2 age=6770ms
+[A(0xAA)] 09:14:19.208   [1] dst=0xBB nh=0xBB m=1 age=4075ms
+[A(0xAA)] 09:14:19.208   [2] dst=0x22 nh=0x22 m=2 age=2009ms
+[A(0xAA)] 09:14:19.209   [3] dst=0xEA nh=0xEA m=2 age=2770ms
+[A(0xAA)] 09:14:19.209   [4] dst=0xEB nh=0xEB m=2 age=770ms
+[A(0xAA)] 09:14:19.209   [5] dst=0xE5 nh=0xE5 m=2 age=12770ms
+[A(0xAA)] 09:14:19.209   [6] dst=0xE6 nh=0xE6 m=2 age=10770ms
+[A(0xAA)] 09:14:19.209   [7] dst=0xE7 nh=0xE7 m=2 age=8770ms
+[A(0xAA)] 09:14:20.439 [ROUTE] TABLE FULL — evicting dst=0xE5 (age=14000ms)
+[A(0xAA)] 09:14:22.436 [ROUTE] TABLE FULL — evicting dst=0xE6 (age=14000ms)
+[A(0xAA)] 09:14:24.214 [TX] DATA id=7 via=0xBB PDR=0.0%
+[A(0xAA)] 09:14:24.215 [RTABLE] 8/8 entries:
+[A(0xAA)] 09:14:24.216   [0] dst=0xE8 nh=0xE8 m=2 age=11770ms
+[A(0xAA)] 09:14:24.216   [1] dst=0xBB nh=0xBB m=1 age=9075ms
+[A(0xAA)] 09:14:24.217   [2] dst=0x22 nh=0x22 m=2 age=1009ms
+[A(0xAA)] 09:14:24.217   [3] dst=0xEA nh=0xEA m=2 age=7770ms
+[A(0xAA)] 09:14:24.217   [4] dst=0xEB nh=0xEB m=2 age=5770ms
+[A(0xAA)] 09:14:24.218   [5] dst=0xEC nh=0xEC m=2 age=3770ms
+[A(0xAA)] 09:14:24.218   [6] dst=0xED nh=0xED m=2 age=1770ms
+[A(0xAA)] 09:14:24.218   [7] dst=0xE7 nh=0xE7 m=2 age=13770ms
+[A(0xAA)] 09:14:26.444 [ROUTE] TABLE FULL — evicting dst=0xE7 (age=16000ms)
+[A(0xAA)] 09:14:28.440 [ROUTE] TABLE FULL — evicting dst=0xE8 (age=16000ms)
+[A(0xAA)] 09:14:29.213 [TX] DATA id=8 via=0xBB PDR=0.0%
+[A(0xAA)] 09:14:29.213 [RTABLE] 8/8 entries:
+[A(0xAA)] 09:14:29.214   [0] dst=0xF0 nh=0xF0 m=2 age=770ms
+[A(0xAA)] 09:14:29.214   [1] dst=0xBB nh=0xBB m=1 age=4075ms
+[A(0xAA)] 09:14:29.214   [2] dst=0x22 nh=0x22 m=2 age=2009ms
+[A(0xAA)] 09:14:29.214   [3] dst=0xEA nh=0xEA m=2 age=12770ms
+[A(0xAA)] 09:14:29.214   [4] dst=0xEB nh=0xEB m=2 age=10770ms
+[A(0xAA)] 09:14:29.215   [5] dst=0xEC nh=0xEC m=2 age=8770ms
+[A(0xAA)] 09:14:29.215   [6] dst=0xED nh=0xED m=2 age=6770ms
+[A(0xAA)] 09:14:29.215   [7] dst=0xEF nh=0xEF m=2 age=2770ms
+[A(0xAA)] 09:14:30.442 [ROUTE] TABLE FULL — evicting dst=0xEA (age=14000ms)
+[A(0xAA)] 09:14:32.442 [ROUTE] TABLE FULL — evicting dst=0xEB (age=14000ms)
+[A(0xAA)] 09:14:34.208 [TX] DATA id=9 via=0xBB PDR=0.0%
+[A(0xAA)] 09:14:34.208 [RTABLE] 8/8 entries:
+[A(0xAA)] 09:14:34.209   [0] dst=0xF0 nh=0xF0 m=2 age=5770ms
+[A(0xAA)] 09:14:34.209   [1] dst=0xBB nh=0xBB m=1 age=9075ms
+[A(0xAA)] 09:14:34.209   [2] dst=0x22 nh=0x22 m=2 age=1009ms
+[A(0xAA)] 09:14:34.209   [3] dst=0xF1 nh=0xF1 m=2 age=3770ms
+[A(0xAA)] 09:14:34.210   [4] dst=0xF2 nh=0xF2 m=2 age=1770ms
+[A(0xAA)] 09:14:34.210   [5] dst=0xEC nh=0xEC m=2 age=13770ms
+[A(0xAA)] 09:14:34.210   [6] dst=0xED nh=0xED m=2 age=11770ms
+[A(0xAA)] 09:14:34.210   [7] dst=0xEF nh=0xEF m=2 age=7770ms
+[A(0xAA)] 09:14:36.439 [ROUTE] TABLE FULL — evicting dst=0xEC (age=16000ms)
+[A(0xAA)] 09:14:38.445 [ROUTE] TABLE FULL — evicting dst=0xED (age=16000ms)
+[A(0xAA)] 09:14:39.213 [TX] DATA id=10 via=0xBB PDR=0.0%
+[A(0xAA)] 09:14:39.214 [RTABLE] 8/8 entries:
+[A(0xAA)] 09:14:39.214   [0] dst=0xF0 nh=0xF0 m=2 age=10770ms
+[A(0xAA)] 09:14:39.214   [1] dst=0xBB nh=0xBB m=1 age=4075ms
+[A(0xAA)] 09:14:39.215   [2] dst=0x22 nh=0x22 m=2 age=2009ms
+[A(0xAA)] 09:14:39.215   [3] dst=0xF1 nh=0xF1 m=2 age=8770ms
+[A(0xAA)] 09:14:39.215   [4] dst=0xF2 nh=0xF2 m=2 age=6770ms
+[A(0xAA)] 09:14:39.216   [5] dst=0xF4 nh=0xF4 m=2 age=2770ms
+[A(0xAA)] 09:14:39.216   [6] dst=0xF5 nh=0xF5 m=2 age=770ms
+[A(0xAA)] 09:14:39.216   [7] dst=0xEF nh=0xEF m=2 age=12770ms
+[A(0xAA)] 09:14:40.439 [ROUTE] TABLE FULL — evicting dst=0xEF (age=14000ms)
+[A(0xAA)] 09:14:42.439 [ROUTE] TABLE FULL — evicting dst=0xF0 (age=14000ms)
+[A(0xAA)] 09:14:44.214 [TX] DATA id=11 via=0xBB PDR=0.0%
+[A(0xAA)] 09:14:44.215 [RTABLE] 8/8 entries:
+[A(0xAA)] 09:14:44.215   [0] dst=0xF7 nh=0xF7 m=2 age=1770ms
+[A(0xAA)] 09:14:44.215   [1] dst=0xBB nh=0xBB m=1 age=9075ms
+[A(0xAA)] 09:14:44.216   [2] dst=0x22 nh=0x22 m=2 age=1009ms
+[A(0xAA)] 09:14:44.216   [3] dst=0xF1 nh=0xF1 m=2 age=13770ms
+[A(0xAA)] 09:14:44.216   [4] dst=0xF2 nh=0xF2 m=2 age=11770ms
+[A(0xAA)] 09:14:44.216   [5] dst=0xF4 nh=0xF4 m=2 age=7770ms
+[A(0xAA)] 09:14:44.216   [6] dst=0xF5 nh=0xF5 m=2 age=5770ms
+[A(0xAA)] 09:14:44.216   [7] dst=0xF6 nh=0xF6 m=2 age=3770ms
+[A(0xAA)] 09:14:46.445 [ROUTE] TABLE FULL — evicting dst=0xF1 (age=16000ms)
+[A(0xAA)] 09:14:48.442 [ROUTE] TABLE FULL — evicting dst=0xF2 (age=16000ms)
+[A(0xAA)] 09:14:49.204 [TX] DATA id=12 via=0xBB PDR=0.0%
+[A(0xAA)] 09:14:49.216 [RTABLE] 8/8 entries:
+[A(0xAA)] 09:14:49.217   [0] dst=0xF7 nh=0xF7 m=2 age=6770ms
+[A(0xAA)] 09:14:49.217   [1] dst=0xBB nh=0xBB m=1 age=4075ms
+[A(0xAA)] 09:14:49.217   [2] dst=0x22 nh=0x22 m=2 age=2009ms
+[A(0xAA)] 09:14:49.218   [3] dst=0xF9 nh=0xF9 m=2 age=2770ms
+[A(0xAA)] 09:14:49.218   [4] dst=0xFA nh=0xFA m=2 age=770ms
+[A(0xAA)] 09:14:49.218   [5] dst=0xF4 nh=0xF4 m=2 age=12770ms
+[A(0xAA)] 09:14:49.218   [6] dst=0xF5 nh=0xF5 m=2 age=10770ms
+[A(0xAA)] 09:14:49.219   [7] dst=0xF6 nh=0xF6 m=2 age=8770ms
+[A(0xAA)] 09:14:50.438 [ROUTE] TABLE FULL — evicting dst=0xF4 (age=14000ms)
+[A(0xAA)] 09:14:52.437 [ROUTE] TABLE FULL — evicting dst=0xF5 (age=14000ms)
+[A(0xAA)] 09:14:54.207 [TX] DATA id=13 via=0xBB PDR=0.0%
+[A(0xAA)] 09:14:54.207 [RTABLE] 8/8 entries:
+[A(0xAA)] 09:14:54.208   [0] dst=0xF7 nh=0xF7 m=2 age=11770ms
+[A(0xAA)] 09:14:54.208   [1] dst=0xBB nh=0xBB m=1 age=9075ms
+[A(0xAA)] 09:14:54.208   [2] dst=0x22 nh=0x22 m=2 age=1009ms
+[A(0xAA)] 09:14:54.209   [3] dst=0xF9 nh=0xF9 m=2 age=7770ms
+[A(0xAA)] 09:14:54.209   [4] dst=0xFA nh=0xFA m=2 age=5770ms
+[A(0xAA)] 09:14:54.209   [5] dst=0xFB nh=0xFB m=2 age=3770ms
+[A(0xAA)] 09:14:54.209   [6] dst=0xFC nh=0xFC m=2 age=1770ms
+[A(0xAA)] 09:14:54.209   [7] dst=0xF6 nh=0xF6 m=2 age=13770ms
+[A(0xAA)] 09:14:56.438 [ROUTE] TABLE FULL — evicting dst=0xF6 (age=16000ms)
+[A(0xAA)] 09:14:58.443 [ROUTE] TABLE FULL — evicting dst=0xF7 (age=16000ms)
+[A(0xAA)] 09:14:59.215 [TX] DATA id=14 via=0xBB PDR=0.0%
+[A(0xAA)] 09:14:59.215 [RTABLE] 8/8 entries:
+[A(0xAA)] 09:14:59.215   [0] dst=0xFF nh=0xFF m=2 age=770ms
+[A(0xAA)] 09:14:59.215   [1] dst=0xBB nh=0xBB m=1 age=4075ms
+[A(0xAA)] 09:14:59.216   [2] dst=0x22 nh=0x22 m=2 age=2009ms
+[A(0xAA)] 09:14:59.216   [3] dst=0xF9 nh=0xF9 m=2 age=12770ms
+[A(0xAA)] 09:14:59.216   [4] dst=0xFA nh=0xFA m=2 age=10770ms
+[A(0xAA)] 09:14:59.216   [5] dst=0xFB nh=0xFB m=2 age=8770ms
+[A(0xAA)] 09:14:59.216   [6] dst=0xFC nh=0xFC m=2 age=6770ms
+[A(0xAA)] 09:14:59.216   [7] dst=0xFE nh=0xFE m=2 age=2770ms
+[A(0xAA)] 09:15:00.441 [ROUTE] TABLE FULL — evicting dst=0xF9 (age=14000ms)
+[A(0xAA)] 09:15:02.442 [ROUTE] TABLE FULL — evicting dst=0xFA (age=14000ms)
+[A(0xAA)] 09:15:04.211 [TX] DATA id=15 via=0xBB PDR=0.0%
+[A(0xAA)] 09:15:04.212 [RTABLE] 8/8 entries:
+[A(0xAA)] 09:15:04.212   [0] dst=0xFF nh=0xFF m=2 age=5770ms
+[A(0xAA)] 09:15:04.212   [1] dst=0xBB nh=0xBB m=1 age=9075ms
+[A(0xAA)] 09:15:04.213   [2] dst=0x22 nh=0x22 m=2 age=1009ms
+[A(0xAA)] 09:15:04.213   [3] dst=0xD0 nh=0xD0 m=2 age=3770ms
+[A(0xAA)] 09:15:04.213   [4] dst=0xD1 nh=0xD1 m=2 age=1770ms
+[A(0xAA)] 09:15:04.213   [5] dst=0xFB nh=0xFB m=2 age=13770ms
+[A(0xAA)] 09:15:04.213   [6] dst=0xFC nh=0xFC m=2 age=11770ms
+[A(0xAA)] 09:15:04.214   [7] dst=0xFE nh=0xFE m=2 age=7770ms
+[A(0xAA)] 09:15:06.443 [ROUTE] TABLE FULL — evicting dst=0xFB (age=16000ms)
+[A(0xAA)] 09:15:08.442 [ROUTE] TABLE FULL — evicting dst=0xFC (age=16000ms)
+[A(0xAA)] 09:15:09.215 [TX] DATA id=16 via=0xBB PDR=0.0%
+[A(0xAA)] 09:15:09.215 [RTABLE] 8/8 entries:
+[A(0xAA)] 09:15:09.216   [0] dst=0xFF nh=0xFF m=2 age=10770ms
+[A(0xAA)] 09:15:09.216   [1] dst=0xBB nh=0xBB m=1 age=4075ms
+[A(0xAA)] 09:15:09.216   [2] dst=0x22 nh=0x22 m=2 age=2009ms
+[A(0xAA)] 09:15:09.216   [3] dst=0xD0 nh=0xD0 m=2 age=8770ms
+[A(0xAA)] 09:15:09.216   [4] dst=0xD1 nh=0xD1 m=2 age=6770ms
+[A(0xAA)] 09:15:09.216   [5] dst=0xD3 nh=0xD3 m=2 age=2770ms
+[A(0xAA)] 09:15:09.216   [6] dst=0xD4 nh=0xD4 m=2 age=770ms
+[A(0xAA)] 09:15:09.216   [7] dst=0xFE nh=0xFE m=2 age=12770ms
+[A(0xAA)] 09:15:10.446 [ROUTE] TABLE FULL — evicting dst=0xFE (age=14000ms)
+[A(0xAA)] 09:15:12.444 [ROUTE] TABLE FULL — evicting dst=0xFF (age=14000ms)
+[A(0xAA)] 09:15:14.215 [TX] DATA id=17 via=0xBB PDR=0.0%
+[A(0xAA)] 09:15:14.216 [RTABLE] 8/8 entries:
+[A(0xAA)] 09:15:14.216   [0] dst=0xD6 nh=0xD6 m=2 age=1770ms
+[A(0xAA)] 09:15:14.216   [1] dst=0xBB nh=0xBB m=1 age=9075ms
+[A(0xAA)] 09:15:14.216   [2] dst=0x22 nh=0x22 m=2 age=1009ms
+[A(0xAA)] 09:15:14.216   [3] dst=0xD0 nh=0xD0 m=2 age=13770ms
+[A(0xAA)] 09:15:14.217   [4] dst=0xD1 nh=0xD1 m=2 age=11770ms
+[A(0xAA)] 09:15:14.217   [5] dst=0xD3 nh=0xD3 m=2 age=7770ms
+[A(0xAA)] 09:15:14.217   [6] dst=0xD4 nh=0xD4 m=2 age=5770ms
+[A(0xAA)] 09:15:14.217   [7] dst=0xD5 nh=0xD5 m=2 age=3771ms
+[A(0xAA)] 09:15:16.443 [ROUTE] TABLE FULL — evicting dst=0xD0 (age=16000ms)
+[A(0xAA)] 09:15:18.438 [ROUTE] TABLE FULL — evicting dst=0xD1 (age=16000ms)
+[A(0xAA)] 09:15:19.209 [TX] DATA id=18 via=0xBB PDR=0.0%
+[A(0xAA)] 09:15:19.210 [RTABLE] 8/8 entries:
+[A(0xAA)] 09:15:19.211   [0] dst=0xD6 nh=0xD6 m=2 age=6770ms
+[A(0xAA)] 09:15:19.211   [1] dst=0xBB nh=0xBB m=1 age=4075ms
+[A(0xAA)] 09:15:19.211   [2] dst=0x22 nh=0x22 m=2 age=2009ms
+[A(0xAA)] 09:15:19.211   [3] dst=0xD8 nh=0xD8 m=2 age=2770ms
+[A(0xAA)] 09:15:19.211   [4] dst=0xD9 nh=0xD9 m=2 age=770ms
+[A(0xAA)] 09:15:19.211   [5] dst=0xD3 nh=0xD3 m=2 age=12770ms
+[A(0xAA)] 09:15:19.212   [6] dst=0xD4 nh=0xD4 m=2 age=10770ms
+[A(0xAA)] 09:15:19.212   [7] dst=0xD5 nh=0xD5 m=2 age=8771ms
+[A(0xAA)] 09:15:20.446 [ROUTE] TABLE FULL — evicting dst=0xD3 (age=14000ms)
+[A(0xAA)] 09:15:22.447 [ROUTE] TABLE FULL — evicting dst=0xD4 (age=14000ms)
+[A(0xAA)] 09:15:24.209 [TX] DATA id=19 via=0xBB PDR=0.0%
+[A(0xAA)] 09:15:24.210 [RTABLE] 8/8 entries:
+[A(0xAA)] 09:15:24.210   [0] dst=0xD6 nh=0xD6 m=2 age=11770ms
+[A(0xAA)] 09:15:24.210   [1] dst=0xBB nh=0xBB m=1 age=9075ms
+[A(0xAA)] 09:15:24.211   [2] dst=0x22 nh=0x22 m=2 age=1009ms
+[A(0xAA)] 09:15:24.211   [3] dst=0xD8 nh=0xD8 m=2 age=7770ms
+[A(0xAA)] 09:15:24.211   [4] dst=0xD9 nh=0xD9 m=2 age=5770ms
+[A(0xAA)] 09:15:24.211   [5] dst=0xDA nh=0xDA m=2 age=3770ms
+[A(0xAA)] 09:15:24.211   [6] dst=0xDB nh=0xDB m=2 age=1770ms
+[A(0xAA)] 09:15:24.211   [7] dst=0xD5 nh=0xD5 m=2 age=13770ms
+[A(0xAA)] 09:15:26.439 [ROUTE] TABLE FULL — evicting dst=0xD5 (age=16000ms)
+[A(0xAA)] 09:15:28.443 [ROUTE] TABLE FULL — evicting dst=0xD6 (age=16000ms)
+[A(0xAA)] 09:15:29.214 [TX] DATA id=20 via=0xBB PDR=0.0%
+[A(0xAA)] 09:15:29.215 [RTABLE] 8/8 entries:
+[A(0xAA)] 09:15:29.215   [0] dst=0xDE nh=0xDE m=2 age=770ms
+[A(0xAA)] 09:15:29.215   [1] dst=0xBB nh=0xBB m=1 age=4075ms
+[A(0xAA)] 09:15:29.215   [2] dst=0x22 nh=0x22 m=2 age=2009ms
+[A(0xAA)] 09:15:29.215   [3] dst=0xD8 nh=0xD8 m=2 age=12770ms
+[A(0xAA)] 09:15:29.216   [4] dst=0xD9 nh=0xD9 m=2 age=10770ms
+[A(0xAA)] 09:15:29.216   [5] dst=0xDA nh=0xDA m=2 age=8770ms
+[A(0xAA)] 09:15:29.216   [6] dst=0xDB nh=0xDB m=2 age=6770ms
+[A(0xAA)] 09:15:29.216   [7] dst=0xDD nh=0xDD m=2 age=2770ms
+[A(0xAA)] 09:15:30.437 [ROUTE] TABLE FULL — evicting dst=0xD8 (age=14000ms)
+[A(0xAA)] 09:15:32.441 [ROUTE] TABLE FULL — evicting dst=0xD9 (age=14000ms)
+[A(0xAA)] 09:15:34.211 [TX] DATA id=21 via=0xBB PDR=0.0%
+[A(0xAA)] 09:15:34.211 [RTABLE] 8/8 entries:
+[A(0xAA)] 09:15:34.213   [0] dst=0xDE nh=0xDE m=2 age=5770ms
+[A(0xAA)] 09:15:34.213   [1] dst=0xBB nh=0xBB m=1 age=9075ms
+[A(0xAA)] 09:15:34.213   [2] dst=0x22 nh=0x22 m=2 age=1009ms
+[A(0xAA)] 09:15:34.213   [3] dst=0xDF nh=0xDF m=2 age=3770ms
+[A(0xAA)] 09:15:34.213   [4] dst=0xE0 nh=0xE0 m=2 age=1770ms
+[A(0xAA)] 09:15:34.213   [5] dst=0xDA nh=0xDA m=2 age=13770ms
+[A(0xAA)] 09:15:34.214   [6] dst=0xDB nh=0xDB m=2 age=11770ms
+[A(0xAA)] 09:15:34.214   [7] dst=0xDD nh=0xDD m=2 age=7770ms

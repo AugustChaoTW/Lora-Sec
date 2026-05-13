@@ -1,0 +1,815 @@
+[R3(0x33)] 09:13:34.270 ESP-ROM:esp32s3-20210327
+[A(0xAA)] 09:13:34.270 ESP-ROM:esp32s3-20210327
+[R1(0x11)] 09:13:34.269 ESP-ROM:esp32s3-20210327
+[R2(0x22)] 09:13:34.272 ESP-ROM:esp32s3-20210327
+[C(SYBIL)] 09:13:34.271 ESP-ROM:esp32s3-20210327
+[B(0xBB)] 09:13:34.272 ESP-ROM:esp32s3-20210327
+[R3(0x33)] 09:13:34.272 Build:Mar 27 2021
+[A(0xAA)] 09:13:34.272 Build:Mar 27 2021
+[A(0xAA)] 09:13:34.274 rst:0x15 (USB_UART_CHIP_RESET),boot:0x19 (SPI_FAST_FLASH_BOOT)
+[R2(0x22)] 09:13:34.273 Build:Mar 27 2021
+[C(SYBIL)] 09:13:34.273 Build:Mar 27 2021
+[B(0xBB)] 09:13:34.273 Build:Mar 27 2021
+[R3(0x33)] 09:13:34.274 rst:0x15 (USB_UART_CHIP_RESET),boot:0x3b (SPI_FAST_FLASH_BOOT)
+[R1(0x11)] 09:13:34.273 Build:Mar 27 2021
+[A(0xAA)] 09:13:34.274 Saved PC:0x4037ce2a
+[R2(0x22)] 09:13:34.274 rst:0x15 (USB_UART_CHIP_RESET),boot:0x19 (SPI_FAST_FLASH_BOOT)
+[R2(0x22)] 09:13:34.276 Saved PC:0x4037ce2a
+[B(0xBB)] 09:13:34.275 rst:0x15 (USB_UART_CHIP_RESET),boot:0x19 (SPI_FAST_FLASH_BOOT)
+[R3(0x33)] 09:13:34.275 Saved PC:0x4037ce2a
+[R1(0x11)] 09:13:34.275 rst:0x15 (USB_UART_CHIP_RESET),boot:0x39 (SPI_FAST_FLASH_BOOT)
+[A(0xAA)] 09:13:34.276 SPIWP:0xee
+[C(SYBIL)] 09:13:34.275 rst:0x15 (USB_UART_CHIP_RESET),boot:0x19 (SPI_FAST_FLASH_BOOT)
+[R2(0x22)] 09:13:34.276 SPIWP:0xee
+[B(0xBB)] 09:13:34.277 Saved PC:0x4037ce2a
+[R3(0x33)] 09:13:34.277 SPIWP:0xee
+[R1(0x11)] 09:13:34.277 Saved PC:0x4037ce2a
+[A(0xAA)] 09:13:34.277 mode:DIO, clock div:1
+[C(SYBIL)] 09:13:34.277 Saved PC:0x4037ce2a
+[R2(0x22)] 09:13:34.278 mode:DIO, clock div:1
+[B(0xBB)] 09:13:34.278 SPIWP:0xee
+[R3(0x33)] 09:13:34.278 mode:DIO, clock div:1
+[R1(0x11)] 09:13:34.278 SPIWP:0xee
+[A(0xAA)] 09:13:34.278 load:0x3fce2820,len:0x10cc
+[C(SYBIL)] 09:13:34.278 SPIWP:0xee
+[R2(0x22)] 09:13:34.278 load:0x3fce2820,len:0x10cc
+[B(0xBB)] 09:13:34.278 mode:DIO, clock div:1
+[R3(0x33)] 09:13:34.279 load:0x3fce2820,len:0x10cc
+[R1(0x11)] 09:13:34.279 mode:DIO, clock div:1
+[A(0xAA)] 09:13:34.279 load:0x403c8700,len:0xc2c
+[C(SYBIL)] 09:13:34.279 mode:DIO, clock div:1
+[R2(0x22)] 09:13:34.279 load:0x403c8700,len:0xc2c
+[B(0xBB)] 09:13:34.279 load:0x3fce2820,len:0x10cc
+[R3(0x33)] 09:13:34.279 load:0x403c8700,len:0xc2c
+[R1(0x11)] 09:13:34.280 load:0x3fce2820,len:0x10cc
+[A(0xAA)] 09:13:34.280 load:0x403cb700,len:0x30c0
+[C(SYBIL)] 09:13:34.280 load:0x3fce2820,len:0x10cc
+[R2(0x22)] 09:13:34.280 load:0x403cb700,len:0x30c0
+[B(0xBB)] 09:13:34.280 load:0x403c8700,len:0xc2c
+[R3(0x33)] 09:13:34.280 load:0x403cb700,len:0x30c0
+[R1(0x11)] 09:13:34.280 load:0x403c8700,len:0xc2c
+[A(0xAA)] 09:13:34.281 entry 0x403c88b8
+[C(SYBIL)] 09:13:34.281 load:0x403c8700,len:0xc2c
+[R2(0x22)] 09:13:34.281 entry 0x403c88b8
+[B(0xBB)] 09:13:34.281 load:0x403cb700,len:0x30c0
+[R3(0x33)] 09:13:34.281 entry 0x403c88b8
+[R1(0x11)] 09:13:34.281 load:0x403cb700,len:0x30c0
+[C(SYBIL)] 09:13:34.281 load:0x403cb700,len:0x30c0
+[B(0xBB)] 09:13:34.282 entry 0x403c88b8
+[R1(0x11)] 09:13:34.282 entry 0x403c88b8
+[C(SYBIL)] 09:13:34.282 entry 0x403c88b8
+[A(0xAA)] 09:13:34.425 
+[A(0xAA)] 09:13:34.426 === E9 Node A (Sybil victim, SECURITY_MODE=1) ===
+[A(0xAA)] 09:13:34.426 [INFO] Routing table capacity: MAX_ROUTES=8
+[A(0xAA)] 09:13:34.426 [INFO] Watch for [SYBIL ATTACK SUCCESS] when GW route is evicted.
+[B(0xBB)] 09:13:34.428 
+[B(0xBB)] 09:13:34.428 === E9 Node B (GATEWAY — honest, SECURITY_MODE=1) ===
+[B(0xBB)] 09:13:34.429 [INFO] Gateway broadcasts Hello. Insider attacker (0xCC) races with own Hello.
+[B(0xBB)] 09:13:34.430 [INFO] All honest nodes route to 0xCC (Sybil Flooding). PDR drops to 0%.
+[B(0xBB)] 09:13:34.430 [INFO] This gateway cannot detect the Sybil Flooding — it just observes silence.
+[C(SYBIL)] 09:13:34.434 
+[R1(0x11)] 09:13:34.434 
+[R3(0x33)] 09:13:34.435 
+[C(SYBIL)] 09:13:34.435 === E9 Node C (SYBIL FLOODER) ===
+[R1(0x11)] 09:13:34.435 === E9 Relay 0x11 (honest, SECURITY_MODE=1) ===
+[R3(0x33)] 09:13:34.435 === E9 Relay 0x33 (honest, SECURITY_MODE=1) ===
+[C(SYBIL)] 09:13:34.435 [INFO] Flood mode: INSIDER (valid HMAC)
+[R1(0x11)] 09:13:34.436 [INFO] Demonstrates: insider Black Hole bypasses HMAC patch.
+[R3(0x33)] 09:13:34.436 [INFO] Demonstrates: insider Black Hole bypasses HMAC patch.
+[C(SYBIL)] 09:13:34.436 [INFO] Sybil address range: 0xD0–0xFF (48 addresses)
+[R1(0x11)] 09:13:34.436 [INFO] This relay will accept 0xCC's Hello (valid HMAC) and route into black hole.
+[R2(0x22)] 09:13:34.436 
+[R3(0x33)] 09:13:34.436 [INFO] This relay will accept 0xCC's Hello (valid HMAC) and route into black hole.
+[C(SYBIL)] 09:13:34.437 [INFO] MAX_ROUTES_ESTIMATE=8 — need 8 floods to saturate table
+[R2(0x22)] 09:13:34.437 === E9 Relay 0x22 (honest, SECURITY_MODE=1) ===
+[C(SYBIL)] 09:13:34.438 [INFO] Finding: routing table exhaustion DoS not addressed by HMAC patch.
+[R2(0x22)] 09:13:34.438 [INFO] Demonstrates: insider Black Hole bypasses HMAC patch.
+[R2(0x22)] 09:13:34.438 [INFO] This relay will accept 0xCC's Hello (valid HMAC) and route into black hole.
+[C(SYBIL)] 09:13:34.511 [RADIO] SX1262 ready @ 923 MHz AS923
+[A(0xAA)] 09:13:34.512 [RADIO] SX1262 ready @ 923 MHz AS923
+[R1(0x11)] 09:13:34.520 [RADIO] SX1262 ready @ 923 MHz AS923
+[R3(0x33)] 09:13:34.521 [RADIO] SX1262 ready @ 923 MHz AS923
+[B(0xBB)] 09:13:34.521 [RADIO] SX1262 ready @ 923 MHz AS923
+[R2(0x22)] 09:13:34.522 [RADIO] SX1262 ready @ 923 MHz AS923
+[C(SYBIL)] 09:13:34.774 [SYBIL] Hello src=0xD0 seq=0 (slot ~1/8 floods=1)
+[R2(0x22)] 09:13:34.780 [ROUTE] NH=0xD0 metric=2
+[A(0xAA)] 09:13:34.780 [ROUTE] INSERT dst=0xD0 nh=0xD0 m=2 (table=1/8)
+[B(0xBB)] 09:13:34.878 [TX] Hello seq=0 (hello #1)
+[C(SYBIL)] 09:13:35.236 [SYBIL] Hello src=0xD1 seq=1 (slot ~2/8 floods=2)
+[R1(0x11)] 09:13:35.239 [ROUTE] NH=0xD1 metric=2
+[A(0xAA)] 09:13:35.240 [ROUTE] INSERT dst=0xD1 nh=0xD1 m=2 (table=2/8)
+[R3(0x33)] 09:13:35.240 [ROUTE] NH=0xD1 metric=2
+[A(0xAA)] 09:13:35.533 [ROUTE] INSERT dst=0x22 nh=0x22 m=3 (table=3/8)
+[R2(0x22)] 09:13:35.539 [RELAY] Re-broadcast Hello metric=2 (learned from 0xD0 metric=1)
+[C(SYBIL)] 09:13:35.693 [SYBIL] Hello src=0xD2 seq=2 (slot ~3/8 floods=3)
+[R1(0x11)] 09:13:35.989 [RELAY] Re-broadcast Hello metric=2 (learned from 0xD1 metric=1)
+[A(0xAA)] 09:13:35.996 [ROUTE] INSERT dst=0x11 nh=0x11 m=3 (table=4/8)
+[R3(0x33)] 09:13:35.996 [RELAY] Re-broadcast Hello metric=2 (learned from 0xD1 metric=1)
+[C(SYBIL)] 09:13:36.142 [SYBIL] Hello src=0xD3 seq=3 (slot ~4/8 floods=4)
+[A(0xAA)] 09:13:36.606 [ROUTE] INSERT dst=0xD4 nh=0xD4 m=2 (table=5/8)
+[C(SYBIL)] 09:13:36.611 [SYBIL] Hello src=0xD4 seq=4 (slot ~5/8 floods=5)
+[C(SYBIL)] 09:13:37.068 [SYBIL] Hello src=0xD5 seq=5 (slot ~6/8 floods=6)
+[A(0xAA)] 09:13:37.072 [ROUTE] INSERT dst=0xD5 nh=0xD5 m=2 (table=6/8)
+[R3(0x33)] 09:13:37.371 [RELAY] Re-broadcast Hello metric=2 (learned from 0xD4 metric=1)
+[R2(0x22)] 09:13:37.372 [RELAY] Re-broadcast Hello metric=2 (learned from 0xD4 metric=1)
+[R1(0x11)] 09:13:37.372 [RELAY] Re-broadcast Hello metric=2 (learned from 0xD4 metric=1)
+[C(SYBIL)] 09:13:37.525 [SYBIL] Hello src=0xD6 seq=6 (slot ~7/8 floods=7)
+[C(SYBIL)] 09:13:37.979 [SYBIL] Hello src=0xD7 seq=7 (slot ~8/8 floods=8)
+[C(SYBIL)] 09:13:37.980 [SYBIL] Route table likely FULL — gateway route should be evicted
+[C(SYBIL)] 09:13:37.980 [SYBIL] Honest nodes now have no valid path to 0xBB
+[A(0xAA)] 09:13:37.986 [ROUTE] INSERT dst=0xD7 nh=0xD7 m=2 (table=7/8)
+[R1(0x11)] 09:13:38.738 [RELAY] Re-broadcast Hello metric=2 (learned from 0xD7 metric=1)
+[R2(0x22)] 09:13:38.739 [RELAY] Re-broadcast Hello metric=2 (learned from 0xD7 metric=1)
+[R3(0x33)] 09:13:38.739 [RELAY] Re-broadcast Hello metric=2 (learned from 0xD7 metric=1)
+[A(0xAA)] 09:13:38.928 [TX] No route to gateway — packet dropped (Sybil DoS active)
+[A(0xAA)] 09:13:38.928 [RTABLE] 7/8 entries:
+[A(0xAA)] 09:13:38.929   [0] dst=0xD0 nh=0xD0 m=2 age=4148ms
+[A(0xAA)] 09:13:38.929   [1] dst=0xD1 nh=0xD1 m=2 age=3689ms
+[A(0xAA)] 09:13:38.929   [2] dst=0x22 nh=0x22 m=3 age=181ms
+[A(0xAA)] 09:13:38.929   [3] dst=0x11 nh=0x11 m=3 age=2927ms
+[A(0xAA)] 09:13:38.929   [4] dst=0xD4 nh=0xD4 m=2 age=2315ms
+[A(0xAA)] 09:13:38.929   [5] dst=0xD5 nh=0xD5 m=2 age=1857ms
+[A(0xAA)] 09:13:38.929   [6] dst=0xD7 nh=0xD7 m=2 age=941ms
+[R3(0x33)] 09:13:39.206 [TX] DATA id=0 via=0xD1
+[R2(0x22)] 09:13:39.209 [TX] DATA id=0 via=0xD0
+[B(0xBB)] 09:13:39.213 [RX] DATA id=0 from 0x33 payload=330000 (total=1)
+[R1(0x11)] 09:13:39.216 [TX] DATA id=0 via=0xD1
+[B(0xBB)] 09:13:39.356 [TX] ACK id=0 → 0x33
+[R3(0x33)] 09:13:39.370 [RX] ACK id=0 PDR=100.0%
+[C(SYBIL)] 09:13:40.439 [SYBIL] Hello src=0xD8 seq=8 (slot ~1/8 floods=9)
+[A(0xAA)] 09:13:40.443 [ROUTE] INSERT dst=0xD8 nh=0xD8 m=2 (table=8/8)
+[R3(0x33)] 09:13:41.194 [RELAY] Re-broadcast Hello metric=2 (learned from 0xD8 metric=1)
+[R1(0x11)] 09:13:41.197 [RELAY] Re-broadcast Hello metric=2 (learned from 0xD8 metric=1)
+[R2(0x22)] 09:13:41.204 [RELAY] Re-broadcast Hello metric=2 (learned from 0xD8 metric=1)
+[C(SYBIL)] 09:13:42.437 [SYBIL] Hello src=0xD9 seq=9 (slot ~2/8 floods=10)
+[A(0xAA)] 09:13:42.444 [ROUTE] TABLE FULL — evicting dst=0xD0 (age=7664ms)
+[R2(0x22)] 09:13:43.194 [RELAY] Re-broadcast Hello metric=2 (learned from 0xD9 metric=1)
+[R3(0x33)] 09:13:43.194 [RELAY] Re-broadcast Hello metric=2 (learned from 0xD9 metric=1)
+[R1(0x11)] 09:13:43.202 [RELAY] Re-broadcast Hello metric=2 (learned from 0xD9 metric=1)
+[A(0xAA)] 09:13:43.924 [TX] No route to gateway — packet dropped (Sybil DoS active)
+[A(0xAA)] 09:13:43.925 [RTABLE] 8/8 entries:
+[A(0xAA)] 09:13:43.925   [0] dst=0xD9 nh=0xD9 m=2 age=1484ms
+[A(0xAA)] 09:13:43.925   [1] dst=0xD1 nh=0xD1 m=2 age=8689ms
+[A(0xAA)] 09:13:43.926   [2] dst=0x22 nh=0x22 m=3 age=724ms
+[A(0xAA)] 09:13:43.926   [3] dst=0x11 nh=0x11 m=3 age=7927ms
+[A(0xAA)] 09:13:43.926   [4] dst=0xD4 nh=0xD4 m=2 age=7315ms
+[A(0xAA)] 09:13:43.926   [5] dst=0xD5 nh=0xD5 m=2 age=6857ms
+[A(0xAA)] 09:13:43.926   [6] dst=0xD7 nh=0xD7 m=2 age=5941ms
+[A(0xAA)] 09:13:43.926   [7] dst=0xD8 nh=0xD8 m=2 age=3484ms
+[R3(0x33)] 09:13:44.210 [TX] DATA id=1 via=0xD1
+[R1(0x11)] 09:13:44.210 [TX] DATA id=1 via=0xD1
+[B(0xBB)] 09:13:44.210 [RX] DATA id=1 from 0x33 payload=330001 (total=2)
+[R2(0x22)] 09:13:44.213 [TX] DATA id=1 via=0xD0
+[R3(0x33)] 09:13:44.360 [RX] ACK id=1 PDR=100.0%
+[B(0xBB)] 09:13:44.363 [TX] ACK id=1 → 0x33
+[C(SYBIL)] 09:13:44.433 [SYBIL] Hello src=0xDA seq=10 (slot ~3/8 floods=11)
+[B(0xBB)] 09:13:45.130 [TX] Hello seq=1 (hello #2)
+[A(0xAA)] 09:13:45.133 [ROUTE] TABLE FULL — evicting dst=0xD1 (age=9900ms)
+[R2(0x22)] 09:13:45.133 [ROUTE] NH=0xBB metric=1
+[R1(0x11)] 09:13:45.133 [ROUTE] NH=0xBB metric=1
+[R3(0x33)] 09:13:45.133 [ROUTE] NH=0xBB metric=1
+[R3(0x33)] 09:13:45.893 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R1(0x11)] 09:13:45.893 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R2(0x22)] 09:13:45.892 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[C(SYBIL)] 09:13:46.439 [SYBIL] Hello src=0xDB seq=11 (slot ~4/8 floods=12)
+[A(0xAA)] 09:13:46.444 [ROUTE] TABLE FULL — evicting dst=0x11 (age=10443ms)
+[R3(0x33)] 09:13:47.194 [RELAY] Re-broadcast Hello metric=2 (learned from 0xDB metric=1)
+[R1(0x11)] 09:13:47.196 [RELAY] Re-broadcast Hello metric=2 (learned from 0xDB metric=1)
+[R2(0x22)] 09:13:47.199 [RELAY] Re-broadcast Hello metric=2 (learned from 0xDB metric=1)
+[C(SYBIL)] 09:13:48.433 [SYBIL] Hello src=0xDC seq=12 (slot ~5/8 floods=13)
+[A(0xAA)] 09:13:48.445 [ROUTE] TABLE FULL — evicting dst=0xD4 (age=11831ms)
+[R1(0x11)] 09:13:49.193 [RELAY] Re-broadcast Hello metric=2 (learned from 0xDC metric=1)
+[R2(0x22)] 09:13:49.198 [RELAY] Re-broadcast Hello metric=2 (learned from 0xDC metric=1)
+[R3(0x33)] 09:13:49.198 [RELAY] Re-broadcast Hello metric=2 (learned from 0xDC metric=1)
+[A(0xAA)] 09:13:49.214 [TX] DATA id=0 via=0xBB PDR=0.0%
+[A(0xAA)] 09:13:49.214 [RTABLE] 8/8 entries:
+[A(0xAA)] 09:13:49.215   [0] dst=0xD9 nh=0xD9 m=2 age=6770ms
+[A(0xAA)] 09:13:49.215   [1] dst=0xBB nh=0xBB m=1 age=4075ms
+[A(0xAA)] 09:13:49.215   [2] dst=0x22 nh=0x22 m=2 age=2010ms
+[A(0xAA)] 09:13:49.215   [3] dst=0xDB nh=0xDB m=2 age=2770ms
+[A(0xAA)] 09:13:49.215   [4] dst=0xDC nh=0xDC m=2 age=770ms
+[A(0xAA)] 09:13:49.216   [5] dst=0xD5 nh=0xD5 m=2 age=12143ms
+[A(0xAA)] 09:13:49.216   [6] dst=0xD7 nh=0xD7 m=2 age=11228ms
+[A(0xAA)] 09:13:49.216   [7] dst=0xD8 nh=0xD8 m=2 age=8771ms
+[R2(0x22)] 09:13:49.484 [TX] DATA id=2 via=0xBB
+[R3(0x33)] 09:13:49.486 [TX] DATA id=2 via=0xBB
+[R1(0x11)] 09:13:49.492 [TX] DATA id=2 via=0xBB
+[B(0xBB)] 09:13:49.495 [RX] DATA id=2 from 0x33 payload=330002 (total=3)
+[B(0xBB)] 09:13:49.637 [TX] ACK id=2 → 0x33
+[R3(0x33)] 09:13:49.642 [RX] ACK id=2 PDR=100.0%
+[A(0xAA)] 09:13:50.445 [ROUTE] TABLE FULL — evicting dst=0xD5 (age=13373ms)
+[C(SYBIL)] 09:13:50.445 [SYBIL] Hello src=0xDD seq=13 (slot ~6/8 floods=14)
+[R3(0x33)] 09:13:51.196 [RELAY] Re-broadcast Hello metric=2 (learned from 0xDD metric=1)
+[R1(0x11)] 09:13:51.198 [RELAY] Re-broadcast Hello metric=2 (learned from 0xDD metric=1)
+[R2(0x22)] 09:13:51.203 [RELAY] Re-broadcast Hello metric=2 (learned from 0xDD metric=1)
+[C(SYBIL)] 09:13:52.440 [SYBIL] Hello src=0xDE seq=14 (slot ~7/8 floods=15)
+[A(0xAA)] 09:13:52.447 [ROUTE] TABLE FULL — evicting dst=0xD7 (age=14457ms)
+[R3(0x33)] 09:13:53.193 [RELAY] Re-broadcast Hello metric=2 (learned from 0xDE metric=1)
+[R2(0x22)] 09:13:53.199 [RELAY] Re-broadcast Hello metric=2 (learned from 0xDE metric=1)
+[R1(0x11)] 09:13:53.200 [RELAY] Re-broadcast Hello metric=2 (learned from 0xDE metric=1)
+[A(0xAA)] 09:13:54.208 [TX] DATA id=1 via=0xBB PDR=0.0%
+[A(0xAA)] 09:13:54.209 [RTABLE] 8/8 entries:
+[A(0xAA)] 09:13:54.209   [0] dst=0xD9 nh=0xD9 m=2 age=11770ms
+[A(0xAA)] 09:13:54.209   [1] dst=0xBB nh=0xBB m=1 age=9075ms
+[A(0xAA)] 09:13:54.209   [2] dst=0x22 nh=0x22 m=2 age=1010ms
+[A(0xAA)] 09:13:54.210   [3] dst=0xDB nh=0xDB m=2 age=7770ms
+[A(0xAA)] 09:13:54.210   [4] dst=0xDC nh=0xDC m=2 age=5770ms
+[A(0xAA)] 09:13:54.210   [5] dst=0xDD nh=0xDD m=2 age=3770ms
+[A(0xAA)] 09:13:54.210   [6] dst=0xDE nh=0xDE m=2 age=1770ms
+[A(0xAA)] 09:13:54.210   [7] dst=0xD8 nh=0xD8 m=2 age=13770ms
+[C(SYBIL)] 09:13:54.440 [SYBIL] Hello src=0xDF seq=15 (slot ~8/8 floods=16)
+[C(SYBIL)] 09:13:54.440 [SYBIL] Route table likely FULL — gateway route should be evicted
+[C(SYBIL)] 09:13:54.441 [SYBIL] Honest nodes now have no valid path to 0xBB
+[B(0xBB)] 09:13:54.486 [RX] DATA id=3 from 0x33 payload=330003 (total=4)
+[R2(0x22)] 09:13:54.488 [TX] DATA id=3 via=0xBB
+[R3(0x33)] 09:13:54.492 [TX] DATA id=3 via=0xBB
+[R1(0x11)] 09:13:54.492 [TX] DATA id=3 via=0xBB
+[B(0xBB)] 09:13:54.636 [TX] ACK id=3 → 0x33
+[R3(0x33)] 09:13:54.645 [RX] ACK id=3 PDR=100.0%
+[B(0xBB)] 09:13:55.139 [TX] Hello seq=2 (hello #3)
+[R3(0x33)] 09:13:55.895 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R2(0x22)] 09:13:55.896 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R1(0x11)] 09:13:55.897 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[C(SYBIL)] 09:13:56.432 [SYBIL] Hello src=0xE0 seq=16 (slot ~1/8 floods=17)
+[A(0xAA)] 09:13:56.444 [ROUTE] TABLE FULL — evicting dst=0xD8 (age=16000ms)
+[R3(0x33)] 09:13:57.194 [RELAY] Re-broadcast Hello metric=2 (learned from 0xE0 metric=1)
+[R1(0x11)] 09:13:57.195 [RELAY] Re-broadcast Hello metric=2 (learned from 0xE0 metric=1)
+[R2(0x22)] 09:13:57.201 [RELAY] Re-broadcast Hello metric=2 (learned from 0xE0 metric=1)
+[C(SYBIL)] 09:13:58.435 [SYBIL] Hello src=0xE1 seq=17 (slot ~2/8 floods=18)
+[A(0xAA)] 09:13:58.436 [ROUTE] TABLE FULL — evicting dst=0xD9 (age=16000ms)
+[R3(0x33)] 09:13:59.196 [RELAY] Re-broadcast Hello metric=2 (learned from 0xE1 metric=1)
+[R1(0x11)] 09:13:59.200 [RELAY] Re-broadcast Hello metric=2 (learned from 0xE1 metric=1)
+[R2(0x22)] 09:13:59.202 [RELAY] Re-broadcast Hello metric=2 (learned from 0xE1 metric=1)
+[A(0xAA)] 09:13:59.206 [TX] DATA id=2 via=0xBB PDR=0.0%
+[A(0xAA)] 09:13:59.207 [RTABLE] 8/8 entries:
+[A(0xAA)] 09:13:59.207   [0] dst=0xE1 nh=0xE1 m=2 age=770ms
+[A(0xAA)] 09:13:59.207   [1] dst=0xBB nh=0xBB m=1 age=4075ms
+[A(0xAA)] 09:13:59.207   [2] dst=0x22 nh=0x22 m=2 age=2010ms
+[A(0xAA)] 09:13:59.207   [3] dst=0xDB nh=0xDB m=2 age=12770ms
+[A(0xAA)] 09:13:59.207   [4] dst=0xDC nh=0xDC m=2 age=10770ms
+[A(0xAA)] 09:13:59.207   [5] dst=0xDD nh=0xDD m=2 age=8770ms
+[A(0xAA)] 09:13:59.208   [6] dst=0xDE nh=0xDE m=2 age=6770ms
+[A(0xAA)] 09:13:59.208   [7] dst=0xE0 nh=0xE0 m=2 age=2770ms
+[R2(0x22)] 09:13:59.488 [TX] DATA id=4 via=0xBB
+[B(0xBB)] 09:13:59.489 [RX] DATA id=4 from 0x33 payload=330004 (total=5)
+[R3(0x33)] 09:13:59.491 [TX] DATA id=4 via=0xBB
+[R1(0x11)] 09:13:59.494 [TX] DATA id=4 via=0xBB
+[R3(0x33)] 09:13:59.636 [RX] ACK id=4 PDR=100.0%
+[B(0xBB)] 09:13:59.640 [TX] ACK id=4 → 0x33
+[C(SYBIL)] 09:14:00.434 [SYBIL] Hello src=0xE2 seq=18 (slot ~3/8 floods=19)
+[A(0xAA)] 09:14:00.444 [ROUTE] TABLE FULL — evicting dst=0xDB (age=14000ms)
+[R1(0x11)] 09:14:01.200 [RELAY] Re-broadcast Hello metric=2 (learned from 0xE2 metric=1)
+[R3(0x33)] 09:14:01.203 [RELAY] Re-broadcast Hello metric=2 (learned from 0xE2 metric=1)
+[R2(0x22)] 09:14:01.203 [RELAY] Re-broadcast Hello metric=2 (learned from 0xE2 metric=1)
+[C(SYBIL)] 09:14:02.442 [SYBIL] Hello src=0xE3 seq=19 (slot ~4/8 floods=20)
+[A(0xAA)] 09:14:02.447 [ROUTE] TABLE FULL — evicting dst=0xDC (age=14000ms)
+[R2(0x22)] 09:14:03.196 [RELAY] Re-broadcast Hello metric=2 (learned from 0xE3 metric=1)
+[R1(0x11)] 09:14:03.202 [RELAY] Re-broadcast Hello metric=2 (learned from 0xE3 metric=1)
+[R3(0x33)] 09:14:03.202 [RELAY] Re-broadcast Hello metric=2 (learned from 0xE3 metric=1)
+[A(0xAA)] 09:14:04.215 [TX] DATA id=3 via=0xBB PDR=0.0%
+[A(0xAA)] 09:14:04.215 [RTABLE] 8/8 entries:
+[A(0xAA)] 09:14:04.216   [0] dst=0xE1 nh=0xE1 m=2 age=5770ms
+[A(0xAA)] 09:14:04.216   [1] dst=0xBB nh=0xBB m=1 age=9075ms
+[A(0xAA)] 09:14:04.216   [2] dst=0x22 nh=0x22 m=2 age=1009ms
+[A(0xAA)] 09:14:04.216   [3] dst=0xE2 nh=0xE2 m=2 age=3770ms
+[A(0xAA)] 09:14:04.217   [4] dst=0xE3 nh=0xE3 m=2 age=1770ms
+[A(0xAA)] 09:14:04.217   [5] dst=0xDD nh=0xDD m=2 age=13770ms
+[A(0xAA)] 09:14:04.217   [6] dst=0xDE nh=0xDE m=2 age=11770ms
+[A(0xAA)] 09:14:04.217   [7] dst=0xE0 nh=0xE0 m=2 age=7770ms
+[C(SYBIL)] 09:14:04.438 [SYBIL] Hello src=0xE4 seq=20 (slot ~5/8 floods=21)
+[R1(0x11)] 09:14:04.485 [TX] DATA id=5 via=0xBB
+[R3(0x33)] 09:14:04.487 [TX] DATA id=5 via=0xBB
+[B(0xBB)] 09:14:04.491 [RX] DATA id=5 from 0x33 payload=330005 (total=6)
+[R2(0x22)] 09:14:04.494 [TX] DATA id=5 via=0xBB
+[B(0xBB)] 09:14:04.635 [TX] ACK id=5 → 0x33
+[R3(0x33)] 09:14:04.647 [RX] ACK id=5 PDR=100.0%
+[B(0xBB)] 09:14:05.130 [TX] Hello seq=3 (hello #4)
+[R3(0x33)] 09:14:05.889 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R2(0x22)] 09:14:05.895 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R1(0x11)] 09:14:05.900 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[C(SYBIL)] 09:14:06.436 [SYBIL] Hello src=0xE5 seq=21 (slot ~6/8 floods=22)
+[A(0xAA)] 09:14:06.437 [ROUTE] TABLE FULL — evicting dst=0xDD (age=16000ms)
+[R2(0x22)] 09:14:07.200 [RELAY] Re-broadcast Hello metric=2 (learned from 0xE5 metric=1)
+[R1(0x11)] 09:14:07.200 [RELAY] Re-broadcast Hello metric=2 (learned from 0xE5 metric=1)
+[R3(0x33)] 09:14:07.202 [RELAY] Re-broadcast Hello metric=2 (learned from 0xE5 metric=1)
+[C(SYBIL)] 09:14:08.432 [SYBIL] Hello src=0xE6 seq=22 (slot ~7/8 floods=23)
+[A(0xAA)] 09:14:08.440 [ROUTE] TABLE FULL — evicting dst=0xDE (age=16000ms)
+[R2(0x22)] 09:14:09.195 [RELAY] Re-broadcast Hello metric=2 (learned from 0xE6 metric=1)
+[R3(0x33)] 09:14:09.196 [RELAY] Re-broadcast Hello metric=2 (learned from 0xE6 metric=1)
+[R1(0x11)] 09:14:09.203 [RELAY] Re-broadcast Hello metric=2 (learned from 0xE6 metric=1)
+[A(0xAA)] 09:14:09.215 [TX] DATA id=4 via=0xBB PDR=0.0%
+[A(0xAA)] 09:14:09.215 [RTABLE] 8/8 entries:
+[A(0xAA)] 09:14:09.215   [0] dst=0xE1 nh=0xE1 m=2 age=10770ms
+[A(0xAA)] 09:14:09.216   [1] dst=0xBB nh=0xBB m=1 age=4075ms
+[A(0xAA)] 09:14:09.216   [2] dst=0x22 nh=0x22 m=2 age=2009ms
+[A(0xAA)] 09:14:09.216   [3] dst=0xE2 nh=0xE2 m=2 age=8770ms
+[A(0xAA)] 09:14:09.216   [4] dst=0xE3 nh=0xE3 m=2 age=6770ms
+[A(0xAA)] 09:14:09.216   [5] dst=0xE5 nh=0xE5 m=2 age=2770ms
+[A(0xAA)] 09:14:09.216   [6] dst=0xE6 nh=0xE6 m=2 age=770ms
+[A(0xAA)] 09:14:09.216   [7] dst=0xE0 nh=0xE0 m=2 age=12770ms
+[R3(0x33)] 09:14:09.486 [TX] DATA id=6 via=0xBB
+[R1(0x11)] 09:14:09.486 [TX] DATA id=6 via=0xBB
+[R2(0x22)] 09:14:09.494 [TX] DATA id=6 via=0xBB
+[B(0xBB)] 09:14:09.497 [RX] DATA id=6 from 0x33 payload=330006 (total=7)
+[B(0xBB)] 09:14:09.636 [TX] ACK id=6 → 0x33
+[R3(0x33)] 09:14:09.647 [RX] ACK id=6 PDR=100.0%
+[C(SYBIL)] 09:14:10.443 [SYBIL] Hello src=0xE7 seq=23 (slot ~8/8 floods=24)
+[A(0xAA)] 09:14:10.444 [ROUTE] TABLE FULL — evicting dst=0xE0 (age=14000ms)
+[C(SYBIL)] 09:14:10.444 [SYBIL] Route table likely FULL — gateway route should be evicted
+[C(SYBIL)] 09:14:10.445 [SYBIL] Honest nodes now have no valid path to 0xBB
+[R2(0x22)] 09:14:11.199 [RELAY] Re-broadcast Hello metric=2 (learned from 0xE7 metric=1)
+[R3(0x33)] 09:14:11.199 [RELAY] Re-broadcast Hello metric=2 (learned from 0xE7 metric=1)
+[R1(0x11)] 09:14:11.205 [RELAY] Re-broadcast Hello metric=2 (learned from 0xE7 metric=1)
+[A(0xAA)] 09:14:12.438 [ROUTE] TABLE FULL — evicting dst=0xE1 (age=14000ms)
+[C(SYBIL)] 09:14:12.438 [SYBIL] Hello src=0xE8 seq=24 (slot ~1/8 floods=25)
+[R1(0x11)] 09:14:13.196 [RELAY] Re-broadcast Hello metric=2 (learned from 0xE8 metric=1)
+[R2(0x22)] 09:14:13.205 [RELAY] Re-broadcast Hello metric=2 (learned from 0xE8 metric=1)
+[R3(0x33)] 09:14:13.205 [RELAY] Re-broadcast Hello metric=2 (learned from 0xE8 metric=1)
+[A(0xAA)] 09:14:14.204 [TX] DATA id=5 via=0xBB PDR=0.0%
+[A(0xAA)] 09:14:14.217 [RTABLE] 8/8 entries:
+[A(0xAA)] 09:14:14.217   [0] dst=0xE8 nh=0xE8 m=2 age=1770ms
+[A(0xAA)] 09:14:14.217   [1] dst=0xBB nh=0xBB m=1 age=9075ms
+[A(0xAA)] 09:14:14.218   [2] dst=0x22 nh=0x22 m=2 age=1009ms
+[A(0xAA)] 09:14:14.218   [3] dst=0xE2 nh=0xE2 m=2 age=13770ms
+[A(0xAA)] 09:14:14.218   [4] dst=0xE3 nh=0xE3 m=2 age=11770ms
+[A(0xAA)] 09:14:14.218   [5] dst=0xE5 nh=0xE5 m=2 age=7770ms
+[A(0xAA)] 09:14:14.218   [6] dst=0xE6 nh=0xE6 m=2 age=5770ms
+[A(0xAA)] 09:14:14.219   [7] dst=0xE7 nh=0xE7 m=2 age=3770ms
+[C(SYBIL)] 09:14:14.435 [SYBIL] Hello src=0xE9 seq=25 (slot ~2/8 floods=26)
+[R1(0x11)] 09:14:14.483 [TX] DATA id=7 via=0xBB
+[B(0xBB)] 09:14:14.492 [RX] DATA id=7 from 0x33 payload=330007 (total=8)
+[R2(0x22)] 09:14:14.492 [TX] DATA id=7 via=0xBB
+[R3(0x33)] 09:14:14.493 [TX] DATA id=7 via=0xBB
+[B(0xBB)] 09:14:14.638 [TX] ACK id=7 → 0x33
+[R3(0x33)] 09:14:14.646 [RX] ACK id=7 PDR=100.0%
+[B(0xBB)] 09:14:15.130 [TX] Hello seq=4 (hello #5)
+[R1(0x11)] 09:14:15.892 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R3(0x33)] 09:14:15.898 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R2(0x22)] 09:14:15.900 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[C(SYBIL)] 09:14:16.433 [SYBIL] Hello src=0xEA seq=26 (slot ~3/8 floods=27)
+[R2(0x22)] 09:14:16.438 [ROUTE] NH=0xEA metric=2
+[A(0xAA)] 09:14:16.439 [ROUTE] TABLE FULL — evicting dst=0xE2 (age=16000ms)
+[R3(0x33)] 09:14:16.440 [ROUTE] NH=0xEA metric=2
+[R1(0x11)] 09:14:16.440 [ROUTE] NH=0xEA metric=2
+[R3(0x33)] 09:14:17.198 [RELAY] Re-broadcast Hello metric=2 (learned from 0xEA metric=1)
+[R2(0x22)] 09:14:17.198 [RELAY] Re-broadcast Hello metric=2 (learned from 0xEA metric=1)
+[R1(0x11)] 09:14:17.199 [RELAY] Re-broadcast Hello metric=2 (learned from 0xEA metric=1)
+[C(SYBIL)] 09:14:18.440 [SYBIL] Hello src=0xEB seq=27 (slot ~4/8 floods=28)
+[A(0xAA)] 09:14:18.440 [ROUTE] TABLE FULL — evicting dst=0xE3 (age=16000ms)
+[R2(0x22)] 09:14:19.196 [RELAY] Re-broadcast Hello metric=2 (learned from 0xEB metric=1)
+[R1(0x11)] 09:14:19.198 [RELAY] Re-broadcast Hello metric=2 (learned from 0xEB metric=1)
+[R3(0x33)] 09:14:19.202 [RELAY] Re-broadcast Hello metric=2 (learned from 0xEB metric=1)
+[A(0xAA)] 09:14:19.208 [TX] DATA id=6 via=0xBB PDR=0.0%
+[A(0xAA)] 09:14:19.208 [RTABLE] 8/8 entries:
+[A(0xAA)] 09:14:19.208   [0] dst=0xE8 nh=0xE8 m=2 age=6770ms
+[A(0xAA)] 09:14:19.208   [1] dst=0xBB nh=0xBB m=1 age=4075ms
+[A(0xAA)] 09:14:19.208   [2] dst=0x22 nh=0x22 m=2 age=2009ms
+[A(0xAA)] 09:14:19.209   [3] dst=0xEA nh=0xEA m=2 age=2770ms
+[A(0xAA)] 09:14:19.209   [4] dst=0xEB nh=0xEB m=2 age=770ms
+[A(0xAA)] 09:14:19.209   [5] dst=0xE5 nh=0xE5 m=2 age=12770ms
+[A(0xAA)] 09:14:19.209   [6] dst=0xE6 nh=0xE6 m=2 age=10770ms
+[A(0xAA)] 09:14:19.209   [7] dst=0xE7 nh=0xE7 m=2 age=8770ms
+[R1(0x11)] 09:14:19.483 [TX] DATA id=8 via=0xEA
+[B(0xBB)] 09:14:19.488 [RX] DATA id=8 from 0x33 payload=330008 (total=9)
+[R3(0x33)] 09:14:19.489 [TX] DATA id=8 via=0xEA
+[R2(0x22)] 09:14:19.489 [TX] DATA id=8 via=0xEA
+[B(0xBB)] 09:14:19.643 [TX] ACK id=8 → 0x33
+[R3(0x33)] 09:14:19.645 [RX] ACK id=8 PDR=100.0%
+[C(SYBIL)] 09:14:20.434 [SYBIL] Hello src=0xEC seq=28 (slot ~5/8 floods=29)
+[A(0xAA)] 09:14:20.439 [ROUTE] TABLE FULL — evicting dst=0xE5 (age=14000ms)
+[R3(0x33)] 09:14:21.194 [RELAY] Re-broadcast Hello metric=2 (learned from 0xEC metric=1)
+[R2(0x22)] 09:14:21.197 [RELAY] Re-broadcast Hello metric=2 (learned from 0xEC metric=1)
+[R1(0x11)] 09:14:21.200 [RELAY] Re-broadcast Hello metric=2 (learned from 0xEC metric=1)
+[A(0xAA)] 09:14:22.436 [ROUTE] TABLE FULL — evicting dst=0xE6 (age=14000ms)
+[C(SYBIL)] 09:14:22.440 [SYBIL] Hello src=0xED seq=29 (slot ~6/8 floods=30)
+[R3(0x33)] 09:14:23.197 [RELAY] Re-broadcast Hello metric=2 (learned from 0xED metric=1)
+[R1(0x11)] 09:14:23.201 [RELAY] Re-broadcast Hello metric=2 (learned from 0xED metric=1)
+[R2(0x22)] 09:14:23.204 [RELAY] Re-broadcast Hello metric=2 (learned from 0xED metric=1)
+[A(0xAA)] 09:14:24.214 [TX] DATA id=7 via=0xBB PDR=0.0%
+[A(0xAA)] 09:14:24.215 [RTABLE] 8/8 entries:
+[A(0xAA)] 09:14:24.216   [0] dst=0xE8 nh=0xE8 m=2 age=11770ms
+[A(0xAA)] 09:14:24.216   [1] dst=0xBB nh=0xBB m=1 age=9075ms
+[A(0xAA)] 09:14:24.217   [2] dst=0x22 nh=0x22 m=2 age=1009ms
+[A(0xAA)] 09:14:24.217   [3] dst=0xEA nh=0xEA m=2 age=7770ms
+[A(0xAA)] 09:14:24.217   [4] dst=0xEB nh=0xEB m=2 age=5770ms
+[A(0xAA)] 09:14:24.218   [5] dst=0xEC nh=0xEC m=2 age=3770ms
+[A(0xAA)] 09:14:24.218   [6] dst=0xED nh=0xED m=2 age=1770ms
+[A(0xAA)] 09:14:24.218   [7] dst=0xE7 nh=0xE7 m=2 age=13770ms
+[C(SYBIL)] 09:14:24.436 [SYBIL] Hello src=0xEE seq=30 (slot ~7/8 floods=31)
+[R3(0x33)] 09:14:24.482 [TX] DATA id=9 via=0xEA
+[R1(0x11)] 09:14:24.488 [TX] DATA id=9 via=0xEA
+[B(0xBB)] 09:14:24.489 [RX] DATA id=9 from 0x33 payload=330009 (total=10)
+[R2(0x22)] 09:14:24.490 [TX] DATA id=9 via=0xEA
+[B(0xBB)] 09:14:24.636 [TX] ACK id=9 → 0x33
+[R3(0x33)] 09:14:24.640 [RX] ACK id=9 PDR=100.0%
+[R2(0x22)] 09:14:25.135 [ROUTE] NH=0xBB metric=1
+[R1(0x11)] 09:14:25.137 [ROUTE] NH=0xBB metric=1
+[B(0xBB)] 09:14:25.137 [TX] Hello seq=5 (hello #6)
+[R3(0x33)] 09:14:25.138 [ROUTE] NH=0xBB metric=1
+[R2(0x22)] 09:14:25.894 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R3(0x33)] 09:14:25.897 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R1(0x11)] 09:14:25.898 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[C(SYBIL)] 09:14:26.437 [SYBIL] Hello src=0xEF seq=31 (slot ~8/8 floods=32)
+[C(SYBIL)] 09:14:26.438 [SYBIL] Route table likely FULL — gateway route should be evicted
+[C(SYBIL)] 09:14:26.438 [SYBIL] Honest nodes now have no valid path to 0xBB
+[A(0xAA)] 09:14:26.444 [ROUTE] TABLE FULL — evicting dst=0xE7 (age=16000ms)
+[R2(0x22)] 09:14:27.199 [RELAY] Re-broadcast Hello metric=2 (learned from 0xEF metric=1)
+[R3(0x33)] 09:14:27.203 [RELAY] Re-broadcast Hello metric=2 (learned from 0xEF metric=1)
+[R1(0x11)] 09:14:27.205 [RELAY] Re-broadcast Hello metric=2 (learned from 0xEF metric=1)
+[A(0xAA)] 09:14:28.440 [ROUTE] TABLE FULL — evicting dst=0xE8 (age=16000ms)
+[C(SYBIL)] 09:14:28.442 [SYBIL] Hello src=0xF0 seq=32 (slot ~1/8 floods=33)
+[R1(0x11)] 09:14:29.200 [RELAY] Re-broadcast Hello metric=2 (learned from 0xF0 metric=1)
+[R2(0x22)] 09:14:29.204 [RELAY] Re-broadcast Hello metric=2 (learned from 0xF0 metric=1)
+[R3(0x33)] 09:14:29.204 [RELAY] Re-broadcast Hello metric=2 (learned from 0xF0 metric=1)
+[A(0xAA)] 09:14:29.213 [TX] DATA id=8 via=0xBB PDR=0.0%
+[A(0xAA)] 09:14:29.213 [RTABLE] 8/8 entries:
+[A(0xAA)] 09:14:29.214   [0] dst=0xF0 nh=0xF0 m=2 age=770ms
+[A(0xAA)] 09:14:29.214   [1] dst=0xBB nh=0xBB m=1 age=4075ms
+[A(0xAA)] 09:14:29.214   [2] dst=0x22 nh=0x22 m=2 age=2009ms
+[A(0xAA)] 09:14:29.214   [3] dst=0xEA nh=0xEA m=2 age=12770ms
+[A(0xAA)] 09:14:29.214   [4] dst=0xEB nh=0xEB m=2 age=10770ms
+[A(0xAA)] 09:14:29.215   [5] dst=0xEC nh=0xEC m=2 age=8770ms
+[A(0xAA)] 09:14:29.215   [6] dst=0xED nh=0xED m=2 age=6770ms
+[A(0xAA)] 09:14:29.215   [7] dst=0xEF nh=0xEF m=2 age=2770ms
+[R1(0x11)] 09:14:29.485 [TX] DATA id=10 via=0xBB
+[R3(0x33)] 09:14:29.487 [TX] DATA id=10 via=0xBB
+[R2(0x22)] 09:14:29.488 [TX] DATA id=10 via=0xBB
+[B(0xBB)] 09:14:29.496 [RX] DATA id=10 from 0x33 payload=330010 (total=11)
+[B(0xBB)] 09:14:29.642 [TX] ACK id=10 → 0x33
+[R3(0x33)] 09:14:29.646 [RX] ACK id=10 PDR=100.0%
+[C(SYBIL)] 09:14:30.438 [SYBIL] Hello src=0xF1 seq=33 (slot ~2/8 floods=34)
+[A(0xAA)] 09:14:30.442 [ROUTE] TABLE FULL — evicting dst=0xEA (age=14000ms)
+[R1(0x11)] 09:14:31.193 [RELAY] Re-broadcast Hello metric=2 (learned from 0xF1 metric=1)
+[R2(0x22)] 09:14:31.194 [RELAY] Re-broadcast Hello metric=2 (learned from 0xF1 metric=1)
+[R3(0x33)] 09:14:31.201 [RELAY] Re-broadcast Hello metric=2 (learned from 0xF1 metric=1)
+[A(0xAA)] 09:14:32.442 [ROUTE] TABLE FULL — evicting dst=0xEB (age=14000ms)
+[C(SYBIL)] 09:14:32.443 [SYBIL] Hello src=0xF2 seq=34 (slot ~3/8 floods=35)
+[R1(0x11)] 09:14:33.198 [RELAY] Re-broadcast Hello metric=2 (learned from 0xF2 metric=1)
+[R2(0x22)] 09:14:33.203 [RELAY] Re-broadcast Hello metric=2 (learned from 0xF2 metric=1)
+[R3(0x33)] 09:14:33.202 [RELAY] Re-broadcast Hello metric=2 (learned from 0xF2 metric=1)
+[A(0xAA)] 09:14:34.208 [TX] DATA id=9 via=0xBB PDR=0.0%
+[A(0xAA)] 09:14:34.208 [RTABLE] 8/8 entries:
+[A(0xAA)] 09:14:34.209   [0] dst=0xF0 nh=0xF0 m=2 age=5770ms
+[A(0xAA)] 09:14:34.209   [1] dst=0xBB nh=0xBB m=1 age=9075ms
+[A(0xAA)] 09:14:34.209   [2] dst=0x22 nh=0x22 m=2 age=1009ms
+[A(0xAA)] 09:14:34.209   [3] dst=0xF1 nh=0xF1 m=2 age=3770ms
+[A(0xAA)] 09:14:34.210   [4] dst=0xF2 nh=0xF2 m=2 age=1770ms
+[A(0xAA)] 09:14:34.210   [5] dst=0xEC nh=0xEC m=2 age=13770ms
+[A(0xAA)] 09:14:34.210   [6] dst=0xED nh=0xED m=2 age=11770ms
+[A(0xAA)] 09:14:34.210   [7] dst=0xEF nh=0xEF m=2 age=7770ms
+[C(SYBIL)] 09:14:34.440 [SYBIL] Hello src=0xF3 seq=35 (slot ~4/8 floods=36)
+[R3(0x33)] 09:14:34.486 [TX] DATA id=11 via=0xBB
+[R1(0x11)] 09:14:34.490 [TX] DATA id=11 via=0xBB
+[R2(0x22)] 09:14:34.491 [TX] DATA id=11 via=0xBB
+[B(0xBB)] 09:14:34.493 [RX] DATA id=11 from 0x33 payload=330011 (total=12)
+[B(0xBB)] 09:14:34.640 [TX] ACK id=11 → 0x33
+[R3(0x33)] 09:14:34.647 [RX] ACK id=11 PDR=100.0%
+[B(0xBB)] 09:14:35.128 [TX] Hello seq=6 (hello #7)
+[R1(0x11)] 09:14:35.889 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R3(0x33)] 09:14:35.890 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R2(0x22)] 09:14:35.897 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[C(SYBIL)] 09:14:36.433 [SYBIL] Hello src=0xF4 seq=36 (slot ~5/8 floods=37)
+[A(0xAA)] 09:14:36.439 [ROUTE] TABLE FULL — evicting dst=0xEC (age=16000ms)
+[R3(0x33)] 09:14:37.195 [RELAY] Re-broadcast Hello metric=2 (learned from 0xF4 metric=1)
+[R2(0x22)] 09:14:37.195 [RELAY] Re-broadcast Hello metric=2 (learned from 0xF4 metric=1)
+[R1(0x11)] 09:14:37.203 [RELAY] Re-broadcast Hello metric=2 (learned from 0xF4 metric=1)
+[C(SYBIL)] 09:14:38.434 [SYBIL] Hello src=0xF5 seq=37 (slot ~6/8 floods=38)
+[A(0xAA)] 09:14:38.445 [ROUTE] TABLE FULL — evicting dst=0xED (age=16000ms)
+[R3(0x33)] 09:14:39.194 [RELAY] Re-broadcast Hello metric=2 (learned from 0xF5 metric=1)
+[R1(0x11)] 09:14:39.197 [RELAY] Re-broadcast Hello metric=2 (learned from 0xF5 metric=1)
+[R2(0x22)] 09:14:39.199 [RELAY] Re-broadcast Hello metric=2 (learned from 0xF5 metric=1)
+[A(0xAA)] 09:14:39.213 [TX] DATA id=10 via=0xBB PDR=0.0%
+[A(0xAA)] 09:14:39.214 [RTABLE] 8/8 entries:
+[A(0xAA)] 09:14:39.214   [0] dst=0xF0 nh=0xF0 m=2 age=10770ms
+[A(0xAA)] 09:14:39.214   [1] dst=0xBB nh=0xBB m=1 age=4075ms
+[A(0xAA)] 09:14:39.215   [2] dst=0x22 nh=0x22 m=2 age=2009ms
+[A(0xAA)] 09:14:39.215   [3] dst=0xF1 nh=0xF1 m=2 age=8770ms
+[A(0xAA)] 09:14:39.215   [4] dst=0xF2 nh=0xF2 m=2 age=6770ms
+[A(0xAA)] 09:14:39.216   [5] dst=0xF4 nh=0xF4 m=2 age=2770ms
+[A(0xAA)] 09:14:39.216   [6] dst=0xF5 nh=0xF5 m=2 age=770ms
+[A(0xAA)] 09:14:39.216   [7] dst=0xEF nh=0xEF m=2 age=12770ms
+[R3(0x33)] 09:14:39.483 [TX] DATA id=12 via=0xBB
+[R1(0x11)] 09:14:39.484 [TX] DATA id=12 via=0xBB
+[B(0xBB)] 09:14:39.492 [RX] DATA id=12 from 0x33 payload=330012 (total=13)
+[R2(0x22)] 09:14:39.496 [TX] DATA id=12 via=0xBB
+[B(0xBB)] 09:14:39.635 [TX] ACK id=12 → 0x33
+[R3(0x33)] 09:14:39.638 [RX] ACK id=12 PDR=100.0%
+[C(SYBIL)] 09:14:40.435 [SYBIL] Hello src=0xF6 seq=38 (slot ~7/8 floods=39)
+[A(0xAA)] 09:14:40.439 [ROUTE] TABLE FULL — evicting dst=0xEF (age=14000ms)
+[R1(0x11)] 09:14:41.197 [RELAY] Re-broadcast Hello metric=2 (learned from 0xF6 metric=1)
+[R2(0x22)] 09:14:41.197 [RELAY] Re-broadcast Hello metric=2 (learned from 0xF6 metric=1)
+[R3(0x33)] 09:14:41.202 [RELAY] Re-broadcast Hello metric=2 (learned from 0xF6 metric=1)
+[A(0xAA)] 09:14:42.439 [ROUTE] TABLE FULL — evicting dst=0xF0 (age=14000ms)
+[C(SYBIL)] 09:14:42.440 [SYBIL] Hello src=0xF7 seq=39 (slot ~8/8 floods=40)
+[C(SYBIL)] 09:14:42.440 [SYBIL] Route table likely FULL — gateway route should be evicted
+[C(SYBIL)] 09:14:42.440 [SYBIL] Honest nodes now have no valid path to 0xBB
+[R1(0x11)] 09:14:43.194 [RELAY] Re-broadcast Hello metric=2 (learned from 0xF7 metric=1)
+[R3(0x33)] 09:14:43.194 [RELAY] Re-broadcast Hello metric=2 (learned from 0xF7 metric=1)
+[R2(0x22)] 09:14:43.199 [RELAY] Re-broadcast Hello metric=2 (learned from 0xF7 metric=1)
+[A(0xAA)] 09:14:44.214 [TX] DATA id=11 via=0xBB PDR=0.0%
+[A(0xAA)] 09:14:44.215 [RTABLE] 8/8 entries:
+[A(0xAA)] 09:14:44.215   [0] dst=0xF7 nh=0xF7 m=2 age=1770ms
+[A(0xAA)] 09:14:44.215   [1] dst=0xBB nh=0xBB m=1 age=9075ms
+[A(0xAA)] 09:14:44.216   [2] dst=0x22 nh=0x22 m=2 age=1009ms
+[A(0xAA)] 09:14:44.216   [3] dst=0xF1 nh=0xF1 m=2 age=13770ms
+[A(0xAA)] 09:14:44.216   [4] dst=0xF2 nh=0xF2 m=2 age=11770ms
+[A(0xAA)] 09:14:44.216   [5] dst=0xF4 nh=0xF4 m=2 age=7770ms
+[A(0xAA)] 09:14:44.216   [6] dst=0xF5 nh=0xF5 m=2 age=5770ms
+[A(0xAA)] 09:14:44.216   [7] dst=0xF6 nh=0xF6 m=2 age=3770ms
+[C(SYBIL)] 09:14:44.437 [SYBIL] Hello src=0xF8 seq=40 (slot ~1/8 floods=41)
+[R1(0x11)] 09:14:44.485 [TX] DATA id=13 via=0xBB
+[R3(0x33)] 09:14:44.486 [TX] DATA id=13 via=0xBB
+[R2(0x22)] 09:14:44.488 [TX] DATA id=13 via=0xBB
+[B(0xBB)] 09:14:44.498 [RX] DATA id=13 from 0x33 payload=330013 (total=14)
+[R3(0x33)] 09:14:44.640 [RX] ACK id=13 PDR=100.0%
+[B(0xBB)] 09:14:44.644 [TX] ACK id=13 → 0x33
+[B(0xBB)] 09:14:45.134 [TX] Hello seq=7 (hello #8)
+[R2(0x22)] 09:14:45.894 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R3(0x33)] 09:14:45.896 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R1(0x11)] 09:14:45.896 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[C(SYBIL)] 09:14:46.437 [SYBIL] Hello src=0xF9 seq=41 (slot ~2/8 floods=42)
+[A(0xAA)] 09:14:46.445 [ROUTE] TABLE FULL — evicting dst=0xF1 (age=16000ms)
+[R1(0x11)] 09:14:47.193 [RELAY] Re-broadcast Hello metric=2 (learned from 0xF9 metric=1)
+[R2(0x22)] 09:14:47.197 [RELAY] Re-broadcast Hello metric=2 (learned from 0xF9 metric=1)
+[R3(0x33)] 09:14:47.198 [RELAY] Re-broadcast Hello metric=2 (learned from 0xF9 metric=1)
+[A(0xAA)] 09:14:48.442 [ROUTE] TABLE FULL — evicting dst=0xF2 (age=16000ms)
+[C(SYBIL)] 09:14:48.442 [SYBIL] Hello src=0xFA seq=42 (slot ~3/8 floods=43)
+[R2(0x22)] 09:14:49.194 [RELAY] Re-broadcast Hello metric=2 (learned from 0xFA metric=1)
+[R1(0x11)] 09:14:49.197 [RELAY] Re-broadcast Hello metric=2 (learned from 0xFA metric=1)
+[R3(0x33)] 09:14:49.201 [RELAY] Re-broadcast Hello metric=2 (learned from 0xFA metric=1)
+[A(0xAA)] 09:14:49.204 [TX] DATA id=12 via=0xBB PDR=0.0%
+[A(0xAA)] 09:14:49.216 [RTABLE] 8/8 entries:
+[A(0xAA)] 09:14:49.217   [0] dst=0xF7 nh=0xF7 m=2 age=6770ms
+[A(0xAA)] 09:14:49.217   [1] dst=0xBB nh=0xBB m=1 age=4075ms
+[A(0xAA)] 09:14:49.217   [2] dst=0x22 nh=0x22 m=2 age=2009ms
+[A(0xAA)] 09:14:49.218   [3] dst=0xF9 nh=0xF9 m=2 age=2770ms
+[A(0xAA)] 09:14:49.218   [4] dst=0xFA nh=0xFA m=2 age=770ms
+[A(0xAA)] 09:14:49.218   [5] dst=0xF4 nh=0xF4 m=2 age=12770ms
+[A(0xAA)] 09:14:49.218   [6] dst=0xF5 nh=0xF5 m=2 age=10770ms
+[A(0xAA)] 09:14:49.219   [7] dst=0xF6 nh=0xF6 m=2 age=8770ms
+[R2(0x22)] 09:14:49.485 [TX] DATA id=14 via=0xBB
+[R3(0x33)] 09:14:49.491 [TX] DATA id=14 via=0xBB
+[B(0xBB)] 09:14:49.491 [RX] DATA id=14 from 0x33 payload=330014 (total=15)
+[R1(0x11)] 09:14:49.492 [TX] DATA id=14 via=0xBB
+[B(0xBB)] 09:14:49.639 [TX] ACK id=14 → 0x33
+[R3(0x33)] 09:14:49.644 [RX] ACK id=14 PDR=100.0%
+[C(SYBIL)] 09:14:50.434 [SYBIL] Hello src=0xFB seq=43 (slot ~4/8 floods=44)
+[A(0xAA)] 09:14:50.438 [ROUTE] TABLE FULL — evicting dst=0xF4 (age=14000ms)
+[R2(0x22)] 09:14:51.194 [RELAY] Re-broadcast Hello metric=2 (learned from 0xFB metric=1)
+[R3(0x33)] 09:14:51.197 [RELAY] Re-broadcast Hello metric=2 (learned from 0xFB metric=1)
+[R1(0x11)] 09:14:51.205 [RELAY] Re-broadcast Hello metric=2 (learned from 0xFB metric=1)
+[A(0xAA)] 09:14:52.437 [ROUTE] TABLE FULL — evicting dst=0xF5 (age=14000ms)
+[C(SYBIL)] 09:14:52.440 [SYBIL] Hello src=0xFC seq=44 (slot ~5/8 floods=45)
+[R3(0x33)] 09:14:53.196 [RELAY] Re-broadcast Hello metric=2 (learned from 0xFC metric=1)
+[R1(0x11)] 09:14:53.202 [RELAY] Re-broadcast Hello metric=2 (learned from 0xFC metric=1)
+[R2(0x22)] 09:14:53.204 [RELAY] Re-broadcast Hello metric=2 (learned from 0xFC metric=1)
+[A(0xAA)] 09:14:54.207 [TX] DATA id=13 via=0xBB PDR=0.0%
+[A(0xAA)] 09:14:54.207 [RTABLE] 8/8 entries:
+[A(0xAA)] 09:14:54.208   [0] dst=0xF7 nh=0xF7 m=2 age=11770ms
+[A(0xAA)] 09:14:54.208   [1] dst=0xBB nh=0xBB m=1 age=9075ms
+[A(0xAA)] 09:14:54.208   [2] dst=0x22 nh=0x22 m=2 age=1009ms
+[A(0xAA)] 09:14:54.209   [3] dst=0xF9 nh=0xF9 m=2 age=7770ms
+[A(0xAA)] 09:14:54.209   [4] dst=0xFA nh=0xFA m=2 age=5770ms
+[A(0xAA)] 09:14:54.209   [5] dst=0xFB nh=0xFB m=2 age=3770ms
+[A(0xAA)] 09:14:54.209   [6] dst=0xFC nh=0xFC m=2 age=1770ms
+[A(0xAA)] 09:14:54.209   [7] dst=0xF6 nh=0xF6 m=2 age=13770ms
+[C(SYBIL)] 09:14:54.439 [SYBIL] Hello src=0xFD seq=45 (slot ~6/8 floods=46)
+[R3(0x33)] 09:14:54.486 [TX] DATA id=15 via=0xBB
+[R2(0x22)] 09:14:54.492 [TX] DATA id=15 via=0xBB
+[R1(0x11)] 09:14:54.492 [TX] DATA id=15 via=0xBB
+[B(0xBB)] 09:14:54.492 [RX] DATA id=15 from 0x33 payload=330015 (total=16)
+[B(0xBB)] 09:14:54.639 [TX] ACK id=15 → 0x33
+[R3(0x33)] 09:14:54.640 [RX] ACK id=15 PDR=100.0%
+[B(0xBB)] 09:14:55.135 [TX] Hello seq=8 (hello #9)
+[R1(0x11)] 09:14:55.894 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R3(0x33)] 09:14:55.895 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R2(0x22)] 09:14:55.896 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[C(SYBIL)] 09:14:56.433 [SYBIL] Hello src=0xFE seq=46 (slot ~7/8 floods=47)
+[A(0xAA)] 09:14:56.438 [ROUTE] TABLE FULL — evicting dst=0xF6 (age=16000ms)
+[R1(0x11)] 09:14:56.442 [ROUTE] NH=0xFE metric=2
+[R3(0x33)] 09:14:56.442 [ROUTE] NH=0xFE metric=2
+[R2(0x22)] 09:14:56.446 [ROUTE] NH=0xFE metric=2
+[R1(0x11)] 09:14:57.195 [RELAY] Re-broadcast Hello metric=2 (learned from 0xFE metric=1)
+[R2(0x22)] 09:14:57.201 [RELAY] Re-broadcast Hello metric=2 (learned from 0xFE metric=1)
+[R3(0x33)] 09:14:57.205 [RELAY] Re-broadcast Hello metric=2 (learned from 0xFE metric=1)
+[C(SYBIL)] 09:14:58.439 [SYBIL] Hello src=0xFF seq=47 (slot ~8/8 floods=48)
+[C(SYBIL)] 09:14:58.439 [SYBIL] Route table likely FULL — gateway route should be evicted
+[C(SYBIL)] 09:14:58.440 [SYBIL] Honest nodes now have no valid path to 0xBB
+[A(0xAA)] 09:14:58.443 [ROUTE] TABLE FULL — evicting dst=0xF7 (age=16000ms)
+[R1(0x11)] 09:14:59.202 [RELAY] Re-broadcast Hello metric=2 (learned from 0xFF metric=1)
+[R3(0x33)] 09:14:59.203 [RELAY] Re-broadcast Hello metric=2 (learned from 0xFF metric=1)
+[R2(0x22)] 09:14:59.206 [RELAY] Re-broadcast Hello metric=2 (learned from 0xFF metric=1)
+[A(0xAA)] 09:14:59.215 [TX] DATA id=14 via=0xBB PDR=0.0%
+[A(0xAA)] 09:14:59.215 [RTABLE] 8/8 entries:
+[A(0xAA)] 09:14:59.215   [0] dst=0xFF nh=0xFF m=2 age=770ms
+[A(0xAA)] 09:14:59.215   [1] dst=0xBB nh=0xBB m=1 age=4075ms
+[A(0xAA)] 09:14:59.216   [2] dst=0x22 nh=0x22 m=2 age=2009ms
+[A(0xAA)] 09:14:59.216   [3] dst=0xF9 nh=0xF9 m=2 age=12770ms
+[A(0xAA)] 09:14:59.216   [4] dst=0xFA nh=0xFA m=2 age=10770ms
+[A(0xAA)] 09:14:59.216   [5] dst=0xFB nh=0xFB m=2 age=8770ms
+[A(0xAA)] 09:14:59.216   [6] dst=0xFC nh=0xFC m=2 age=6770ms
+[A(0xAA)] 09:14:59.216   [7] dst=0xFE nh=0xFE m=2 age=2770ms
+[R2(0x22)] 09:14:59.485 [TX] DATA id=16 via=0xFE
+[R3(0x33)] 09:14:59.488 [TX] DATA id=16 via=0xFE
+[R1(0x11)] 09:14:59.488 [TX] DATA id=16 via=0xFE
+[B(0xBB)] 09:14:59.497 [RX] DATA id=16 from 0x33 payload=330016 (total=17)
+[R3(0x33)] 09:14:59.644 [RX] ACK id=16 PDR=100.0%
+[B(0xBB)] 09:14:59.644 [TX] ACK id=16 → 0x33
+[C(SYBIL)] 09:15:00.434 [SYBIL] Hello src=0xD0 seq=48 (slot ~1/8 floods=49)
+[A(0xAA)] 09:15:00.441 [ROUTE] TABLE FULL — evicting dst=0xF9 (age=14000ms)
+[R1(0x11)] 09:15:01.197 [RELAY] Re-broadcast Hello metric=2 (learned from 0xD0 metric=1)
+[R2(0x22)] 09:15:01.197 [RELAY] Re-broadcast Hello metric=2 (learned from 0xD0 metric=1)
+[R3(0x33)] 09:15:01.201 [RELAY] Re-broadcast Hello metric=2 (learned from 0xD0 metric=1)
+[C(SYBIL)] 09:15:02.440 [SYBIL] Hello src=0xD1 seq=49 (slot ~2/8 floods=50)
+[A(0xAA)] 09:15:02.442 [ROUTE] TABLE FULL — evicting dst=0xFA (age=14000ms)
+[R1(0x11)] 09:15:03.195 [RELAY] Re-broadcast Hello metric=2 (learned from 0xD1 metric=1)
+[R3(0x33)] 09:15:03.195 [RELAY] Re-broadcast Hello metric=2 (learned from 0xD1 metric=1)
+[R2(0x22)] 09:15:03.203 [RELAY] Re-broadcast Hello metric=2 (learned from 0xD1 metric=1)
+[A(0xAA)] 09:15:04.211 [TX] DATA id=15 via=0xBB PDR=0.0%
+[A(0xAA)] 09:15:04.212 [RTABLE] 8/8 entries:
+[A(0xAA)] 09:15:04.212   [0] dst=0xFF nh=0xFF m=2 age=5770ms
+[A(0xAA)] 09:15:04.212   [1] dst=0xBB nh=0xBB m=1 age=9075ms
+[A(0xAA)] 09:15:04.213   [2] dst=0x22 nh=0x22 m=2 age=1009ms
+[A(0xAA)] 09:15:04.213   [3] dst=0xD0 nh=0xD0 m=2 age=3770ms
+[A(0xAA)] 09:15:04.213   [4] dst=0xD1 nh=0xD1 m=2 age=1770ms
+[A(0xAA)] 09:15:04.213   [5] dst=0xFB nh=0xFB m=2 age=13770ms
+[A(0xAA)] 09:15:04.213   [6] dst=0xFC nh=0xFC m=2 age=11770ms
+[A(0xAA)] 09:15:04.214   [7] dst=0xFE nh=0xFE m=2 age=7770ms
+[C(SYBIL)] 09:15:04.435 [SYBIL] Hello src=0xD2 seq=50 (slot ~3/8 floods=51)
+[R2(0x22)] 09:15:04.486 [TX] DATA id=17 via=0xFE
+[R1(0x11)] 09:15:04.490 [TX] DATA id=17 via=0xFE
+[R3(0x33)] 09:15:04.494 [TX] DATA id=17 via=0xFE
+[B(0xBB)] 09:15:04.498 [RX] DATA id=17 from 0x33 payload=330017 (total=18)
+[B(0xBB)] 09:15:04.634 [TX] ACK id=17 → 0x33
+[R3(0x33)] 09:15:04.645 [RX] ACK id=17 PDR=100.0%
+[B(0xBB)] 09:15:05.128 [TX] Hello seq=9 (hello #10)
+[R2(0x22)] 09:15:05.132 [ROUTE] NH=0xBB metric=1
+[R1(0x11)] 09:15:05.138 [ROUTE] NH=0xBB metric=1
+[R3(0x33)] 09:15:05.139 [ROUTE] NH=0xBB metric=1
+[R1(0x11)] 09:15:05.891 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R3(0x33)] 09:15:05.892 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R2(0x22)] 09:15:05.893 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[A(0xAA)] 09:15:06.443 [ROUTE] TABLE FULL — evicting dst=0xFB (age=16000ms)
+[C(SYBIL)] 09:15:06.443 [SYBIL] Hello src=0xD3 seq=51 (slot ~4/8 floods=52)
+[R2(0x22)] 09:15:07.196 [RELAY] Re-broadcast Hello metric=2 (learned from 0xD3 metric=1)
+[R3(0x33)] 09:15:07.196 [RELAY] Re-broadcast Hello metric=2 (learned from 0xD3 metric=1)
+[R1(0x11)] 09:15:07.197 [RELAY] Re-broadcast Hello metric=2 (learned from 0xD3 metric=1)
+[C(SYBIL)] 09:15:08.438 [SYBIL] Hello src=0xD4 seq=52 (slot ~5/8 floods=53)
+[A(0xAA)] 09:15:08.442 [ROUTE] TABLE FULL — evicting dst=0xFC (age=16000ms)
+[R3(0x33)] 09:15:09.194 [RELAY] Re-broadcast Hello metric=2 (learned from 0xD4 metric=1)
+[R1(0x11)] 09:15:09.196 [RELAY] Re-broadcast Hello metric=2 (learned from 0xD4 metric=1)
+[R2(0x22)] 09:15:09.203 [RELAY] Re-broadcast Hello metric=2 (learned from 0xD4 metric=1)
+[A(0xAA)] 09:15:09.215 [TX] DATA id=16 via=0xBB PDR=0.0%
+[A(0xAA)] 09:15:09.215 [RTABLE] 8/8 entries:
+[A(0xAA)] 09:15:09.216   [0] dst=0xFF nh=0xFF m=2 age=10770ms
+[A(0xAA)] 09:15:09.216   [1] dst=0xBB nh=0xBB m=1 age=4075ms
+[A(0xAA)] 09:15:09.216   [2] dst=0x22 nh=0x22 m=2 age=2009ms
+[A(0xAA)] 09:15:09.216   [3] dst=0xD0 nh=0xD0 m=2 age=8770ms
+[A(0xAA)] 09:15:09.216   [4] dst=0xD1 nh=0xD1 m=2 age=6770ms
+[A(0xAA)] 09:15:09.216   [5] dst=0xD3 nh=0xD3 m=2 age=2770ms
+[A(0xAA)] 09:15:09.216   [6] dst=0xD4 nh=0xD4 m=2 age=770ms
+[A(0xAA)] 09:15:09.216   [7] dst=0xFE nh=0xFE m=2 age=12770ms
+[R1(0x11)] 09:15:09.493 [TX] DATA id=18 via=0xBB
+[R2(0x22)] 09:15:09.494 [TX] DATA id=18 via=0xBB
+[R3(0x33)] 09:15:09.494 [TX] DATA id=18 via=0xBB
+[B(0xBB)] 09:15:09.494 [RX] DATA id=18 from 0x33 payload=330018 (total=19)
+[R3(0x33)] 09:15:09.641 [RX] ACK id=18 PDR=100.0%
+[B(0xBB)] 09:15:09.642 [TX] ACK id=18 → 0x33
+[C(SYBIL)] 09:15:10.435 [SYBIL] Hello src=0xD5 seq=53 (slot ~6/8 floods=54)
+[A(0xAA)] 09:15:10.446 [ROUTE] TABLE FULL — evicting dst=0xFE (age=14000ms)
+[R2(0x22)] 09:15:11.198 [RELAY] Re-broadcast Hello metric=2 (learned from 0xD5 metric=1)
+[R3(0x33)] 09:15:11.198 [RELAY] Re-broadcast Hello metric=2 (learned from 0xD5 metric=1)
+[R1(0x11)] 09:15:11.204 [RELAY] Re-broadcast Hello metric=2 (learned from 0xD5 metric=1)
+[C(SYBIL)] 09:15:12.439 [SYBIL] Hello src=0xD6 seq=54 (slot ~7/8 floods=55)
+[A(0xAA)] 09:15:12.444 [ROUTE] TABLE FULL — evicting dst=0xFF (age=14000ms)
+[R1(0x11)] 09:15:13.194 [RELAY] Re-broadcast Hello metric=2 (learned from 0xD6 metric=1)
+[R3(0x33)] 09:15:13.199 [RELAY] Re-broadcast Hello metric=2 (learned from 0xD6 metric=1)
+[R2(0x22)] 09:15:13.204 [RELAY] Re-broadcast Hello metric=2 (learned from 0xD6 metric=1)
+[A(0xAA)] 09:15:14.215 [TX] DATA id=17 via=0xBB PDR=0.0%
+[A(0xAA)] 09:15:14.216 [RTABLE] 8/8 entries:
+[A(0xAA)] 09:15:14.216   [0] dst=0xD6 nh=0xD6 m=2 age=1770ms
+[A(0xAA)] 09:15:14.216   [1] dst=0xBB nh=0xBB m=1 age=9075ms
+[A(0xAA)] 09:15:14.216   [2] dst=0x22 nh=0x22 m=2 age=1009ms
+[A(0xAA)] 09:15:14.216   [3] dst=0xD0 nh=0xD0 m=2 age=13770ms
+[A(0xAA)] 09:15:14.217   [4] dst=0xD1 nh=0xD1 m=2 age=11770ms
+[A(0xAA)] 09:15:14.217   [5] dst=0xD3 nh=0xD3 m=2 age=7770ms
+[A(0xAA)] 09:15:14.217   [6] dst=0xD4 nh=0xD4 m=2 age=5770ms
+[A(0xAA)] 09:15:14.217   [7] dst=0xD5 nh=0xD5 m=2 age=3771ms
+[C(SYBIL)] 09:15:14.444 [SYBIL] Hello src=0xD7 seq=55 (slot ~8/8 floods=56)
+[C(SYBIL)] 09:15:14.444 [SYBIL] Route table likely FULL — gateway route should be evicted
+[C(SYBIL)] 09:15:14.445 [SYBIL] Honest nodes now have no valid path to 0xBB
+[R1(0x11)] 09:15:14.486 [TX] DATA id=19 via=0xBB
+[B(0xBB)] 09:15:14.490 [RX] DATA id=19 from 0x33 payload=330019 (total=20)
+[R3(0x33)] 09:15:14.492 [TX] DATA id=19 via=0xBB
+[R2(0x22)] 09:15:14.492 [TX] DATA id=19 via=0xBB
+[B(0xBB)] 09:15:14.635 [TX] ACK id=19 → 0x33
+[R3(0x33)] 09:15:14.648 [RX] ACK id=19 PDR=100.0%
+[B(0xBB)] 09:15:15.129 [TX] Hello seq=10 (hello #11)
+[R3(0x33)] 09:15:15.895 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R2(0x22)] 09:15:15.899 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R1(0x11)] 09:15:15.901 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[C(SYBIL)] 09:15:16.439 [SYBIL] Hello src=0xD8 seq=56 (slot ~1/8 floods=57)
+[A(0xAA)] 09:15:16.443 [ROUTE] TABLE FULL — evicting dst=0xD0 (age=16000ms)
+[R1(0x11)] 09:15:17.197 [RELAY] Re-broadcast Hello metric=2 (learned from 0xD8 metric=1)
+[R3(0x33)] 09:15:17.198 [RELAY] Re-broadcast Hello metric=2 (learned from 0xD8 metric=1)
+[R2(0x22)] 09:15:17.200 [RELAY] Re-broadcast Hello metric=2 (learned from 0xD8 metric=1)
+[C(SYBIL)] 09:15:18.435 [SYBIL] Hello src=0xD9 seq=57 (slot ~2/8 floods=58)
+[A(0xAA)] 09:15:18.438 [ROUTE] TABLE FULL — evicting dst=0xD1 (age=16000ms)
+[R1(0x11)] 09:15:19.197 [RELAY] Re-broadcast Hello metric=2 (learned from 0xD9 metric=1)
+[R3(0x33)] 09:15:19.198 [RELAY] Re-broadcast Hello metric=2 (learned from 0xD9 metric=1)
+[R2(0x22)] 09:15:19.202 [RELAY] Re-broadcast Hello metric=2 (learned from 0xD9 metric=1)
+[A(0xAA)] 09:15:19.209 [TX] DATA id=18 via=0xBB PDR=0.0%
+[A(0xAA)] 09:15:19.210 [RTABLE] 8/8 entries:
+[A(0xAA)] 09:15:19.211   [0] dst=0xD6 nh=0xD6 m=2 age=6770ms
+[A(0xAA)] 09:15:19.211   [1] dst=0xBB nh=0xBB m=1 age=4075ms
+[A(0xAA)] 09:15:19.211   [2] dst=0x22 nh=0x22 m=2 age=2009ms
+[A(0xAA)] 09:15:19.211   [3] dst=0xD8 nh=0xD8 m=2 age=2770ms
+[A(0xAA)] 09:15:19.211   [4] dst=0xD9 nh=0xD9 m=2 age=770ms
+[A(0xAA)] 09:15:19.211   [5] dst=0xD3 nh=0xD3 m=2 age=12770ms
+[A(0xAA)] 09:15:19.212   [6] dst=0xD4 nh=0xD4 m=2 age=10770ms
+[A(0xAA)] 09:15:19.212   [7] dst=0xD5 nh=0xD5 m=2 age=8771ms
+[R2(0x22)] 09:15:19.484 [TX] DATA id=20 via=0xBB
+[R3(0x33)] 09:15:19.495 [TX] DATA id=20 via=0xBB
+[R1(0x11)] 09:15:19.495 [TX] DATA id=20 via=0xBB
+[B(0xBB)] 09:15:19.498 [RX] DATA id=20 from 0x33 payload=330020 (total=21)
+[B(0xBB)] 09:15:19.640 [TX] ACK id=20 → 0x33
+[R3(0x33)] 09:15:19.648 [RX] ACK id=20 PDR=100.0%
+[C(SYBIL)] 09:15:20.438 [SYBIL] Hello src=0xDA seq=58 (slot ~3/8 floods=59)
+[A(0xAA)] 09:15:20.446 [ROUTE] TABLE FULL — evicting dst=0xD3 (age=14000ms)
+[R1(0x11)] 09:15:21.195 [RELAY] Re-broadcast Hello metric=2 (learned from 0xDA metric=1)
+[R3(0x33)] 09:15:21.199 [RELAY] Re-broadcast Hello metric=2 (learned from 0xDA metric=1)
+[R2(0x22)] 09:15:21.205 [RELAY] Re-broadcast Hello metric=2 (learned from 0xDA metric=1)
+[C(SYBIL)] 09:15:22.435 [SYBIL] Hello src=0xDB seq=59 (slot ~4/8 floods=60)
+[A(0xAA)] 09:15:22.447 [ROUTE] TABLE FULL — evicting dst=0xD4 (age=14000ms)
+[R1(0x11)] 09:15:23.197 [RELAY] Re-broadcast Hello metric=2 (learned from 0xDB metric=1)
+[R2(0x22)] 09:15:23.198 [RELAY] Re-broadcast Hello metric=2 (learned from 0xDB metric=1)
+[R3(0x33)] 09:15:23.205 [RELAY] Re-broadcast Hello metric=2 (learned from 0xDB metric=1)
+[A(0xAA)] 09:15:24.209 [TX] DATA id=19 via=0xBB PDR=0.0%
+[A(0xAA)] 09:15:24.210 [RTABLE] 8/8 entries:
+[A(0xAA)] 09:15:24.210   [0] dst=0xD6 nh=0xD6 m=2 age=11770ms
+[A(0xAA)] 09:15:24.210   [1] dst=0xBB nh=0xBB m=1 age=9075ms
+[A(0xAA)] 09:15:24.211   [2] dst=0x22 nh=0x22 m=2 age=1009ms
+[A(0xAA)] 09:15:24.211   [3] dst=0xD8 nh=0xD8 m=2 age=7770ms
+[A(0xAA)] 09:15:24.211   [4] dst=0xD9 nh=0xD9 m=2 age=5770ms
+[A(0xAA)] 09:15:24.211   [5] dst=0xDA nh=0xDA m=2 age=3770ms
+[A(0xAA)] 09:15:24.211   [6] dst=0xDB nh=0xDB m=2 age=1770ms
+[A(0xAA)] 09:15:24.211   [7] dst=0xD5 nh=0xD5 m=2 age=13770ms
+[C(SYBIL)] 09:15:24.439 [SYBIL] Hello src=0xDC seq=60 (slot ~5/8 floods=61)
+[R2(0x22)] 09:15:24.488 [TX] DATA id=21 via=0xBB
+[R3(0x33)] 09:15:24.488 [TX] DATA id=21 via=0xBB
+[R1(0x11)] 09:15:24.493 [TX] DATA id=21 via=0xBB
+[B(0xBB)] 09:15:24.497 [RX] DATA id=21 from 0x33 payload=330021 (total=22)
+[B(0xBB)] 09:15:24.639 [TX] ACK id=21 → 0x33
+[R3(0x33)] 09:15:24.646 [RX] ACK id=21 PDR=100.0%
+[B(0xBB)] 09:15:25.131 [TX] Hello seq=11 (hello #12)
+[R1(0x11)] 09:15:25.893 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R3(0x33)] 09:15:25.897 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R2(0x22)] 09:15:25.897 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[A(0xAA)] 09:15:26.439 [ROUTE] TABLE FULL — evicting dst=0xD5 (age=16000ms)
+[C(SYBIL)] 09:15:26.441 [SYBIL] Hello src=0xDD seq=61 (slot ~6/8 floods=62)
+[R1(0x11)] 09:15:27.201 [RELAY] Re-broadcast Hello metric=2 (learned from 0xDD metric=1)
+[R3(0x33)] 09:15:27.202 [RELAY] Re-broadcast Hello metric=2 (learned from 0xDD metric=1)
+[R2(0x22)] 09:15:27.204 [RELAY] Re-broadcast Hello metric=2 (learned from 0xDD metric=1)
+[C(SYBIL)] 09:15:28.435 [SYBIL] Hello src=0xDE seq=62 (slot ~7/8 floods=63)
+[A(0xAA)] 09:15:28.443 [ROUTE] TABLE FULL — evicting dst=0xD6 (age=16000ms)
+[R2(0x22)] 09:15:29.195 [RELAY] Re-broadcast Hello metric=2 (learned from 0xDE metric=1)
+[R3(0x33)] 09:15:29.201 [RELAY] Re-broadcast Hello metric=2 (learned from 0xDE metric=1)
+[R1(0x11)] 09:15:29.205 [RELAY] Re-broadcast Hello metric=2 (learned from 0xDE metric=1)
+[A(0xAA)] 09:15:29.214 [TX] DATA id=20 via=0xBB PDR=0.0%
+[A(0xAA)] 09:15:29.215 [RTABLE] 8/8 entries:
+[A(0xAA)] 09:15:29.215   [0] dst=0xDE nh=0xDE m=2 age=770ms
+[A(0xAA)] 09:15:29.215   [1] dst=0xBB nh=0xBB m=1 age=4075ms
+[A(0xAA)] 09:15:29.215   [2] dst=0x22 nh=0x22 m=2 age=2009ms
+[A(0xAA)] 09:15:29.215   [3] dst=0xD8 nh=0xD8 m=2 age=12770ms
+[A(0xAA)] 09:15:29.216   [4] dst=0xD9 nh=0xD9 m=2 age=10770ms
+[A(0xAA)] 09:15:29.216   [5] dst=0xDA nh=0xDA m=2 age=8770ms
+[A(0xAA)] 09:15:29.216   [6] dst=0xDB nh=0xDB m=2 age=6770ms
+[A(0xAA)] 09:15:29.216   [7] dst=0xDD nh=0xDD m=2 age=2770ms
+[R2(0x22)] 09:15:29.485 [TX] DATA id=22 via=0xBB
+[R1(0x11)] 09:15:29.489 [TX] DATA id=22 via=0xBB
+[R3(0x33)] 09:15:29.491 [TX] DATA id=22 via=0xBB
+[B(0xBB)] 09:15:29.491 [RX] DATA id=22 from 0x33 payload=330022 (total=23)
+[B(0xBB)] 09:15:29.637 [TX] ACK id=22 → 0x33
+[R3(0x33)] 09:15:29.643 [RX] ACK id=22 PDR=100.0%
+[A(0xAA)] 09:15:30.437 [ROUTE] TABLE FULL — evicting dst=0xD8 (age=14000ms)
+[C(SYBIL)] 09:15:30.443 [SYBIL] Hello src=0xDF seq=63 (slot ~8/8 floods=64)
+[C(SYBIL)] 09:15:30.443 [SYBIL] Route table likely FULL — gateway route should be evicted
+[C(SYBIL)] 09:15:30.443 [SYBIL] Honest nodes now have no valid path to 0xBB
+[R3(0x33)] 09:15:31.197 [RELAY] Re-broadcast Hello metric=2 (learned from 0xDF metric=1)
+[R2(0x22)] 09:15:31.198 [RELAY] Re-broadcast Hello metric=2 (learned from 0xDF metric=1)
+[R1(0x11)] 09:15:31.201 [RELAY] Re-broadcast Hello metric=2 (learned from 0xDF metric=1)
+[A(0xAA)] 09:15:32.441 [ROUTE] TABLE FULL — evicting dst=0xD9 (age=14000ms)
+[C(SYBIL)] 09:15:32.444 [SYBIL] Hello src=0xE0 seq=64 (slot ~1/8 floods=65)
+[R2(0x22)] 09:15:33.195 [RELAY] Re-broadcast Hello metric=2 (learned from 0xE0 metric=1)
+[R1(0x11)] 09:15:33.198 [RELAY] Re-broadcast Hello metric=2 (learned from 0xE0 metric=1)
+[R3(0x33)] 09:15:33.202 [RELAY] Re-broadcast Hello metric=2 (learned from 0xE0 metric=1)
+[A(0xAA)] 09:15:34.211 [TX] DATA id=21 via=0xBB PDR=0.0%
+[A(0xAA)] 09:15:34.211 [RTABLE] 8/8 entries:
+[A(0xAA)] 09:15:34.213   [0] dst=0xDE nh=0xDE m=2 age=5770ms
+[A(0xAA)] 09:15:34.213   [1] dst=0xBB nh=0xBB m=1 age=9075ms
+[A(0xAA)] 09:15:34.213   [2] dst=0x22 nh=0x22 m=2 age=1009ms
+[A(0xAA)] 09:15:34.213   [3] dst=0xDF nh=0xDF m=2 age=3770ms
+[A(0xAA)] 09:15:34.213   [4] dst=0xE0 nh=0xE0 m=2 age=1770ms
+[A(0xAA)] 09:15:34.213   [5] dst=0xDA nh=0xDA m=2 age=13770ms
+[A(0xAA)] 09:15:34.214   [6] dst=0xDB nh=0xDB m=2 age=11770ms
+[A(0xAA)] 09:15:34.214   [7] dst=0xDD nh=0xDD m=2 age=7770ms
