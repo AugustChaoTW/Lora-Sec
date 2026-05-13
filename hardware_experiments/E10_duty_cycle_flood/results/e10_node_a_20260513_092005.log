@@ -1,0 +1,97 @@
+[A(0xAA)] 09:20:05.744 ESP-ROM:esp32s3-20210327
+[A(0xAA)] 09:20:05.745 Build:Mar 27 2021
+[A(0xAA)] 09:20:05.746 rst:0x15 (USB_UART_CHIP_RESET),boot:0x19 (SPI_FAST_FLASH_BOOT)
+[A(0xAA)] 09:20:05.747 Saved PC:0x4037ce2a
+[A(0xAA)] 09:20:05.748 SPIWP:0xee
+[A(0xAA)] 09:20:05.749 mode:DIO, clock div:1
+[A(0xAA)] 09:20:05.749 load:0x3fce2820,len:0x10cc
+[A(0xAA)] 09:20:05.750 load:0x403c8700,len:0xc2c
+[A(0xAA)] 09:20:05.751 load:0x403cb700,len:0x30c0
+[A(0xAA)] 09:20:05.752 entry 0x403c88b8
+[A(0xAA)] 09:20:05.910 
+[A(0xAA)] 09:20:05.910 === E10 Node A (SENDER — DC tracking, SECURITY_MODE=1) ===
+[A(0xAA)] 09:20:05.911 [INFO] DC window=1s limit=1%
+[A(0xAA)] 09:20:05.911 [INFO] Data TX blocked when DC exceeds limit due to flood-induced relay traffic.
+[A(0xAA)] 09:20:05.992 [RADIO] SX1262 ready @ 923 MHz AS923
+[A(0xAA)] 09:20:06.349 [ROUTE] NH=0xBB metric=1
+[A(0xAA)] 09:20:06.808 [RELAY] Hello metric=1 DC=50.44%
+[A(0xAA)] 09:20:07.111 [RELAY] SUPPRESSED — DC=37.80% > 1% (flood causing starvation)
+[A(0xAA)] 09:20:10.397 [TX] DATA BLOCKED — DC=10.17% > 1% limit (blocked=1)
+[A(0xAA)] 09:20:10.409 [DC] current=10.15% window_tx=457ms
+[A(0xAA)] 09:20:15.399 [TX] DATA BLOCKED — DC=4.81% > 1% limit (blocked=2)
+[A(0xAA)] 09:20:15.412 [DC] current=4.81% window_tx=457ms
+[A(0xAA)] 09:20:16.613 [RELAY] SUPPRESSED — DC=4.27% > 1% (flood causing starvation)
+[A(0xAA)] 09:20:17.373 [RELAY] SUPPRESSED — DC=3.99% > 1% (flood causing starvation)
+[A(0xAA)] 09:20:20.393 [TX] DATA BLOCKED — DC=3.15% > 1% limit (blocked=3)
+[A(0xAA)] 09:20:20.406 [DC] current=3.15% window_tx=457ms
+[A(0xAA)] 09:20:25.400 [TX] DATA BLOCKED — DC=2.34% > 1% limit (blocked=4)
+[A(0xAA)] 09:20:25.413 [DC] current=2.34% window_tx=457ms
+[A(0xAA)] 09:20:27.371 [RELAY] SUPPRESSED — DC=2.13% > 1% (flood causing starvation)
+[A(0xAA)] 09:20:28.129 [RELAY] SUPPRESSED — DC=2.06% > 1% (flood causing starvation)
+[A(0xAA)] 09:20:28.897 [RELAY] SUPPRESSED — DC=1.99% > 1% (flood causing starvation)
+[A(0xAA)] 09:20:30.405 [TX] DATA BLOCKED — DC=1.87% > 1% limit (blocked=5)
+[A(0xAA)] 09:20:30.405 [DC] current=1.87% window_tx=457ms
+[A(0xAA)] 09:20:35.399 [TX] DATA BLOCKED — DC=1.55% > 1% limit (blocked=6)
+[A(0xAA)] 09:20:35.411 [DC] current=1.55% window_tx=457ms
+[A(0xAA)] 09:20:36.613 [ROUTE] NH=0xBB metric=1
+[A(0xAA)] 09:20:36.613 [RELAY] SUPPRESSED — DC=1.49% > 1% (flood causing starvation)
+[A(0xAA)] 09:20:37.370 [RELAY] SUPPRESSED — DC=1.45% > 1% (flood causing starvation)
+[A(0xAA)] 09:20:40.397 [TX] DATA BLOCKED — DC=1.32% > 1% limit (blocked=7)
+[A(0xAA)] 09:20:40.409 [DC] current=1.32% window_tx=457ms
+[A(0xAA)] 09:20:45.403 [TX] DATA BLOCKED — DC=1.16% > 1% limit (blocked=8)
+[A(0xAA)] 09:20:45.403 [DC] current=1.16% window_tx=457ms
+[A(0xAA)] 09:20:46.606 [RELAY] SUPPRESSED — DC=1.12% > 1% (flood causing starvation)
+[A(0xAA)] 09:20:47.367 [RELAY] SUPPRESSED — DC=1.10% > 1% (flood causing starvation)
+[A(0xAA)] 09:20:50.396 [TX] DATA BLOCKED — DC=1.03% > 1% limit (blocked=9)
+[A(0xAA)] 09:20:50.409 [DC] current=1.03% window_tx=457ms
+[A(0xAA)] 09:20:55.681 [TX] DATA id=0 via=0xBB DC=0.00% PDR=0.0%
+[A(0xAA)] 09:20:55.694 [DC] current=0.00% window_tx=285ms
+[A(0xAA)] 09:20:55.839 [RX] ACK id=0 PDR=100.0%
+[A(0xAA)] 09:20:56.614 [RELAY] SUPPRESSED — DC=30.78% > 1% (flood causing starvation)
+[A(0xAA)] 09:20:57.378 [RELAY] SUPPRESSED — DC=16.89% > 1% (flood causing starvation)
+[A(0xAA)] 09:21:00.401 [TX] DATA BLOCKED — DC=6.05% > 1% limit (blocked=10)
+[A(0xAA)] 09:21:00.414 [DC] current=6.03% window_tx=285ms
+[A(0xAA)] 09:21:05.400 [TX] DATA BLOCKED — DC=2.93% > 1% limit (blocked=11)
+[A(0xAA)] 09:21:05.413 [DC] current=2.93% window_tx=285ms
+[A(0xAA)] 09:21:06.606 [RELAY] SUPPRESSED — DC=2.61% > 1% (flood causing starvation)
+[A(0xAA)] 09:21:07.373 [ROUTE] NH=0x22 metric=2
+[A(0xAA)] 09:21:07.373 [RELAY] SUPPRESSED — DC=2.44% > 1% (flood causing starvation)
+[A(0xAA)] 09:21:10.399 [TX] DATA BLOCKED — DC=1.94% > 1% limit (blocked=12)
+[A(0xAA)] 09:21:10.413 [DC] current=1.94% window_tx=285ms
+[A(0xAA)] 09:21:15.397 [TX] DATA BLOCKED — DC=1.45% > 1% limit (blocked=13)
+[A(0xAA)] 09:21:15.410 [DC] current=1.45% window_tx=285ms
+[A(0xAA)] 09:21:16.610 [ROUTE] NH=0xBB metric=1
+[A(0xAA)] 09:21:16.610 [RELAY] SUPPRESSED — DC=1.36% > 1% (flood causing starvation)
+[A(0xAA)] 09:21:17.373 [RELAY] SUPPRESSED — DC=1.31% > 1% (flood causing starvation)
+[A(0xAA)] 09:21:20.402 [TX] DATA BLOCKED — DC=1.15% > 1% limit (blocked=14)
+[A(0xAA)] 09:21:20.403 [DC] current=1.15% window_tx=285ms
+[A(0xAA)] 09:21:25.688 [TX] DATA id=1 via=0xBB DC=0.00% PDR=50.0%
+[A(0xAA)] 09:21:25.700 [DC] current=0.00% window_tx=285ms
+[A(0xAA)] 09:21:25.840 [RX] ACK id=1 PDR=100.0%
+[A(0xAA)] 09:21:26.606 [RELAY] SUPPRESSED — DC=30.78% > 1% (flood causing starvation)
+[A(0xAA)] 09:21:27.372 [RELAY] SUPPRESSED — DC=16.89% > 1% (flood causing starvation)
+[A(0xAA)] 09:21:30.395 [TX] DATA BLOCKED — DC=6.05% > 1% limit (blocked=15)
+[A(0xAA)] 09:21:30.406 [DC] current=6.03% window_tx=285ms
+[A(0xAA)] 09:21:35.405 [TX] DATA BLOCKED — DC=2.93% > 1% limit (blocked=16)
+[A(0xAA)] 09:21:35.405 [DC] current=2.93% window_tx=285ms
+[A(0xAA)] 09:21:37.371 [RELAY] SUPPRESSED — DC=2.44% > 1% (flood causing starvation)
+[A(0xAA)] 09:21:38.135 [RELAY] SUPPRESSED — DC=2.29% > 1% (flood causing starvation)
+[A(0xAA)] 09:21:38.901 [RELAY] SUPPRESSED — DC=2.16% > 1% (flood causing starvation)
+[A(0xAA)] 09:21:40.401 [TX] DATA BLOCKED — DC=1.94% > 1% limit (blocked=17)
+[A(0xAA)] 09:21:40.414 [DC] current=1.94% window_tx=285ms
+[A(0xAA)] 09:21:45.399 [TX] DATA BLOCKED — DC=1.45% > 1% limit (blocked=18)
+[A(0xAA)] 09:21:45.412 [DC] current=1.45% window_tx=285ms
+[A(0xAA)] 09:21:46.607 [RELAY] SUPPRESSED — DC=1.36% > 1% (flood causing starvation)
+[A(0xAA)] 09:21:47.379 [ROUTE] NH=0x22 metric=2
+[A(0xAA)] 09:21:47.379 [RELAY] SUPPRESSED — DC=1.31% > 1% (flood causing starvation)
+[A(0xAA)] 09:21:50.399 [TX] DATA BLOCKED — DC=1.15% > 1% limit (blocked=19)
+[A(0xAA)] 09:21:50.412 [DC] current=1.15% window_tx=285ms
+[A(0xAA)] 09:21:55.682 [TX] DATA id=2 via=0x22 DC=0.00% PDR=66.7%
+[A(0xAA)] 09:21:55.693 [DC] current=0.00% window_tx=285ms
+[A(0xAA)] 09:21:56.611 [ROUTE] NH=0xBB metric=1
+[A(0xAA)] 09:21:56.611 [RELAY] SUPPRESSED — DC=30.78% > 1% (flood causing starvation)
+[A(0xAA)] 09:21:57.374 [RELAY] SUPPRESSED — DC=16.89% > 1% (flood causing starvation)
+[A(0xAA)] 09:22:00.394 [TX] DATA BLOCKED — DC=6.05% > 1% limit (blocked=20)
+[A(0xAA)] 09:22:00.407 [DC] current=6.03% window_tx=285ms
+[A(0xAA)] 09:22:05.398 [TX] DATA BLOCKED — DC=2.93% > 1% limit (blocked=21)
+[A(0xAA)] 09:22:05.410 [DC] current=2.93% window_tx=285ms

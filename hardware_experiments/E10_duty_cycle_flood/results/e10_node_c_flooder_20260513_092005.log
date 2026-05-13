@@ -1,0 +1,302 @@
+[C(FLOOD)] 09:20:05.744 ESP-ROM:esp32s3-20210327
+[C(FLOOD)] 09:20:05.745 Build:Mar 27 2021
+[C(FLOOD)] 09:20:05.746 rst:0x15 (USB_UART_CHIP_RESET),boot:0x19 (SPI_FAST_FLASH_BOOT)
+[C(FLOOD)] 09:20:05.747 Saved PC:0x4037ce2a
+[C(FLOOD)] 09:20:05.748 SPIWP:0xee
+[C(FLOOD)] 09:20:05.749 mode:DIO, clock div:1
+[C(FLOOD)] 09:20:05.750 load:0x3fce2820,len:0x10cc
+[C(FLOOD)] 09:20:05.750 load:0x403c8700,len:0xc2c
+[C(FLOOD)] 09:20:05.751 load:0x403cb700,len:0x30c0
+[C(FLOOD)] 09:20:05.752 entry 0x403c88b8
+[C(FLOOD)] 09:20:05.911 
+[C(FLOOD)] 09:20:05.912 === E10 Node C (DUTY CYCLE FLOODER) ===
+[C(FLOOD)] 09:20:05.912 [INFO] Flood interval: 500ms (37% DC at SF9/BW125)
+[C(FLOOD)] 09:20:05.912 [INFO] AS923 limit: 1% → sustained rate ~1 pkt/18.5s
+[C(FLOOD)] 09:20:05.913 [INFO] This attacker ignores the limit to exhaust honest nodes' DC budget.
+[C(FLOOD)] 09:20:05.913 [INFO] Finding: LoRaMesher has no DC rate-limiter — resource exhaustion possible.
+[C(FLOOD)] 09:20:05.980 [RADIO] SX1262 ready @ 923 MHz AS923
+[C(FLOOD)] 09:20:06.255 [FLOOD] Hello seq=0 ch=923.2MHz tx=257ms DC=94.8% floods=1
+[C(FLOOD)] 09:20:07.010 [FLOOD] Hello seq=1 ch=923.4MHz tx=257ms DC=50.0% floods=2
+[C(FLOOD)] 09:20:07.509 [FLOOD] Hello seq=2 ch=923.6MHz tx=257ms DC=50.5% floods=3
+[C(FLOOD)] 09:20:08.014 [FLOOD] Hello seq=3 ch=923.8MHz tx=257ms DC=50.7% floods=4
+[C(FLOOD)] 09:20:08.507 [FLOOD] Hello seq=4 ch=924.0MHz tx=257ms DC=50.8% floods=5
+[C(FLOOD)] 09:20:09.011 [FLOOD] Hello seq=5 ch=924.2MHz tx=257ms DC=50.9% floods=6
+[C(FLOOD)] 09:20:09.513 [FLOOD] Hello seq=6 ch=924.4MHz tx=257ms DC=51.0% floods=7
+[C(FLOOD)] 09:20:10.006 [FLOOD] Hello seq=7 ch=924.6MHz tx=257ms DC=51.0% floods=8
+[C(FLOOD)] 09:20:10.513 [FLOOD] Hello seq=8 ch=923.2MHz tx=257ms DC=51.1% floods=9
+[C(FLOOD)] 09:20:11.014 [FLOOD] Hello seq=9 ch=923.4MHz tx=257ms DC=51.1% floods=10
+[C(FLOOD)] 09:20:11.014 [FLOOD] Honest nodes forced to re-broadcast → consuming their 1% DC budget
+[C(FLOOD)] 09:20:11.014 [FLOOD] Expected: honest nodes cannot send data after ~20 floods
+[C(FLOOD)] 09:20:11.509 [FLOOD] Hello seq=10 ch=923.6MHz tx=257ms DC=51.1% floods=11
+[C(FLOOD)] 09:20:12.015 [FLOOD] Hello seq=11 ch=923.8MHz tx=257ms DC=51.2% floods=12
+[C(FLOOD)] 09:20:12.515 [FLOOD] Hello seq=12 ch=924.0MHz tx=257ms DC=51.2% floods=13
+[C(FLOOD)] 09:20:13.013 [FLOOD] Hello seq=13 ch=924.2MHz tx=257ms DC=51.2% floods=14
+[C(FLOOD)] 09:20:13.511 [FLOOD] Hello seq=14 ch=924.4MHz tx=257ms DC=51.2% floods=15
+[C(FLOOD)] 09:20:14.014 [FLOOD] Hello seq=15 ch=924.6MHz tx=257ms DC=51.2% floods=16
+[C(FLOOD)] 09:20:14.505 [FLOOD] Hello seq=16 ch=923.2MHz tx=257ms DC=51.2% floods=17
+[C(FLOOD)] 09:20:15.007 [FLOOD] Hello seq=17 ch=923.4MHz tx=257ms DC=51.2% floods=18
+[C(FLOOD)] 09:20:15.509 [FLOOD] Hello seq=18 ch=923.6MHz tx=257ms DC=51.2% floods=19
+[C(FLOOD)] 09:20:16.015 [FLOOD] Hello seq=19 ch=923.8MHz tx=257ms DC=51.3% floods=20
+[C(FLOOD)] 09:20:16.015 [FLOOD] Honest nodes forced to re-broadcast → consuming their 1% DC budget
+[C(FLOOD)] 09:20:16.016 [FLOOD] Expected: honest nodes cannot send data after ~20 floods
+[C(FLOOD)] 09:20:16.507 [FLOOD] Hello seq=20 ch=924.0MHz tx=257ms DC=51.3% floods=21
+[C(FLOOD)] 09:20:17.006 [FLOOD] Hello seq=21 ch=924.2MHz tx=257ms DC=51.3% floods=22
+[C(FLOOD)] 09:20:17.510 [FLOOD] Hello seq=22 ch=924.4MHz tx=257ms DC=51.3% floods=23
+[C(FLOOD)] 09:20:18.013 [FLOOD] Hello seq=23 ch=924.6MHz tx=257ms DC=51.3% floods=24
+[C(FLOOD)] 09:20:18.510 [FLOOD] Hello seq=24 ch=923.2MHz tx=257ms DC=51.3% floods=25
+[C(FLOOD)] 09:20:19.015 [FLOOD] Hello seq=25 ch=923.4MHz tx=257ms DC=51.3% floods=26
+[C(FLOOD)] 09:20:19.514 [FLOOD] Hello seq=26 ch=923.6MHz tx=257ms DC=51.3% floods=27
+[C(FLOOD)] 09:20:20.004 [FLOOD] Hello seq=27 ch=923.8MHz tx=257ms DC=51.3% floods=28
+[C(FLOOD)] 09:20:20.512 [FLOOD] Hello seq=28 ch=924.0MHz tx=257ms DC=51.3% floods=29
+[C(FLOOD)] 09:20:21.014 [FLOOD] Hello seq=29 ch=924.2MHz tx=257ms DC=51.3% floods=30
+[C(FLOOD)] 09:20:21.015 [FLOOD] Honest nodes forced to re-broadcast → consuming their 1% DC budget
+[C(FLOOD)] 09:20:21.015 [FLOOD] Expected: honest nodes cannot send data after ~20 floods
+[C(FLOOD)] 09:20:21.509 [FLOOD] Hello seq=30 ch=924.4MHz tx=257ms DC=51.3% floods=31
+[C(FLOOD)] 09:20:22.012 [FLOOD] Hello seq=31 ch=924.6MHz tx=257ms DC=51.3% floods=32
+[C(FLOOD)] 09:20:22.505 [FLOOD] Hello seq=32 ch=923.2MHz tx=257ms DC=51.3% floods=33
+[C(FLOOD)] 09:20:23.009 [FLOOD] Hello seq=33 ch=923.4MHz tx=257ms DC=51.3% floods=34
+[C(FLOOD)] 09:20:23.514 [FLOOD] Hello seq=34 ch=923.6MHz tx=257ms DC=51.3% floods=35
+[C(FLOOD)] 09:20:24.014 [FLOOD] Hello seq=35 ch=923.8MHz tx=257ms DC=51.3% floods=36
+[C(FLOOD)] 09:20:24.516 [FLOOD] Hello seq=36 ch=924.0MHz tx=257ms DC=51.3% floods=37
+[C(FLOOD)] 09:20:25.008 [FLOOD] Hello seq=37 ch=924.2MHz tx=257ms DC=51.3% floods=38
+[C(FLOOD)] 09:20:25.504 [FLOOD] Hello seq=38 ch=924.4MHz tx=257ms DC=51.3% floods=39
+[C(FLOOD)] 09:20:26.016 [FLOOD] Hello seq=39 ch=924.6MHz tx=257ms DC=51.3% floods=40
+[C(FLOOD)] 09:20:26.017 [FLOOD] Honest nodes forced to re-broadcast → consuming their 1% DC budget
+[C(FLOOD)] 09:20:26.017 [FLOOD] Expected: honest nodes cannot send data after ~20 floods
+[C(FLOOD)] 09:20:26.507 [FLOOD] Hello seq=40 ch=923.2MHz tx=257ms DC=51.3% floods=41
+[C(FLOOD)] 09:20:27.014 [FLOOD] Hello seq=41 ch=923.4MHz tx=257ms DC=51.3% floods=42
+[C(FLOOD)] 09:20:27.505 [FLOOD] Hello seq=42 ch=923.6MHz tx=257ms DC=51.3% floods=43
+[C(FLOOD)] 09:20:28.008 [FLOOD] Hello seq=43 ch=923.8MHz tx=257ms DC=51.3% floods=44
+[C(FLOOD)] 09:20:28.508 [FLOOD] Hello seq=44 ch=924.0MHz tx=257ms DC=51.3% floods=45
+[C(FLOOD)] 09:20:29.015 [FLOOD] Hello seq=45 ch=924.2MHz tx=257ms DC=51.3% floods=46
+[C(FLOOD)] 09:20:29.506 [FLOOD] Hello seq=46 ch=924.4MHz tx=257ms DC=51.3% floods=47
+[C(FLOOD)] 09:20:30.008 [FLOOD] Hello seq=47 ch=924.6MHz tx=257ms DC=51.3% floods=48
+[C(FLOOD)] 09:20:30.508 [FLOOD] Hello seq=48 ch=923.2MHz tx=257ms DC=51.3% floods=49
+[C(FLOOD)] 09:20:31.013 [FLOOD] Hello seq=49 ch=923.4MHz tx=257ms DC=51.3% floods=50
+[C(FLOOD)] 09:20:31.014 [FLOOD] Honest nodes forced to re-broadcast → consuming their 1% DC budget
+[C(FLOOD)] 09:20:31.014 [FLOOD] Expected: honest nodes cannot send data after ~20 floods
+[C(FLOOD)] 09:20:31.506 [FLOOD] Hello seq=50 ch=923.6MHz tx=257ms DC=51.3% floods=51
+[C(FLOOD)] 09:20:32.007 [FLOOD] Hello seq=51 ch=923.8MHz tx=257ms DC=51.3% floods=52
+[C(FLOOD)] 09:20:32.505 [FLOOD] Hello seq=52 ch=924.0MHz tx=257ms DC=51.3% floods=53
+[C(FLOOD)] 09:20:33.011 [FLOOD] Hello seq=53 ch=924.2MHz tx=257ms DC=51.3% floods=54
+[C(FLOOD)] 09:20:33.512 [FLOOD] Hello seq=54 ch=924.4MHz tx=257ms DC=51.3% floods=55
+[C(FLOOD)] 09:20:34.012 [FLOOD] Hello seq=55 ch=924.6MHz tx=257ms DC=51.3% floods=56
+[C(FLOOD)] 09:20:34.514 [FLOOD] Hello seq=56 ch=923.2MHz tx=257ms DC=51.3% floods=57
+[C(FLOOD)] 09:20:35.016 [FLOOD] Hello seq=57 ch=923.4MHz tx=257ms DC=51.4% floods=58
+[C(FLOOD)] 09:20:35.506 [FLOOD] Hello seq=58 ch=923.6MHz tx=257ms DC=51.4% floods=59
+[C(FLOOD)] 09:20:36.008 [FLOOD] Hello seq=59 ch=923.8MHz tx=257ms DC=51.4% floods=60
+[C(FLOOD)] 09:20:36.008 [FLOOD] Honest nodes forced to re-broadcast → consuming their 1% DC budget
+[C(FLOOD)] 09:20:36.009 [FLOOD] Expected: honest nodes cannot send data after ~20 floods
+[C(FLOOD)] 09:20:36.507 [FLOOD] Hello seq=60 ch=924.0MHz tx=257ms DC=51.4% floods=61
+[C(FLOOD)] 09:20:37.014 [FLOOD] Hello seq=61 ch=924.2MHz tx=257ms DC=51.4% floods=62
+[C(FLOOD)] 09:20:37.505 [FLOOD] Hello seq=62 ch=924.4MHz tx=257ms DC=51.4% floods=63
+[C(FLOOD)] 09:20:38.006 [FLOOD] Hello seq=63 ch=924.6MHz tx=257ms DC=51.4% floods=64
+[C(FLOOD)] 09:20:38.510 [FLOOD] Hello seq=64 ch=923.2MHz tx=257ms DC=51.4% floods=65
+[C(FLOOD)] 09:20:39.007 [FLOOD] Hello seq=65 ch=923.4MHz tx=257ms DC=51.4% floods=66
+[C(FLOOD)] 09:20:39.511 [FLOOD] Hello seq=66 ch=923.6MHz tx=257ms DC=51.4% floods=67
+[C(FLOOD)] 09:20:40.008 [FLOOD] Hello seq=67 ch=923.8MHz tx=257ms DC=51.4% floods=68
+[C(FLOOD)] 09:20:40.515 [FLOOD] Hello seq=68 ch=924.0MHz tx=257ms DC=51.4% floods=69
+[C(FLOOD)] 09:20:41.011 [FLOOD] Hello seq=69 ch=924.2MHz tx=257ms DC=51.4% floods=70
+[C(FLOOD)] 09:20:41.012 [FLOOD] Honest nodes forced to re-broadcast → consuming their 1% DC budget
+[C(FLOOD)] 09:20:41.013 [FLOOD] Expected: honest nodes cannot send data after ~20 floods
+[C(FLOOD)] 09:20:41.509 [FLOOD] Hello seq=70 ch=924.4MHz tx=257ms DC=51.4% floods=71
+[C(FLOOD)] 09:20:42.013 [FLOOD] Hello seq=71 ch=924.6MHz tx=257ms DC=51.4% floods=72
+[C(FLOOD)] 09:20:42.507 [FLOOD] Hello seq=72 ch=923.2MHz tx=257ms DC=51.4% floods=73
+[C(FLOOD)] 09:20:43.009 [FLOOD] Hello seq=73 ch=923.4MHz tx=257ms DC=51.4% floods=74
+[C(FLOOD)] 09:20:43.511 [FLOOD] Hello seq=74 ch=923.6MHz tx=257ms DC=51.4% floods=75
+[C(FLOOD)] 09:20:44.010 [FLOOD] Hello seq=75 ch=923.8MHz tx=257ms DC=51.4% floods=76
+[C(FLOOD)] 09:20:44.505 [FLOOD] Hello seq=76 ch=924.0MHz tx=257ms DC=51.4% floods=77
+[C(FLOOD)] 09:20:45.006 [FLOOD] Hello seq=77 ch=924.2MHz tx=257ms DC=51.4% floods=78
+[C(FLOOD)] 09:20:45.511 [FLOOD] Hello seq=78 ch=924.4MHz tx=257ms DC=51.4% floods=79
+[C(FLOOD)] 09:20:46.016 [FLOOD] Hello seq=79 ch=924.6MHz tx=257ms DC=51.4% floods=80
+[C(FLOOD)] 09:20:46.016 [FLOOD] Honest nodes forced to re-broadcast → consuming their 1% DC budget
+[C(FLOOD)] 09:20:46.017 [FLOOD] Expected: honest nodes cannot send data after ~20 floods
+[C(FLOOD)] 09:20:46.514 [FLOOD] Hello seq=80 ch=923.2MHz tx=257ms DC=51.4% floods=81
+[C(FLOOD)] 09:20:47.008 [FLOOD] Hello seq=81 ch=923.4MHz tx=257ms DC=51.4% floods=82
+[C(FLOOD)] 09:20:47.513 [FLOOD] Hello seq=82 ch=923.6MHz tx=257ms DC=51.4% floods=83
+[C(FLOOD)] 09:20:48.014 [FLOOD] Hello seq=83 ch=923.8MHz tx=257ms DC=51.4% floods=84
+[C(FLOOD)] 09:20:48.505 [FLOOD] Hello seq=84 ch=924.0MHz tx=257ms DC=51.4% floods=85
+[C(FLOOD)] 09:20:49.009 [FLOOD] Hello seq=85 ch=924.2MHz tx=257ms DC=51.4% floods=86
+[C(FLOOD)] 09:20:49.508 [FLOOD] Hello seq=86 ch=924.4MHz tx=257ms DC=51.4% floods=87
+[C(FLOOD)] 09:20:50.009 [FLOOD] Hello seq=87 ch=924.6MHz tx=257ms DC=51.4% floods=88
+[C(FLOOD)] 09:20:50.506 [FLOOD] Hello seq=88 ch=923.2MHz tx=257ms DC=51.4% floods=89
+[C(FLOOD)] 09:20:51.012 [FLOOD] Hello seq=89 ch=923.4MHz tx=257ms DC=51.4% floods=90
+[C(FLOOD)] 09:20:51.012 [FLOOD] Honest nodes forced to re-broadcast → consuming their 1% DC budget
+[C(FLOOD)] 09:20:51.013 [FLOOD] Expected: honest nodes cannot send data after ~20 floods
+[C(FLOOD)] 09:20:51.506 [FLOOD] Hello seq=90 ch=923.6MHz tx=257ms DC=51.4% floods=91
+[C(FLOOD)] 09:20:52.005 [FLOOD] Hello seq=91 ch=923.8MHz tx=257ms DC=51.4% floods=92
+[C(FLOOD)] 09:20:52.516 [FLOOD] Hello seq=92 ch=924.0MHz tx=257ms DC=51.4% floods=93
+[C(FLOOD)] 09:20:53.009 [FLOOD] Hello seq=93 ch=924.2MHz tx=257ms DC=51.4% floods=94
+[C(FLOOD)] 09:20:53.510 [FLOOD] Hello seq=94 ch=924.4MHz tx=257ms DC=51.4% floods=95
+[C(FLOOD)] 09:20:54.010 [FLOOD] Hello seq=95 ch=924.6MHz tx=257ms DC=51.4% floods=96
+[C(FLOOD)] 09:20:54.507 [FLOOD] Hello seq=96 ch=923.2MHz tx=257ms DC=51.4% floods=97
+[C(FLOOD)] 09:20:55.006 [FLOOD] Hello seq=97 ch=923.4MHz tx=257ms DC=51.4% floods=98
+[C(FLOOD)] 09:20:55.505 [FLOOD] Hello seq=98 ch=923.6MHz tx=257ms DC=51.4% floods=99
+[C(FLOOD)] 09:20:56.011 [FLOOD] Hello seq=99 ch=923.8MHz tx=257ms DC=51.4% floods=100
+[C(FLOOD)] 09:20:56.011 [FLOOD] Honest nodes forced to re-broadcast → consuming their 1% DC budget
+[C(FLOOD)] 09:20:56.011 [FLOOD] Expected: honest nodes cannot send data after ~20 floods
+[C(FLOOD)] 09:20:56.516 [FLOOD] Hello seq=100 ch=924.0MHz tx=257ms DC=51.4% floods=101
+[C(FLOOD)] 09:20:57.004 [FLOOD] Hello seq=101 ch=924.2MHz tx=257ms DC=51.4% floods=102
+[C(FLOOD)] 09:20:57.509 [FLOOD] Hello seq=102 ch=924.4MHz tx=257ms DC=51.4% floods=103
+[C(FLOOD)] 09:20:58.014 [FLOOD] Hello seq=103 ch=924.6MHz tx=257ms DC=51.4% floods=104
+[C(FLOOD)] 09:20:58.507 [FLOOD] Hello seq=104 ch=923.2MHz tx=257ms DC=51.4% floods=105
+[C(FLOOD)] 09:20:59.016 [FLOOD] Hello seq=105 ch=923.4MHz tx=257ms DC=51.4% floods=106
+[C(FLOOD)] 09:20:59.509 [FLOOD] Hello seq=106 ch=923.6MHz tx=257ms DC=51.4% floods=107
+[C(FLOOD)] 09:21:00.009 [FLOOD] Hello seq=107 ch=923.8MHz tx=257ms DC=51.4% floods=108
+[C(FLOOD)] 09:21:00.511 [FLOOD] Hello seq=108 ch=924.0MHz tx=257ms DC=51.4% floods=109
+[C(FLOOD)] 09:21:01.014 [FLOOD] Hello seq=109 ch=924.2MHz tx=257ms DC=51.4% floods=110
+[C(FLOOD)] 09:21:01.014 [FLOOD] Honest nodes forced to re-broadcast → consuming their 1% DC budget
+[C(FLOOD)] 09:21:01.014 [FLOOD] Expected: honest nodes cannot send data after ~20 floods
+[C(FLOOD)] 09:21:01.510 [FLOOD] Hello seq=110 ch=924.4MHz tx=257ms DC=51.4% floods=111
+[C(FLOOD)] 09:21:02.005 [FLOOD] Hello seq=111 ch=924.6MHz tx=257ms DC=51.4% floods=112
+[C(FLOOD)] 09:21:02.516 [FLOOD] Hello seq=112 ch=923.2MHz tx=257ms DC=51.4% floods=113
+[C(FLOOD)] 09:21:03.013 [FLOOD] Hello seq=113 ch=923.4MHz tx=257ms DC=51.4% floods=114
+[C(FLOOD)] 09:21:03.508 [FLOOD] Hello seq=114 ch=923.6MHz tx=257ms DC=51.4% floods=115
+[C(FLOOD)] 09:21:04.005 [FLOOD] Hello seq=115 ch=923.8MHz tx=257ms DC=51.4% floods=116
+[C(FLOOD)] 09:21:04.505 [FLOOD] Hello seq=116 ch=924.0MHz tx=257ms DC=51.4% floods=117
+[C(FLOOD)] 09:21:05.006 [FLOOD] Hello seq=117 ch=924.2MHz tx=257ms DC=51.4% floods=118
+[C(FLOOD)] 09:21:05.505 [FLOOD] Hello seq=118 ch=924.4MHz tx=257ms DC=51.4% floods=119
+[C(FLOOD)] 09:21:06.016 [FLOOD] Hello seq=119 ch=924.6MHz tx=257ms DC=51.4% floods=120
+[C(FLOOD)] 09:21:06.016 [FLOOD] Honest nodes forced to re-broadcast → consuming their 1% DC budget
+[C(FLOOD)] 09:21:06.017 [FLOOD] Expected: honest nodes cannot send data after ~20 floods
+[C(FLOOD)] 09:21:06.511 [FLOOD] Hello seq=120 ch=923.2MHz tx=257ms DC=51.4% floods=121
+[C(FLOOD)] 09:21:07.012 [FLOOD] Hello seq=121 ch=923.4MHz tx=257ms DC=51.4% floods=122
+[C(FLOOD)] 09:21:07.505 [FLOOD] Hello seq=122 ch=923.6MHz tx=257ms DC=51.4% floods=123
+[C(FLOOD)] 09:21:08.007 [FLOOD] Hello seq=123 ch=923.8MHz tx=257ms DC=51.4% floods=124
+[C(FLOOD)] 09:21:08.510 [FLOOD] Hello seq=124 ch=924.0MHz tx=257ms DC=51.4% floods=125
+[C(FLOOD)] 09:21:09.006 [FLOOD] Hello seq=125 ch=924.2MHz tx=257ms DC=51.4% floods=126
+[C(FLOOD)] 09:21:09.514 [FLOOD] Hello seq=126 ch=924.4MHz tx=257ms DC=51.4% floods=127
+[C(FLOOD)] 09:21:10.006 [FLOOD] Hello seq=127 ch=924.6MHz tx=257ms DC=51.4% floods=128
+[C(FLOOD)] 09:21:10.507 [FLOOD] Hello seq=128 ch=923.2MHz tx=257ms DC=51.4% floods=129
+[C(FLOOD)] 09:21:11.009 [FLOOD] Hello seq=129 ch=923.4MHz tx=257ms DC=51.4% floods=130
+[C(FLOOD)] 09:21:11.010 [FLOOD] Honest nodes forced to re-broadcast → consuming their 1% DC budget
+[C(FLOOD)] 09:21:11.010 [FLOOD] Expected: honest nodes cannot send data after ~20 floods
+[C(FLOOD)] 09:21:11.515 [FLOOD] Hello seq=130 ch=923.6MHz tx=257ms DC=51.4% floods=131
+[C(FLOOD)] 09:21:12.008 [FLOOD] Hello seq=131 ch=923.8MHz tx=257ms DC=51.4% floods=132
+[C(FLOOD)] 09:21:12.514 [FLOOD] Hello seq=132 ch=924.0MHz tx=257ms DC=51.4% floods=133
+[C(FLOOD)] 09:21:13.016 [FLOOD] Hello seq=133 ch=924.2MHz tx=257ms DC=51.4% floods=134
+[C(FLOOD)] 09:21:13.506 [FLOOD] Hello seq=134 ch=924.4MHz tx=257ms DC=51.4% floods=135
+[C(FLOOD)] 09:21:14.013 [FLOOD] Hello seq=135 ch=924.6MHz tx=257ms DC=51.4% floods=136
+[C(FLOOD)] 09:21:14.515 [FLOOD] Hello seq=136 ch=923.2MHz tx=257ms DC=51.4% floods=137
+[C(FLOOD)] 09:21:15.017 [FLOOD] Hello seq=137 ch=923.4MHz tx=257ms DC=51.4% floods=138
+[C(FLOOD)] 09:21:15.505 [FLOOD] Hello seq=138 ch=923.6MHz tx=257ms DC=51.4% floods=139
+[C(FLOOD)] 09:21:16.009 [FLOOD] Hello seq=139 ch=923.8MHz tx=257ms DC=51.4% floods=140
+[C(FLOOD)] 09:21:16.009 [FLOOD] Honest nodes forced to re-broadcast → consuming their 1% DC budget
+[C(FLOOD)] 09:21:16.010 [FLOOD] Expected: honest nodes cannot send data after ~20 floods
+[C(FLOOD)] 09:21:16.506 [FLOOD] Hello seq=140 ch=924.0MHz tx=257ms DC=51.4% floods=141
+[C(FLOOD)] 09:21:17.010 [FLOOD] Hello seq=141 ch=924.2MHz tx=257ms DC=51.4% floods=142
+[C(FLOOD)] 09:21:17.507 [FLOOD] Hello seq=142 ch=924.4MHz tx=257ms DC=51.4% floods=143
+[C(FLOOD)] 09:21:18.011 [FLOOD] Hello seq=143 ch=924.6MHz tx=257ms DC=51.4% floods=144
+[C(FLOOD)] 09:21:18.513 [FLOOD] Hello seq=144 ch=923.2MHz tx=257ms DC=51.4% floods=145
+[C(FLOOD)] 09:21:19.016 [FLOOD] Hello seq=145 ch=923.4MHz tx=257ms DC=51.4% floods=146
+[C(FLOOD)] 09:21:19.515 [FLOOD] Hello seq=146 ch=923.6MHz tx=257ms DC=51.4% floods=147
+[C(FLOOD)] 09:21:20.007 [FLOOD] Hello seq=147 ch=923.8MHz tx=257ms DC=51.4% floods=148
+[C(FLOOD)] 09:21:20.509 [FLOOD] Hello seq=148 ch=924.0MHz tx=257ms DC=51.4% floods=149
+[C(FLOOD)] 09:21:21.016 [FLOOD] Hello seq=149 ch=924.2MHz tx=257ms DC=51.4% floods=150
+[C(FLOOD)] 09:21:21.016 [FLOOD] Honest nodes forced to re-broadcast → consuming their 1% DC budget
+[C(FLOOD)] 09:21:21.017 [FLOOD] Expected: honest nodes cannot send data after ~20 floods
+[C(FLOOD)] 09:21:21.509 [FLOOD] Hello seq=150 ch=924.4MHz tx=257ms DC=51.4% floods=151
+[C(FLOOD)] 09:21:22.009 [FLOOD] Hello seq=151 ch=924.6MHz tx=257ms DC=51.4% floods=152
+[C(FLOOD)] 09:21:22.517 [FLOOD] Hello seq=152 ch=923.2MHz tx=257ms DC=51.4% floods=153
+[C(FLOOD)] 09:21:23.017 [FLOOD] Hello seq=153 ch=923.4MHz tx=257ms DC=51.4% floods=154
+[C(FLOOD)] 09:21:23.511 [FLOOD] Hello seq=154 ch=923.6MHz tx=257ms DC=51.4% floods=155
+[C(FLOOD)] 09:21:24.007 [FLOOD] Hello seq=155 ch=923.8MHz tx=257ms DC=51.4% floods=156
+[C(FLOOD)] 09:21:24.505 [FLOOD] Hello seq=156 ch=924.0MHz tx=257ms DC=51.4% floods=157
+[C(FLOOD)] 09:21:25.005 [FLOOD] Hello seq=157 ch=924.2MHz tx=257ms DC=51.4% floods=158
+[C(FLOOD)] 09:21:25.514 [FLOOD] Hello seq=158 ch=924.4MHz tx=257ms DC=51.4% floods=159
+[C(FLOOD)] 09:21:26.009 [FLOOD] Hello seq=159 ch=924.6MHz tx=257ms DC=51.4% floods=160
+[C(FLOOD)] 09:21:26.009 [FLOOD] Honest nodes forced to re-broadcast → consuming their 1% DC budget
+[C(FLOOD)] 09:21:26.009 [FLOOD] Expected: honest nodes cannot send data after ~20 floods
+[C(FLOOD)] 09:21:26.517 [FLOOD] Hello seq=160 ch=923.2MHz tx=257ms DC=51.4% floods=161
+[C(FLOOD)] 09:21:27.011 [FLOOD] Hello seq=161 ch=923.4MHz tx=257ms DC=51.4% floods=162
+[C(FLOOD)] 09:21:27.511 [FLOOD] Hello seq=162 ch=923.6MHz tx=257ms DC=51.4% floods=163
+[C(FLOOD)] 09:21:28.016 [FLOOD] Hello seq=163 ch=923.8MHz tx=257ms DC=51.4% floods=164
+[C(FLOOD)] 09:21:28.516 [FLOOD] Hello seq=164 ch=924.0MHz tx=257ms DC=51.4% floods=165
+[C(FLOOD)] 09:21:29.011 [FLOOD] Hello seq=165 ch=924.2MHz tx=257ms DC=51.4% floods=166
+[C(FLOOD)] 09:21:29.513 [FLOOD] Hello seq=166 ch=924.4MHz tx=257ms DC=51.4% floods=167
+[C(FLOOD)] 09:21:30.011 [FLOOD] Hello seq=167 ch=924.6MHz tx=257ms DC=51.4% floods=168
+[C(FLOOD)] 09:21:30.513 [FLOOD] Hello seq=168 ch=923.2MHz tx=257ms DC=51.4% floods=169
+[C(FLOOD)] 09:21:31.016 [FLOOD] Hello seq=169 ch=923.4MHz tx=257ms DC=51.4% floods=170
+[C(FLOOD)] 09:21:31.016 [FLOOD] Honest nodes forced to re-broadcast → consuming their 1% DC budget
+[C(FLOOD)] 09:21:31.016 [FLOOD] Expected: honest nodes cannot send data after ~20 floods
+[C(FLOOD)] 09:21:31.506 [FLOOD] Hello seq=170 ch=923.6MHz tx=257ms DC=51.4% floods=171
+[C(FLOOD)] 09:21:32.009 [FLOOD] Hello seq=171 ch=923.8MHz tx=257ms DC=51.4% floods=172
+[C(FLOOD)] 09:21:32.511 [FLOOD] Hello seq=172 ch=924.0MHz tx=257ms DC=51.4% floods=173
+[C(FLOOD)] 09:21:33.009 [FLOOD] Hello seq=173 ch=924.2MHz tx=257ms DC=51.4% floods=174
+[C(FLOOD)] 09:21:33.509 [FLOOD] Hello seq=174 ch=924.4MHz tx=257ms DC=51.4% floods=175
+[C(FLOOD)] 09:21:34.017 [FLOOD] Hello seq=175 ch=924.6MHz tx=257ms DC=51.4% floods=176
+[C(FLOOD)] 09:21:34.508 [FLOOD] Hello seq=176 ch=923.2MHz tx=257ms DC=51.4% floods=177
+[C(FLOOD)] 09:21:35.010 [FLOOD] Hello seq=177 ch=923.4MHz tx=257ms DC=51.4% floods=178
+[C(FLOOD)] 09:21:35.511 [FLOOD] Hello seq=178 ch=923.6MHz tx=257ms DC=51.4% floods=179
+[C(FLOOD)] 09:21:36.013 [FLOOD] Hello seq=179 ch=923.8MHz tx=257ms DC=51.4% floods=180
+[C(FLOOD)] 09:21:36.013 [FLOOD] Honest nodes forced to re-broadcast → consuming their 1% DC budget
+[C(FLOOD)] 09:21:36.014 [FLOOD] Expected: honest nodes cannot send data after ~20 floods
+[C(FLOOD)] 09:21:36.509 [FLOOD] Hello seq=180 ch=924.0MHz tx=257ms DC=51.4% floods=181
+[C(FLOOD)] 09:21:37.014 [FLOOD] Hello seq=181 ch=924.2MHz tx=257ms DC=51.4% floods=182
+[C(FLOOD)] 09:21:37.513 [FLOOD] Hello seq=182 ch=924.4MHz tx=257ms DC=51.4% floods=183
+[C(FLOOD)] 09:21:38.009 [FLOOD] Hello seq=183 ch=924.6MHz tx=257ms DC=51.4% floods=184
+[C(FLOOD)] 09:21:38.515 [FLOOD] Hello seq=184 ch=923.2MHz tx=257ms DC=51.4% floods=185
+[C(FLOOD)] 09:21:39.009 [FLOOD] Hello seq=185 ch=923.4MHz tx=257ms DC=51.4% floods=186
+[C(FLOOD)] 09:21:39.510 [FLOOD] Hello seq=186 ch=923.6MHz tx=257ms DC=51.4% floods=187
+[C(FLOOD)] 09:21:40.010 [FLOOD] Hello seq=187 ch=923.8MHz tx=257ms DC=51.4% floods=188
+[C(FLOOD)] 09:21:40.514 [FLOOD] Hello seq=188 ch=924.0MHz tx=257ms DC=51.4% floods=189
+[C(FLOOD)] 09:21:41.015 [FLOOD] Hello seq=189 ch=924.2MHz tx=257ms DC=51.4% floods=190
+[C(FLOOD)] 09:21:41.015 [FLOOD] Honest nodes forced to re-broadcast → consuming their 1% DC budget
+[C(FLOOD)] 09:21:41.016 [FLOOD] Expected: honest nodes cannot send data after ~20 floods
+[C(FLOOD)] 09:21:41.513 [FLOOD] Hello seq=190 ch=924.4MHz tx=257ms DC=51.4% floods=191
+[C(FLOOD)] 09:21:42.005 [FLOOD] Hello seq=191 ch=924.6MHz tx=257ms DC=51.4% floods=192
+[C(FLOOD)] 09:21:42.512 [FLOOD] Hello seq=192 ch=923.2MHz tx=257ms DC=51.4% floods=193
+[C(FLOOD)] 09:21:43.015 [FLOOD] Hello seq=193 ch=923.4MHz tx=257ms DC=51.4% floods=194
+[C(FLOOD)] 09:21:43.505 [FLOOD] Hello seq=194 ch=923.6MHz tx=257ms DC=51.4% floods=195
+[C(FLOOD)] 09:21:44.009 [FLOOD] Hello seq=195 ch=923.8MHz tx=257ms DC=51.4% floods=196
+[C(FLOOD)] 09:21:44.517 [FLOOD] Hello seq=196 ch=924.0MHz tx=257ms DC=51.4% floods=197
+[C(FLOOD)] 09:21:45.015 [FLOOD] Hello seq=197 ch=924.2MHz tx=257ms DC=51.4% floods=198
+[C(FLOOD)] 09:21:45.511 [FLOOD] Hello seq=198 ch=924.4MHz tx=257ms DC=51.4% floods=199
+[C(FLOOD)] 09:21:46.014 [FLOOD] Hello seq=199 ch=924.6MHz tx=257ms DC=51.4% floods=200
+[C(FLOOD)] 09:21:46.015 [FLOOD] Honest nodes forced to re-broadcast → consuming their 1% DC budget
+[C(FLOOD)] 09:21:46.015 [FLOOD] Expected: honest nodes cannot send data after ~20 floods
+[C(FLOOD)] 09:21:46.506 [FLOOD] Hello seq=200 ch=923.2MHz tx=257ms DC=51.4% floods=201
+[C(FLOOD)] 09:21:47.007 [FLOOD] Hello seq=201 ch=923.4MHz tx=257ms DC=51.4% floods=202
+[C(FLOOD)] 09:21:47.512 [FLOOD] Hello seq=202 ch=923.6MHz tx=257ms DC=51.4% floods=203
+[C(FLOOD)] 09:21:48.009 [FLOOD] Hello seq=203 ch=923.8MHz tx=257ms DC=51.4% floods=204
+[C(FLOOD)] 09:21:48.516 [FLOOD] Hello seq=204 ch=924.0MHz tx=257ms DC=51.4% floods=205
+[C(FLOOD)] 09:21:49.006 [FLOOD] Hello seq=205 ch=924.2MHz tx=257ms DC=51.4% floods=206
+[C(FLOOD)] 09:21:49.515 [FLOOD] Hello seq=206 ch=924.4MHz tx=257ms DC=51.4% floods=207
+[C(FLOOD)] 09:21:50.006 [FLOOD] Hello seq=207 ch=924.6MHz tx=257ms DC=51.4% floods=208
+[C(FLOOD)] 09:21:50.509 [FLOOD] Hello seq=208 ch=923.2MHz tx=257ms DC=51.4% floods=209
+[C(FLOOD)] 09:21:51.009 [FLOOD] Hello seq=209 ch=923.4MHz tx=257ms DC=51.4% floods=210
+[C(FLOOD)] 09:21:51.010 [FLOOD] Honest nodes forced to re-broadcast → consuming their 1% DC budget
+[C(FLOOD)] 09:21:51.010 [FLOOD] Expected: honest nodes cannot send data after ~20 floods
+[C(FLOOD)] 09:21:51.511 [FLOOD] Hello seq=210 ch=923.6MHz tx=257ms DC=51.4% floods=211
+[C(FLOOD)] 09:21:52.013 [FLOOD] Hello seq=211 ch=923.8MHz tx=257ms DC=51.4% floods=212
+[C(FLOOD)] 09:21:52.517 [FLOOD] Hello seq=212 ch=924.0MHz tx=257ms DC=51.4% floods=213
+[C(FLOOD)] 09:21:53.013 [FLOOD] Hello seq=213 ch=924.2MHz tx=257ms DC=51.4% floods=214
+[C(FLOOD)] 09:21:53.511 [FLOOD] Hello seq=214 ch=924.4MHz tx=257ms DC=51.4% floods=215
+[C(FLOOD)] 09:21:54.015 [FLOOD] Hello seq=215 ch=924.6MHz tx=257ms DC=51.4% floods=216
+[C(FLOOD)] 09:21:54.517 [FLOOD] Hello seq=216 ch=923.2MHz tx=257ms DC=51.4% floods=217
+[C(FLOOD)] 09:21:55.017 [FLOOD] Hello seq=217 ch=923.4MHz tx=257ms DC=51.4% floods=218
+[C(FLOOD)] 09:21:55.509 [FLOOD] Hello seq=218 ch=923.6MHz tx=257ms DC=51.4% floods=219
+[C(FLOOD)] 09:21:56.016 [FLOOD] Hello seq=219 ch=923.8MHz tx=257ms DC=51.4% floods=220
+[C(FLOOD)] 09:21:56.017 [FLOOD] Honest nodes forced to re-broadcast → consuming their 1% DC budget
+[C(FLOOD)] 09:21:56.017 [FLOOD] Expected: honest nodes cannot send data after ~20 floods
+[C(FLOOD)] 09:21:56.515 [FLOOD] Hello seq=220 ch=924.0MHz tx=257ms DC=51.4% floods=221
+[C(FLOOD)] 09:21:57.015 [FLOOD] Hello seq=221 ch=924.2MHz tx=257ms DC=51.4% floods=222
+[C(FLOOD)] 09:21:57.517 [FLOOD] Hello seq=222 ch=924.4MHz tx=257ms DC=51.4% floods=223
+[C(FLOOD)] 09:21:58.013 [FLOOD] Hello seq=223 ch=924.6MHz tx=257ms DC=51.4% floods=224
+[C(FLOOD)] 09:21:58.517 [FLOOD] Hello seq=224 ch=923.2MHz tx=257ms DC=51.4% floods=225
+[C(FLOOD)] 09:21:59.009 [FLOOD] Hello seq=225 ch=923.4MHz tx=257ms DC=51.4% floods=226
+[C(FLOOD)] 09:21:59.513 [FLOOD] Hello seq=226 ch=923.6MHz tx=257ms DC=51.4% floods=227
+[C(FLOOD)] 09:22:00.013 [FLOOD] Hello seq=227 ch=923.8MHz tx=257ms DC=51.4% floods=228
+[C(FLOOD)] 09:22:00.514 [FLOOD] Hello seq=228 ch=924.0MHz tx=257ms DC=51.4% floods=229
+[C(FLOOD)] 09:22:01.017 [FLOOD] Hello seq=229 ch=924.2MHz tx=257ms DC=51.4% floods=230
+[C(FLOOD)] 09:22:01.017 [FLOOD] Honest nodes forced to re-broadcast → consuming their 1% DC budget
+[C(FLOOD)] 09:22:01.017 [FLOOD] Expected: honest nodes cannot send data after ~20 floods
+[C(FLOOD)] 09:22:01.507 [FLOOD] Hello seq=230 ch=924.4MHz tx=257ms DC=51.4% floods=231
+[C(FLOOD)] 09:22:02.006 [FLOOD] Hello seq=231 ch=924.6MHz tx=257ms DC=51.4% floods=232
+[C(FLOOD)] 09:22:02.510 [FLOOD] Hello seq=232 ch=923.2MHz tx=257ms DC=51.4% floods=233
+[C(FLOOD)] 09:22:03.010 [FLOOD] Hello seq=233 ch=923.4MHz tx=257ms DC=51.4% floods=234
+[C(FLOOD)] 09:22:03.509 [FLOOD] Hello seq=234 ch=923.6MHz tx=257ms DC=51.4% floods=235
+[C(FLOOD)] 09:22:04.005 [FLOOD] Hello seq=235 ch=923.8MHz tx=257ms DC=51.4% floods=236
+[C(FLOOD)] 09:22:04.508 [FLOOD] Hello seq=236 ch=924.0MHz tx=257ms DC=51.4% floods=237
+[C(FLOOD)] 09:22:05.010 [FLOOD] Hello seq=237 ch=924.2MHz tx=257ms DC=51.4% floods=238
+[C(FLOOD)] 09:22:05.506 [FLOOD] Hello seq=238 ch=924.4MHz tx=257ms DC=51.4% floods=239
