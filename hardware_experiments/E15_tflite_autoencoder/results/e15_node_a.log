@@ -1,0 +1,63 @@
+[TX] DATA id=74 via=0xCC (BLACK HOLE!) PDR=45.3%
+[WARN] Routing to attacker 0xCC — expect no ACK
+[RX] ACK id=74 PDR=46.7%
+[ROUTE] NH=0xCC metric=1 — ATTACKER INSERTED (HMAC passed!)
+[ROUTE] Black Hole attack SUCCESS: route table poisoned
+[TX] DATA id=75 via=0xCC (BLACK HOLE!) PDR=46.1%
+[WARN] Routing to attacker 0xCC — expect no ACK
+[TX] DATA id=76 via=0xCC (BLACK HOLE!) PDR=45.5%
+[WARN] Routing to attacker 0xCC — expect no ACK
+[RX] ACK id=76 PDR=46.8%
+[TX] DATA id=77 via=0xCC (BLACK HOLE!) PDR=46.2%
+[WARN] Routing to attacker 0xCC — expect no ACK
+[TX] DATA id=78 via=0xCC (BLACK HOLE!) PDR=45.6%
+[WARN] Routing to attacker 0xCC — expect no ACK
+[TX] DATA id=79 via=0xCC (BLACK HOLE!) PDR=45.0%
+[WARN] Routing to attacker 0xCC — expect no ACK
+[TX] DATA id=80 via=0xCC (BLACK HOLE!) PDR=44.4%
+[WARN] Routing to attacker 0xCC — expect no ACK
+[RX] ACK id=80 PDR=45.7%
+[TX] DATA id=81 via=0xCC (BLACK HOLE!) PDR=45.1%
+[WARN] Routing to attacker 0xCC — expect no ACK
+[TX] DATA id=82 via=0xCC (BLACK HOLE!) PDR=44.6%
+[WARN] Routing to attacker 0xCC — expect no ACK
+[RX] ACK id=82 PDR=45.8%
+[ROUTE] NH=0xCC metric=1 — ATTACKER INSERTED (HMAC passed!)
+[ROUTE] Black Hole attack SUCCESS: route table poisoned
+[TX] DATA id=83 via=0xCC (BLACK HOLE!) PDR=45.2%
+[WARN] Routing to attacker 0xCC — expect no ACK
+[TX] DATA id=84 via=0xCC (BLACK HOLE!) PDR=44.7%
+[WARN] Routing to attacker 0xCC — expect no ACK
+[RX] ACK id=84 PDR=45.9%
+[TX] DATA id=85 via=0xCC (BLACK HOLE!) PDR=45.3%
+[WARN] Routing to attacker 0xCC — expect no ACK
+[TX] DATA id=86 via=0xCC (BLACK HOLE!) PDR=44.8%
+[WARN] Routing to attacker 0xCC — expect no ACK
+[TX] DATA id=87 via=0xCC (BLACK HOLE!) PDR=44.3%
+[WARN] Routing to attacker 0xCC — expect no ACK
+[TX] DATA id=88 via=0xCC (BLACK HOLE!) PDR=43.8%
+[WARN] Routing to attacker 0xCC — expect no ACK
+[RX] ACK id=88 PDR=44.9%
+[TX] DATA id=89 via=0xCC (BLACK HOLE!) PDR=44.4%
+[WARN] Routing to attacker 0xCC — expect no ACK
+[TX] DATA id=90 via=0xCC (BLACK HOLE!) PDR=44.0%
+[WARN] Routing to attacker 0xCC — expect no ACK
+[RX] ACK id=90 PDR=45.1%
+[ROUTE] NH=0xCC metric=1 — ATTACKER INSERTED (HMAC passed!)
+[ROUTE] Black Hole attack SUCCESS: route table poisoned
+[TX] DATA id=91 via=0xCC (BLACK HOLE!) PDR=44.6%
+[WARN] Routing to attacker 0xCC — expect no ACK
+[TX] DATA id=92 via=0xCC (BLACK HOLE!) PDR=44.1%
+[WARN] Routing to attacker 0xCC — expect no ACK
+[RX] ACK id=92 PDR=45.2%
+[TX] DATA id=93 via=0xCC (BLACK HOLE!) PDR=44.7%
+[WARN] Routing to attacker 0xCC — expect no ACK
+[TX] DATA id=94 via=0xCC (BLACK HOLE!) PDR=44.2%
+[WARN] Routing to attacker 0xCC — expect no ACK
+[TX] DATA id=95 via=0xCC (BLACK HOLE!) PDR=43.8%
+[WARN] Routing to attacker 0xCC — expect no ACK
+[TX] DATA id=96 via=0xCC (BLACK HOLE!) PDR=43.3%
+[WARN] Routing to attacker 0xCC — expect no ACK
+[RX] ACK id=96 PDR=44.3%
+[TX] DATA id=97 via=0xCC (BLACK HOLE!) PDR=43.9%
+[WARN] Routing to attacker 0xCC — expect no ACK

@@ -1,0 +1,36 @@
+[AE] src=0xCC rssi=-17.0 hop=1 interval=16.0s mv_delta=2 pdr=1.00 MSE=0.062667 thr=0.015424 inf=7us
+[AE] ANOMALY src=0xCC MSE=0.062667 > 0.015424 (alerts=12)
+[AE] src=0x11 rssi=-10.0 hop=2 interval=16.0s mv_delta=1 pdr=1.00 MSE=0.039603 thr=0.015424 inf=6us
+[AE] ANOMALY src=0x11 MSE=0.039603 > 0.015424 (alerts=13)
+[AE] src=0xCC rssi=-18.0 hop=1 interval=8.0s mv_delta=1 pdr=1.00 MSE=0.053330 thr=0.015424 inf=6us
+[AE] ANOMALY src=0xCC MSE=0.053330 > 0.015424 (alerts=14)
+[AE] src=0x11 rssi=-10.0 hop=2 interval=8.0s mv_delta=1 pdr=1.00 MSE=0.029494 thr=0.015424 inf=7us
+[AE] ANOMALY src=0x11 MSE=0.029494 > 0.015424 (alerts=15)
+[AE] src=0xCC rssi=-17.0 hop=1 interval=16.0s mv_delta=2 pdr=1.00 MSE=0.062667 thr=0.015424 inf=6us
+[AE] ANOMALY src=0xCC MSE=0.062667 > 0.015424 (alerts=16)
+[AE] src=0x11 rssi=-10.0 hop=2 interval=16.0s mv_delta=1 pdr=1.00 MSE=0.039603 thr=0.015424 inf=7us
+[AE] ANOMALY src=0x11 MSE=0.039603 > 0.015424 (alerts=17)
+[AE] src=0xCC rssi=-17.0 hop=1 interval=16.0s mv_delta=2 pdr=1.00 MSE=0.062667 thr=0.015424 inf=6us
+[AE] ANOMALY src=0xCC MSE=0.062667 > 0.015424 (alerts=18)
+[AE] src=0x11 rssi=-10.0 hop=2 interval=16.0s mv_delta=1 pdr=1.00 MSE=0.039603 thr=0.015424 inf=6us
+[AE] ANOMALY src=0x11 MSE=0.039603 > 0.015424 (alerts=19)
+[AE] src=0xCC rssi=-18.0 hop=1 interval=8.0s mv_delta=1 pdr=1.00 MSE=0.053330 thr=0.015424 inf=6us
+[AE] ANOMALY src=0xCC MSE=0.053330 > 0.015424 (alerts=20)
+[AE] src=0x11 rssi=-11.0 hop=2 interval=8.0s mv_delta=1 pdr=1.00 MSE=0.029494 thr=0.015424 inf=6us
+[AE] ANOMALY src=0x11 MSE=0.029494 > 0.015424 (alerts=21)
+[AE] src=0xCC rssi=-18.0 hop=1 interval=16.0s mv_delta=2 pdr=1.00 MSE=0.062667 thr=0.015424 inf=6us
+[AE] ANOMALY src=0xCC MSE=0.062667 > 0.015424 (alerts=22)
+[AE] src=0x11 rssi=-10.0 hop=2 interval=16.0s mv_delta=1 pdr=1.00 MSE=0.039603 thr=0.015424 inf=7us
+[AE] ANOMALY src=0x11 MSE=0.039603 > 0.015424 (alerts=23)
+[AE] src=0xCC rssi=-17.0 hop=1 interval=16.0s mv_delta=2 pdr=1.00 MSE=0.062667 thr=0.015424 inf=6us
+[AE] ANOMALY src=0xCC MSE=0.062667 > 0.015424 (alerts=24)
+[AE] src=0x11 rssi=-10.0 hop=2 interval=16.0s mv_delta=1 pdr=1.00 MSE=0.039603 thr=0.015424 inf=6us
+[AE] ANOMALY src=0x11 MSE=0.039603 > 0.015424 (alerts=25)
+[AE] src=0xCC rssi=-18.0 hop=1 interval=8.0s mv_delta=1 pdr=1.00 MSE=0.053330 thr=0.015424 inf=7us
+[AE] ANOMALY src=0xCC MSE=0.053330 > 0.015424 (alerts=26)
+[AE] src=0x11 rssi=-10.0 hop=2 interval=8.0s mv_delta=1 pdr=1.00 MSE=0.029494 thr=0.015424 inf=7us
+[AE] ANOMALY src=0x11 MSE=0.029494 > 0.015424 (alerts=27)
+[AE] src=0xCC rssi=-18.0 hop=1 interval=16.0s mv_delta=2 pdr=1.00 MSE=0.062667 thr=0.015424 inf=7us
+[AE] ANOMALY src=0xCC MSE=0.062667 > 0.015424 (alerts=28)
+[AE] src=0x11 rssi=-10.0 hop=2 interval=16.0s mv_delta=1 pdr=1.00 MSE=0.039603 thr=0.015424 inf=7us
+[AE] ANOMALY src=0x11 MSE=0.039603 > 0.015424 (alerts=29)

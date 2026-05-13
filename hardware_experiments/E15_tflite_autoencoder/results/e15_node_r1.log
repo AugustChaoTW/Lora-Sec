@@ -1,0 +1,45 @@
+[TX] DATA id=13 via=0xCC
+[ROUTE] NH=0xCC metric=1 — BLACK HOLE inserted (HMAC valid!)
+[RELAY] Re-broadcast Hello metric=1 (learned from 0xCC metric=0)
+[TX] DATA id=14 via=0xCC
+[RX] ACK id=14 PDR=40.0%
+[TX] DATA id=15 via=0xCC
+[RELAY] Re-broadcast Hello metric=1 (learned from 0xCC metric=0)
+[TX] DATA id=16 via=0xCC
+[RX] ACK id=16 PDR=41.2%
+[TX] DATA id=17 via=0xCC
+[TX] DATA id=18 via=0xCC
+[RX] ACK id=18 PDR=42.1%
+[RELAY] Re-broadcast Hello metric=1 (learned from 0xCC metric=0)
+[TX] DATA id=19 via=0xCC
+[TX] DATA id=20 via=0xCC
+[TX] DATA id=21 via=0xCC
+[ROUTE] NH=0xCC metric=1 — BLACK HOLE inserted (HMAC valid!)
+[RELAY] Re-broadcast Hello metric=1 (learned from 0xCC metric=0)
+[TX] DATA id=22 via=0xCC
+[RX] ACK id=22 PDR=39.1%
+[TX] DATA id=23 via=0xCC
+[RELAY] Re-broadcast Hello metric=1 (learned from 0xCC metric=0)
+[TX] DATA id=24 via=0xCC
+[RX] ACK id=24 PDR=40.0%
+[TX] DATA id=25 via=0xCC
+[TX] DATA id=26 via=0xCC
+[RX] ACK id=26 PDR=40.7%
+[RELAY] Re-broadcast Hello metric=1 (learned from 0xCC metric=0)
+[TX] DATA id=27 via=0xCC
+[TX] DATA id=28 via=0xCC
+[TX] DATA id=29 via=0xCC
+[ROUTE] NH=0xCC metric=1 — BLACK HOLE inserted (HMAC valid!)
+[RELAY] Re-broadcast Hello metric=1 (learned from 0xCC metric=0)
+[TX] DATA id=30 via=0xCC
+[RX] ACK id=30 PDR=38.7%
+[TX] DATA id=31 via=0xCC
+[RELAY] Re-broadcast Hello metric=1 (learned from 0xCC metric=0)
+[TX] DATA id=32 via=0xCC
+[RX] ACK id=32 PDR=39.4%
+[TX] DATA id=33 via=0xCC
+[TX] DATA id=34 via=0xCC
+[RX] ACK id=34 PDR=40.0%
+[RELAY] Re-broadcast Hello metric=1 (learned from 0xCC metric=0)
+[TX] DATA id=35 via=0xCC
+[TX] DATA id=36 via=0xCC

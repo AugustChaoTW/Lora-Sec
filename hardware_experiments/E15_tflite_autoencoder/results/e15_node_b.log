@@ -1,0 +1,48 @@
+[RX] DATA id=74 from 0xAA payload=A00074 (total=42)
+[TX] ACK id=74 → 0xAA
+[TX] Hello seq=37 (hello #38)
+[RX] DATA id=14 from 0x11 payload=110014 (total=43)
+[TX] ACK id=14 → 0x11
+[RX] DATA id=76 from 0xAA payload=A00076 (total=44)
+[TX] ACK id=76 → 0xAA
+[TX] Hello seq=38 (hello #39)
+[RX] DATA id=16 from 0x11 payload=110016 (total=45)
+[TX] ACK id=16 → 0x11
+[TX] Hello seq=39 (hello #40)
+[RX] DATA id=18 from 0x11 payload=110018 (total=46)
+[TX] ACK id=18 → 0x11
+[RX] DATA id=80 from 0xAA payload=A00080 (total=47)
+[TX] ACK id=80 → 0xAA
+[TX] Hello seq=40 (hello #41)
+[RX] DATA id=82 from 0xAA payload=A00082 (total=48)
+[TX] ACK id=82 → 0xAA
+[TX] Hello seq=41 (hello #42)
+[RX] DATA id=22 from 0x11 payload=110022 (total=49)
+[TX] ACK id=22 → 0x11
+[RX] DATA id=84 from 0xAA payload=A00084 (total=50)
+[TX] ACK id=84 → 0xAA
+[TX] Hello seq=42 (hello #43)
+[RX] DATA id=24 from 0x11 payload=110024 (total=51)
+[TX] ACK id=24 → 0x11
+[TX] Hello seq=43 (hello #44)
+[RX] DATA id=26 from 0x11 payload=110026 (total=52)
+[TX] ACK id=26 → 0x11
+[RX] DATA id=88 from 0xAA payload=A00088 (total=53)
+[TX] ACK id=88 → 0xAA
+[TX] Hello seq=44 (hello #45)
+[RX] DATA id=90 from 0xAA payload=A00090 (total=54)
+[TX] ACK id=90 → 0xAA
+[TX] Hello seq=45 (hello #46)
+[RX] DATA id=30 from 0x11 payload=110030 (total=55)
+[TX] ACK id=30 → 0x11
+[RX] DATA id=92 from 0xAA payload=A00092 (total=56)
+[TX] ACK id=92 → 0xAA
+[TX] Hello seq=46 (hello #47)
+[RX] DATA id=32 from 0x11 payload=110032 (total=57)
+[TX] ACK id=32 → 0x11
+[TX] Hello seq=47 (hello #48)
+[RX] DATA id=34 from 0x11 payload=110034 (total=58)
+[TX] ACK id=34 → 0x11
+[RX] DATA id=96 from 0xAA payload=A00096 (total=59)
+[TX] ACK id=96 → 0xAA
+[TX] Hello seq=48 (hello #49)
