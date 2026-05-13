@@ -1,0 +1,112 @@
+[C(0xCC)] 08:55:27.636 ESP-ROM:esp32s3-20210327
+[C(0xCC)] 08:55:27.637 Build:Mar 27 2021
+[C(0xCC)] 08:55:27.638 rst:0x15 (USB_UART_CHIP_RESET),boot:0x19 (SPI_FAST_FLASH_BOOT)
+[C(0xCC)] 08:55:27.639 Saved PC:0x4037ce2a
+[C(0xCC)] 08:55:27.640 SPIWP:0xee
+[C(0xCC)] 08:55:27.640 mode:DIO, clock div:1
+[C(0xCC)] 08:55:27.641 load:0x3fce2820,len:0x10cc
+[C(0xCC)] 08:55:27.642 load:0x403c8700,len:0xc2c
+[C(0xCC)] 08:55:27.643 load:0x403cb700,len:0x30c0
+[C(0xCC)] 08:55:27.643 entry 0x403c88b8
+[C(0xCC)] 08:55:27.798 
+[C(0xCC)] 08:55:27.798 === E8 Node C (ACK SPOOFER) ===
+[C(0xCC)] 08:55:27.798 [INFO] Operates as relay, forges ACK from 0xBB, drops data.
+[C(0xCC)] 08:55:27.798 [INFO] Finding: AckMsg has no HMAC — forgery undetectable by HMAC patch.
+[C(0xCC)] 08:55:27.891 [RADIO] SX1262 ready @ 923 MHz AS923
+[C(0xCC)] 08:55:28.345 [SPOOFER] Hello sent metric=1 seq=0 (#1) — looks like honest relay
+[C(0xCC)] 08:55:29.005 [SNIFF] Hello from 0x33 metric=1 seq=65
+[C(0xCC)] 08:55:30.960 [SPOOFER] DATA from 0x22 pkt_id=75 (drop #1)
+[C(0xCC)] 08:55:31.105 [SPOOFER] Forged ACK: src=0xBB(fake) dst=0x22 pkt_id=75 (total=1)
+[C(0xCC)] 08:55:31.105 [SPOOFER] Sender believes delivery confirmed. Data actually DROPPED.
+[C(0xCC)] 08:55:31.105 [SPOOFER] Sender PDR=~100% / Gateway PDR=0%  (dropped=1 forged=1)
+[C(0xCC)] 08:55:35.950 [SPOOFER] DATA from 0x22 pkt_id=76 (drop #2)
+[C(0xCC)] 08:55:36.105 [SPOOFER] Forged ACK: src=0xBB(fake) dst=0x22 pkt_id=76 (total=2)
+[C(0xCC)] 08:55:36.105 [SPOOFER] Sender believes delivery confirmed. Data actually DROPPED.
+[C(0xCC)] 08:55:36.105 [SPOOFER] Sender PDR=~100% / Gateway PDR=0%  (dropped=2 forged=2)
+[C(0xCC)] 08:55:37.590 [SPOOFER] Hello sent metric=1 seq=1 (#2) — looks like honest relay
+[C(0xCC)] 08:55:38.491 [SNIFF] Hello from 0xBB metric=0 seq=1
+[C(0xCC)] 08:55:39.264 [SNIFF] Hello from 0x22 metric=1 seq=61
+[C(0xCC)] 08:55:46.589 [SPOOFER] Hello sent metric=1 seq=2 (#3) — looks like honest relay
+[C(0xCC)] 08:55:48.497 [SNIFF] Hello from 0xBB metric=0 seq=2
+[C(0xCC)] 08:55:49.252 [SNIFF] Hello from 0x22 metric=1 seq=63
+[C(0xCC)] 08:55:55.593 [SPOOFER] Hello sent metric=1 seq=3 (#4) — looks like honest relay
+[C(0xCC)] 08:55:56.358 [SNIFF] Hello from 0x22 metric=2 seq=64
+[C(0xCC)] 08:55:58.488 [SNIFF] Hello from 0xBB metric=0 seq=3
+[C(0xCC)] 08:55:59.255 [SNIFF] Hello from 0x22 metric=1 seq=65
+[C(0xCC)] 08:56:04.584 [SPOOFER] Hello sent metric=1 seq=4 (#5) — looks like honest relay
+[C(0xCC)] 08:56:05.357 [SNIFF] Hello from 0x22 metric=2 seq=66
+[C(0xCC)] 08:56:08.490 [SNIFF] Hello from 0xBB metric=0 seq=4
+[C(0xCC)] 08:56:09.256 [SNIFF] Hello from 0x22 metric=1 seq=67
+[C(0xCC)] 08:56:13.591 [SPOOFER] Hello sent metric=1 seq=5 (#6) — looks like honest relay
+[C(0xCC)] 08:56:14.358 [SNIFF] Hello from 0x22 metric=2 seq=68
+[C(0xCC)] 08:56:16.639 [SPOOFER] DATA from 0x22 pkt_id=84 (drop #3)
+[C(0xCC)] 08:56:16.800 [SPOOFER] Forged ACK: src=0xBB(fake) dst=0x22 pkt_id=84 (total=3)
+[C(0xCC)] 08:56:16.800 [SPOOFER] Sender believes delivery confirmed. Data actually DROPPED.
+[C(0xCC)] 08:56:16.801 [SPOOFER] Sender PDR=~100% / Gateway PDR=0%  (dropped=3 forged=3)
+[C(0xCC)] 08:56:17.860 [SPOOFER] DATA from 0xAA pkt_id=9 (drop #4)
+[C(0xCC)] 08:56:18.013 [SPOOFER] Forged ACK: src=0xBB(fake) dst=0xAA pkt_id=9 (total=4)
+[C(0xCC)] 08:56:18.014 [SPOOFER] Sender believes delivery confirmed. Data actually DROPPED.
+[C(0xCC)] 08:56:18.014 [SPOOFER] Sender PDR=~100% / Gateway PDR=0%  (dropped=4 forged=4)
+[C(0xCC)] 08:56:18.492 [SNIFF] Hello from 0xBB metric=0 seq=5
+[C(0xCC)] 08:56:19.249 [SNIFF] Hello from 0x22 metric=1 seq=69
+[C(0xCC)] 08:56:22.592 [SPOOFER] Hello sent metric=1 seq=6 (#7) — looks like honest relay
+[C(0xCC)] 08:56:28.488 [SNIFF] Hello from 0xBB metric=0 seq=6
+[C(0xCC)] 08:56:31.589 [SPOOFER] Hello sent metric=1 seq=7 (#8) — looks like honest relay
+[C(0xCC)] 08:56:38.492 [SNIFF] Hello from 0xBB metric=0 seq=7
+[C(0xCC)] 08:56:39.258 [SNIFF] Hello from 0x22 metric=1 seq=71
+[C(0xCC)] 08:56:40.586 [SPOOFER] Hello sent metric=1 seq=8 (#9) — looks like honest relay
+[C(0xCC)] 08:56:41.360 [SNIFF] Hello from 0x22 metric=2 seq=72
+[C(0xCC)] 08:56:42.110 [SNIFF] Hello from 0x11 metric=3 seq=77
+[C(0xCC)] 08:56:48.495 [SNIFF] Hello from 0xBB metric=0 seq=8
+[C(0xCC)] 08:56:49.255 [SNIFF] Hello from 0x22 metric=1 seq=74
+[C(0xCC)] 08:56:49.586 [SPOOFER] Hello sent metric=1 seq=9 (#10) — looks like honest relay
+[C(0xCC)] 08:56:50.358 [SNIFF] Hello from 0x22 metric=2 seq=75
+[C(0xCC)] 08:56:51.645 [SPOOFER] DATA from 0x22 pkt_id=91 (drop #5)
+[C(0xCC)] 08:56:51.792 [SPOOFER] Forged ACK: src=0xBB(fake) dst=0x22 pkt_id=91 (total=5)
+[C(0xCC)] 08:56:51.793 [SPOOFER] Sender believes delivery confirmed. Data actually DROPPED.
+[C(0xCC)] 08:56:51.793 [SPOOFER] Sender PDR=~100% / Gateway PDR=0%  (dropped=5 forged=5)
+[C(0xCC)] 08:56:52.858 [SPOOFER] DATA from 0xAA pkt_id=16 (drop #6)
+[C(0xCC)] 08:56:53.014 [SPOOFER] Forged ACK: src=0xBB(fake) dst=0xAA pkt_id=16 (total=6)
+[C(0xCC)] 08:56:53.014 [SPOOFER] Sender believes delivery confirmed. Data actually DROPPED.
+[C(0xCC)] 08:56:53.014 [SPOOFER] Sender PDR=~100% / Gateway PDR=0%  (dropped=6 forged=6)
+[C(0xCC)] 08:56:56.639 [SPOOFER] DATA from 0x22 pkt_id=92 (drop #7)
+[C(0xCC)] 08:56:56.797 [SPOOFER] Forged ACK: src=0xBB(fake) dst=0x22 pkt_id=92 (total=7)
+[C(0xCC)] 08:56:56.797 [SPOOFER] Sender believes delivery confirmed. Data actually DROPPED.
+[C(0xCC)] 08:56:56.797 [SPOOFER] Sender PDR=~100% / Gateway PDR=0%  (dropped=7 forged=7)
+[C(0xCC)] 08:56:57.860 [SPOOFER] DATA from 0xAA pkt_id=17 (drop #8)
+[C(0xCC)] 08:56:58.015 [SPOOFER] Forged ACK: src=0xBB(fake) dst=0xAA pkt_id=17 (total=8)
+[C(0xCC)] 08:56:58.015 [SPOOFER] Sender believes delivery confirmed. Data actually DROPPED.
+[C(0xCC)] 08:56:58.016 [SPOOFER] Sender PDR=~100% / Gateway PDR=0%  (dropped=8 forged=8)
+[C(0xCC)] 08:56:58.590 [SPOOFER] Hello sent metric=1 seq=10 (#11) — looks like honest relay
+[C(0xCC)] 08:56:59.248 [SNIFF] Hello from 0x33 metric=1 seq=81
+[C(0xCC)] 08:57:00.015 [SNIFF] Hello from 0x22 metric=2 seq=76
+[C(0xCC)] 08:57:00.778 [SNIFF] Hello from 0x33 metric=3 seq=82
+[C(0xCC)] 08:57:01.530 [SNIFF] Hello from 0x22 metric=4 seq=77
+[C(0xCC)] 08:57:01.827 [SPOOFER] DATA from 0x22 pkt_id=93 (drop #9)
+[C(0xCC)] 08:57:01.983 [SPOOFER] Forged ACK: src=0xBB(fake) dst=0x22 pkt_id=93 (total=9)
+[C(0xCC)] 08:57:01.984 [SPOOFER] Sender believes delivery confirmed. Data actually DROPPED.
+[C(0xCC)] 08:57:01.985 [SPOOFER] Sender PDR=~100% / Gateway PDR=0%  (dropped=9 forged=9)
+[C(0xCC)] 08:57:02.866 [SPOOFER] DATA from 0xAA pkt_id=18 (drop #10)
+[C(0xCC)] 08:57:03.009 [SPOOFER] Forged ACK: src=0xBB(fake) dst=0xAA pkt_id=18 (total=10)
+[C(0xCC)] 08:57:03.010 [SPOOFER] Sender believes delivery confirmed. Data actually DROPPED.
+[C(0xCC)] 08:57:03.010 [SPOOFER] Sender PDR=~100% / Gateway PDR=0%  (dropped=10 forged=10)
+[C(0xCC)] 08:57:06.358 [SPOOFER] DATA from 0x11 pkt_id=94 (drop #11)
+[C(0xCC)] 08:57:06.510 [SPOOFER] Forged ACK: src=0xBB(fake) dst=0x11 pkt_id=94 (total=11)
+[C(0xCC)] 08:57:06.511 [SPOOFER] Sender believes delivery confirmed. Data actually DROPPED.
+[C(0xCC)] 08:57:06.511 [SPOOFER] Sender PDR=~100% / Gateway PDR=0%  (dropped=11 forged=11)
+[C(0xCC)] 08:57:06.821 [SPOOFER] DATA from 0x22 pkt_id=94 (drop #12)
+[C(0xCC)] 08:57:06.977 [SPOOFER] Forged ACK: src=0xBB(fake) dst=0x22 pkt_id=94 (total=12)
+[C(0xCC)] 08:57:06.978 [SPOOFER] Sender believes delivery confirmed. Data actually DROPPED.
+[C(0xCC)] 08:57:06.978 [SPOOFER] Sender PDR=~100% / Gateway PDR=0%  (dropped=12 forged=12)
+[C(0xCC)] 08:57:07.594 [SPOOFER] Hello sent metric=1 seq=11 (#12) — looks like honest relay
+[C(0xCC)] 08:57:07.858 [SPOOFER] DATA from 0xAA pkt_id=19 (drop #13)
+[C(0xCC)] 08:57:08.015 [SPOOFER] Forged ACK: src=0xBB(fake) dst=0xAA pkt_id=19 (total=13)
+[C(0xCC)] 08:57:08.015 [SPOOFER] Sender believes delivery confirmed. Data actually DROPPED.
+[C(0xCC)] 08:57:08.015 [SPOOFER] Sender PDR=~100% / Gateway PDR=0%  (dropped=13 forged=13)
+[C(0xCC)] 08:57:08.497 [SNIFF] Hello from 0xBB metric=0 seq=10
+[C(0xCC)] 08:57:09.255 [SNIFF] Hello from 0x22 metric=1 seq=78
+[C(0xCC)] 08:57:16.589 [SPOOFER] Hello sent metric=1 seq=12 (#13) — looks like honest relay
+[C(0xCC)] 08:57:18.490 [SNIFF] Hello from 0xBB metric=0 seq=11
+[C(0xCC)] 08:57:19.250 [SNIFF] Hello from 0x22 metric=1 seq=79
+[C(0xCC)] 08:57:25.588 [SPOOFER] Hello sent metric=1 seq=13 (#14) — looks like honest relay
+[C(0xCC)] 08:57:26.360 [SNIFF] Hello from 0x22 metric=2 seq=80

@@ -1,0 +1,62 @@
+[A(0xAA)] 08:55:27.637 ESP-ROM:esp32s3-20210327
+[A(0xAA)] 08:55:27.638 Build:Mar 27 2021
+[A(0xAA)] 08:55:27.639 rst:0x15 (USB_UART_CHIP_RESET),boot:0x19 (SPI_FAST_FLASH_BOOT)
+[A(0xAA)] 08:55:27.639 Saved PC:0x4037ce2a
+[A(0xAA)] 08:55:27.640 SPIWP:0xee
+[A(0xAA)] 08:55:27.640 mode:DIO, clock div:1
+[A(0xAA)] 08:55:27.641 load:0x3fce2820,len:0x10cc
+[A(0xAA)] 08:55:27.642 load:0x403c8700,len:0xc2c
+[A(0xAA)] 08:55:27.642 load:0x403cb700,len:0x30c0
+[A(0xAA)] 08:55:27.643 entry 0x403c88b8
+[A(0xAA)] 08:55:27.796 
+[A(0xAA)] 08:55:27.796 === E8 Node A (SENDER — ACK spoof victim, SECURITY_MODE=1) ===
+[A(0xAA)] 08:55:27.796 [INFO] Watch: sender PDR climbs to ~100% while gateway PDR=0%.
+[A(0xAA)] 08:55:27.797 [INFO] Forged ACKs have no HMAC — indistinguishable from real ACKs.
+[A(0xAA)] 08:55:27.881 [RADIO] SX1262 ready @ 923 MHz AS923
+[A(0xAA)] 08:55:29.009 [ROUTE] NH=0x11 metric=2
+[A(0xAA)] 08:55:32.579 [TX] DATA id=0 via=0x11 (sender PDR=0.0%)
+[A(0xAA)] 08:55:37.569 [TX] DATA id=1 via=0x11 (sender PDR=0.0%)
+[A(0xAA)] 08:55:38.019 [RX] ACK id=1 from 0xBB (sender PDR=50.0%) — may be FORGED
+[A(0xAA)] 08:55:38.491 [ROUTE] NH=0xBB metric=1
+[A(0xAA)] 08:55:42.571 [TX] DATA id=2 via=0xBB (sender PDR=33.3%)
+[A(0xAA)] 08:55:42.720 [RX] ACK id=2 from 0xBB (sender PDR=66.7%) — may be FORGED
+[A(0xAA)] 08:55:47.564 [TX] DATA id=3 via=0xBB (sender PDR=50.0%)
+[A(0xAA)] 08:55:52.572 [TX] DATA id=4 via=0xBB (sender PDR=40.0%)
+[A(0xAA)] 08:55:52.724 [RX] ACK id=4 from 0xBB (sender PDR=60.0%) — may be FORGED
+[A(0xAA)] 08:55:57.564 [TX] DATA id=5 via=0xBB (sender PDR=50.0%)
+[A(0xAA)] 08:55:57.715 [RX] ACK id=5 from 0xBB (sender PDR=66.7%) — may be FORGED
+[A(0xAA)] 08:56:02.565 [TX] DATA id=6 via=0xBB (sender PDR=57.1%)
+[A(0xAA)] 08:56:02.721 [RX] ACK id=6 from 0xBB (sender PDR=71.4%) — may be FORGED
+[A(0xAA)] 08:56:07.570 [TX] DATA id=7 via=0xBB (sender PDR=62.5%)
+[A(0xAA)] 08:56:07.714 [RX] ACK id=7 from 0xBB (sender PDR=75.0%) — may be FORGED
+[A(0xAA)] 08:56:09.260 [ROUTE] NH=0x22 metric=2
+[A(0xAA)] 08:56:12.563 [TX] DATA id=8 via=0x22 (sender PDR=66.7%)
+[A(0xAA)] 08:56:17.572 [TX] DATA id=9 via=0x22 (sender PDR=60.0%)
+[A(0xAA)] 08:56:18.013 [RX] ACK id=9 from 0xBB (sender PDR=70.0%) — may be FORGED
+[A(0xAA)] 08:56:18.492 [ROUTE] NH=0xBB metric=1
+[A(0xAA)] 08:56:22.565 [TX] DATA id=10 via=0xBB (sender PDR=63.6%)
+[A(0xAA)] 08:56:27.561 [TX] DATA id=11 via=0xBB (sender PDR=58.3%)
+[A(0xAA)] 08:56:27.719 [RX] ACK id=11 from 0xBB (sender PDR=66.7%) — may be FORGED
+[A(0xAA)] 08:56:32.567 [TX] DATA id=12 via=0xBB (sender PDR=61.5%)
+[A(0xAA)] 08:56:32.724 [RX] ACK id=12 from 0xBB (sender PDR=69.2%) — may be FORGED
+[A(0xAA)] 08:56:37.570 [TX] DATA id=13 via=0xBB (sender PDR=64.3%)
+[A(0xAA)] 08:56:37.714 [RX] ACK id=13 from 0xBB (sender PDR=71.4%) — may be FORGED
+[A(0xAA)] 08:56:42.562 [TX] DATA id=14 via=0xBB (sender PDR=66.7%)
+[A(0xAA)] 08:56:47.566 [TX] DATA id=15 via=0xBB (sender PDR=62.5%)
+[A(0xAA)] 08:56:47.724 [RX] ACK id=15 from 0xBB (sender PDR=68.8%) — may be FORGED
+[A(0xAA)] 08:56:49.256 [ROUTE] NH=0x22 metric=2
+[A(0xAA)] 08:56:52.560 [TX] DATA id=16 via=0x22 (sender PDR=64.7%)
+[A(0xAA)] 08:56:53.018 [RX] ACK id=16 from 0xBB (sender PDR=70.6%) — may be FORGED
+[A(0xAA)] 08:56:57.562 [TX] DATA id=17 via=0x22 (sender PDR=66.7%)
+[A(0xAA)] 08:56:58.019 [RX] ACK id=17 from 0xBB (sender PDR=72.2%) — may be FORGED
+[A(0xAA)] 08:57:02.570 [TX] DATA id=18 via=0x22 (sender PDR=68.4%)
+[A(0xAA)] 08:57:03.017 [RX] ACK id=18 from 0xBB (sender PDR=73.7%) — may be FORGED
+[A(0xAA)] 08:57:07.572 [TX] DATA id=19 via=0x22 (sender PDR=70.0%)
+[A(0xAA)] 08:57:08.015 [RX] ACK id=19 from 0xBB (sender PDR=75.0%) — may be FORGED
+[A(0xAA)] 08:57:08.498 [ROUTE] NH=0xBB metric=1
+[A(0xAA)] 08:57:12.566 [TX] DATA id=20 via=0xBB (sender PDR=71.4%)
+[A(0xAA)] 08:57:12.723 [RX] ACK id=20 from 0xBB (sender PDR=76.2%) — may be FORGED
+[A(0xAA)] 08:57:17.562 [TX] DATA id=21 via=0xBB (sender PDR=72.7%)
+[A(0xAA)] 08:57:17.716 [RX] ACK id=21 from 0xBB (sender PDR=77.3%) — may be FORGED
+[A(0xAA)] 08:57:22.569 [TX] DATA id=22 via=0xBB (sender PDR=73.9%)
+[A(0xAA)] 08:57:22.721 [RX] ACK id=22 from 0xBB (sender PDR=78.3%) — may be FORGED
