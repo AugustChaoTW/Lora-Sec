@@ -1,0 +1,43 @@
+[C(ROGUE)] 09:30:36.264 ESP-ROM:esp32s3-20210327
+[C(ROGUE)] 09:30:36.266 Build:Mar 27 2021
+[C(ROGUE)] 09:30:36.267 rst:0x15 (USB_UART_CHIP_RESET),boot:0x19 (SPI_FAST_FLASH_BOOT)
+[C(ROGUE)] 09:30:36.268 Saved PC:0x4037ce2a
+[C(ROGUE)] 09:30:36.269 SPIWP:0xee
+[C(ROGUE)] 09:30:36.270 mode:DIO, clock div:1
+[C(ROGUE)] 09:30:36.271 load:0x3fce2820,len:0x10cc
+[C(ROGUE)] 09:30:36.272 load:0x403c8700,len:0xc2c
+[C(ROGUE)] 09:30:36.273 load:0x403cb700,len:0x30c0
+[C(ROGUE)] 09:30:36.274 entry 0x403c88b8
+[C(ROGUE)] 09:30:36.431 
+[C(ROGUE)] 09:30:36.432 === E11 Node C (ROGUE RELAY — selective forwarder) ===
+[C(ROGUE)] 09:30:36.432 [INFO] Target: src=0xAA  Drop rate: 100%
+[C(ROGUE)] 09:30:36.432 [INFO] HMAC-signed Hellos — indistinguishable from honest relay.
+[C(ROGUE)] 09:30:36.433 [INFO] Finding: authentication cannot enforce forwarding accountability.
+[C(ROGUE)] 09:30:36.518 [RADIO] SX1262 ready @ 923 MHz AS923
+[C(ROGUE)] 09:30:36.882 [ROUTE] NH=0xBB metric=1
+[C(ROGUE)] 09:30:41.175 [ROGUE] Hello sent metric=1 — appears as legitimate relay
+[C(ROGUE)] 09:30:46.182 [ROGUE] Hello sent metric=1 — appears as legitimate relay
+[C(ROGUE)] 09:30:51.179 [ROGUE] Hello sent metric=1 — appears as legitimate relay
+[C(ROGUE)] 09:30:56.181 [ROGUE] Hello sent metric=1 — appears as legitimate relay
+[C(ROGUE)] 09:31:01.175 [ROGUE] Hello sent metric=1 — appears as legitimate relay
+[C(ROGUE)] 09:31:06.181 [ROGUE] Hello sent metric=1 — appears as legitimate relay
+[C(ROGUE)] 09:31:07.130 [ROUTE] NH=0xBB metric=1
+[C(ROGUE)] 09:31:11.182 [ROGUE] Hello sent metric=1 — appears as legitimate relay
+[C(ROGUE)] 09:31:16.176 [ROGUE] Hello sent metric=1 — appears as legitimate relay
+[C(ROGUE)] 09:31:21.181 [ROGUE] Hello sent metric=1 — appears as legitimate relay
+[C(ROGUE)] 09:31:26.175 [ROGUE] Hello sent metric=1 — appears as legitimate relay
+[C(ROGUE)] 09:31:31.180 [ROGUE] Hello sent metric=1 — appears as legitimate relay
+[C(ROGUE)] 09:31:36.179 [ROGUE] Hello sent metric=1 — appears as legitimate relay
+[C(ROGUE)] 09:31:41.183 [ROGUE] Hello sent metric=1 — appears as legitimate relay
+[C(ROGUE)] 09:31:46.179 [ROGUE] Hello sent metric=1 — appears as legitimate relay
+[C(ROGUE)] 09:31:47.131 [ROUTE] NH=0xBB metric=1
+[C(ROGUE)] 09:31:51.180 [ROGUE] Hello sent metric=1 — appears as legitimate relay
+[C(ROGUE)] 09:31:56.179 [ROGUE] Hello sent metric=1 — appears as legitimate relay
+[C(ROGUE)] 09:32:01.178 [ROGUE] Hello sent metric=1 — appears as legitimate relay
+[C(ROGUE)] 09:32:06.181 [ROGUE] Hello sent metric=1 — appears as legitimate relay
+[C(ROGUE)] 09:32:11.176 [ROGUE] Hello sent metric=1 — appears as legitimate relay
+[C(ROGUE)] 09:32:16.176 [ROGUE] Hello sent metric=1 — appears as legitimate relay
+[C(ROGUE)] 09:32:21.175 [ROGUE] Hello sent metric=1 — appears as legitimate relay
+[C(ROGUE)] 09:32:26.183 [ROGUE] Hello sent metric=1 — appears as legitimate relay
+[C(ROGUE)] 09:32:27.139 [ROUTE] NH=0xBB metric=1
+[C(ROGUE)] 09:32:31.181 [ROGUE] Hello sent metric=1 — appears as legitimate relay

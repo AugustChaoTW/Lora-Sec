@@ -1,0 +1,45 @@
+[A(0xAA)] 09:30:36.264 ESP-ROM:esp32s3-20210327
+[A(0xAA)] 09:30:36.266 Build:Mar 27 2021
+[A(0xAA)] 09:30:36.267 rst:0x15 (USB_UART_CHIP_RESET),boot:0x19 (SPI_FAST_FLASH_BOOT)
+[A(0xAA)] 09:30:36.268 Saved PC:0x4037ce2a
+[A(0xAA)] 09:30:36.269 SPIWP:0xee
+[A(0xAA)] 09:30:36.270 mode:DIO, clock div:1
+[A(0xAA)] 09:30:36.271 load:0x3fce2820,len:0x10cc
+[A(0xAA)] 09:30:36.272 load:0x403c8700,len:0xc2c
+[A(0xAA)] 09:30:36.273 load:0x403cb700,len:0x30c0
+[A(0xAA)] 09:30:36.274 entry 0x403c88b8
+[A(0xAA)] 09:30:36.431 
+[A(0xAA)] 09:30:36.431 === E11 Node A (SENDER — honest, SECURITY_MODE=1) ===
+[A(0xAA)] 09:30:36.432 [INFO] Demonstrates: insider Black Hole bypasses HMAC patch.
+[A(0xAA)] 09:30:36.432 [INFO] Watch for NH=0xCC after attacker broadcasts signed Hello.
+[A(0xAA)] 09:30:36.432 [INFO] PDR should drop to 0% when routing to 0xCC.
+[A(0xAA)] 09:30:36.507 [RADIO] SX1262 ready @ 923 MHz AS923
+[A(0xAA)] 09:30:36.877 [ROUTE] Best NH=0xBB metric=1
+[A(0xAA)] 09:30:41.202 [TX] DATA id=0 via=0xBB PDR=0.0%
+[A(0xAA)] 09:30:46.207 [TX] DATA id=1 via=0xBB PDR=0.0%
+[A(0xAA)] 09:30:51.212 [TX] DATA id=2 via=0xBB PDR=0.0%
+[A(0xAA)] 09:30:56.206 [TX] DATA id=3 via=0xBB PDR=0.0%
+[A(0xAA)] 09:31:01.207 [TX] DATA id=4 via=0xBB PDR=0.0%
+[A(0xAA)] 09:31:06.211 [TX] DATA id=5 via=0xBB PDR=0.0%
+[A(0xAA)] 09:31:07.132 [ROUTE] Best NH=0xBB metric=1
+[A(0xAA)] 09:31:11.212 [TX] DATA id=6 via=0xBB PDR=0.0%
+[A(0xAA)] 09:31:16.206 [TX] DATA id=7 via=0xBB PDR=0.0%
+[A(0xAA)] 09:31:21.207 [TX] DATA id=8 via=0xBB PDR=0.0%
+[A(0xAA)] 09:31:26.201 [TX] DATA id=9 via=0xBB PDR=0.0%
+[A(0xAA)] 09:31:31.207 [TX] DATA id=10 via=0xBB PDR=0.0%
+[A(0xAA)] 09:31:36.203 [TX] DATA id=11 via=0xBB PDR=0.0%
+[A(0xAA)] 09:31:37.893 [ROUTE] Best NH=0x11 metric=2
+[A(0xAA)] 09:31:41.201 [TX] DATA id=12 via=0x11 PDR=0.0%
+[A(0xAA)] 09:31:46.203 [TX] DATA id=13 via=0x11 PDR=0.0%
+[A(0xAA)] 09:31:47.140 [ROUTE] Best NH=0xBB metric=1
+[A(0xAA)] 09:31:51.208 [TX] DATA id=14 via=0xBB PDR=0.0%
+[A(0xAA)] 09:31:56.207 [TX] DATA id=15 via=0xBB PDR=0.0%
+[A(0xAA)] 09:32:01.207 [TX] DATA id=16 via=0xBB PDR=0.0%
+[A(0xAA)] 09:32:06.205 [TX] DATA id=17 via=0xBB PDR=0.0%
+[A(0xAA)] 09:32:11.210 [TX] DATA id=18 via=0xBB PDR=0.0%
+[A(0xAA)] 09:32:16.213 [TX] DATA id=19 via=0xBB PDR=0.0%
+[A(0xAA)] 09:32:17.898 [ROUTE] Best NH=0x11 metric=2
+[A(0xAA)] 09:32:21.205 [TX] DATA id=20 via=0x11 PDR=0.0%
+[A(0xAA)] 09:32:26.205 [TX] DATA id=21 via=0x11 PDR=0.0%
+[A(0xAA)] 09:32:27.134 [ROUTE] Best NH=0xBB metric=1
+[A(0xAA)] 09:32:31.210 [TX] DATA id=22 via=0xBB PDR=0.0%

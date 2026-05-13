@@ -1,0 +1,54 @@
+[R1(0x11)] 09:30:36.264 ESP-ROM:esp32s3-20210327
+[R1(0x11)] 09:30:36.266 Build:Mar 27 2021
+[R1(0x11)] 09:30:36.267 rst:0x15 (USB_UART_CHIP_RESET),boot:0x19 (SPI_FAST_FLASH_BOOT)
+[R1(0x11)] 09:30:36.269 Saved PC:0x4037ce2a
+[R1(0x11)] 09:30:36.270 SPIWP:0xee
+[R1(0x11)] 09:30:36.271 mode:DIO, clock div:1
+[R1(0x11)] 09:30:36.272 load:0x3fce2820,len:0x10cc
+[R1(0x11)] 09:30:36.273 load:0x403c8700,len:0xc2c
+[R1(0x11)] 09:30:36.273 load:0x403cb700,len:0x30c0
+[R1(0x11)] 09:30:36.274 entry 0x403c88b8
+[R1(0x11)] 09:30:36.432 
+[R1(0x11)] 09:30:36.432 === E11 Relay 0x11 (honest, SECURITY_MODE=1) ===
+[R1(0x11)] 09:30:36.433 [INFO] Demonstrates: insider Black Hole bypasses HMAC patch.
+[R1(0x11)] 09:30:36.433 [INFO] This relay will accept 0xCC's Hello (valid HMAC) and route into black hole.
+[R1(0x11)] 09:30:36.518 [RADIO] SX1262 ready @ 923 MHz AS923
+[R1(0x11)] 09:30:36.876 [ROUTE] NH=0xBB metric=1
+[R1(0x11)] 09:30:37.637 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R1(0x11)] 09:30:41.210 [TX] DATA id=0 via=0xBB
+[R1(0x11)] 09:30:46.212 [TX] DATA id=1 via=0xBB
+[R1(0x11)] 09:30:47.898 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R1(0x11)] 09:30:51.211 [TX] DATA id=2 via=0xBB
+[R1(0x11)] 09:30:56.212 [TX] DATA id=3 via=0xBB
+[R1(0x11)] 09:30:57.898 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R1(0x11)] 09:31:01.209 [TX] DATA id=4 via=0xBB
+[R1(0x11)] 09:31:06.211 [TX] DATA id=5 via=0xBB
+[R1(0x11)] 09:31:07.131 [ROUTE] NH=0xBB metric=1
+[R1(0x11)] 09:31:07.898 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R1(0x11)] 09:31:11.208 [TX] DATA id=6 via=0xBB
+[R1(0x11)] 09:31:16.210 [TX] DATA id=7 via=0xBB
+[R1(0x11)] 09:31:17.891 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R1(0x11)] 09:31:21.204 [TX] DATA id=8 via=0xBB
+[R1(0x11)] 09:31:26.213 [TX] DATA id=9 via=0xBB
+[R1(0x11)] 09:31:27.892 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R1(0x11)] 09:31:31.204 [TX] DATA id=10 via=0xBB
+[R1(0x11)] 09:31:36.204 [TX] DATA id=11 via=0xBB
+[R1(0x11)] 09:31:37.894 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R1(0x11)] 09:31:41.207 [TX] DATA id=12 via=0xBB
+[R1(0x11)] 09:31:46.210 [TX] DATA id=13 via=0xBB
+[R1(0x11)] 09:31:47.131 [ROUTE] NH=0xBB metric=1
+[R1(0x11)] 09:31:47.894 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R1(0x11)] 09:31:51.211 [TX] DATA id=14 via=0xBB
+[R1(0x11)] 09:31:56.203 [TX] DATA id=15 via=0xBB
+[R1(0x11)] 09:31:57.888 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R1(0x11)] 09:32:01.211 [TX] DATA id=16 via=0xBB
+[R1(0x11)] 09:32:06.205 [TX] DATA id=17 via=0xBB
+[R1(0x11)] 09:32:07.896 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R1(0x11)] 09:32:11.205 [TX] DATA id=18 via=0xBB
+[R1(0x11)] 09:32:16.213 [TX] DATA id=19 via=0xBB
+[R1(0x11)] 09:32:17.139 [ROUTE] NH=0xBB metric=1
+[R1(0x11)] 09:32:17.895 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R1(0x11)] 09:32:21.214 [TX] DATA id=20 via=0xBB
+[R1(0x11)] 09:32:26.207 [TX] DATA id=21 via=0xBB
+[R1(0x11)] 09:32:27.893 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R1(0x11)] 09:32:31.204 [TX] DATA id=22 via=0xBB

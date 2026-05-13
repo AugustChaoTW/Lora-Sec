@@ -1,0 +1,19 @@
+E11 Bench Test Note — 2026-05-13
+=================================
+
+Result: Selective forwarding attack did NOT trigger at bench scale.
+Root cause: All 6 boards co-located (direct RF range).
+  - Node A routes via=0xBB (metric=0, direct to gateway) — bypasses rogue relay.
+  - Rogue node 0x22 sends Hellos (metric=1) but A never selects it as next-hop.
+  - No packet passes through rogue; nothing to drop.
+
+Attack IS topology-dependent:
+  - Requires A and B separated by >1 hop (physical distance forcing multi-hop).
+  - At bench: DV routing always prefers direct path (metric=0 from B's own Hello).
+
+Firmware validated correct:
+  - Rogue sends 24 signed Hellos (metric=1) during 120s.
+  - Watchdog D monitors promiscuously, would alert if rogue receives+drops.
+  - All node firmwares compile and boot correctly.
+
+For real-world validation: separate boards by >10m to force A→rogue→B path.

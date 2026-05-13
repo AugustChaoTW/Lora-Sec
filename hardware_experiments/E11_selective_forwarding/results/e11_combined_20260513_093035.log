@@ -1,0 +1,302 @@
+[D(WATCH)] 09:30:36.263 ESP-ROM:esp32s3-20210327
+[B(0xBB)] 09:30:36.263 ESP-ROM:esp32s3-20210327
+[C(ROGUE)] 09:30:36.264 ESP-ROM:esp32s3-20210327
+[A(0xAA)] 09:30:36.264 ESP-ROM:esp32s3-20210327
+[R3(0x33)] 09:30:36.264 ESP-ROM:esp32s3-20210327
+[R1(0x11)] 09:30:36.264 ESP-ROM:esp32s3-20210327
+[D(WATCH)] 09:30:36.265 Build:Mar 27 2021
+[B(0xBB)] 09:30:36.265 Build:Mar 27 2021
+[C(ROGUE)] 09:30:36.266 Build:Mar 27 2021
+[A(0xAA)] 09:30:36.266 Build:Mar 27 2021
+[R3(0x33)] 09:30:36.266 Build:Mar 27 2021
+[R1(0x11)] 09:30:36.266 Build:Mar 27 2021
+[D(WATCH)] 09:30:36.266 rst:0x15 (USB_UART_CHIP_RESET),boot:0x39 (SPI_FAST_FLASH_BOOT)
+[B(0xBB)] 09:30:36.267 rst:0x15 (USB_UART_CHIP_RESET),boot:0x19 (SPI_FAST_FLASH_BOOT)
+[C(ROGUE)] 09:30:36.267 rst:0x15 (USB_UART_CHIP_RESET),boot:0x19 (SPI_FAST_FLASH_BOOT)
+[A(0xAA)] 09:30:36.267 rst:0x15 (USB_UART_CHIP_RESET),boot:0x19 (SPI_FAST_FLASH_BOOT)
+[R3(0x33)] 09:30:36.267 rst:0x15 (USB_UART_CHIP_RESET),boot:0x3b (SPI_FAST_FLASH_BOOT)
+[R1(0x11)] 09:30:36.267 rst:0x15 (USB_UART_CHIP_RESET),boot:0x19 (SPI_FAST_FLASH_BOOT)
+[D(WATCH)] 09:30:36.268 Saved PC:0x4037ce2a
+[B(0xBB)] 09:30:36.268 Saved PC:0x4037ce2a
+[C(ROGUE)] 09:30:36.268 Saved PC:0x4037ce2a
+[A(0xAA)] 09:30:36.268 Saved PC:0x4037ce2a
+[R3(0x33)] 09:30:36.268 Saved PC:0x4037ce2a
+[R1(0x11)] 09:30:36.269 Saved PC:0x4037ce2a
+[D(WATCH)] 09:30:36.269 SPIWP:0xee
+[B(0xBB)] 09:30:36.269 SPIWP:0xee
+[C(ROGUE)] 09:30:36.269 SPIWP:0xee
+[A(0xAA)] 09:30:36.269 SPIWP:0xee
+[R3(0x33)] 09:30:36.269 SPIWP:0xee
+[R1(0x11)] 09:30:36.270 SPIWP:0xee
+[D(WATCH)] 09:30:36.270 mode:DIO, clock div:1
+[B(0xBB)] 09:30:36.270 mode:DIO, clock div:1
+[C(ROGUE)] 09:30:36.270 mode:DIO, clock div:1
+[A(0xAA)] 09:30:36.270 mode:DIO, clock div:1
+[R3(0x33)] 09:30:36.271 mode:DIO, clock div:1
+[R1(0x11)] 09:30:36.271 mode:DIO, clock div:1
+[D(WATCH)] 09:30:36.271 load:0x3fce2820,len:0x10cc
+[B(0xBB)] 09:30:36.271 load:0x3fce2820,len:0x10cc
+[C(ROGUE)] 09:30:36.271 load:0x3fce2820,len:0x10cc
+[A(0xAA)] 09:30:36.271 load:0x3fce2820,len:0x10cc
+[R3(0x33)] 09:30:36.272 load:0x3fce2820,len:0x10cc
+[R1(0x11)] 09:30:36.272 load:0x3fce2820,len:0x10cc
+[D(WATCH)] 09:30:36.272 load:0x403c8700,len:0xc2c
+[B(0xBB)] 09:30:36.272 load:0x403c8700,len:0xc2c
+[C(ROGUE)] 09:30:36.272 load:0x403c8700,len:0xc2c
+[A(0xAA)] 09:30:36.272 load:0x403c8700,len:0xc2c
+[R3(0x33)] 09:30:36.273 load:0x403c8700,len:0xc2c
+[R1(0x11)] 09:30:36.273 load:0x403c8700,len:0xc2c
+[D(WATCH)] 09:30:36.273 load:0x403cb700,len:0x30c0
+[B(0xBB)] 09:30:36.273 load:0x403cb700,len:0x30c0
+[C(ROGUE)] 09:30:36.273 load:0x403cb700,len:0x30c0
+[A(0xAA)] 09:30:36.273 load:0x403cb700,len:0x30c0
+[R3(0x33)] 09:30:36.273 load:0x403cb700,len:0x30c0
+[R1(0x11)] 09:30:36.273 load:0x403cb700,len:0x30c0
+[D(WATCH)] 09:30:36.274 entry 0x403c88b8
+[B(0xBB)] 09:30:36.274 entry 0x403c88b8
+[C(ROGUE)] 09:30:36.274 entry 0x403c88b8
+[A(0xAA)] 09:30:36.274 entry 0x403c88b8
+[R3(0x33)] 09:30:36.274 entry 0x403c88b8
+[R1(0x11)] 09:30:36.274 entry 0x403c88b8
+[B(0xBB)] 09:30:36.426 
+[B(0xBB)] 09:30:36.426 === E11 Node B (GATEWAY — honest, SECURITY_MODE=1) ===
+[B(0xBB)] 09:30:36.427 [INFO] Gateway broadcasts Hello. Insider attacker (0xCC) races with own Hello.
+[B(0xBB)] 09:30:36.427 [INFO] All honest nodes route to 0xCC (Black Hole). PDR drops to 0%.
+[D(WATCH)] 09:30:36.427 
+[B(0xBB)] 09:30:36.428 [INFO] This gateway cannot detect the Black Hole — it just observes silence.
+[D(WATCH)] 09:30:36.428 === E11 Node D (WATCHDOG — promiscuous packet correlation) ===
+[D(WATCH)] 09:30:36.429 [INFO] Window: 3000ms  Alert threshold: 3 drops
+[D(WATCH)] 09:30:36.429 [INFO] Listens for R1 fwd'd packets missing re-broadcast from ROGUE.
+[A(0xAA)] 09:30:36.431 
+[R3(0x33)] 09:30:36.431 
+[C(ROGUE)] 09:30:36.431 
+[A(0xAA)] 09:30:36.431 === E11 Node A (SENDER — honest, SECURITY_MODE=1) ===
+[R3(0x33)] 09:30:36.431 === E11 Relay 0x33 (honest, SECURITY_MODE=1) ===
+[C(ROGUE)] 09:30:36.432 === E11 Node C (ROGUE RELAY — selective forwarder) ===
+[A(0xAA)] 09:30:36.432 [INFO] Demonstrates: insider Black Hole bypasses HMAC patch.
+[R3(0x33)] 09:30:36.432 [INFO] Demonstrates: insider Black Hole bypasses HMAC patch.
+[C(ROGUE)] 09:30:36.432 [INFO] Target: src=0xAA  Drop rate: 100%
+[R1(0x11)] 09:30:36.432 
+[A(0xAA)] 09:30:36.432 [INFO] Watch for NH=0xCC after attacker broadcasts signed Hello.
+[R3(0x33)] 09:30:36.432 [INFO] This relay will accept 0xCC's Hello (valid HMAC) and route into black hole.
+[C(ROGUE)] 09:30:36.432 [INFO] HMAC-signed Hellos — indistinguishable from honest relay.
+[R1(0x11)] 09:30:36.432 === E11 Relay 0x11 (honest, SECURITY_MODE=1) ===
+[A(0xAA)] 09:30:36.432 [INFO] PDR should drop to 0% when routing to 0xCC.
+[C(ROGUE)] 09:30:36.433 [INFO] Finding: authentication cannot enforce forwarding accountability.
+[R1(0x11)] 09:30:36.433 [INFO] Demonstrates: insider Black Hole bypasses HMAC patch.
+[R1(0x11)] 09:30:36.433 [INFO] This relay will accept 0xCC's Hello (valid HMAC) and route into black hole.
+[A(0xAA)] 09:30:36.507 [RADIO] SX1262 ready @ 923 MHz AS923
+[B(0xBB)] 09:30:36.511 [RADIO] SX1262 ready @ 923 MHz AS923
+[D(WATCH)] 09:30:36.514 [RADIO] SX1262 ready — promiscuous mode (no dst filter)
+[R1(0x11)] 09:30:36.518 [RADIO] SX1262 ready @ 923 MHz AS923
+[C(ROGUE)] 09:30:36.518 [RADIO] SX1262 ready @ 923 MHz AS923
+[R3(0x33)] 09:30:36.518 [RADIO] SX1262 ready @ 923 MHz AS923
+[B(0xBB)] 09:30:36.872 [TX] Hello seq=0 (hello #1)
+[R3(0x33)] 09:30:36.876 [ROUTE] NH=0xBB metric=1
+[R1(0x11)] 09:30:36.876 [ROUTE] NH=0xBB metric=1
+[A(0xAA)] 09:30:36.877 [ROUTE] Best NH=0xBB metric=1
+[C(ROGUE)] 09:30:36.882 [ROUTE] NH=0xBB metric=1
+[R3(0x33)] 09:30:37.634 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R1(0x11)] 09:30:37.637 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[C(ROGUE)] 09:30:41.175 [ROGUE] Hello sent metric=1 — appears as legitimate relay
+[A(0xAA)] 09:30:41.202 [TX] DATA id=0 via=0xBB PDR=0.0%
+[B(0xBB)] 09:30:41.207 [RX] DATA id=0 from 0x33 payload=330000 (total=1)
+[R3(0x33)] 09:30:41.207 [TX] DATA id=0 via=0xBB
+[R1(0x11)] 09:30:41.210 [TX] DATA id=0 via=0xBB
+[B(0xBB)] 09:30:41.352 [TX] ACK id=0 → 0x33
+[R3(0x33)] 09:30:41.362 [RX] ACK id=0 PDR=100.0%
+[C(ROGUE)] 09:30:46.182 [ROGUE] Hello sent metric=1 — appears as legitimate relay
+[A(0xAA)] 09:30:46.207 [TX] DATA id=1 via=0xBB PDR=0.0%
+[R3(0x33)] 09:30:46.209 [TX] DATA id=1 via=0xBB
+[R1(0x11)] 09:30:46.212 [TX] DATA id=1 via=0xBB
+[B(0xBB)] 09:30:46.216 [RX] DATA id=1 from 0x33 payload=330001 (total=2)
+[B(0xBB)] 09:30:46.356 [TX] ACK id=1 → 0x33
+[R3(0x33)] 09:30:46.364 [RX] ACK id=1 PDR=100.0%
+[B(0xBB)] 09:30:47.134 [TX] Hello seq=1 (hello #2)
+[R3(0x33)] 09:30:47.894 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R1(0x11)] 09:30:47.898 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[C(ROGUE)] 09:30:51.179 [ROGUE] Hello sent metric=1 — appears as legitimate relay
+[R3(0x33)] 09:30:51.211 [TX] DATA id=2 via=0xBB
+[R1(0x11)] 09:30:51.211 [TX] DATA id=2 via=0xBB
+[A(0xAA)] 09:30:51.212 [TX] DATA id=2 via=0xBB PDR=0.0%
+[B(0xBB)] 09:30:51.215 [RX] DATA id=2 from 0x33 payload=330002 (total=3)
+[R3(0x33)] 09:30:51.359 [RX] ACK id=2 PDR=100.0%
+[B(0xBB)] 09:30:51.360 [TX] ACK id=2 → 0x33
+[C(ROGUE)] 09:30:56.181 [ROGUE] Hello sent metric=1 — appears as legitimate relay
+[R3(0x33)] 09:30:56.202 [TX] DATA id=3 via=0xBB
+[A(0xAA)] 09:30:56.206 [TX] DATA id=3 via=0xBB PDR=0.0%
+[R1(0x11)] 09:30:56.212 [TX] DATA id=3 via=0xBB
+[B(0xBB)] 09:30:56.214 [RX] DATA id=3 from 0x33 payload=330003 (total=4)
+[B(0xBB)] 09:30:56.355 [TX] ACK id=3 → 0x33
+[R3(0x33)] 09:30:56.355 [RX] ACK id=3 PDR=100.0%
+[B(0xBB)] 09:30:57.133 [TX] Hello seq=2 (hello #3)
+[R3(0x33)] 09:30:57.894 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R1(0x11)] 09:30:57.898 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[C(ROGUE)] 09:31:01.175 [ROGUE] Hello sent metric=1 — appears as legitimate relay
+[A(0xAA)] 09:31:01.207 [TX] DATA id=4 via=0xBB PDR=0.0%
+[B(0xBB)] 09:31:01.207 [RX] DATA id=4 from 0x33 payload=330004 (total=5)
+[R3(0x33)] 09:31:01.209 [TX] DATA id=4 via=0xBB
+[R1(0x11)] 09:31:01.209 [TX] DATA id=4 via=0xBB
+[B(0xBB)] 09:31:01.361 [TX] ACK id=4 → 0x33
+[R3(0x33)] 09:31:01.365 [RX] ACK id=4 PDR=100.0%
+[C(ROGUE)] 09:31:06.181 [ROGUE] Hello sent metric=1 — appears as legitimate relay
+[R3(0x33)] 09:31:06.211 [TX] DATA id=5 via=0xBB
+[A(0xAA)] 09:31:06.211 [TX] DATA id=5 via=0xBB PDR=0.0%
+[R1(0x11)] 09:31:06.211 [TX] DATA id=5 via=0xBB
+[C(ROGUE)] 09:31:07.130 [ROUTE] NH=0xBB metric=1
+[R1(0x11)] 09:31:07.131 [ROUTE] NH=0xBB metric=1
+[A(0xAA)] 09:31:07.132 [ROUTE] Best NH=0xBB metric=1
+[R3(0x33)] 09:31:07.135 [ROUTE] NH=0xBB metric=1
+[B(0xBB)] 09:31:07.136 [TX] Hello seq=3 (hello #4)
+[R3(0x33)] 09:31:07.898 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R1(0x11)] 09:31:07.898 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[C(ROGUE)] 09:31:11.182 [ROGUE] Hello sent metric=1 — appears as legitimate relay
+[R3(0x33)] 09:31:11.207 [TX] DATA id=6 via=0xBB
+[R1(0x11)] 09:31:11.208 [TX] DATA id=6 via=0xBB
+[A(0xAA)] 09:31:11.212 [TX] DATA id=6 via=0xBB PDR=0.0%
+[B(0xBB)] 09:31:11.212 [RX] DATA id=6 from 0x33 payload=330006 (total=6)
+[B(0xBB)] 09:31:11.360 [TX] ACK id=6 → 0x33
+[R3(0x33)] 09:31:11.361 [RX] ACK id=6 PDR=85.7%
+[C(ROGUE)] 09:31:16.176 [ROGUE] Hello sent metric=1 — appears as legitimate relay
+[A(0xAA)] 09:31:16.206 [TX] DATA id=7 via=0xBB PDR=0.0%
+[B(0xBB)] 09:31:16.210 [RX] DATA id=7 from 0x33 payload=330007 (total=7)
+[R1(0x11)] 09:31:16.210 [TX] DATA id=7 via=0xBB
+[R3(0x33)] 09:31:16.213 [TX] DATA id=7 via=0xBB
+[R3(0x33)] 09:31:16.358 [RX] ACK id=7 PDR=87.5%
+[B(0xBB)] 09:31:16.362 [TX] ACK id=7 → 0x33
+[B(0xBB)] 09:31:17.126 [TX] Hello seq=4 (hello #5)
+[R1(0x11)] 09:31:17.891 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R3(0x33)] 09:31:17.894 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[C(ROGUE)] 09:31:21.181 [ROGUE] Hello sent metric=1 — appears as legitimate relay
+[R1(0x11)] 09:31:21.204 [TX] DATA id=8 via=0xBB
+[A(0xAA)] 09:31:21.207 [TX] DATA id=8 via=0xBB PDR=0.0%
+[R3(0x33)] 09:31:21.211 [TX] DATA id=8 via=0xBB
+[B(0xBB)] 09:31:21.218 [RX] DATA id=8 from 0x33 payload=330008 (total=8)
+[R3(0x33)] 09:31:21.358 [RX] ACK id=8 PDR=88.9%
+[B(0xBB)] 09:31:21.359 [TX] ACK id=8 → 0x33
+[C(ROGUE)] 09:31:26.175 [ROGUE] Hello sent metric=1 — appears as legitimate relay
+[A(0xAA)] 09:31:26.201 [TX] DATA id=9 via=0xBB PDR=0.0%
+[R3(0x33)] 09:31:26.213 [TX] DATA id=9 via=0xBB
+[R1(0x11)] 09:31:26.213 [TX] DATA id=9 via=0xBB
+[B(0xBB)] 09:31:26.217 [RX] DATA id=9 from 0x33 payload=330009 (total=9)
+[B(0xBB)] 09:31:26.353 [TX] ACK id=9 → 0x33
+[R3(0x33)] 09:31:26.356 [RX] ACK id=9 PDR=90.0%
+[B(0xBB)] 09:31:27.127 [TX] Hello seq=5 (hello #6)
+[R3(0x33)] 09:31:27.890 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R1(0x11)] 09:31:27.892 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[C(ROGUE)] 09:31:31.180 [ROGUE] Hello sent metric=1 — appears as legitimate relay
+[R3(0x33)] 09:31:31.202 [TX] DATA id=10 via=0xBB
+[R1(0x11)] 09:31:31.204 [TX] DATA id=10 via=0xBB
+[A(0xAA)] 09:31:31.207 [TX] DATA id=10 via=0xBB PDR=0.0%
+[B(0xBB)] 09:31:31.210 [RX] DATA id=10 from 0x33 payload=330010 (total=10)
+[B(0xBB)] 09:31:31.364 [TX] ACK id=10 → 0x33
+[R3(0x33)] 09:31:31.366 [RX] ACK id=10 PDR=90.9%
+[C(ROGUE)] 09:31:36.179 [ROGUE] Hello sent metric=1 — appears as legitimate relay
+[A(0xAA)] 09:31:36.203 [TX] DATA id=11 via=0xBB PDR=0.0%
+[R1(0x11)] 09:31:36.204 [TX] DATA id=11 via=0xBB
+[R3(0x33)] 09:31:36.205 [TX] DATA id=11 via=0xBB
+[B(0xBB)] 09:31:37.135 [TX] Hello seq=6 (hello #7)
+[A(0xAA)] 09:31:37.893 [ROUTE] Best NH=0x11 metric=2
+[R3(0x33)] 09:31:37.893 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R1(0x11)] 09:31:37.894 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[C(ROGUE)] 09:31:41.183 [ROGUE] Hello sent metric=1 — appears as legitimate relay
+[A(0xAA)] 09:31:41.201 [TX] DATA id=12 via=0x11 PDR=0.0%
+[R1(0x11)] 09:31:41.207 [TX] DATA id=12 via=0xBB
+[R3(0x33)] 09:31:41.209 [TX] DATA id=12 via=0xBB
+[B(0xBB)] 09:31:41.217 [RX] DATA id=12 from 0x33 payload=330012 (total=11)
+[R3(0x33)] 09:31:41.359 [RX] ACK id=12 PDR=84.6%
+[B(0xBB)] 09:31:41.360 [TX] ACK id=12 → 0x33
+[C(ROGUE)] 09:31:46.179 [ROGUE] Hello sent metric=1 — appears as legitimate relay
+[A(0xAA)] 09:31:46.203 [TX] DATA id=13 via=0x11 PDR=0.0%
+[R3(0x33)] 09:31:46.205 [TX] DATA id=13 via=0xBB
+[R1(0x11)] 09:31:46.210 [TX] DATA id=13 via=0xBB
+[B(0xBB)] 09:31:46.213 [RX] DATA id=13 from 0x33 payload=330013 (total=12)
+[R3(0x33)] 09:31:46.357 [RX] ACK id=13 PDR=85.7%
+[B(0xBB)] 09:31:46.358 [TX] ACK id=13 → 0x33
+[C(ROGUE)] 09:31:47.131 [ROUTE] NH=0xBB metric=1
+[R1(0x11)] 09:31:47.131 [ROUTE] NH=0xBB metric=1
+[R3(0x33)] 09:31:47.131 [ROUTE] NH=0xBB metric=1
+[B(0xBB)] 09:31:47.131 [TX] Hello seq=7 (hello #8)
+[A(0xAA)] 09:31:47.140 [ROUTE] Best NH=0xBB metric=1
+[R1(0x11)] 09:31:47.894 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R3(0x33)] 09:31:47.894 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[C(ROGUE)] 09:31:51.180 [ROGUE] Hello sent metric=1 — appears as legitimate relay
+[A(0xAA)] 09:31:51.208 [TX] DATA id=14 via=0xBB PDR=0.0%
+[R1(0x11)] 09:31:51.211 [TX] DATA id=14 via=0xBB
+[R3(0x33)] 09:31:51.214 [TX] DATA id=14 via=0xBB
+[B(0xBB)] 09:31:51.214 [RX] DATA id=14 from 0x33 payload=330014 (total=13)
+[B(0xBB)] 09:31:51.353 [TX] ACK id=14 → 0x33
+[R3(0x33)] 09:31:51.357 [RX] ACK id=14 PDR=86.7%
+[C(ROGUE)] 09:31:56.179 [ROGUE] Hello sent metric=1 — appears as legitimate relay
+[R1(0x11)] 09:31:56.203 [TX] DATA id=15 via=0xBB
+[A(0xAA)] 09:31:56.207 [TX] DATA id=15 via=0xBB PDR=0.0%
+[B(0xBB)] 09:31:56.207 [RX] DATA id=15 from 0x33 payload=330015 (total=14)
+[R3(0x33)] 09:31:56.212 [TX] DATA id=15 via=0xBB
+[B(0xBB)] 09:31:56.360 [TX] ACK id=15 → 0x33
+[R3(0x33)] 09:31:56.366 [RX] ACK id=15 PDR=87.5%
+[B(0xBB)] 09:31:57.129 [TX] Hello seq=8 (hello #9)
+[R1(0x11)] 09:31:57.888 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R3(0x33)] 09:31:57.894 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[C(ROGUE)] 09:32:01.178 [ROGUE] Hello sent metric=1 — appears as legitimate relay
+[R3(0x33)] 09:32:01.205 [TX] DATA id=16 via=0xBB
+[A(0xAA)] 09:32:01.207 [TX] DATA id=16 via=0xBB PDR=0.0%
+[B(0xBB)] 09:32:01.209 [RX] DATA id=16 from 0x33 payload=330016 (total=15)
+[R1(0x11)] 09:32:01.211 [TX] DATA id=16 via=0xBB
+[B(0xBB)] 09:32:01.357 [TX] ACK id=16 → 0x33
+[R3(0x33)] 09:32:01.359 [RX] ACK id=16 PDR=88.2%
+[C(ROGUE)] 09:32:06.181 [ROGUE] Hello sent metric=1 — appears as legitimate relay
+[R1(0x11)] 09:32:06.205 [TX] DATA id=17 via=0xBB
+[R3(0x33)] 09:32:06.205 [TX] DATA id=17 via=0xBB
+[A(0xAA)] 09:32:06.205 [TX] DATA id=17 via=0xBB PDR=0.0%
+[B(0xBB)] 09:32:06.216 [RX] DATA id=17 from 0x33 payload=330017 (total=16)
+[B(0xBB)] 09:32:06.356 [TX] ACK id=17 → 0x33
+[R3(0x33)] 09:32:06.363 [RX] ACK id=17 PDR=88.9%
+[B(0xBB)] 09:32:07.129 [TX] Hello seq=9 (hello #10)
+[R1(0x11)] 09:32:07.896 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R3(0x33)] 09:32:07.898 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[C(ROGUE)] 09:32:11.176 [ROGUE] Hello sent metric=1 — appears as legitimate relay
+[R1(0x11)] 09:32:11.205 [TX] DATA id=18 via=0xBB
+[A(0xAA)] 09:32:11.210 [TX] DATA id=18 via=0xBB PDR=0.0%
+[B(0xBB)] 09:32:11.210 [RX] DATA id=18 from 0x33 payload=330018 (total=17)
+[R3(0x33)] 09:32:11.210 [TX] DATA id=18 via=0xBB
+[B(0xBB)] 09:32:11.355 [TX] ACK id=18 → 0x33
+[R3(0x33)] 09:32:11.366 [RX] ACK id=18 PDR=89.5%
+[C(ROGUE)] 09:32:16.176 [ROGUE] Hello sent metric=1 — appears as legitimate relay
+[R1(0x11)] 09:32:16.213 [TX] DATA id=19 via=0xBB
+[R3(0x33)] 09:32:16.213 [TX] DATA id=19 via=0xBB
+[A(0xAA)] 09:32:16.213 [TX] DATA id=19 via=0xBB PDR=0.0%
+[B(0xBB)] 09:32:16.214 [RX] DATA id=19 from 0x33 payload=330019 (total=18)
+[B(0xBB)] 09:32:16.355 [TX] ACK id=19 → 0x33
+[R3(0x33)] 09:32:16.360 [RX] ACK id=19 PDR=90.0%
+[B(0xBB)] 09:32:17.127 [TX] Hello seq=10 (hello #11)
+[R1(0x11)] 09:32:17.139 [ROUTE] NH=0xBB metric=1
+[R1(0x11)] 09:32:17.895 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R3(0x33)] 09:32:17.895 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[A(0xAA)] 09:32:17.898 [ROUTE] Best NH=0x11 metric=2
+[C(ROGUE)] 09:32:21.175 [ROGUE] Hello sent metric=1 — appears as legitimate relay
+[A(0xAA)] 09:32:21.205 [TX] DATA id=20 via=0x11 PDR=0.0%
+[B(0xBB)] 09:32:21.208 [RX] DATA id=20 from 0x33 payload=330020 (total=19)
+[R3(0x33)] 09:32:21.211 [TX] DATA id=20 via=0xBB
+[R1(0x11)] 09:32:21.214 [TX] DATA id=20 via=0xBB
+[B(0xBB)] 09:32:21.353 [TX] ACK id=20 → 0x33
+[R3(0x33)] 09:32:21.367 [RX] ACK id=20 PDR=90.5%
+[C(ROGUE)] 09:32:26.183 [ROGUE] Hello sent metric=1 — appears as legitimate relay
+[A(0xAA)] 09:32:26.205 [TX] DATA id=21 via=0x11 PDR=0.0%
+[R3(0x33)] 09:32:26.205 [TX] DATA id=21 via=0xBB
+[R1(0x11)] 09:32:26.207 [TX] DATA id=21 via=0xBB
+[B(0xBB)] 09:32:26.218 [RX] DATA id=21 from 0x33 payload=330021 (total=20)
+[R3(0x33)] 09:32:26.359 [RX] ACK id=21 PDR=90.9%
+[B(0xBB)] 09:32:26.363 [TX] ACK id=21 → 0x33
+[R3(0x33)] 09:32:27.131 [ROUTE] NH=0xBB metric=1
+[B(0xBB)] 09:32:27.133 [TX] Hello seq=11 (hello #12)
+[A(0xAA)] 09:32:27.134 [ROUTE] Best NH=0xBB metric=1
+[C(ROGUE)] 09:32:27.139 [ROUTE] NH=0xBB metric=1
+[R3(0x33)] 09:32:27.893 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R1(0x11)] 09:32:27.893 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[C(ROGUE)] 09:32:31.181 [ROGUE] Hello sent metric=1 — appears as legitimate relay
+[R1(0x11)] 09:32:31.204 [TX] DATA id=22 via=0xBB
+[R3(0x33)] 09:32:31.205 [TX] DATA id=22 via=0xBB
+[A(0xAA)] 09:32:31.210 [TX] DATA id=22 via=0xBB PDR=0.0%
+[B(0xBB)] 09:32:31.216 [RX] DATA id=22 from 0x33 payload=330022 (total=21)
+[B(0xBB)] 09:32:31.358 [TX] ACK id=22 → 0x33
+[R3(0x33)] 09:32:31.359 [RX] ACK id=22 PDR=91.3%

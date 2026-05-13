@@ -1,0 +1,15 @@
+[D(WATCH)] 09:30:36.263 ESP-ROM:esp32s3-20210327
+[D(WATCH)] 09:30:36.265 Build:Mar 27 2021
+[D(WATCH)] 09:30:36.266 rst:0x15 (USB_UART_CHIP_RESET),boot:0x39 (SPI_FAST_FLASH_BOOT)
+[D(WATCH)] 09:30:36.268 Saved PC:0x4037ce2a
+[D(WATCH)] 09:30:36.269 SPIWP:0xee
+[D(WATCH)] 09:30:36.270 mode:DIO, clock div:1
+[D(WATCH)] 09:30:36.271 load:0x3fce2820,len:0x10cc
+[D(WATCH)] 09:30:36.272 load:0x403c8700,len:0xc2c
+[D(WATCH)] 09:30:36.273 load:0x403cb700,len:0x30c0
+[D(WATCH)] 09:30:36.274 entry 0x403c88b8
+[D(WATCH)] 09:30:36.427 
+[D(WATCH)] 09:30:36.428 === E11 Node D (WATCHDOG — promiscuous packet correlation) ===
+[D(WATCH)] 09:30:36.429 [INFO] Window: 3000ms  Alert threshold: 3 drops
+[D(WATCH)] 09:30:36.429 [INFO] Listens for R1 fwd'd packets missing re-broadcast from ROGUE.
+[D(WATCH)] 09:30:36.514 [RADIO] SX1262 ready — promiscuous mode (no dst filter)
