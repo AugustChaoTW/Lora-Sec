@@ -1,0 +1,27 @@
+[C(0xCC)] 08:44:45.389 ESP-ROM:esp32s3-20210327
+[C(0xCC)] 08:44:45.391 Build:Mar 27 2021
+[C(0xCC)] 08:44:45.391 rst:0x15 (USB_UART_CHIP_RESET),boot:0x19 (SPI_FAST_FLASH_BOOT)
+[C(0xCC)] 08:44:45.392 Saved PC:0x4037ce2a
+[C(0xCC)] 08:44:45.392 SPIWP:0xee
+[C(0xCC)] 08:44:45.392 mode:DIO, clock div:1
+[C(0xCC)] 08:44:45.392 load:0x3fce2820,len:0x10cc
+[C(0xCC)] 08:44:45.392 load:0x403c8700,len:0xc2c
+[C(0xCC)] 08:44:45.395 load:0x403cb700,len:0x30c0
+[C(0xCC)] 08:44:45.499 entry 0x403c88b8
+[C(0xCC)] 08:44:45.807 
+[C(0xCC)] 08:44:45.807 === E7 Node C (BLACK HOLE ATTACKER — INSIDER) ===
+[C(0xCC)] 08:44:45.807 [INFO] This node holds NETWORK_PSK and signs Hellos validly.
+[C(0xCC)] 08:44:45.808 [INFO] Finding: HMAC patch does NOT prevent insider black hole.
+[C(0xCC)] 08:44:45.808 [INFO] Authentication proves origin, not forwarding behavior.
+[C(0xCC)] 08:44:45.910 [RADIO] SX1262 ready @ 923 MHz AS923
+[C(0xCC)] 08:44:46.327 [BLACKHOLE] Hello sent: seq=0 metric=0 HMAC=VALID (#1)
+[C(0xCC)] 08:44:46.327 [BLACKHOLE] Honest nodes will update: NH=0xCC metric=1
+[C(0xCC)] 08:44:46.327 [BLACKHOLE] HMAC patch: ACCEPTS (PSK valid) → route poisoned
+[C(0xCC)] 08:44:47.044 [SNIFF] Hello from 0x33 metric=1 seq=0
+[C(0xCC)] 08:44:47.766 [SNIFF] Hello from 0x22 metric=2 seq=0
+[C(0xCC)] 08:44:48.490 [SNIFF] Hello from 0x33 metric=3 seq=1
+[C(0xCC)] 08:44:48.691 ESP-ROM:esp32s3-20210327
+[C(0xCC)] 08:44:48.691 Build:Mar 27 2021
+[C(0xCC)] 08:44:48.691 rst:0x15 (USB_UART_CHIP_RESET),boot:0x11 (DOWNLOAD(USB/UART0))
+[C(0xCC)] 08:44:48.691 Saved PC:0x4037ce2a
+[C(0xCC)] 08:44:48.691 waiting for download

@@ -1,0 +1,593 @@
+[A(0xAA)] 08:49:09.651 ESP-ROM:esp32s3-20210327
+[B(0xBB)] 08:49:09.651 ESP-ROM:esp32s3-20210327
+[A(0xAA)] 08:49:09.652 Build:Mar 27 2021
+[B(0xBB)] 08:49:09.652 Build:Mar 27 2021
+[A(0xAA)] 08:49:09.652 rst:0x15 (USB_UART_CHIP_RESET),boot:0x19 (SPI_FAST_FLASH_BOOT)
+[C(0xCC)] 08:49:09.652 ESP-ROM:esp32s3-20210327
+[R1(0x11)] 08:49:09.652 ESP-ROM:esp32s3-20210327
+[R3(0x33)] 08:49:09.652 ESP-ROM:esp32s3-20210327
+[B(0xBB)] 08:49:09.652 rst:0x15 (USB_UART_CHIP_RESET),boot:0x19 (SPI_FAST_FLASH_BOOT)
+[A(0xAA)] 08:49:09.653 Saved PC:0x4037ce2a
+[C(0xCC)] 08:49:09.653 Build:Mar 27 2021
+[R1(0x11)] 08:49:09.653 Build:Mar 27 2021
+[R2(0x22)] 08:49:09.653 ESP-ROM:esp32s3-20210327
+[R3(0x33)] 08:49:09.653 Build:Mar 27 2021
+[B(0xBB)] 08:49:09.653 Saved PC:0x40041a76
+[A(0xAA)] 08:49:09.654 SPIWP:0xee
+[C(0xCC)] 08:49:09.654 rst:0x15 (USB_UART_CHIP_RESET),boot:0x19 (SPI_FAST_FLASH_BOOT)
+[R1(0x11)] 08:49:09.654 rst:0x15 (USB_UART_CHIP_RESET),boot:0x39 (SPI_FAST_FLASH_BOOT)
+[R2(0x22)] 08:49:09.654 Build:Mar 27 2021
+[R3(0x33)] 08:49:09.654 rst:0x15 (USB_UART_CHIP_RESET),boot:0x3b (SPI_FAST_FLASH_BOOT)
+[B(0xBB)] 08:49:09.654 SPIWP:0xee
+[A(0xAA)] 08:49:09.655 mode:DIO, clock div:1
+[C(0xCC)] 08:49:09.655 Saved PC:0x40041a7c
+[R1(0x11)] 08:49:09.655 Saved PC:0x40041a79
+[R2(0x22)] 08:49:09.655 rst:0x15 (USB_UART_CHIP_RESET),boot:0x19 (SPI_FAST_FLASH_BOOT)
+[R3(0x33)] 08:49:09.655 Saved PC:0x40041a7c
+[B(0xBB)] 08:49:09.656 mode:DIO, clock div:1
+[A(0xAA)] 08:49:09.656 load:0x3fce2820,len:0x10cc
+[C(0xCC)] 08:49:09.656 SPIWP:0xee
+[R1(0x11)] 08:49:09.656 SPIWP:0xee
+[R2(0x22)] 08:49:09.656 Saved PC:0x40041a79
+[R3(0x33)] 08:49:09.657 SPIWP:0xee
+[B(0xBB)] 08:49:09.657 load:0x3fce2820,len:0x10cc
+[A(0xAA)] 08:49:09.657 load:0x403c8700,len:0xc2c
+[C(0xCC)] 08:49:09.657 mode:DIO, clock div:1
+[R1(0x11)] 08:49:09.657 mode:DIO, clock div:1
+[R2(0x22)] 08:49:09.657 SPIWP:0xee
+[R3(0x33)] 08:49:09.658 mode:DIO, clock div:1
+[B(0xBB)] 08:49:09.658 load:0x403c8700,len:0xc2c
+[A(0xAA)] 08:49:09.658 load:0x403cb700,len:0x30c0
+[C(0xCC)] 08:49:09.658 load:0x3fce2820,len:0x10cc
+[R1(0x11)] 08:49:09.658 load:0x3fce2820,len:0x10cc
+[R2(0x22)] 08:49:09.659 mode:DIO, clock div:1
+[R3(0x33)] 08:49:09.659 load:0x3fce2820,len:0x10cc
+[B(0xBB)] 08:49:09.659 load:0x403cb700,len:0x30c0
+[A(0xAA)] 08:49:09.659 entry 0x403c88b8
+[C(0xCC)] 08:49:09.659 load:0x403c8700,len:0xc2c
+[R1(0x11)] 08:49:09.659 load:0x403c8700,len:0xc2c
+[R2(0x22)] 08:49:09.660 load:0x3fce2820,len:0x10cc
+[R3(0x33)] 08:49:09.660 load:0x403c8700,len:0xc2c
+[R3(0x33)] 08:49:09.661 load:0x403cb700,len:0x30c0
+[C(0xCC)] 08:49:09.660 load:0x403cb700,len:0x30c0
+[R1(0x11)] 08:49:09.661 load:0x403cb700,len:0x30c0
+[R2(0x22)] 08:49:09.661 load:0x403c8700,len:0xc2c
+[B(0xBB)] 08:49:09.660 entry 0x403c88b8
+[R3(0x33)] 08:49:09.661 entry 0x403c88b8
+[C(0xCC)] 08:49:09.661 entry 0x403c88b8
+[R1(0x11)] 08:49:09.661 entry 0x403c88b8
+[R2(0x22)] 08:49:09.661 load:0x403cb700,len:0x30c0
+[R2(0x22)] 08:49:09.663 entry 0x403c88b8
+[B(0xBB)] 08:49:09.814 
+[C(0xCC)] 08:49:09.814 
+[R2(0x22)] 08:49:09.814 
+[R3(0x33)] 08:49:09.814 
+[R1(0x11)] 08:49:09.814 
+[A(0xAA)] 08:49:09.814 
+[B(0xBB)] 08:49:09.814 === E7 Node B (GATEWAY — honest, SECURITY_MODE=1) ===
+[C(0xCC)] 08:49:09.815 === E7 Node C (BLACK HOLE ATTACKER — INSIDER) ===
+[R2(0x22)] 08:49:09.815 === E7 Relay 0x22 (honest, SECURITY_MODE=1) ===
+[R3(0x33)] 08:49:09.815 === E7 Relay 0x33 (honest, SECURITY_MODE=1) ===
+[R1(0x11)] 08:49:09.815 === E7 Relay 0x11 (honest, SECURITY_MODE=1) ===
+[A(0xAA)] 08:49:09.815 === E7 Node A (SENDER — honest, SECURITY_MODE=1) ===
+[B(0xBB)] 08:49:09.816 [INFO] Gateway broadcasts Hello. Insider attacker (0xCC) races with own Hello.
+[C(0xCC)] 08:49:09.816 [INFO] This node holds NETWORK_PSK and signs Hellos validly.
+[R2(0x22)] 08:49:09.816 [INFO] Demonstrates: insider Black Hole bypasses HMAC patch.
+[R3(0x33)] 08:49:09.816 [INFO] Demonstrates: insider Black Hole bypasses HMAC patch.
+[R1(0x11)] 08:49:09.816 [INFO] Demonstrates: insider Black Hole bypasses HMAC patch.
+[A(0xAA)] 08:49:09.817 [INFO] Demonstrates: insider Black Hole bypasses HMAC patch.
+[B(0xBB)] 08:49:09.817 [INFO] All honest nodes route to 0xCC (Black Hole). PDR drops to 0%.
+[C(0xCC)] 08:49:09.817 [INFO] Finding: HMAC patch does NOT prevent insider black hole.
+[R2(0x22)] 08:49:09.817 [INFO] This relay will accept 0xCC's Hello (valid HMAC) and route into black hole.
+[R3(0x33)] 08:49:09.817 [INFO] This relay will accept 0xCC's Hello (valid HMAC) and route into black hole.
+[R1(0x11)] 08:49:09.817 [INFO] This relay will accept 0xCC's Hello (valid HMAC) and route into black hole.
+[A(0xAA)] 08:49:09.817 [INFO] Watch for NH=0xCC after attacker broadcasts signed Hello.
+[B(0xBB)] 08:49:09.817 [INFO] This gateway cannot detect the Black Hole — it just observes silence.
+[C(0xCC)] 08:49:09.818 [INFO] Authentication proves origin, not forwarding behavior.
+[A(0xAA)] 08:49:09.818 [INFO] PDR should drop to 0% when routing to 0xCC.
+[R3(0x33)] 08:49:09.900 [RADIO] SX1262 ready @ 923 MHz AS923
+[R1(0x11)] 08:49:09.901 [RADIO] SX1262 ready @ 923 MHz AS923
+[C(0xCC)] 08:49:09.901 [RADIO] SX1262 ready @ 923 MHz AS923
+[B(0xBB)] 08:49:09.901 [RADIO] SX1262 ready @ 923 MHz AS923
+[A(0xAA)] 08:49:09.904 [RADIO] SX1262 ready @ 923 MHz AS923
+[R2(0x22)] 08:49:09.907 [RADIO] SX1262 ready @ 923 MHz AS923
+[B(0xBB)] 08:49:10.261 [TX] Hello seq=0 (hello #1)
+[R3(0x33)] 08:49:10.264 [ROUTE] NH=0xBB metric=1
+[R1(0x11)] 08:49:10.266 [ROUTE] NH=0xBB metric=1
+[C(0xCC)] 08:49:10.359 [BLACKHOLE] Hello sent: seq=0 metric=0 HMAC=VALID (#1)
+[C(0xCC)] 08:49:10.360 [BLACKHOLE] Honest nodes will update: NH=0xCC metric=1
+[C(0xCC)] 08:49:10.360 [BLACKHOLE] HMAC patch: ACCEPTS (PSK valid) → route poisoned
+[R1(0x11)] 08:49:11.019 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[A(0xAA)] 08:49:11.022 [ROUTE] Best NH=0x11 metric=2
+[R2(0x22)] 08:49:11.024 [ROUTE] NH=0x33 metric=2
+[C(0xCC)] 08:49:11.026 [SNIFF] Hello from 0x33 metric=1 seq=0
+[R3(0x33)] 08:49:11.029 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[C(0xCC)] 08:49:11.791 [SNIFF] Hello from 0x22 metric=2 seq=0
+[R2(0x22)] 08:49:11.791 [RELAY] Re-broadcast Hello metric=2 (learned from 0x33 metric=1)
+[R1(0x11)] 08:49:12.544 [RELAY] Re-broadcast Hello metric=3 (learned from 0x22 metric=2)
+[R3(0x33)] 08:49:12.546 [RELAY] Re-broadcast Hello metric=3 (learned from 0x22 metric=2)
+[C(0xCC)] 08:49:12.551 [SNIFF] Hello from 0x33 metric=3 seq=1
+[C(0xCC)] 08:49:13.308 [SNIFF] Hello from 0x22 metric=4 seq=1
+[R2(0x22)] 08:49:13.312 [RELAY] Re-broadcast Hello metric=4 (learned from 0x33 metric=3)
+[R1(0x11)] 08:49:14.064 [RELAY] Re-broadcast Hello metric=5 (learned from 0x22 metric=4)
+[R3(0x33)] 08:49:14.064 [RELAY] Re-broadcast Hello metric=5 (learned from 0x22 metric=4)
+[C(0xCC)] 08:49:14.077 [SNIFF] Hello from 0x33 metric=5 seq=2
+[R1(0x11)] 08:49:14.593 [TX] DATA id=0 via=0xBB
+[B(0xBB)] 08:49:14.593 [RX] DATA id=0 from 0x33 payload=330000 (total=1)
+[R3(0x33)] 08:49:14.595 [TX] DATA id=0 via=0xBB
+[C(0xCC)] 08:49:14.595 [BLACKHOLE] DROP data src=0xAA dst=0x11 pkt_id=0 (total_dropped=1)
+[C(0xCC)] 08:49:14.596 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[A(0xAA)] 08:49:14.598 [TX] DATA id=0 via=0x11 PDR=0.0%
+[B(0xBB)] 08:49:14.747 [TX] ACK id=0 → 0x33
+[R3(0x33)] 08:49:14.747 [RX] ACK id=0 PDR=100.0%
+[R2(0x22)] 08:49:14.828 [RELAY] Re-broadcast Hello metric=6 (learned from 0x33 metric=5)
+[R2(0x22)] 08:49:15.124 [TX] DATA id=0 via=0x33
+[B(0xBB)] 08:49:15.128 [RX] DATA id=0 from 0x22 payload=220000 (total=2)
+[C(0xCC)] 08:49:15.129 [BLACKHOLE] DROP data src=0x22 dst=0x33 pkt_id=0 (total_dropped=2)
+[C(0xCC)] 08:49:15.130 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[B(0xBB)] 08:49:15.272 [TX] ACK id=0 → 0x22
+[C(0xCC)] 08:49:15.412 [BLACKHOLE] DROP data src=0x22 dst=0xBB pkt_id=0 (total_dropped=3)
+[R3(0x33)] 08:49:15.412 [FWD] DATA id=0 src=0x22 → 0xBB
+[C(0xCC)] 08:49:15.413 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[C(0xCC)] 08:49:18.622 [BLACKHOLE] Hello sent: seq=1 metric=0 HMAC=VALID (#2)
+[R2(0x22)] 08:49:18.623 [ROUTE] NH=0xCC metric=1 — BLACK HOLE inserted (HMAC valid!)
+[C(0xCC)] 08:49:18.623 [BLACKHOLE] Honest nodes will update: NH=0xCC metric=1
+[C(0xCC)] 08:49:18.624 [BLACKHOLE] HMAC patch: ACCEPTS (PSK valid) → route poisoned
+[A(0xAA)] 08:49:18.629 [ROUTE] NH=0xCC metric=1 — ATTACKER INSERTED (HMAC passed!)
+[A(0xAA)] 08:49:18.630 [ROUTE] Black Hole attack SUCCESS: route table poisoned
+[R2(0x22)] 08:49:19.377 [RELAY] Re-broadcast Hello metric=1 (learned from 0xCC metric=0)
+[R1(0x11)] 08:49:19.378 [RELAY] Re-broadcast Hello metric=1 (learned from 0xCC metric=0)
+[R3(0x33)] 08:49:19.385 [RELAY] Re-broadcast Hello metric=1 (learned from 0xCC metric=0)
+[A(0xAA)] 08:49:19.599 [TX] DATA id=1 via=0xCC (BLACK HOLE!) PDR=0.0%
+[A(0xAA)] 08:49:19.599 [WARN] Routing to attacker 0xCC — expect no ACK
+[R1(0x11)] 08:49:19.666 [TX] DATA id=1 via=0xBB
+[R3(0x33)] 08:49:19.670 [TX] DATA id=1 via=0xBB
+[B(0xBB)] 08:49:19.675 [RX] DATA id=1 from 0x33 payload=330001 (total=3)
+[B(0xBB)] 08:49:19.818 [TX] ACK id=1 → 0x33
+[R3(0x33)] 08:49:19.825 [RX] ACK id=1 PDR=100.0%
+[R2(0x22)] 08:49:20.119 [TX] DATA id=1 via=0xCC
+[C(0xCC)] 08:49:20.121 [BLACKHOLE] DROP data src=0x22 dst=0xCC pkt_id=1 (total_dropped=4)
+[B(0xBB)] 08:49:20.121 [RX] DATA id=1 from 0x22 payload=220001 (total=4)
+[C(0xCC)] 08:49:20.122 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[B(0xBB)] 08:49:20.272 [TX] ACK id=1 → 0x22
+[R2(0x22)] 08:49:20.275 [RX] ACK id=1 PDR=50.0%
+[C(0xCC)] 08:49:20.530 [SNIFF] Hello from 0xBB metric=0 seq=1
+[B(0xBB)] 08:49:20.534 [TX] Hello seq=1 (hello #2)
+[R3(0x33)] 08:49:21.286 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R2(0x22)] 08:49:21.289 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R1(0x11)] 08:49:21.291 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[C(0xCC)] 08:49:21.294 [SNIFF] Hello from 0x22 metric=1 seq=4
+[A(0xAA)] 08:49:24.600 [TX] DATA id=2 via=0xCC (BLACK HOLE!) PDR=0.0%
+[C(0xCC)] 08:49:24.600 [BLACKHOLE] DROP data src=0xAA dst=0xCC pkt_id=2 (total_dropped=5)
+[A(0xAA)] 08:49:24.601 [WARN] Routing to attacker 0xCC — expect no ACK
+[C(0xCC)] 08:49:24.601 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[R3(0x33)] 08:49:24.668 [TX] DATA id=2 via=0xBB
+[R1(0x11)] 08:49:24.670 [TX] DATA id=2 via=0xBB
+[B(0xBB)] 08:49:25.123 [RX] DATA id=2 from 0x22 payload=220002 (total=5)
+[C(0xCC)] 08:49:25.124 [BLACKHOLE] DROP data src=0x22 dst=0xCC pkt_id=2 (total_dropped=6)
+[R2(0x22)] 08:49:25.124 [TX] DATA id=2 via=0xCC
+[C(0xCC)] 08:49:25.124 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[R2(0x22)] 08:49:25.274 [RX] ACK id=2 PDR=66.7%
+[B(0xBB)] 08:49:25.275 [TX] ACK id=2 → 0x22
+[C(0xCC)] 08:49:26.622 [BLACKHOLE] Hello sent: seq=2 metric=0 HMAC=VALID (#3)
+[C(0xCC)] 08:49:26.623 [BLACKHOLE] Honest nodes will update: NH=0xCC metric=1
+[C(0xCC)] 08:49:26.623 [BLACKHOLE] HMAC patch: ACCEPTS (PSK valid) → route poisoned
+[R1(0x11)] 08:49:27.377 [RELAY] Re-broadcast Hello metric=1 (learned from 0xCC metric=0)
+[R2(0x22)] 08:49:27.377 [RELAY] Re-broadcast Hello metric=1 (learned from 0xCC metric=0)
+[R3(0x33)] 08:49:27.380 [RELAY] Re-broadcast Hello metric=1 (learned from 0xCC metric=0)
+[C(0xCC)] 08:49:27.390 [SNIFF] Hello from 0x22 metric=1 seq=5
+[C(0xCC)] 08:49:29.596 [BLACKHOLE] DROP data src=0xAA dst=0xCC pkt_id=3 (total_dropped=7)
+[C(0xCC)] 08:49:29.596 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[A(0xAA)] 08:49:29.602 [TX] DATA id=3 via=0xCC (BLACK HOLE!) PDR=0.0%
+[A(0xAA)] 08:49:29.602 [WARN] Routing to attacker 0xCC — expect no ACK
+[R1(0x11)] 08:49:29.666 [TX] DATA id=3 via=0xBB
+[R3(0x33)] 08:49:29.667 [TX] DATA id=3 via=0xBB
+[R2(0x22)] 08:49:30.118 [TX] DATA id=3 via=0xCC
+[B(0xBB)] 08:49:30.122 [RX] DATA id=3 from 0x22 payload=220003 (total=6)
+[C(0xCC)] 08:49:30.128 [BLACKHOLE] DROP data src=0x22 dst=0xCC pkt_id=3 (total_dropped=8)
+[C(0xCC)] 08:49:30.129 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[B(0xBB)] 08:49:30.265 [TX] ACK id=3 → 0x22
+[R2(0x22)] 08:49:30.273 [RX] ACK id=3 PDR=75.0%
+[B(0xBB)] 08:49:30.533 [TX] Hello seq=2 (hello #3)
+[C(0xCC)] 08:49:30.533 [SNIFF] Hello from 0xBB metric=0 seq=2
+[R1(0x11)] 08:49:31.284 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R2(0x22)] 08:49:31.287 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[C(0xCC)] 08:49:31.287 [SNIFF] Hello from 0x22 metric=1 seq=6
+[R3(0x33)] 08:49:31.292 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[A(0xAA)] 08:49:34.600 [TX] DATA id=4 via=0xCC (BLACK HOLE!) PDR=0.0%
+[A(0xAA)] 08:49:34.600 [WARN] Routing to attacker 0xCC — expect no ACK
+[C(0xCC)] 08:49:34.624 [BLACKHOLE] Hello sent: seq=3 metric=0 HMAC=VALID (#4)
+[C(0xCC)] 08:49:34.624 [BLACKHOLE] Honest nodes will update: NH=0xCC metric=1
+[C(0xCC)] 08:49:34.624 [BLACKHOLE] HMAC patch: ACCEPTS (PSK valid) → route poisoned
+[R1(0x11)] 08:49:34.671 [TX] DATA id=4 via=0xBB
+[R3(0x33)] 08:49:34.671 [TX] DATA id=4 via=0xBB
+[B(0xBB)] 08:49:34.671 [RX] DATA id=4 from 0x33 payload=330004 (total=7)
+[B(0xBB)] 08:49:34.819 [TX] ACK id=4 → 0x33
+[R3(0x33)] 08:49:34.822 [RX] ACK id=4 PDR=60.0%
+[R2(0x22)] 08:49:35.127 [TX] DATA id=4 via=0xCC
+[C(0xCC)] 08:49:35.128 [BLACKHOLE] DROP data src=0x22 dst=0xCC pkt_id=4 (total_dropped=9)
+[B(0xBB)] 08:49:35.128 [RX] DATA id=4 from 0x22 payload=220004 (total=8)
+[C(0xCC)] 08:49:35.129 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[B(0xBB)] 08:49:35.270 [TX] ACK id=4 → 0x22
+[R2(0x22)] 08:49:35.272 [RX] ACK id=4 PDR=80.0%
+[C(0xCC)] 08:49:39.596 [BLACKHOLE] DROP data src=0xAA dst=0xCC pkt_id=5 (total_dropped=10)
+[A(0xAA)] 08:49:39.596 [TX] DATA id=5 via=0xCC (BLACK HOLE!) PDR=0.0%
+[C(0xCC)] 08:49:39.596 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[A(0xAA)] 08:49:39.597 [WARN] Routing to attacker 0xCC — expect no ACK
+[R3(0x33)] 08:49:39.675 [TX] DATA id=5 via=0xBB
+[R1(0x11)] 08:49:39.675 [TX] DATA id=5 via=0xBB
+[B(0xBB)] 08:49:39.681 [RX] DATA id=5 from 0x33 payload=330005 (total=9)
+[B(0xBB)] 08:49:39.823 [TX] ACK id=5 → 0x33
+[R3(0x33)] 08:49:39.824 [RX] ACK id=5 PDR=66.7%
+[B(0xBB)] 08:49:40.122 [RX] DATA id=5 from 0x22 payload=220005 (total=10)
+[C(0xCC)] 08:49:40.122 [BLACKHOLE] DROP data src=0x22 dst=0xCC pkt_id=5 (total_dropped=11)
+[C(0xCC)] 08:49:40.123 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[R2(0x22)] 08:49:40.125 [TX] DATA id=5 via=0xCC
+[R2(0x22)] 08:49:40.268 [RX] ACK id=5 PDR=83.3%
+[B(0xBB)] 08:49:40.274 [TX] ACK id=5 → 0x22
+[C(0xCC)] 08:49:40.530 [SNIFF] Hello from 0xBB metric=0 seq=3
+[R3(0x33)] 08:49:40.533 [ROUTE] NH=0xBB metric=1
+[B(0xBB)] 08:49:40.534 [TX] Hello seq=3 (hello #4)
+[R1(0x11)] 08:49:40.536 [ROUTE] NH=0xBB metric=1
+[R1(0x11)] 08:49:41.288 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R3(0x33)] 08:49:41.290 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[C(0xCC)] 08:49:41.290 [SNIFF] Hello from 0x22 metric=1 seq=7
+[R2(0x22)] 08:49:41.295 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[C(0xCC)] 08:49:42.623 [BLACKHOLE] Hello sent: seq=4 metric=0 HMAC=VALID (#5)
+[C(0xCC)] 08:49:42.624 [BLACKHOLE] Honest nodes will update: NH=0xCC metric=1
+[C(0xCC)] 08:49:42.624 [BLACKHOLE] HMAC patch: ACCEPTS (PSK valid) → route poisoned
+[R3(0x33)] 08:49:43.377 [RELAY] Re-broadcast Hello metric=1 (learned from 0xCC metric=0)
+[R1(0x11)] 08:49:43.381 [RELAY] Re-broadcast Hello metric=1 (learned from 0xCC metric=0)
+[C(0xCC)] 08:49:43.383 [SNIFF] Hello from 0x22 metric=1 seq=8
+[R2(0x22)] 08:49:43.383 [RELAY] Re-broadcast Hello metric=1 (learned from 0xCC metric=0)
+[C(0xCC)] 08:49:44.596 [BLACKHOLE] DROP data src=0xAA dst=0xCC pkt_id=6 (total_dropped=12)
+[C(0xCC)] 08:49:44.597 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[A(0xAA)] 08:49:44.602 [TX] DATA id=6 via=0xCC (BLACK HOLE!) PDR=0.0%
+[A(0xAA)] 08:49:44.602 [WARN] Routing to attacker 0xCC — expect no ACK
+[R3(0x33)] 08:49:44.668 [TX] DATA id=6 via=0xBB
+[R1(0x11)] 08:49:44.671 [TX] DATA id=6 via=0xBB
+[B(0xBB)] 08:49:44.673 [RX] DATA id=6 from 0x33 payload=330006 (total=11)
+[R3(0x33)] 08:49:44.823 [RX] ACK id=6 PDR=71.4%
+[B(0xBB)] 08:49:44.826 [TX] ACK id=6 → 0x33
+[R2(0x22)] 08:49:45.119 [TX] DATA id=6 via=0xCC
+[B(0xBB)] 08:49:45.119 [RX] DATA id=6 from 0x22 payload=220006 (total=12)
+[C(0xCC)] 08:49:45.119 [BLACKHOLE] DROP data src=0x22 dst=0xCC pkt_id=6 (total_dropped=13)
+[C(0xCC)] 08:49:45.120 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[R2(0x22)] 08:49:45.275 [RX] ACK id=6 PDR=85.7%
+[B(0xBB)] 08:49:45.275 [TX] ACK id=6 → 0x22
+[A(0xAA)] 08:49:49.596 [TX] DATA id=7 via=0xCC (BLACK HOLE!) PDR=0.0%
+[A(0xAA)] 08:49:49.596 [WARN] Routing to attacker 0xCC — expect no ACK
+[C(0xCC)] 08:49:49.598 [BLACKHOLE] DROP data src=0xAA dst=0xCC pkt_id=7 (total_dropped=14)
+[C(0xCC)] 08:49:49.598 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[R3(0x33)] 08:49:49.674 [TX] DATA id=7 via=0xBB
+[R1(0x11)] 08:49:49.675 [TX] DATA id=7 via=0xBB
+[R2(0x22)] 08:49:50.118 [TX] DATA id=7 via=0xCC
+[C(0xCC)] 08:49:50.124 [BLACKHOLE] DROP data src=0x22 dst=0xCC pkt_id=7 (total_dropped=15)
+[C(0xCC)] 08:49:50.125 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[B(0xBB)] 08:49:50.125 [RX] DATA id=7 from 0x22 payload=220007 (total=13)
+[R2(0x22)] 08:49:50.273 [RX] ACK id=7 PDR=87.5%
+[B(0xBB)] 08:49:50.273 [TX] ACK id=7 → 0x22
+[B(0xBB)] 08:49:50.531 [TX] Hello seq=4 (hello #5)
+[C(0xCC)] 08:49:50.625 [BLACKHOLE] Hello sent: seq=5 metric=0 HMAC=VALID (#6)
+[C(0xCC)] 08:49:50.625 [BLACKHOLE] Honest nodes will update: NH=0xCC metric=1
+[C(0xCC)] 08:49:50.626 [BLACKHOLE] HMAC patch: ACCEPTS (PSK valid) → route poisoned
+[R3(0x33)] 08:49:51.287 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R1(0x11)] 08:49:51.292 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[C(0xCC)] 08:49:51.294 [SNIFF] Hello from 0x33 metric=1 seq=9
+[R2(0x22)] 08:49:51.296 [ROUTE] NH=0x33 metric=2
+[A(0xAA)] 08:49:51.296 [ROUTE] Best NH=0x11 metric=2
+[R2(0x22)] 08:49:52.050 [RELAY] Re-broadcast Hello metric=2 (learned from 0x33 metric=1)
+[C(0xCC)] 08:49:52.054 [SNIFF] Hello from 0x22 metric=2 seq=9
+[R3(0x33)] 08:49:52.809 [RELAY] Re-broadcast Hello metric=3 (learned from 0x22 metric=2)
+[C(0xCC)] 08:49:52.810 [SNIFF] Hello from 0x33 metric=3 seq=10
+[R1(0x11)] 08:49:52.815 [RELAY] Re-broadcast Hello metric=3 (learned from 0x22 metric=2)
+[C(0xCC)] 08:49:53.573 [SNIFF] Hello from 0x22 metric=4 seq=10
+[R2(0x22)] 08:49:53.574 [RELAY] Re-broadcast Hello metric=4 (learned from 0x33 metric=3)
+[R3(0x33)] 08:49:54.335 [RELAY] Re-broadcast Hello metric=5 (learned from 0x22 metric=4)
+[R1(0x11)] 08:49:54.336 [RELAY] Re-broadcast Hello metric=5 (learned from 0x22 metric=4)
+[A(0xAA)] 08:49:54.595 [TX] DATA id=8 via=0x11 PDR=0.0%
+[R3(0x33)] 08:49:54.668 [TX] DATA id=8 via=0xBB
+[R1(0x11)] 08:49:54.674 [TX] DATA id=8 via=0xBB
+[B(0xBB)] 08:49:54.680 [RX] DATA id=8 from 0x33 payload=330008 (total=14)
+[R3(0x33)] 08:49:54.819 [RX] ACK id=8 PDR=66.7%
+[B(0xBB)] 08:49:54.821 [TX] ACK id=8 → 0x33
+[R2(0x22)] 08:49:55.118 [TX] DATA id=8 via=0x33
+[C(0xCC)] 08:49:55.119 [BLACKHOLE] DROP data src=0x22 dst=0x33 pkt_id=8 (total_dropped=16)
+[C(0xCC)] 08:49:55.119 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[B(0xBB)] 08:49:55.130 [RX] DATA id=8 from 0x22 payload=220008 (total=15)
+[B(0xBB)] 08:49:55.275 [TX] ACK id=8 → 0x22
+[R3(0x33)] 08:49:55.417 [FWD] DATA id=8 src=0x22 → 0xBB
+[R2(0x22)] 08:49:58.623 [ROUTE] NH=0xCC metric=1 — BLACK HOLE inserted (HMAC valid!)
+[C(0xCC)] 08:49:58.624 [BLACKHOLE] Hello sent: seq=6 metric=0 HMAC=VALID (#7)
+[C(0xCC)] 08:49:58.625 [BLACKHOLE] Honest nodes will update: NH=0xCC metric=1
+[C(0xCC)] 08:49:58.625 [BLACKHOLE] HMAC patch: ACCEPTS (PSK valid) → route poisoned
+[A(0xAA)] 08:49:58.631 [ROUTE] NH=0xCC metric=1 — ATTACKER INSERTED (HMAC passed!)
+[A(0xAA)] 08:49:58.631 [ROUTE] Black Hole attack SUCCESS: route table poisoned
+[R2(0x22)] 08:49:59.382 [RELAY] Re-broadcast Hello metric=1 (learned from 0xCC metric=0)
+[R3(0x33)] 08:49:59.388 [RELAY] Re-broadcast Hello metric=1 (learned from 0xCC metric=0)
+[R1(0x11)] 08:49:59.388 [RELAY] Re-broadcast Hello metric=1 (learned from 0xCC metric=0)
+[A(0xAA)] 08:49:59.591 [TX] DATA id=9 via=0xCC (BLACK HOLE!) PDR=0.0%
+[A(0xAA)] 08:49:59.592 [WARN] Routing to attacker 0xCC — expect no ACK
+[R3(0x33)] 08:49:59.674 [TX] DATA id=9 via=0xBB
+[R1(0x11)] 08:49:59.674 [TX] DATA id=9 via=0xBB
+[B(0xBB)] 08:49:59.680 [RX] DATA id=9 from 0x33 payload=330009 (total=16)
+[B(0xBB)] 08:49:59.823 [TX] ACK id=9 → 0x33
+[R3(0x33)] 08:49:59.825 [RX] ACK id=9 PDR=70.0%
+[R2(0x22)] 08:50:00.118 [TX] DATA id=9 via=0xCC
+[B(0xBB)] 08:50:00.119 [RX] DATA id=9 from 0x22 payload=220009 (total=17)
+[C(0xCC)] 08:50:00.121 [BLACKHOLE] DROP data src=0x22 dst=0xCC pkt_id=9 (total_dropped=17)
+[C(0xCC)] 08:50:00.121 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[R2(0x22)] 08:50:00.271 [RX] ACK id=9 PDR=80.0%
+[B(0xBB)] 08:50:00.271 [TX] ACK id=9 → 0x22
+[B(0xBB)] 08:50:00.526 [TX] Hello seq=5 (hello #6)
+[C(0xCC)] 08:50:00.533 [SNIFF] Hello from 0xBB metric=0 seq=5
+[R2(0x22)] 08:50:01.285 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[C(0xCC)] 08:50:01.288 [SNIFF] Hello from 0x22 metric=1 seq=12
+[R1(0x11)] 08:50:01.289 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R3(0x33)] 08:50:01.295 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[A(0xAA)] 08:50:04.598 [TX] DATA id=10 via=0xCC (BLACK HOLE!) PDR=0.0%
+[A(0xAA)] 08:50:04.599 [WARN] Routing to attacker 0xCC — expect no ACK
+[C(0xCC)] 08:50:04.606 [BLACKHOLE] DROP data src=0xAA dst=0xCC pkt_id=10 (total_dropped=18)
+[C(0xCC)] 08:50:04.606 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[R3(0x33)] 08:50:04.667 [TX] DATA id=10 via=0xBB
+[R1(0x11)] 08:50:04.675 [TX] DATA id=10 via=0xBB
+[B(0xBB)] 08:50:05.121 [RX] DATA id=10 from 0x22 payload=220010 (total=18)
+[C(0xCC)] 08:50:05.123 [BLACKHOLE] DROP data src=0x22 dst=0xCC pkt_id=10 (total_dropped=19)
+[R2(0x22)] 08:50:05.123 [TX] DATA id=10 via=0xCC
+[C(0xCC)] 08:50:05.123 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[B(0xBB)] 08:50:05.275 [TX] ACK id=10 → 0x22
+[R2(0x22)] 08:50:05.278 [RX] ACK id=10 PDR=81.8%
+[C(0xCC)] 08:50:06.624 [BLACKHOLE] Hello sent: seq=7 metric=0 HMAC=VALID (#8)
+[C(0xCC)] 08:50:06.625 [BLACKHOLE] Honest nodes will update: NH=0xCC metric=1
+[C(0xCC)] 08:50:06.625 [BLACKHOLE] HMAC patch: ACCEPTS (PSK valid) → route poisoned
+[R1(0x11)] 08:50:07.379 [RELAY] Re-broadcast Hello metric=1 (learned from 0xCC metric=0)
+[R2(0x22)] 08:50:07.387 [RELAY] Re-broadcast Hello metric=1 (learned from 0xCC metric=0)
+[R3(0x33)] 08:50:07.387 [RELAY] Re-broadcast Hello metric=1 (learned from 0xCC metric=0)
+[C(0xCC)] 08:50:07.390 [SNIFF] Hello from 0x22 metric=1 seq=13
+[C(0xCC)] 08:50:09.598 [BLACKHOLE] DROP data src=0xAA dst=0xCC pkt_id=11 (total_dropped=20)
+[C(0xCC)] 08:50:09.598 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[A(0xAA)] 08:50:09.600 [TX] DATA id=11 via=0xCC (BLACK HOLE!) PDR=0.0%
+[A(0xAA)] 08:50:09.600 [WARN] Routing to attacker 0xCC — expect no ACK
+[R1(0x11)] 08:50:09.669 [TX] DATA id=11 via=0xBB
+[R3(0x33)] 08:50:09.669 [TX] DATA id=11 via=0xBB
+[B(0xBB)] 08:50:09.681 [RX] DATA id=11 from 0x33 payload=330011 (total=19)
+[R3(0x33)] 08:50:09.823 [RX] ACK id=11 PDR=66.7%
+[B(0xBB)] 08:50:09.826 [TX] ACK id=11 → 0x33
+[R2(0x22)] 08:50:10.117 [TX] DATA id=11 via=0xCC
+[B(0xBB)] 08:50:10.126 [RX] DATA id=11 from 0x22 payload=220011 (total=20)
+[C(0xCC)] 08:50:10.127 [BLACKHOLE] DROP data src=0x22 dst=0xCC pkt_id=11 (total_dropped=21)
+[C(0xCC)] 08:50:10.128 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[R2(0x22)] 08:50:10.270 [RX] ACK id=11 PDR=83.3%
+[B(0xBB)] 08:50:10.270 [TX] ACK id=11 → 0x22
+[B(0xBB)] 08:50:10.533 [TX] Hello seq=6 (hello #7)
+[C(0xCC)] 08:50:10.537 [SNIFF] Hello from 0xBB metric=0 seq=6
+[R3(0x33)] 08:50:11.285 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R2(0x22)] 08:50:11.287 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R1(0x11)] 08:50:11.288 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[C(0xCC)] 08:50:11.298 [SNIFF] Hello from 0x22 metric=1 seq=14
+[A(0xAA)] 08:50:14.603 [TX] DATA id=12 via=0xCC (BLACK HOLE!) PDR=0.0%
+[A(0xAA)] 08:50:14.604 [WARN] Routing to attacker 0xCC — expect no ACK
+[C(0xCC)] 08:50:14.617 [BLACKHOLE] Hello sent: seq=8 metric=0 HMAC=VALID (#9)
+[C(0xCC)] 08:50:14.617 [BLACKHOLE] Honest nodes will update: NH=0xCC metric=1
+[C(0xCC)] 08:50:14.617 [BLACKHOLE] HMAC patch: ACCEPTS (PSK valid) → route poisoned
+[R3(0x33)] 08:50:14.670 [TX] DATA id=12 via=0xBB
+[R1(0x11)] 08:50:14.674 [TX] DATA id=12 via=0xBB
+[B(0xBB)] 08:50:14.679 [RX] DATA id=12 from 0x33 payload=330012 (total=21)
+[B(0xBB)] 08:50:14.821 [TX] ACK id=12 → 0x33
+[R3(0x33)] 08:50:14.826 [RX] ACK id=12 PDR=69.2%
+[R2(0x22)] 08:50:15.118 [TX] DATA id=12 via=0xCC
+[C(0xCC)] 08:50:15.120 [BLACKHOLE] DROP data src=0x22 dst=0xCC pkt_id=12 (total_dropped=22)
+[C(0xCC)] 08:50:15.121 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[B(0xBB)] 08:50:15.131 [RX] DATA id=12 from 0x22 payload=220012 (total=22)
+[R2(0x22)] 08:50:15.272 [RX] ACK id=12 PDR=84.6%
+[B(0xBB)] 08:50:15.276 [TX] ACK id=12 → 0x22
+[A(0xAA)] 08:50:19.594 [TX] DATA id=13 via=0xCC (BLACK HOLE!) PDR=0.0%
+[A(0xAA)] 08:50:19.594 [WARN] Routing to attacker 0xCC — expect no ACK
+[C(0xCC)] 08:50:19.606 [BLACKHOLE] DROP data src=0xAA dst=0xCC pkt_id=13 (total_dropped=23)
+[C(0xCC)] 08:50:19.606 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[R3(0x33)] 08:50:19.667 [TX] DATA id=13 via=0xBB
+[R1(0x11)] 08:50:19.677 [TX] DATA id=13 via=0xBB
+[R2(0x22)] 08:50:20.120 [TX] DATA id=13 via=0xCC
+[C(0xCC)] 08:50:20.121 [BLACKHOLE] DROP data src=0x22 dst=0xCC pkt_id=13 (total_dropped=24)
+[C(0xCC)] 08:50:20.122 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[B(0xBB)] 08:50:20.131 [RX] DATA id=13 from 0x22 payload=220013 (total=23)
+[B(0xBB)] 08:50:20.276 [TX] ACK id=13 → 0x22
+[R2(0x22)] 08:50:20.278 [RX] ACK id=13 PDR=85.7%
+[R3(0x33)] 08:50:20.527 [ROUTE] NH=0xBB metric=1
+[R1(0x11)] 08:50:20.527 [ROUTE] NH=0xBB metric=1
+[B(0xBB)] 08:50:20.528 [TX] Hello seq=7 (hello #8)
+[C(0xCC)] 08:50:20.537 [SNIFF] Hello from 0xBB metric=0 seq=7
+[R2(0x22)] 08:50:21.291 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[C(0xCC)] 08:50:21.291 [SNIFF] Hello from 0x22 metric=1 seq=15
+[R1(0x11)] 08:50:21.293 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R3(0x33)] 08:50:21.295 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[C(0xCC)] 08:50:22.621 [BLACKHOLE] Hello sent: seq=9 metric=0 HMAC=VALID (#10)
+[C(0xCC)] 08:50:22.621 [BLACKHOLE] Honest nodes will update: NH=0xCC metric=1
+[C(0xCC)] 08:50:22.621 [BLACKHOLE] HMAC patch: ACCEPTS (PSK valid) → route poisoned
+[R3(0x33)] 08:50:23.381 [RELAY] Re-broadcast Hello metric=1 (learned from 0xCC metric=0)
+[R1(0x11)] 08:50:23.382 [RELAY] Re-broadcast Hello metric=1 (learned from 0xCC metric=0)
+[R2(0x22)] 08:50:23.382 [RELAY] Re-broadcast Hello metric=1 (learned from 0xCC metric=0)
+[C(0xCC)] 08:50:23.386 [SNIFF] Hello from 0x22 metric=1 seq=16
+[A(0xAA)] 08:50:24.592 [TX] DATA id=14 via=0xCC (BLACK HOLE!) PDR=0.0%
+[A(0xAA)] 08:50:24.593 [WARN] Routing to attacker 0xCC — expect no ACK
+[C(0xCC)] 08:50:24.604 [BLACKHOLE] DROP data src=0xAA dst=0xCC pkt_id=14 (total_dropped=25)
+[C(0xCC)] 08:50:24.604 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[R1(0x11)] 08:50:24.668 [TX] DATA id=14 via=0xBB
+[B(0xBB)] 08:50:24.671 [RX] DATA id=14 from 0x33 payload=330014 (total=24)
+[R3(0x33)] 08:50:24.674 [TX] DATA id=14 via=0xBB
+[R3(0x33)] 08:50:24.822 [RX] ACK id=14 PDR=66.7%
+[B(0xBB)] 08:50:24.826 [TX] ACK id=14 → 0x33
+[C(0xCC)] 08:50:25.122 [BLACKHOLE] DROP data src=0x22 dst=0xCC pkt_id=14 (total_dropped=26)
+[C(0xCC)] 08:50:25.123 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[R2(0x22)] 08:50:25.125 [TX] DATA id=14 via=0xCC
+[B(0xBB)] 08:50:25.126 [RX] DATA id=14 from 0x22 payload=220014 (total=25)
+[B(0xBB)] 08:50:25.267 [TX] ACK id=14 → 0x22
+[R2(0x22)] 08:50:25.276 [RX] ACK id=14 PDR=86.7%
+[C(0xCC)] 08:50:29.597 [BLACKHOLE] DROP data src=0xAA dst=0xCC pkt_id=15 (total_dropped=27)
+[C(0xCC)] 08:50:29.597 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[A(0xAA)] 08:50:29.599 [TX] DATA id=15 via=0xCC (BLACK HOLE!) PDR=0.0%
+[A(0xAA)] 08:50:29.599 [WARN] Routing to attacker 0xCC — expect no ACK
+[R3(0x33)] 08:50:29.674 [TX] DATA id=15 via=0xBB
+[R1(0x11)] 08:50:29.675 [TX] DATA id=15 via=0xBB
+[B(0xBB)] 08:50:29.682 [RX] DATA id=15 from 0x33 payload=330015 (total=26)
+[B(0xBB)] 08:50:29.823 [TX] ACK id=15 → 0x33
+[R3(0x33)] 08:50:29.831 [RX] ACK id=15 PDR=68.8%
+[R2(0x22)] 08:50:30.122 [TX] DATA id=15 via=0xCC
+[B(0xBB)] 08:50:30.125 [RX] DATA id=15 from 0x22 payload=220015 (total=27)
+[C(0xCC)] 08:50:30.125 [BLACKHOLE] DROP data src=0x22 dst=0xCC pkt_id=15 (total_dropped=28)
+[C(0xCC)] 08:50:30.126 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[B(0xBB)] 08:50:30.266 [TX] ACK id=15 → 0x22
+[R2(0x22)] 08:50:30.269 [RX] ACK id=15 PDR=87.5%
+[B(0xBB)] 08:50:30.526 [TX] Hello seq=8 (hello #9)
+[C(0xCC)] 08:50:30.625 [BLACKHOLE] Hello sent: seq=10 metric=0 HMAC=VALID (#11)
+[C(0xCC)] 08:50:30.625 [BLACKHOLE] Honest nodes will update: NH=0xCC metric=1
+[C(0xCC)] 08:50:30.625 [BLACKHOLE] HMAC patch: ACCEPTS (PSK valid) → route poisoned
+[C(0xCC)] 08:50:31.291 [SNIFF] Hello from 0x33 metric=1 seq=18
+[R1(0x11)] 08:50:31.294 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R3(0x33)] 08:50:31.294 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R2(0x22)] 08:50:31.299 [ROUTE] NH=0x33 metric=2
+[A(0xAA)] 08:50:31.300 [ROUTE] Best NH=0x11 metric=2
+[R2(0x22)] 08:50:32.057 [RELAY] Re-broadcast Hello metric=2 (learned from 0x33 metric=1)
+[C(0xCC)] 08:50:32.057 [SNIFF] Hello from 0x22 metric=2 seq=17
+[R3(0x33)] 08:50:32.809 [RELAY] Re-broadcast Hello metric=3 (learned from 0x22 metric=2)
+[C(0xCC)] 08:50:32.810 [SNIFF] Hello from 0x33 metric=3 seq=19
+[R1(0x11)] 08:50:32.817 [RELAY] Re-broadcast Hello metric=3 (learned from 0x22 metric=2)
+[R2(0x22)] 08:50:33.577 [RELAY] Re-broadcast Hello metric=4 (learned from 0x33 metric=3)
+[C(0xCC)] 08:50:33.579 [SNIFF] Hello from 0x22 metric=4 seq=18
+[R3(0x33)] 08:50:34.330 [RELAY] Re-broadcast Hello metric=5 (learned from 0x22 metric=4)
+[R1(0x11)] 08:50:34.334 [RELAY] Re-broadcast Hello metric=5 (learned from 0x22 metric=4)
+[A(0xAA)] 08:50:34.595 [TX] DATA id=16 via=0x11 PDR=0.0%
+[R3(0x33)] 08:50:34.670 [TX] DATA id=16 via=0xBB
+[R1(0x11)] 08:50:34.670 [TX] DATA id=16 via=0xBB
+[B(0xBB)] 08:50:34.678 [RX] DATA id=16 from 0x33 payload=330016 (total=28)
+[B(0xBB)] 08:50:34.819 [TX] ACK id=16 → 0x33
+[R3(0x33)] 08:50:34.827 [RX] ACK id=16 PDR=70.6%
+[C(0xCC)] 08:50:35.120 [BLACKHOLE] DROP data src=0x22 dst=0x33 pkt_id=16 (total_dropped=29)
+[C(0xCC)] 08:50:35.121 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[B(0xBB)] 08:50:35.127 [RX] DATA id=16 from 0x22 payload=220016 (total=29)
+[R2(0x22)] 08:50:35.127 [TX] DATA id=16 via=0x33
+[B(0xBB)] 08:50:35.272 [TX] ACK id=16 → 0x22
+[R3(0x33)] 08:50:35.417 [FWD] DATA id=16 src=0x22 → 0xBB
+[A(0xAA)] 08:50:38.620 [ROUTE] NH=0xCC metric=1 — ATTACKER INSERTED (HMAC passed!)
+[A(0xAA)] 08:50:38.621 [ROUTE] Black Hole attack SUCCESS: route table poisoned
+[R2(0x22)] 08:50:38.622 [ROUTE] NH=0xCC metric=1 — BLACK HOLE inserted (HMAC valid!)
+[C(0xCC)] 08:50:38.625 [BLACKHOLE] Hello sent: seq=11 metric=0 HMAC=VALID (#12)
+[C(0xCC)] 08:50:38.625 [BLACKHOLE] Honest nodes will update: NH=0xCC metric=1
+[C(0xCC)] 08:50:38.625 [BLACKHOLE] HMAC patch: ACCEPTS (PSK valid) → route poisoned
+[R2(0x22)] 08:50:39.384 [RELAY] Re-broadcast Hello metric=1 (learned from 0xCC metric=0)
+[R3(0x33)] 08:50:39.384 [RELAY] Re-broadcast Hello metric=1 (learned from 0xCC metric=0)
+[R1(0x11)] 08:50:39.388 [RELAY] Re-broadcast Hello metric=1 (learned from 0xCC metric=0)
+[A(0xAA)] 08:50:39.596 [TX] DATA id=17 via=0xCC (BLACK HOLE!) PDR=0.0%
+[A(0xAA)] 08:50:39.597 [WARN] Routing to attacker 0xCC — expect no ACK
+[R1(0x11)] 08:50:39.668 [TX] DATA id=17 via=0xBB
+[B(0xBB)] 08:50:39.679 [RX] DATA id=17 from 0x33 payload=330017 (total=30)
+[R3(0x33)] 08:50:39.680 [TX] DATA id=17 via=0xBB
+[R3(0x33)] 08:50:39.821 [RX] ACK id=17 PDR=72.2%
+[B(0xBB)] 08:50:39.822 [TX] ACK id=17 → 0x33
+[R2(0x22)] 08:50:40.117 [TX] DATA id=17 via=0xCC
+[C(0xCC)] 08:50:40.126 [BLACKHOLE] DROP data src=0x22 dst=0xCC pkt_id=17 (total_dropped=30)
+[C(0xCC)] 08:50:40.127 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[B(0xBB)] 08:50:40.129 [RX] DATA id=17 from 0x22 payload=220017 (total=31)
+[R2(0x22)] 08:50:40.274 [RX] ACK id=17 PDR=83.3%
+[B(0xBB)] 08:50:40.274 [TX] ACK id=17 → 0x22
+[C(0xCC)] 08:50:40.528 [SNIFF] Hello from 0xBB metric=0 seq=9
+[B(0xBB)] 08:50:40.532 [TX] Hello seq=9 (hello #10)
+[C(0xCC)] 08:50:41.289 [SNIFF] Hello from 0x22 metric=1 seq=20
+[R3(0x33)] 08:50:41.291 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R1(0x11)] 08:50:41.291 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R2(0x22)] 08:50:41.292 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[A(0xAA)] 08:50:44.592 [TX] DATA id=18 via=0xCC (BLACK HOLE!) PDR=0.0%
+[A(0xAA)] 08:50:44.593 [WARN] Routing to attacker 0xCC — expect no ACK
+[C(0xCC)] 08:50:44.603 [BLACKHOLE] DROP data src=0xAA dst=0xCC pkt_id=18 (total_dropped=31)
+[C(0xCC)] 08:50:44.604 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[B(0xBB)] 08:50:44.672 [RX] DATA id=18 from 0x33 payload=330018 (total=32)
+[R3(0x33)] 08:50:44.672 [TX] DATA id=18 via=0xBB
+[R1(0x11)] 08:50:44.672 [TX] DATA id=18 via=0xBB
+[R3(0x33)] 08:50:44.824 [RX] ACK id=18 PDR=73.7%
+[B(0xBB)] 08:50:44.824 [TX] ACK id=18 → 0x33
+[B(0xBB)] 08:50:45.122 [RX] DATA id=18 from 0x22 payload=220018 (total=33)
+[R2(0x22)] 08:50:45.122 [TX] DATA id=18 via=0xCC
+[C(0xCC)] 08:50:45.128 [BLACKHOLE] DROP data src=0x22 dst=0xCC pkt_id=18 (total_dropped=32)
+[C(0xCC)] 08:50:45.128 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[B(0xBB)] 08:50:45.273 [TX] ACK id=18 → 0x22
+[R2(0x22)] 08:50:45.275 [RX] ACK id=18 PDR=84.2%
+[C(0xCC)] 08:50:46.618 [BLACKHOLE] Hello sent: seq=12 metric=0 HMAC=VALID (#13)
+[C(0xCC)] 08:50:46.619 [BLACKHOLE] Honest nodes will update: NH=0xCC metric=1
+[C(0xCC)] 08:50:46.619 [BLACKHOLE] HMAC patch: ACCEPTS (PSK valid) → route poisoned
+[R3(0x33)] 08:50:47.378 [RELAY] Re-broadcast Hello metric=1 (learned from 0xCC metric=0)
+[R1(0x11)] 08:50:47.378 [RELAY] Re-broadcast Hello metric=1 (learned from 0xCC metric=0)
+[R2(0x22)] 08:50:47.388 [RELAY] Re-broadcast Hello metric=1 (learned from 0xCC metric=0)
+[C(0xCC)] 08:50:47.388 [SNIFF] Hello from 0x22 metric=1 seq=21
+[A(0xAA)] 08:50:49.598 [TX] DATA id=19 via=0xCC (BLACK HOLE!) PDR=0.0%
+[A(0xAA)] 08:50:49.599 [WARN] Routing to attacker 0xCC — expect no ACK
+[C(0xCC)] 08:50:49.602 [BLACKHOLE] DROP data src=0xAA dst=0xCC pkt_id=19 (total_dropped=33)
+[C(0xCC)] 08:50:49.603 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[R3(0x33)] 08:50:49.671 [TX] DATA id=19 via=0xBB
+[R1(0x11)] 08:50:49.676 [TX] DATA id=19 via=0xBB
+[R2(0x22)] 08:50:50.127 [TX] DATA id=19 via=0xCC
+[C(0xCC)] 08:50:50.127 [BLACKHOLE] DROP data src=0x22 dst=0xCC pkt_id=19 (total_dropped=34)
+[C(0xCC)] 08:50:50.128 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[B(0xBB)] 08:50:50.131 [RX] DATA id=19 from 0x22 payload=220019 (total=34)
+[B(0xBB)] 08:50:50.271 [TX] ACK id=19 → 0x22
+[R2(0x22)] 08:50:50.277 [RX] ACK id=19 PDR=85.0%
+[B(0xBB)] 08:50:50.526 [TX] Hello seq=10 (hello #11)
+[C(0xCC)] 08:50:50.528 [SNIFF] Hello from 0xBB metric=0 seq=10
+[R2(0x22)] 08:50:51.294 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[C(0xCC)] 08:50:51.293 [SNIFF] Hello from 0x22 metric=1 seq=22
+[R3(0x33)] 08:50:51.294 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R1(0x11)] 08:50:51.294 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[A(0xAA)] 08:50:54.595 [TX] DATA id=20 via=0xCC (BLACK HOLE!) PDR=0.0%
+[A(0xAA)] 08:50:54.595 [WARN] Routing to attacker 0xCC — expect no ACK
+[C(0xCC)] 08:50:54.628 [BLACKHOLE] Hello sent: seq=13 metric=0 HMAC=VALID (#14)
+[C(0xCC)] 08:50:54.628 [BLACKHOLE] Honest nodes will update: NH=0xCC metric=1
+[C(0xCC)] 08:50:54.629 [BLACKHOLE] HMAC patch: ACCEPTS (PSK valid) → route poisoned
+[R1(0x11)] 08:50:54.671 [TX] DATA id=20 via=0xBB
+[R3(0x33)] 08:50:54.675 [TX] DATA id=20 via=0xBB
+[B(0xBB)] 08:50:54.683 [RX] DATA id=20 from 0x33 payload=330020 (total=35)
+[B(0xBB)] 08:50:54.827 [TX] ACK id=20 → 0x33
+[R3(0x33)] 08:50:54.832 [RX] ACK id=20 PDR=71.4%
+[R2(0x22)] 08:50:55.119 [TX] DATA id=20 via=0xCC
+[C(0xCC)] 08:50:55.122 [BLACKHOLE] DROP data src=0x22 dst=0xCC pkt_id=20 (total_dropped=35)
+[C(0xCC)] 08:50:55.123 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[B(0xBB)] 08:50:55.126 [RX] DATA id=20 from 0x22 payload=220020 (total=36)
+[B(0xBB)] 08:50:55.271 [TX] ACK id=20 → 0x22
+[R2(0x22)] 08:50:55.273 [RX] ACK id=20 PDR=85.7%
+[A(0xAA)] 08:50:59.595 [TX] DATA id=21 via=0xCC (BLACK HOLE!) PDR=0.0%
+[A(0xAA)] 08:50:59.596 [WARN] Routing to attacker 0xCC — expect no ACK
+[C(0xCC)] 08:50:59.606 [BLACKHOLE] DROP data src=0xAA dst=0xCC pkt_id=21 (total_dropped=36)
+[C(0xCC)] 08:50:59.606 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[R3(0x33)] 08:50:59.671 [TX] DATA id=21 via=0xBB
+[R1(0x11)] 08:50:59.673 [TX] DATA id=21 via=0xBB
+[R2(0x22)] 08:51:00.123 [TX] DATA id=21 via=0xCC
+[C(0xCC)] 08:51:00.125 [BLACKHOLE] DROP data src=0x22 dst=0xCC pkt_id=21 (total_dropped=37)
+[B(0xBB)] 08:51:00.125 [RX] DATA id=21 from 0x22 payload=220021 (total=37)
+[C(0xCC)] 08:51:00.125 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[B(0xBB)] 08:51:00.271 [TX] ACK id=21 → 0x22
+[R2(0x22)] 08:51:00.276 [RX] ACK id=21 PDR=86.4%
+[R3(0x33)] 08:51:00.528 [ROUTE] NH=0xBB metric=1
+[R1(0x11)] 08:51:00.530 [ROUTE] NH=0xBB metric=1
+[B(0xBB)] 08:51:00.534 [TX] Hello seq=11 (hello #12)
+[C(0xCC)] 08:51:00.538 [SNIFF] Hello from 0xBB metric=0 seq=11
+[R2(0x22)] 08:51:01.289 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R1(0x11)] 08:51:01.291 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R3(0x33)] 08:51:01.294 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[C(0xCC)] 08:51:01.298 [SNIFF] Hello from 0x22 metric=1 seq=23
+[C(0xCC)] 08:51:02.628 [BLACKHOLE] Hello sent: seq=14 metric=0 HMAC=VALID (#15)
+[C(0xCC)] 08:51:02.628 [BLACKHOLE] Honest nodes will update: NH=0xCC metric=1
+[C(0xCC)] 08:51:02.629 [BLACKHOLE] HMAC patch: ACCEPTS (PSK valid) → route poisoned
+[C(0xCC)] 08:51:03.385 [SNIFF] Hello from 0x22 metric=1 seq=24
+[R3(0x33)] 08:51:03.385 [RELAY] Re-broadcast Hello metric=1 (learned from 0xCC metric=0)
+[R2(0x22)] 08:51:03.387 [RELAY] Re-broadcast Hello metric=1 (learned from 0xCC metric=0)
+[R1(0x11)] 08:51:03.388 [RELAY] Re-broadcast Hello metric=1 (learned from 0xCC metric=0)
+[A(0xAA)] 08:51:04.592 [TX] DATA id=22 via=0xCC (BLACK HOLE!) PDR=0.0%
+[A(0xAA)] 08:51:04.593 [WARN] Routing to attacker 0xCC — expect no ACK
+[C(0xCC)] 08:51:04.603 [BLACKHOLE] DROP data src=0xAA dst=0xCC pkt_id=22 (total_dropped=38)
+[C(0xCC)] 08:51:04.604 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[R3(0x33)] 08:51:04.676 [TX] DATA id=22 via=0xBB
+[R1(0x11)] 08:51:04.676 [TX] DATA id=22 via=0xBB
+[C(0xCC)] 08:51:05.120 [BLACKHOLE] DROP data src=0x22 dst=0xCC pkt_id=22 (total_dropped=39)
+[C(0xCC)] 08:51:05.120 [BLACKHOLE] Gateway sees: SILENCE (PDR=0%)
+[R2(0x22)] 08:51:05.120 [TX] DATA id=22 via=0xCC
+[B(0xBB)] 08:51:05.130 [RX] DATA id=22 from 0x22 payload=220022 (total=38)
+[B(0xBB)] 08:51:05.272 [TX] ACK id=22 → 0x22
+[R2(0x22)] 08:51:05.272 [RX] ACK id=22 PDR=87.0%

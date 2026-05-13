@@ -1,0 +1,22 @@
+[R2(0x22)] 08:44:45.388 ESP-ROM:esp32s3-20210327
+[R2(0x22)] 08:44:45.391 Build:Mar 27 2021
+[R2(0x22)] 08:44:45.391 rst:0x15 (USB_UART_CHIP_RESET),boot:0x19 (SPI_FAST_FLASH_BOOT)
+[R2(0x22)] 08:44:45.393 Saved PC:0x4037ce2a
+[R2(0x22)] 08:44:45.393 SPIWP:0xee
+[R2(0x22)] 08:44:45.393 mode:DIO, clock div:1
+[R2(0x22)] 08:44:45.393 load:0x3fce2820,len:0x10cc
+[R2(0x22)] 08:44:45.395 load:0x403c8700,len:0xc2c
+[R2(0x22)] 08:44:45.395 load:0x403cb700,len:0x30c0
+[R2(0x22)] 08:44:45.496 entry 0x403c88b8
+[R2(0x22)] 08:44:45.805 
+[R2(0x22)] 08:44:45.805 === E7 Relay 0x22 (honest, SECURITY_MODE=1) ===
+[R2(0x22)] 08:44:45.805 [INFO] Demonstrates: insider Black Hole bypasses HMAC patch.
+[R2(0x22)] 08:44:45.805 [INFO] This relay will accept 0xCC's Hello (valid HMAC) and route into black hole.
+[R2(0x22)] 08:44:45.910 [RADIO] SX1262 ready @ 923 MHz AS923
+[R2(0x22)] 08:44:47.038 [ROUTE] NH=0x33 metric=2
+[R2(0x22)] 08:44:47.757 [RELAY] Re-broadcast Hello metric=2 (learned from 0x33 metric=1)
+[R2(0x22)] 08:44:48.679 ESP-ROM:esp32s3-20210327
+[R2(0x22)] 08:44:48.679 Build:Mar 27 2021
+[R2(0x22)] 08:44:48.679 rst:0x15 (USB_UART_CHIP_RESET),boot:0x11 (DOWNLOAD(USB/UART0))
+[R2(0x22)] 08:44:48.679 Saved PC:0x4037ce2a
+[R2(0x22)] 08:44:48.679 waiting for download

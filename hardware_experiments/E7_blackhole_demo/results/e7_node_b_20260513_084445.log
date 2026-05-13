@@ -1,0 +1,22 @@
+[B(0xBB)] 08:44:45.388 ESP-ROM:esp32s3-20210327
+[B(0xBB)] 08:44:45.390 Build:Mar 27 2021
+[B(0xBB)] 08:44:45.390 rst:0x15 (USB_UART_CHIP_RESET),boot:0x19 (SPI_FAST_FLASH_BOOT)
+[B(0xBB)] 08:44:45.390 Saved PC:0x4037ce2a
+[B(0xBB)] 08:44:45.391 SPIWP:0xee
+[B(0xBB)] 08:44:45.394 mode:DIO, clock div:1
+[B(0xBB)] 08:44:45.394 load:0x3fce2820,len:0x10cc
+[B(0xBB)] 08:44:45.394 load:0x403c8700,len:0xc2c
+[B(0xBB)] 08:44:45.394 load:0x403cb700,len:0x30c0
+[B(0xBB)] 08:44:45.499 entry 0x403c88b8
+[B(0xBB)] 08:44:45.743 
+[B(0xBB)] 08:44:45.743 === E7 Node B (GATEWAY — honest, SECURITY_MODE=1) ===
+[B(0xBB)] 08:44:45.743 [INFO] Gateway broadcasts Hello. Insider attacker (0xCC) races with own Hello.
+[B(0xBB)] 08:44:45.743 [INFO] All honest nodes route to 0xCC (Black Hole). PDR drops to 0%.
+[B(0xBB)] 08:44:45.846 [INFO] This gateway cannot detect the Black Hole — it just observes silence.
+[B(0xBB)] 08:44:45.846 [RADIO] SX1262 ready @ 923 MHz AS923
+[B(0xBB)] 08:44:46.254 [TX] Hello seq=0 (hello #1)
+[B(0xBB)] 08:44:48.720 ESP-ROM:esp32s3-20210327
+[B(0xBB)] 08:44:48.720 Build:Mar 27 2021
+[B(0xBB)] 08:44:48.720 rst:0x15 (USB_UART_CHIP_RESET),boot:0x11 (DOWNLOAD(USB/UART0))
+[B(0xBB)] 08:44:48.720 Saved PC:0x4037ce2a
+[B(0xBB)] 08:44:48.720 waiting for download

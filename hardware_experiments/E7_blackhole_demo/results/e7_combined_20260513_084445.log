@@ -1,0 +1,154 @@
+[R1(0x11)] 08:44:45.387 ESP-ROM:esp32s3-20210327
+[R1(0x11)] 08:44:45.387 Build:Mar 27 2021
+[R1(0x11)] 08:44:45.387 rst:0x15 (USB_UART_CHIP_RESET),boot:0x39 (SPI_FAST_FLASH_BOOT)
+[R1(0x11)] 08:44:45.387 Saved PC:0x4037ce2a
+[R1(0x11)] 08:44:45.387 SPIWP:0xee
+[R1(0x11)] 08:44:45.388 mode:DIO, clock div:1
+[R1(0x11)] 08:44:45.388 load:0x3fce2820,len:0x10cc
+[R1(0x11)] 08:44:45.389 load:0x403c8700,len:0xc2c
+[R1(0x11)] 08:44:45.389 load:0x403cb700,len:0x30c0
+[B(0xBB)] 08:44:45.388 ESP-ROM:esp32s3-20210327
+[B(0xBB)] 08:44:45.390 Build:Mar 27 2021
+[B(0xBB)] 08:44:45.390 rst:0x15 (USB_UART_CHIP_RESET),boot:0x19 (SPI_FAST_FLASH_BOOT)
+[B(0xBB)] 08:44:45.390 Saved PC:0x4037ce2a
+[A(0xAA)] 08:44:45.388 ESP-ROM:esp32s3-20210327
+[R2(0x22)] 08:44:45.388 ESP-ROM:esp32s3-20210327
+[R2(0x22)] 08:44:45.391 Build:Mar 27 2021
+[C(0xCC)] 08:44:45.389 ESP-ROM:esp32s3-20210327
+[C(0xCC)] 08:44:45.391 Build:Mar 27 2021
+[C(0xCC)] 08:44:45.391 rst:0x15 (USB_UART_CHIP_RESET),boot:0x19 (SPI_FAST_FLASH_BOOT)
+[C(0xCC)] 08:44:45.392 Saved PC:0x4037ce2a
+[C(0xCC)] 08:44:45.392 SPIWP:0xee
+[C(0xCC)] 08:44:45.392 mode:DIO, clock div:1
+[C(0xCC)] 08:44:45.392 load:0x3fce2820,len:0x10cc
+[R3(0x33)] 08:44:45.388 ESP-ROM:esp32s3-20210327
+[R3(0x33)] 08:44:45.392 Build:Mar 27 2021
+[R3(0x33)] 08:44:45.392 rst:0x15 (USB_UART_CHIP_RESET),boot:0x3b (SPI_FAST_FLASH_BOOT)
+[R3(0x33)] 08:44:45.392 Saved PC:0x4037ce2a
+[R3(0x33)] 08:44:45.392 SPIWP:0xee
+[R3(0x33)] 08:44:45.392 mode:DIO, clock div:1
+[R3(0x33)] 08:44:45.393 load:0x3fce2820,len:0x10cc
+[R3(0x33)] 08:44:45.393 load:0x403c8700,len:0xc2c
+[R3(0x33)] 08:44:45.393 load:0x403cb700,len:0x30c0
+[R2(0x22)] 08:44:45.391 rst:0x15 (USB_UART_CHIP_RESET),boot:0x19 (SPI_FAST_FLASH_BOOT)
+[R2(0x22)] 08:44:45.393 Saved PC:0x4037ce2a
+[R2(0x22)] 08:44:45.393 SPIWP:0xee
+[R2(0x22)] 08:44:45.393 mode:DIO, clock div:1
+[A(0xAA)] 08:44:45.391 Build:Mar 27 2021
+[A(0xAA)] 08:44:45.393 rst:0x15 (USB_UART_CHIP_RESET),boot:0x19 (SPI_FAST_FLASH_BOOT)
+[A(0xAA)] 08:44:45.393 Saved PC:0x4037ce2a
+[A(0xAA)] 08:44:45.393 SPIWP:0xee
+[A(0xAA)] 08:44:45.393 mode:DIO, clock div:1
+[A(0xAA)] 08:44:45.394 load:0x3fce2820,len:0x10cc
+[A(0xAA)] 08:44:45.394 load:0x403c8700,len:0xc2c
+[A(0xAA)] 08:44:45.394 load:0x403cb700,len:0x30c0
+[B(0xBB)] 08:44:45.391 SPIWP:0xee
+[B(0xBB)] 08:44:45.394 mode:DIO, clock div:1
+[B(0xBB)] 08:44:45.394 load:0x3fce2820,len:0x10cc
+[B(0xBB)] 08:44:45.394 load:0x403c8700,len:0xc2c
+[B(0xBB)] 08:44:45.394 load:0x403cb700,len:0x30c0
+[C(0xCC)] 08:44:45.392 load:0x403c8700,len:0xc2c
+[C(0xCC)] 08:44:45.395 load:0x403cb700,len:0x30c0
+[R2(0x22)] 08:44:45.393 load:0x3fce2820,len:0x10cc
+[R2(0x22)] 08:44:45.395 load:0x403c8700,len:0xc2c
+[R2(0x22)] 08:44:45.395 load:0x403cb700,len:0x30c0
+[R1(0x11)] 08:44:45.492 entry 0x403c88b8
+[A(0xAA)] 08:44:45.496 entry 0x403c88b8
+[R2(0x22)] 08:44:45.496 entry 0x403c88b8
+[R3(0x33)] 08:44:45.497 entry 0x403c88b8
+[B(0xBB)] 08:44:45.499 entry 0x403c88b8
+[C(0xCC)] 08:44:45.499 entry 0x403c88b8
+[B(0xBB)] 08:44:45.743 
+[B(0xBB)] 08:44:45.743 === E7 Node B (GATEWAY — honest, SECURITY_MODE=1) ===
+[B(0xBB)] 08:44:45.743 [INFO] Gateway broadcasts Hello. Insider attacker (0xCC) races with own Hello.
+[B(0xBB)] 08:44:45.743 [INFO] All honest nodes route to 0xCC (Black Hole). PDR drops to 0%.
+[R1(0x11)] 08:44:45.803 
+[R1(0x11)] 08:44:45.803 === E7 Relay 0x11 (honest, SECURITY_MODE=1) ===
+[R1(0x11)] 08:44:45.803 [INFO] Demonstrates: insider Black Hole bypasses HMAC patch.
+[R1(0x11)] 08:44:45.803 [INFO] This relay will accept 0xCC's Hello (valid HMAC) and route into black hole.
+[R3(0x33)] 08:44:45.805 
+[R3(0x33)] 08:44:45.805 === E7 Relay 0x33 (honest, SECURITY_MODE=1) ===
+[R3(0x33)] 08:44:45.805 [INFO] Demonstrates: insider Black Hole bypasses HMAC patch.
+[R2(0x22)] 08:44:45.805 
+[R2(0x22)] 08:44:45.805 === E7 Relay 0x22 (honest, SECURITY_MODE=1) ===
+[R2(0x22)] 08:44:45.805 [INFO] Demonstrates: insider Black Hole bypasses HMAC patch.
+[R2(0x22)] 08:44:45.805 [INFO] This relay will accept 0xCC's Hello (valid HMAC) and route into black hole.
+[R3(0x33)] 08:44:45.805 [INFO] This relay will accept 0xCC's Hello (valid HMAC) and route into black hole.
+[A(0xAA)] 08:44:45.807 
+[A(0xAA)] 08:44:45.807 === E7 Node A (SENDER — honest, SECURITY_MODE=1) ===
+[C(0xCC)] 08:44:45.807 
+[C(0xCC)] 08:44:45.807 === E7 Node C (BLACK HOLE ATTACKER — INSIDER) ===
+[A(0xAA)] 08:44:45.807 [INFO] Demonstrates: insider Black Hole bypasses HMAC patch.
+[A(0xAA)] 08:44:45.808 [INFO] Watch for NH=0xCC after attacker broadcasts signed Hello.
+[A(0xAA)] 08:44:45.808 [INFO] PDR should drop to 0% when routing to 0xCC.
+[C(0xCC)] 08:44:45.807 [INFO] This node holds NETWORK_PSK and signs Hellos validly.
+[C(0xCC)] 08:44:45.808 [INFO] Finding: HMAC patch does NOT prevent insider black hole.
+[C(0xCC)] 08:44:45.808 [INFO] Authentication proves origin, not forwarding behavior.
+[B(0xBB)] 08:44:45.846 [INFO] This gateway cannot detect the Black Hole — it just observes silence.
+[B(0xBB)] 08:44:45.846 [RADIO] SX1262 ready @ 923 MHz AS923
+[R1(0x11)] 08:44:45.904 [RADIO] SX1262 ready @ 923 MHz AS923
+[R2(0x22)] 08:44:45.910 [RADIO] SX1262 ready @ 923 MHz AS923
+[C(0xCC)] 08:44:45.910 [RADIO] SX1262 ready @ 923 MHz AS923
+[R3(0x33)] 08:44:45.910 [RADIO] SX1262 ready @ 923 MHz AS923
+[A(0xAA)] 08:44:45.911 [RADIO] SX1262 ready @ 923 MHz AS923
+[R1(0x11)] 08:44:46.210 [ROUTE] NH=0xBB metric=1
+[R3(0x33)] 08:44:46.221 [ROUTE] NH=0xBB metric=1
+[B(0xBB)] 08:44:46.254 [TX] Hello seq=0 (hello #1)
+[C(0xCC)] 08:44:46.327 [BLACKHOLE] Hello sent: seq=0 metric=0 HMAC=VALID (#1)
+[C(0xCC)] 08:44:46.327 [BLACKHOLE] Honest nodes will update: NH=0xCC metric=1
+[C(0xCC)] 08:44:46.327 [BLACKHOLE] HMAC patch: ACCEPTS (PSK valid) → route poisoned
+[R1(0x11)] 08:44:47.032 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R2(0x22)] 08:44:47.038 [ROUTE] NH=0x33 metric=2
+[R3(0x33)] 08:44:47.042 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[A(0xAA)] 08:44:47.042 [ROUTE] Best NH=0x11 metric=2
+[C(0xCC)] 08:44:47.044 [SNIFF] Hello from 0x33 metric=1 seq=0
+[R2(0x22)] 08:44:47.757 [RELAY] Re-broadcast Hello metric=2 (learned from 0x33 metric=1)
+[C(0xCC)] 08:44:47.766 [SNIFF] Hello from 0x22 metric=2 seq=0
+[R1(0x11)] 08:44:48.474 [RELAY] Re-broadcast Hello metric=3 (learned from 0x22 metric=2)
+[C(0xCC)] 08:44:48.490 [SNIFF] Hello from 0x33 metric=3 seq=1
+[R3(0x33)] 08:44:48.492 [RELAY] Re-broadcast Hello metric=3 (learned from 0x22 metric=2)
+[R2(0x22)] 08:44:48.679 ESP-ROM:esp32s3-20210327
+[R2(0x22)] 08:44:48.679 Build:Mar 27 2021
+[R2(0x22)] 08:44:48.679 rst:0x15 (USB_UART_CHIP_RESET),boot:0x11 (DOWNLOAD(USB/UART0))
+[R2(0x22)] 08:44:48.679 Saved PC:0x4037ce2a
+[R2(0x22)] 08:44:48.679 waiting for download
+[R1(0x11)] 08:44:48.681 ESP-ROM:esp32s3-20210327
+[R1(0x11)] 08:44:48.681 Build:Mar 27 2021
+[R1(0x11)] 08:44:48.681 rst:0x15 (USB_UART_CHIP_RESET),boot:0x31 (DOWNLOAD(USB/UART0))
+[R1(0x11)] 08:44:48.681 Saved PC:0x4037ce2a
+[R1(0x11)] 08:44:48.681 waiting for download
+[A(0xAA)] 08:44:48.691 ESP-ROM:esp32s3-20210327
+[A(0xAA)] 08:44:48.691 Build:Mar 27 2021
+[A(0xAA)] 08:44:48.691 rst:0x15 (USB_UART_CHIP_RESET),boot:0x11 (DOWNLOAD(USB/UART0))
+[A(0xAA)] 08:44:48.691 Saved PC:0x4037ce2a
+[A(0xAA)] 08:44:48.691 waiting for download
+[C(0xCC)] 08:44:48.691 ESP-ROM:esp32s3-20210327
+[C(0xCC)] 08:44:48.691 Build:Mar 27 2021
+[C(0xCC)] 08:44:48.691 rst:0x15 (USB_UART_CHIP_RESET),boot:0x11 (DOWNLOAD(USB/UART0))
+[C(0xCC)] 08:44:48.691 Saved PC:0x4037ce2a
+[C(0xCC)] 08:44:48.691 waiting for download
+[R3(0x33)] 08:44:48.694 ESP-ROM:esp32s3-20210327
+[R3(0x33)] 08:44:48.694 Build:Mar 27 2021
+[R3(0x33)] 08:44:48.694 rst:0x15 (USB_UART_CHIP_RESET),boot:0x33 (DOWNLOAD(USB/UART0))
+[R3(0x33)] 08:44:48.694 Saved PC:0x4037ce2a
+[R3(0x33)] 08:44:48.695 waiting for download
+[B(0xBB)] 08:44:48.720 ESP-ROM:esp32s3-20210327
+[B(0xBB)] 08:44:48.720 Build:Mar 27 2021
+[B(0xBB)] 08:44:48.720 rst:0x15 (USB_UART_CHIP_RESET),boot:0x11 (DOWNLOAD(USB/UART0))
+[B(0xBB)] 08:44:48.720 Saved PC:0x4037ce2a
+[B(0xBB)] 08:44:48.720 waiting for download
+[R1(0x11)] 08:44:54.445 ESP-ROM:esp32s3-20210327
+[R1(0x11)] 08:44:54.445 Build:Mar 27 2021
+[R1(0x11)] 08:44:54.445 rst:0x15 (USB_UART_CHIP_RESET),boot:0x31 (DOWNLOAD(USB/UART0))
+[R1(0x11)] 08:44:54.445 Saved PC:0x40041a79
+[R1(0x11)] 08:44:54.445 waiting for download
+[R3(0x33)] 08:44:54.453 ESP-ROM:esp32s3-20210327
+[R3(0x33)] 08:44:54.454 Build:Mar 27 2021
+[R3(0x33)] 08:44:54.454 rst:0x15 (USB_UART_CHIP_RESET),boot:0x33 (DOWNLOAD(USB/UART0))
+[R3(0x33)] 08:44:54.454 Saved PC:0x40041a76
+[R3(0x33)] 08:44:54.454 waiting for download
+[A(0xAA)] 08:44:54.453 ESP-ROM:esp32s3-20210327
+[A(0xAA)] 08:44:54.454 Build:Mar 27 2021
+[A(0xAA)] 08:44:54.454 rst:0x15 (USB_UART_CHIP_RESET),boot:0x11 (DOWNLOAD(USB/UART0))
+[A(0xAA)] 08:44:54.454 Saved PC:0x40041a76
+[A(0xAA)] 08:44:54.454 waiting for download

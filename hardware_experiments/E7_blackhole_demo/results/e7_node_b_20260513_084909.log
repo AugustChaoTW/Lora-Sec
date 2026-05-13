@@ -1,0 +1,104 @@
+[B(0xBB)] 08:49:09.651 ESP-ROM:esp32s3-20210327
+[B(0xBB)] 08:49:09.652 Build:Mar 27 2021
+[B(0xBB)] 08:49:09.652 rst:0x15 (USB_UART_CHIP_RESET),boot:0x19 (SPI_FAST_FLASH_BOOT)
+[B(0xBB)] 08:49:09.653 Saved PC:0x40041a76
+[B(0xBB)] 08:49:09.654 SPIWP:0xee
+[B(0xBB)] 08:49:09.656 mode:DIO, clock div:1
+[B(0xBB)] 08:49:09.657 load:0x3fce2820,len:0x10cc
+[B(0xBB)] 08:49:09.658 load:0x403c8700,len:0xc2c
+[B(0xBB)] 08:49:09.659 load:0x403cb700,len:0x30c0
+[B(0xBB)] 08:49:09.660 entry 0x403c88b8
+[B(0xBB)] 08:49:09.814 
+[B(0xBB)] 08:49:09.814 === E7 Node B (GATEWAY — honest, SECURITY_MODE=1) ===
+[B(0xBB)] 08:49:09.816 [INFO] Gateway broadcasts Hello. Insider attacker (0xCC) races with own Hello.
+[B(0xBB)] 08:49:09.817 [INFO] All honest nodes route to 0xCC (Black Hole). PDR drops to 0%.
+[B(0xBB)] 08:49:09.817 [INFO] This gateway cannot detect the Black Hole — it just observes silence.
+[B(0xBB)] 08:49:09.901 [RADIO] SX1262 ready @ 923 MHz AS923
+[B(0xBB)] 08:49:10.261 [TX] Hello seq=0 (hello #1)
+[B(0xBB)] 08:49:14.593 [RX] DATA id=0 from 0x33 payload=330000 (total=1)
+[B(0xBB)] 08:49:14.747 [TX] ACK id=0 → 0x33
+[B(0xBB)] 08:49:15.128 [RX] DATA id=0 from 0x22 payload=220000 (total=2)
+[B(0xBB)] 08:49:15.272 [TX] ACK id=0 → 0x22
+[B(0xBB)] 08:49:19.675 [RX] DATA id=1 from 0x33 payload=330001 (total=3)
+[B(0xBB)] 08:49:19.818 [TX] ACK id=1 → 0x33
+[B(0xBB)] 08:49:20.121 [RX] DATA id=1 from 0x22 payload=220001 (total=4)
+[B(0xBB)] 08:49:20.272 [TX] ACK id=1 → 0x22
+[B(0xBB)] 08:49:20.534 [TX] Hello seq=1 (hello #2)
+[B(0xBB)] 08:49:25.123 [RX] DATA id=2 from 0x22 payload=220002 (total=5)
+[B(0xBB)] 08:49:25.275 [TX] ACK id=2 → 0x22
+[B(0xBB)] 08:49:30.122 [RX] DATA id=3 from 0x22 payload=220003 (total=6)
+[B(0xBB)] 08:49:30.265 [TX] ACK id=3 → 0x22
+[B(0xBB)] 08:49:30.533 [TX] Hello seq=2 (hello #3)
+[B(0xBB)] 08:49:34.671 [RX] DATA id=4 from 0x33 payload=330004 (total=7)
+[B(0xBB)] 08:49:34.819 [TX] ACK id=4 → 0x33
+[B(0xBB)] 08:49:35.128 [RX] DATA id=4 from 0x22 payload=220004 (total=8)
+[B(0xBB)] 08:49:35.270 [TX] ACK id=4 → 0x22
+[B(0xBB)] 08:49:39.681 [RX] DATA id=5 from 0x33 payload=330005 (total=9)
+[B(0xBB)] 08:49:39.823 [TX] ACK id=5 → 0x33
+[B(0xBB)] 08:49:40.122 [RX] DATA id=5 from 0x22 payload=220005 (total=10)
+[B(0xBB)] 08:49:40.274 [TX] ACK id=5 → 0x22
+[B(0xBB)] 08:49:40.534 [TX] Hello seq=3 (hello #4)
+[B(0xBB)] 08:49:44.673 [RX] DATA id=6 from 0x33 payload=330006 (total=11)
+[B(0xBB)] 08:49:44.826 [TX] ACK id=6 → 0x33
+[B(0xBB)] 08:49:45.119 [RX] DATA id=6 from 0x22 payload=220006 (total=12)
+[B(0xBB)] 08:49:45.275 [TX] ACK id=6 → 0x22
+[B(0xBB)] 08:49:50.125 [RX] DATA id=7 from 0x22 payload=220007 (total=13)
+[B(0xBB)] 08:49:50.273 [TX] ACK id=7 → 0x22
+[B(0xBB)] 08:49:50.531 [TX] Hello seq=4 (hello #5)
+[B(0xBB)] 08:49:54.680 [RX] DATA id=8 from 0x33 payload=330008 (total=14)
+[B(0xBB)] 08:49:54.821 [TX] ACK id=8 → 0x33
+[B(0xBB)] 08:49:55.130 [RX] DATA id=8 from 0x22 payload=220008 (total=15)
+[B(0xBB)] 08:49:55.275 [TX] ACK id=8 → 0x22
+[B(0xBB)] 08:49:59.680 [RX] DATA id=9 from 0x33 payload=330009 (total=16)
+[B(0xBB)] 08:49:59.823 [TX] ACK id=9 → 0x33
+[B(0xBB)] 08:50:00.119 [RX] DATA id=9 from 0x22 payload=220009 (total=17)
+[B(0xBB)] 08:50:00.271 [TX] ACK id=9 → 0x22
+[B(0xBB)] 08:50:00.526 [TX] Hello seq=5 (hello #6)
+[B(0xBB)] 08:50:05.121 [RX] DATA id=10 from 0x22 payload=220010 (total=18)
+[B(0xBB)] 08:50:05.275 [TX] ACK id=10 → 0x22
+[B(0xBB)] 08:50:09.681 [RX] DATA id=11 from 0x33 payload=330011 (total=19)
+[B(0xBB)] 08:50:09.826 [TX] ACK id=11 → 0x33
+[B(0xBB)] 08:50:10.126 [RX] DATA id=11 from 0x22 payload=220011 (total=20)
+[B(0xBB)] 08:50:10.270 [TX] ACK id=11 → 0x22
+[B(0xBB)] 08:50:10.533 [TX] Hello seq=6 (hello #7)
+[B(0xBB)] 08:50:14.679 [RX] DATA id=12 from 0x33 payload=330012 (total=21)
+[B(0xBB)] 08:50:14.821 [TX] ACK id=12 → 0x33
+[B(0xBB)] 08:50:15.131 [RX] DATA id=12 from 0x22 payload=220012 (total=22)
+[B(0xBB)] 08:50:15.276 [TX] ACK id=12 → 0x22
+[B(0xBB)] 08:50:20.131 [RX] DATA id=13 from 0x22 payload=220013 (total=23)
+[B(0xBB)] 08:50:20.276 [TX] ACK id=13 → 0x22
+[B(0xBB)] 08:50:20.528 [TX] Hello seq=7 (hello #8)
+[B(0xBB)] 08:50:24.671 [RX] DATA id=14 from 0x33 payload=330014 (total=24)
+[B(0xBB)] 08:50:24.826 [TX] ACK id=14 → 0x33
+[B(0xBB)] 08:50:25.126 [RX] DATA id=14 from 0x22 payload=220014 (total=25)
+[B(0xBB)] 08:50:25.267 [TX] ACK id=14 → 0x22
+[B(0xBB)] 08:50:29.682 [RX] DATA id=15 from 0x33 payload=330015 (total=26)
+[B(0xBB)] 08:50:29.823 [TX] ACK id=15 → 0x33
+[B(0xBB)] 08:50:30.125 [RX] DATA id=15 from 0x22 payload=220015 (total=27)
+[B(0xBB)] 08:50:30.266 [TX] ACK id=15 → 0x22
+[B(0xBB)] 08:50:30.526 [TX] Hello seq=8 (hello #9)
+[B(0xBB)] 08:50:34.678 [RX] DATA id=16 from 0x33 payload=330016 (total=28)
+[B(0xBB)] 08:50:34.819 [TX] ACK id=16 → 0x33
+[B(0xBB)] 08:50:35.127 [RX] DATA id=16 from 0x22 payload=220016 (total=29)
+[B(0xBB)] 08:50:35.272 [TX] ACK id=16 → 0x22
+[B(0xBB)] 08:50:39.679 [RX] DATA id=17 from 0x33 payload=330017 (total=30)
+[B(0xBB)] 08:50:39.822 [TX] ACK id=17 → 0x33
+[B(0xBB)] 08:50:40.129 [RX] DATA id=17 from 0x22 payload=220017 (total=31)
+[B(0xBB)] 08:50:40.274 [TX] ACK id=17 → 0x22
+[B(0xBB)] 08:50:40.532 [TX] Hello seq=9 (hello #10)
+[B(0xBB)] 08:50:44.672 [RX] DATA id=18 from 0x33 payload=330018 (total=32)
+[B(0xBB)] 08:50:44.824 [TX] ACK id=18 → 0x33
+[B(0xBB)] 08:50:45.122 [RX] DATA id=18 from 0x22 payload=220018 (total=33)
+[B(0xBB)] 08:50:45.273 [TX] ACK id=18 → 0x22
+[B(0xBB)] 08:50:50.131 [RX] DATA id=19 from 0x22 payload=220019 (total=34)
+[B(0xBB)] 08:50:50.271 [TX] ACK id=19 → 0x22
+[B(0xBB)] 08:50:50.526 [TX] Hello seq=10 (hello #11)
+[B(0xBB)] 08:50:54.683 [RX] DATA id=20 from 0x33 payload=330020 (total=35)
+[B(0xBB)] 08:50:54.827 [TX] ACK id=20 → 0x33
+[B(0xBB)] 08:50:55.126 [RX] DATA id=20 from 0x22 payload=220020 (total=36)
+[B(0xBB)] 08:50:55.271 [TX] ACK id=20 → 0x22
+[B(0xBB)] 08:51:00.125 [RX] DATA id=21 from 0x22 payload=220021 (total=37)
+[B(0xBB)] 08:51:00.271 [TX] ACK id=21 → 0x22
+[B(0xBB)] 08:51:00.534 [TX] Hello seq=11 (hello #12)
+[B(0xBB)] 08:51:05.130 [RX] DATA id=22 from 0x22 payload=220022 (total=38)
+[B(0xBB)] 08:51:05.272 [TX] ACK id=22 → 0x22

@@ -1,0 +1,87 @@
+[R3(0x33)] 08:49:09.652 ESP-ROM:esp32s3-20210327
+[R3(0x33)] 08:49:09.653 Build:Mar 27 2021
+[R3(0x33)] 08:49:09.654 rst:0x15 (USB_UART_CHIP_RESET),boot:0x3b (SPI_FAST_FLASH_BOOT)
+[R3(0x33)] 08:49:09.655 Saved PC:0x40041a7c
+[R3(0x33)] 08:49:09.657 SPIWP:0xee
+[R3(0x33)] 08:49:09.658 mode:DIO, clock div:1
+[R3(0x33)] 08:49:09.659 load:0x3fce2820,len:0x10cc
+[R3(0x33)] 08:49:09.660 load:0x403c8700,len:0xc2c
+[R3(0x33)] 08:49:09.661 load:0x403cb700,len:0x30c0
+[R3(0x33)] 08:49:09.661 entry 0x403c88b8
+[R3(0x33)] 08:49:09.814 
+[R3(0x33)] 08:49:09.815 === E7 Relay 0x33 (honest, SECURITY_MODE=1) ===
+[R3(0x33)] 08:49:09.816 [INFO] Demonstrates: insider Black Hole bypasses HMAC patch.
+[R3(0x33)] 08:49:09.817 [INFO] This relay will accept 0xCC's Hello (valid HMAC) and route into black hole.
+[R3(0x33)] 08:49:09.900 [RADIO] SX1262 ready @ 923 MHz AS923
+[R3(0x33)] 08:49:10.264 [ROUTE] NH=0xBB metric=1
+[R3(0x33)] 08:49:11.029 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R3(0x33)] 08:49:12.546 [RELAY] Re-broadcast Hello metric=3 (learned from 0x22 metric=2)
+[R3(0x33)] 08:49:14.064 [RELAY] Re-broadcast Hello metric=5 (learned from 0x22 metric=4)
+[R3(0x33)] 08:49:14.595 [TX] DATA id=0 via=0xBB
+[R3(0x33)] 08:49:14.747 [RX] ACK id=0 PDR=100.0%
+[R3(0x33)] 08:49:15.412 [FWD] DATA id=0 src=0x22 → 0xBB
+[R3(0x33)] 08:49:19.385 [RELAY] Re-broadcast Hello metric=1 (learned from 0xCC metric=0)
+[R3(0x33)] 08:49:19.670 [TX] DATA id=1 via=0xBB
+[R3(0x33)] 08:49:19.825 [RX] ACK id=1 PDR=100.0%
+[R3(0x33)] 08:49:21.286 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R3(0x33)] 08:49:24.668 [TX] DATA id=2 via=0xBB
+[R3(0x33)] 08:49:27.380 [RELAY] Re-broadcast Hello metric=1 (learned from 0xCC metric=0)
+[R3(0x33)] 08:49:29.667 [TX] DATA id=3 via=0xBB
+[R3(0x33)] 08:49:31.292 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R3(0x33)] 08:49:34.671 [TX] DATA id=4 via=0xBB
+[R3(0x33)] 08:49:34.822 [RX] ACK id=4 PDR=60.0%
+[R3(0x33)] 08:49:39.675 [TX] DATA id=5 via=0xBB
+[R3(0x33)] 08:49:39.824 [RX] ACK id=5 PDR=66.7%
+[R3(0x33)] 08:49:40.533 [ROUTE] NH=0xBB metric=1
+[R3(0x33)] 08:49:41.290 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R3(0x33)] 08:49:43.377 [RELAY] Re-broadcast Hello metric=1 (learned from 0xCC metric=0)
+[R3(0x33)] 08:49:44.668 [TX] DATA id=6 via=0xBB
+[R3(0x33)] 08:49:44.823 [RX] ACK id=6 PDR=71.4%
+[R3(0x33)] 08:49:49.674 [TX] DATA id=7 via=0xBB
+[R3(0x33)] 08:49:51.287 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R3(0x33)] 08:49:52.809 [RELAY] Re-broadcast Hello metric=3 (learned from 0x22 metric=2)
+[R3(0x33)] 08:49:54.335 [RELAY] Re-broadcast Hello metric=5 (learned from 0x22 metric=4)
+[R3(0x33)] 08:49:54.668 [TX] DATA id=8 via=0xBB
+[R3(0x33)] 08:49:54.819 [RX] ACK id=8 PDR=66.7%
+[R3(0x33)] 08:49:55.417 [FWD] DATA id=8 src=0x22 → 0xBB
+[R3(0x33)] 08:49:59.388 [RELAY] Re-broadcast Hello metric=1 (learned from 0xCC metric=0)
+[R3(0x33)] 08:49:59.674 [TX] DATA id=9 via=0xBB
+[R3(0x33)] 08:49:59.825 [RX] ACK id=9 PDR=70.0%
+[R3(0x33)] 08:50:01.295 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R3(0x33)] 08:50:04.667 [TX] DATA id=10 via=0xBB
+[R3(0x33)] 08:50:07.387 [RELAY] Re-broadcast Hello metric=1 (learned from 0xCC metric=0)
+[R3(0x33)] 08:50:09.669 [TX] DATA id=11 via=0xBB
+[R3(0x33)] 08:50:09.823 [RX] ACK id=11 PDR=66.7%
+[R3(0x33)] 08:50:11.285 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R3(0x33)] 08:50:14.670 [TX] DATA id=12 via=0xBB
+[R3(0x33)] 08:50:14.826 [RX] ACK id=12 PDR=69.2%
+[R3(0x33)] 08:50:19.667 [TX] DATA id=13 via=0xBB
+[R3(0x33)] 08:50:20.527 [ROUTE] NH=0xBB metric=1
+[R3(0x33)] 08:50:21.295 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R3(0x33)] 08:50:23.381 [RELAY] Re-broadcast Hello metric=1 (learned from 0xCC metric=0)
+[R3(0x33)] 08:50:24.674 [TX] DATA id=14 via=0xBB
+[R3(0x33)] 08:50:24.822 [RX] ACK id=14 PDR=66.7%
+[R3(0x33)] 08:50:29.674 [TX] DATA id=15 via=0xBB
+[R3(0x33)] 08:50:29.831 [RX] ACK id=15 PDR=68.8%
+[R3(0x33)] 08:50:31.294 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R3(0x33)] 08:50:32.809 [RELAY] Re-broadcast Hello metric=3 (learned from 0x22 metric=2)
+[R3(0x33)] 08:50:34.330 [RELAY] Re-broadcast Hello metric=5 (learned from 0x22 metric=4)
+[R3(0x33)] 08:50:34.670 [TX] DATA id=16 via=0xBB
+[R3(0x33)] 08:50:34.827 [RX] ACK id=16 PDR=70.6%
+[R3(0x33)] 08:50:35.417 [FWD] DATA id=16 src=0x22 → 0xBB
+[R3(0x33)] 08:50:39.384 [RELAY] Re-broadcast Hello metric=1 (learned from 0xCC metric=0)
+[R3(0x33)] 08:50:39.680 [TX] DATA id=17 via=0xBB
+[R3(0x33)] 08:50:39.821 [RX] ACK id=17 PDR=72.2%
+[R3(0x33)] 08:50:41.291 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R3(0x33)] 08:50:44.672 [TX] DATA id=18 via=0xBB
+[R3(0x33)] 08:50:44.824 [RX] ACK id=18 PDR=73.7%
+[R3(0x33)] 08:50:47.378 [RELAY] Re-broadcast Hello metric=1 (learned from 0xCC metric=0)
+[R3(0x33)] 08:50:49.671 [TX] DATA id=19 via=0xBB
+[R3(0x33)] 08:50:51.294 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R3(0x33)] 08:50:54.675 [TX] DATA id=20 via=0xBB
+[R3(0x33)] 08:50:54.832 [RX] ACK id=20 PDR=71.4%
+[R3(0x33)] 08:50:59.671 [TX] DATA id=21 via=0xBB
+[R3(0x33)] 08:51:00.528 [ROUTE] NH=0xBB metric=1
+[R3(0x33)] 08:51:01.294 [RELAY] Re-broadcast Hello metric=1 (learned from 0xBB metric=0)
+[R3(0x33)] 08:51:03.385 [RELAY] Re-broadcast Hello metric=1 (learned from 0xCC metric=0)
+[R3(0x33)] 08:51:04.676 [TX] DATA id=22 via=0xBB
