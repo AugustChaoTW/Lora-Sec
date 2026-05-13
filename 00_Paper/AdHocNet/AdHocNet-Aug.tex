@@ -24,6 +24,7 @@
 % Theorem environments for formal definitions
 \newtheorem{definition}{Definition}
 \newtheorem{property}{Security Property}
+\newtheorem{remark}{Remark}
 
 \lstset{
   basicstyle=\ttfamily\footnotesize,
@@ -843,6 +844,17 @@ Dolev-Yao model scope: we treat the attacker as a perfect radio
 observer on the target channel, consistent with the standard
 symbolic security model for message-level protocol analysis~\cite{basin2025-tamarin-book}.
 
+\begin{remark}[Abstraction Assumption A1]
+The Tamarin model treats the \texttt{dst} field as encoding the
+\emph{final packet destination} (the gateway identity).
+This assumption holds at the protocol-layer abstraction.
+Section~\ref{sec:cross-layer} shows it does not hold in deployed
+firmware, where \texttt{dst} encodes the \emph{next-hop address}—
+a distinction that is invisible to the formal model but determines
+whether route injection creates an adversarial relay or a silent
+black hole.
+\end{remark}
+
 Table~\ref{tab:tamarin} lists the four security lemmas (G1--G4) with their logical structure; full statements and proof scripts are provided in the supplementary Tamarin artifact.
 
 \subsection{Formal Analysis Results}
@@ -912,11 +924,23 @@ relay or inspect a single packet.
     The gateway observes silence—no anomaly, no delivery failure log.
 \end{enumerate}
 
-\textbf{ns-3 result}: 100\% PDR degradation on linear topology (PDR drops to 0\%);
-22.6\% PDR degradation on tree and grid topologies (PDR drops to 77.4\%),
-as routing diversity partially mitigates the attack.
+\textbf{ns-3 result}: 100\% route poisoning rate on linear topology
+(PDR drops to 0\%); 22.6\% PDR degradation on tree and grid topologies
+(PDR drops to 77.4\%), as routing diversity partially mitigates the attack.
 This is consistent with black-hole and sinkhole attack patterns
 documented for MANET and ad hoc routing~\cite{ahmad2024-sinkhole-reputation,ieee2025-blackhole-optimization,hu2002-sead}.
+
+\textbf{Hardware observation (semantic gap).}
+Both Tamarin and ns-3 model the attacker as \emph{receiving} diverted
+packets—an adversarial relay.
+Physical hardware serial logs (E5b, Section~\ref{sec:hardware-validation})
+contradict this: Node~B (gateway) logs \emph{zero received DATA packets}
+while Node~C (attacker) logs \emph{zero intercepted DATA packets}.
+All traffic is silently discarded by honest relay nodes that compare
+\texttt{dst} against \texttt{self} and find no match.
+This semantic gap—attacker receives nothing, gateway sees nothing—is
+invisible to both formal and simulation models and is the subject of
+Section~\ref{sec:cross-layer}.
 A related vulnerability (insufficient entropy in Meshtastic mesh
 key derivation) has been independently disclosed~\cite{cve2025-meshtastic-entropy},
 highlighting the prevalence of this attack surface.
@@ -1959,6 +1983,22 @@ No prior study assembles all three for any LoRa mesh routing protocol.
     TPR=100\%, FPR=5\%, inference 6--7~$\mu$s on ESP32-S3 at 240~MHz),
     extending~\cite{springer2026-blockchain-ids}
     to constrained hardware.
+    \begin{table}[h]
+      \centering
+      \caption{On-device IDS approaches firmware-validated on EoRa-PI
+               (ESP32-S3 + SX1262, 120~s runs)}
+      \label{tab:ids-comparison}
+      \setlength{\tabcolsep}{4pt}
+      \begin{tabular}{llccc}
+        \toprule
+        \textbf{Method} & \textbf{Exp} & \textbf{Inference} & \textbf{TPR} & \textbf{FPR} \\
+        \midrule
+        FSM Guardian      & E12 & rule-based    & —      & — \\
+        KLD + HD IDS      & E13 & integer ops   & —      & — \\
+        Autoencoder (AE)  & E15 & \textbf{6--7~$\mu$s} & 100\%  & 5\% \\
+        \bottomrule
+      \end{tabular}
+    \end{table}
     All three require per-deployment baseline calibration and are
     deferred to a companion paper.
 
