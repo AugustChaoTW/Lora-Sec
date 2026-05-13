@@ -35,25 +35,34 @@ restriction Equality:
 
 /* ================================================================
    Initialization
+   Channel PSK is shared across all nodes on the same channel.
    ================================================================ */
 
+/* Create one shared channel PSK — all nodes derive their ChanKey from it */
+rule Channel_Init:
+  [ Fr(~chan_psk) ]
+  --[ ChannelCreated(~chan_psk) ]->
+  [ !ChannelPSK(~chan_psk) ]
+
+restriction Channel_Init_Once:
+  "All psk1 psk2 #i #j. ChannelCreated(psk1)@i & ChannelCreated(psk2)@j ==> psk1 = psk2"
+
 rule Node_Init:
-  [ Fr(~id), Fr(~chan_psk), Fr(~admin_sk) ]
+  [ Fr(~id), !ChannelPSK(chan_psk), Fr(~admin_sk) ]
   --[ NodeInit(~id), HonestNode(~id),
-      ChanPSK(~id, ~chan_psk),
       AdminKey(~id, pk(~admin_sk)) ]->
   [ !Node(~id, 'honest'),
     !Honest(~id),
-    !ChanKey(~id, ~chan_psk),
+    !ChanKey(~id, chan_psk),
     !AdminSK(~id, ~admin_sk),
     !AdminPK(~id, pk(~admin_sk)) ]
 
 rule Gateway_Init:
-  [ Fr(~gw_psk), Fr(~gw_admin_sk) ]
+  [ !ChannelPSK(chan_psk), Fr(~gw_admin_sk) ]
   --[ NodeInit('gateway'), HonestNode('gateway') ]->
   [ !Node('gateway', 'honest'),
     !Honest('gateway'),
-    !ChanKey('gateway', ~gw_psk),
+    !ChanKey('gateway', chan_psk),
     !AdminSK('gateway', ~gw_admin_sk),
     !AdminPK('gateway', pk(~gw_admin_sk)) ]
 
@@ -172,15 +181,19 @@ lemma L1_NodeInfo_Authenticity:
    ==> (Ex #j. NodeInfoSent(src, seq) @ j & j < i)"
 
 /*
- * L2: Packet Reachability — EXPECTED PROVED
- * With AEAD binding, next_hop tampering requires PSK.
- * Attacker cannot produce valid ciphertext with modified next_hop.
+ * L2: Packet Reachability (exists-trace sanity check) — EXPECTED PROVED
+ * Proves that honest delivery IS possible in the patched model.
+ * Cannot use all-traces: Tamarin models rule-firing as nondeterministic,
+ * so traces exist where relay fires but gateway_receive does not
+ * (a relay crash / availability issue, not a routing-security issue).
+ * The security property is L3 (no attacker relay takeover).
  */
-lemma L2_Packet_Reachability_Patched:
-  "All src relay pkt_id #i.
+lemma L2_Packet_Reachability_Patched: exists-trace
+  "Ex src relay pkt_id #i #j #k.
      PacketSent(src, 'gateway', relay, pkt_id) @ i
-     & (Ex #h. HonestNode(src) @ h)
-   ==> (Ex #k. PacketDelivered(src, 'gateway', pkt_id) @ k)"
+     & PacketRelayed(relay, src, 'gateway', pkt_id) @ j
+     & PacketDelivered(src, 'gateway', pkt_id) @ k
+     & (Ex #h. HonestNode(src) @ h)"
 
 /*
  * L3: No Unauthorized Relay Takeover — EXPECTED PROVED
