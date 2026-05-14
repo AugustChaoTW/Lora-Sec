@@ -1,7 +1,7 @@
 ---
 title: "Paper C — Contribution Document"
 target: IEEE Transactions on Information Forensics and Security (TIFS)
-status: experiments complete, draft pending
+status: experiments complete; Tamarin PROVED (L3 patched 22s); LaTeX draft v0.1 complete
 date: 2026-05-14
 ---
 
@@ -206,7 +206,10 @@ Formal security models for mesh routing protocols predict that an attacker who c
 
 ## Open Items
 
-- [ ] Write full LaTeX draft (§1–§11)
-- [ ] Run Tamarin on baseline model with verbose proof output (for §3 table)
+- [x] Write full LaTeX draft (§1–§11) — `00_Paper/PaperC/TIFS-PaperC.tex` (5 pages v0.1)
+- [x] Run Tamarin on baseline + patched models (baseline 11.48s, patched 21.99s; logs in `phase2_tamarin_models/meshtastic/`)
 - [ ] Add quantitative overhead comparison: AEAD tag overhead on LoRa airtime
-- [ ] Related work: search for any existing Meshtastic security papers
+- [ ] Related work: search for peer-reviewed Meshtastic security papers
+- [ ] Expand §5–§7 with serial log excerpts / packet traces from E16/E17/E18
+- [ ] Add TikZ topology diagrams (§5 E16 setup)
+- [ ] Page target: reach 10–12 pages for TIFS double-column format

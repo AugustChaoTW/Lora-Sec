@@ -1,143 +1,161 @@
 paper_path: /home/augchao/Work/Lora-Sec/00_Paper/AdHocNet/AdHocNet-Aug.tex
 paper_stage: draft
 target_journal: "Ad Hoc Networks (Elsevier)"
+last_updated: "2026-05-12"
+
+# NOTE: Contributions restructured from 5 → 3 items (2026-05-12 session)
+# C1=Finding, C2=Three-tier methodology (absorbs old C2/C3/C4), C3=Artifacts
 
 main_thesis:
-  safe_claim: >
-    First formally verified security analysis and patch for a LoRa ad hoc
-    mesh routing control plane, validated across formal proofs, simulation,
-    and six-board physical testbed.
+  locked_sentence: >
+    Route injection in LoRaMesher creates a silent traffic black hole—not an
+    adversarial relay—because the deployed firmware encodes next-hop forwarding
+    state in the destination field rather than the final gateway identity assumed
+    by symbolic and packet-level analyses. This cross-layer semantic mismatch
+    explains the observed topology-dependent attack gradient and only becomes
+    visible through hardware-level validation.
+  key_implication: >
+    Routing-security analysis must explicitly distinguish endpoint identity from
+    forwarding-state representation; gateway-centric IDS observes only silence,
+    not an attack signature.
 
 contributions:
   - contribution_id: C1
+    label: "Cross-Layer Routing Semantics Finding"
     claim: >
-      First formal machine-checked security analysis of a LoRa ad hoc mesh
-      routing protocol, producing Tamarin counterexample traces for two attack
-      classes and proof certificates for the patched protocol (8/8 lemmas).
-    rq_ids: [RQ1, RQ2]
-    evidence_sections: [sec:attacks, sec:formal]
-    evidence_experiments: [E1_tamarin_baseline, E1_tamarin_patched]
-    evidence_tables: [tab:tamarin]
+      Route injection in LoRaMesher creates a silent traffic black hole—not an
+      adversarial relay. The dst field encodes next-hop address; after route
+      poisoning, intermediate relay nodes silently drop all packets (dst≠self).
+      This is invisible to Tamarin symbolic models and ns-3 simulation; only
+      hardware serial logs reveal the correct attack semantics.
+    rq_ids: [RQ1, RQ2, RQ3]
+    evidence_sections: [sec:intro, sec:cross-layer]
+    evidence_experiments: [E3_hardware_e5b, E5_hardware_e6]
+    evidence_tables: [tab:dst-semantics, tab:attacks]
+    evidence_figures: [fig:hero]
+    status: verified
+    strongest_defensible_wording: >
+      Hardware serial logs reveal that route injection produces a silent black
+      hole (dst=0xCC, discarded at every honest relay) not an adversarial relay—
+      a finding invisible to symbolic and packet-level analysis.
+    why_it_matters: >
+      Changes threat model classification: not MITM but availability loss via
+      silent misdirection. Gateway-centric IDS cannot detect this attack.
+      Explains topology-dependent PDR gradient (0% linear, 77.4% tree/grid)
+      as structural consequence of next-hop entry count per path.
+    reviewer_risk: >
+      R1 (Fatal): Generalization claim ("endemic to constrained mesh design")
+      supported only by one case study. Mitigated in 2026-05-12 revision:
+      claim lowered to "design tension with two plausible candidates (RPL,
+      Meshtastic)" + explicit future work direction.
+
+  - contribution_id: C2
+    label: "Three-Tier Verification Methodology That Makes the Finding Visible"
+    claim: >
+      Progressive verification pipeline: (a) Tamarin formal analysis identifies
+      control-plane vulnerability class (4/5 baseline lemmas falsified) and
+      verifies lightweight patch (HMAC-SHA256 + NVS-persistent MetricVersion
+      counter, 8/8 lemmas, no PKI); (b) ns-3 multi-topology simulation
+      quantifies PDR impact across 3 topologies, up to 49 nodes; (c) hardware
+      validation on 6 EoRa-PI boards is the only tier capable of revealing the
+      dst-as-next-hop encoding and correct attack semantics.
+    rq_ids: [RQ1, RQ2, RQ3]
+    evidence_sections: [sec:formal, sec:patch, sec:eval, sec:hardware-validation]
+    evidence_experiments: [E0_hmac_timing, E1_tamarin_baseline, E1_tamarin_patched,
+                           E2_ns3, E3_hardware_e5b, E4_hardware_e5c, E5_hardware_e6]
+    evidence_tables: [tab:tamarin, tab:tamarin-mapping, tab:attacks, tab:overhead,
+                      tab:hw-e5b, tab:hw-e6]
     evidence_figures: [fig:attack-seq]
     status: verified
     strongest_defensible_wording: >
-      First application of Tamarin Prover to LoRa DV mesh routing; yields
-      machine-checked attack traces and security proofs verifiable in <4 s.
+      Each verification tier reveals a distinct aspect: Tamarin proves protocol
+      correctness and verifies the patch; ns-3 quantifies topology-scale PDR
+      impact; hardware is the only tier that reveals silent black hole semantics.
     why_it_matters: >
-      No prior work has formally analyzed any LoRa mesh routing protocol.
-      Machine-checked proofs provide guarantees that informal argument cannot.
+      Demonstrates that hardware validation is not redundant—it is epistemically
+      required to establish the correct threat model when firmware forwarding
+      semantics differ from symbolic abstractions.
     reviewer_risk: >
-      Reviewer may claim Tamarin is unnecessary given HMAC simplicity.
-      Response: formal model caught the MetricVersion reboot window
-      (sec:hardware-nvs) that informal analysis missed; L2 RouteFreshness
-      proves MetricVersion counter is strictly necessary beyond HMAC.
-    response_strategy: >
-      Emphasize that formal model identified the one-reboot attack window
-      as a distinct lemma (L2 RouteFreshness) not covered by the HMAC patch
-      alone, motivating the MetricVersion counter addition.
-    avoid_overclaiming:
-      - "Do not claim Tamarin proves the full deployed LoRaMesher codebase secure—only the protocol model."
-
-  - contribution_id: C2
-    claim: >
-      A 41-line formally verified patch (HMAC-SHA256 + per-destination
-      MetricVersion counter) that closes both attack classes with 0.098 ms
-      overhead and 2 bytes/entry RAM on ESP32-S3.
-    rq_ids: [RQ2, RQ3]
-    evidence_sections: [sec:patch]
-    evidence_experiments: [E0_hmac_timing, E1_tamarin_patched]
-    evidence_tables: [tab:esp32]
-    evidence_figures: []
-    status: verified
-    strongest_defensible_wording: >
-      Patch is ESP32-class deployable (measured 0.098 ms, 2 B/entry RAM,
-      no PKI) and formally verified to satisfy all four security goals.
-    why_it_matters: >
-      Existing secure routing patches (ARIADNE, TinySec, authenticated OLSR)
-      require asymmetric crypto or PKI, infeasible on 512 KB RAM nodes.
-      This is the minimal deployable fix with formal backing.
-    reviewer_risk: >
-      HMAC + counter is not a novel cryptographic construction.
-    response_strategy: >
-      Novelty is in the application (first for LoRa DV ad hoc mesh),
-      the formal proof (Tamarin verification), and the hardware calibration
-      (ESP32-S3 measurement, duty-cycle analysis).
-    avoid_overclaiming:
-      - "Do not claim to introduce HMAC or monotonic counters as new concepts."
+      R2: HMAC+counter not novel. Addressed: patch framed as instrument for
+      discovering C1, not as independent cryptographic contribution.
+      R3: 6-node co-located testbed. Addressed: §6.4 correctness validation
+      philosophy added, separating correctness (hardware) from scale (ns-3).
+      R4: Tamarin 2-node model. Addressed: explicit scope table added in §3.
 
   - contribution_id: C3
+    label: "Open Reproducible Artifact Suite"
     claim: >
-      225-run ns-3 simulation study (135 core + 90 scale-validation,
-      up to 49 nodes) confirming 0% residual PDR degradation under full
-      patching across linear, tree, and grid topologies.
-    rq_ids: [RQ2, RQ3]
-    evidence_sections: [sec:eval]
-    evidence_experiments: [E2_ns3]
-    evidence_tables: [tab:attacks, tab:overhead, tab:scale]
-    evidence_figures: [fig:eval-results]
-    status: complete
-    strongest_defensible_wording: >
-      27-scenario × 5-seed evaluation across 3 topologies and 2 attack types;
-      patch yields 0% PDR degradation vs. unattacked baseline in all scenarios.
-    why_it_matters: >
-      Validates that the patch does not break DV routing convergence at scale
-      (up to 49 nodes) and quantifies attack impact (PDR drop) per topology.
-    reviewer_risk: >
-      ns-3 uses simplified channel model; may not reflect real LoRa propagation.
-    response_strategy: >
-      Physical hardware experiments on six boards provide empirical grounding;
-      ns-3 provides scale and repeatability that hardware cannot.
-    avoid_overclaiming:
-      - "ns-3 results are simulation, not field deployment."
-
-  - contribution_id: C4
-    claim: >
-      Three hardware experiments on six physical EoRa-PI boards confirming
-      attack and defense behavior: (i) 3-node injection demo, (ii) 6-node
-      multi-hop relay chain, (iii) NVS-persisted MetricVersion reboot-replay
-      validation. Cross-layer implementation finding (dst=next-hop) invisible
-      to Tamarin and ns-3 discovered via physical boards.
-    rq_ids: [RQ2, RQ3]
-    evidence_sections: [sec:hardware-validation, sec:hardware-nvs, sec:hardware-e6, sec:cross-layer-finding]
-    evidence_experiments: [E3_hardware_e5b, E4_hardware_e5c, E5_hardware_e6]
-    evidence_tables: [tab:hw-results, tab:hw-e6]
-    evidence_figures: []
-    status: complete
-    strongest_defensible_wording: >
-      Six-board testbed confirms: baseline PDR=0% (complete route poisoning),
-      patched PDR=87% (3-node) and 85% (6-node); NVS persistence closes
-      reboot replay window; cross-layer dst=next-hop finding is
-      invisible to both Tamarin and ns-3.
-    why_it_matters: >
-      Physical validation uncovered a cross-layer implementation subtlety
-      invisible to symbolic and packet-level models, demonstrating hardware
-      validation is necessary for ad hoc mesh security studies.
-    reviewer_risk: >
-      Only 6 nodes; co-located bench may not reflect real deployment.
-    response_strategy: >
-      Hardware validates security properties (not channel propagation);
-      scale coverage provided by ns-3 (up to 49 nodes).
-    avoid_overclaiming:
-      - "PDR residual 13-15% is channel loss at <1 m bench distance, not a security failure."
-
-  - contribution_id: C5
-    claim: >
-      Open artifact suite under MIT license: Tamarin models, ns-3 C++17
-      module, patched LoRaMesher firmware, Docker reproducibility image,
-      and hardware experiment serial logs.
+      All Tamarin models (3 .spthy files), ns-3 simulation code (C++17,
+      3 topologies, Dolev-Yao attacker), patched LoRaMesher firmware, and
+      hardware serial logs released under MIT license.
     rq_ids: []
-    evidence_sections: [sec:conclusion, app:artifact]
+    evidence_sections: [app:artifact]
     evidence_experiments: []
     evidence_tables: []
     evidence_figures: []
-    status: complete
-    strongest_defensible_wording: >
-      All artifacts released; Docker image reproduces Tamarin proofs and
-      ns-3 runs with single command; firmware applies as drop-in patch to
-      LoRaMesher v0.8.x.
-    why_it_matters: >
-      Enables community adoption, independent replication, and serves as
-      baseline for future LoRa mesh routing security research.
-    reviewer_risk: Minimal.
-    response_strategy: N/A
-    avoid_overclaiming: []
+    status: verified
+    reviewer_risk: >
+      Minor: artifact quality. Mitigated by Docker reproducibility container.
+
+locked_numbers:
+  # These must NOT change without updating this file
+  - id: N1
+    value: "0%"
+    meaning: "Baseline PDR on linear topology under route injection"
+    location: "tab:attacks L1104"
+  - id: N2
+    value: "77.4%"
+    meaning: "Baseline PDR on tree/grid under route injection"
+    location: "tab:attacks L1106-1107"
+  - id: N3
+    value: "100%"
+    meaning: "Patched PDR across all topologies"
+    location: "tab:attacks"
+  - id: N4
+    value: "0.098 ms / 98 µs"
+    meaning: "HMAC-SHA256 computation time on ESP32-S3 @ 240 MHz"
+    location: "tab:esp32-budget L504, sec:patch L1026"
+  - id: N5
+    value: "2 bytes"
+    meaning: "RAM overhead per routing table entry (MetricVersion field)"
+    location: "sec:patch L1035, L1048"
+  - id: N6
+    value: "2.1 KB"
+    meaning: "Flash footprint for mbedTLS HMAC module"
+    location: "tab:esp32-budget L502, sec:patch L1029"
+  - id: N7
+    value: "4/5"
+    meaning: "Tamarin baseline lemmas falsified"
+    location: "sec:formal L236, L846"
+  - id: N8
+    value: "8/8"
+    meaning: "Tamarin patched lemmas proved"
+    location: "sec:formal L877"
+  - id: N9
+    value: "87%"
+    meaning: "Hardware E5b patched PDR (three-node, 923 MHz)"
+    location: "sec:hardware-validation L1359"
+  - id: N10
+    value: "85%"
+    meaning: "Hardware E6 patched Node A PDR (six-node scenario)"
+    location: "sec:hardware-e6 L1458"
+  - id: N11
+    value: "3/4"
+    meaning: "Relay nodes simultaneously compromised in E6 baseline"
+    location: "sec:hardware-e6 L1450"
+  - id: N12
+    value: "49 nodes"
+    meaning: "Maximum scale ns-3 validation (7×7 grid)"
+    location: "sec:eval L1163, L1189"
+  - id: N13
+    value: "67.9%"
+    meaning: "PDR on 49-node grid under attack (more paths = higher residual)"
+    location: "tab:scale L1189"
+
+citations:
+  total_unique_in_paper: 34
+  total_in_bib: 48
+  unused_in_bib: 14
+  last_verified: "2026-05-12"
+  all_keys_in_bib: true
+  no_missing_keys: true

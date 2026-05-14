@@ -1,0 +1,178 @@
+criteria:
+- category: writing_quality
+  description: Paper uses formal academic language throughout
+  evidence: []
+  name: Academic Tone
+  score: weak
+  suggestions:
+  - Informal adjectives detected
+  weight: 0.15
+- category: writing_quality
+  description: Sentences are clear, unambiguous, and precise
+  evidence: []
+  name: Clarity and Precision
+  score: weak
+  suggestions:
+  - Vague references
+  weight: 0.1
+- category: writing_quality
+  description: Arguments flow logically with clear transitions
+  evidence:
+  - and L
+  - and p
+  - and g
+  name: Logical Flow
+  score: good
+  suggestions: []
+  weight: 0.1
+- category: methodology
+  description: Clear research questions and methodology
+  evidence:
+  - '\section{Introduction}
+
+    \label{sec:intro}
+
+    % ========================================================='
+  name: Research Design
+  score: good
+  suggestions: []
+  weight: 0.15
+- category: methodology
+  description: Mathematical formulations and algorithms are correct
+  evidence:
+  - \begin{align}
+  - \begin{equation}
+  - \begin{equation}
+  name: Technical Rigor
+  score: good
+  suggestions: []
+  weight: 0.1
+- category: novelty
+  description: Clear statement of contributions in introduction
+  evidence:
+  - Contribution
+  - contribution
+  - contribution
+  name: Contribution Statement
+  score: excellent
+  suggestions: []
+  weight: 0.1
+- category: novelty
+  description: Clear differentiation from existing methods
+  evidence: []
+  name: Comparison with Prior Work
+  score: weak
+  suggestions:
+  - Comparison language present
+  weight: 0.05
+- category: evaluation
+  description: Comparison with relevant baselines
+  evidence:
+  - baseline
+  - baseline
+  - baseline
+  name: Baseline Comparisons
+  score: good
+  suggestions: []
+  weight: 0.1
+- category: evaluation
+  description: Results include statistical analysis
+  evidence: []
+  name: Statistical Significance
+  score: weak
+  suggestions:
+  - Statistical analysis present
+  weight: 0.05
+- category: presentation
+  description: Figures are clear, labeled, and informative
+  evidence:
+  - \begin{figure}
+  - \begin{figure}
+  name: Figure Quality
+  score: good
+  suggestions: []
+  weight: 0.05
+- category: presentation
+  description: Tables are well-formatted with clear headers
+  evidence:
+  - \begin{table}
+  - \begin{table}
+  - \begin{table}
+  name: Table Clarity
+  score: good
+  suggestions: []
+  weight: 0.05
+- category: limitations
+  description: Paper acknowledges limitations
+  evidence:
+  - constraint
+  - Constraint
+  - constraint
+  name: Limitations Discussed
+  score: good
+  suggestions: []
+  weight: 0.05
+- category: limitations
+  description: Clear future research directions
+  evidence:
+  - future direction
+  - future work
+  - Future Work
+  name: Future Work
+  score: good
+  suggestions: []
+  weight: 0.05
+- category: reproducibility
+  description: Code is available or will be released
+  evidence:
+  - open-source
+  - 'codes next-hop forwarding state in the
+
+    destination field rather than the final gateway identity assu'
+  - github
+  name: Code Availability
+  score: good
+  suggestions: []
+  weight: 0.05
+- category: reproducibility
+  description: Sufficient implementation details for reproduction
+  evidence: []
+  name: Implementation Details
+  score: weak
+  suggestions:
+  - Implementation details present
+  weight: 0.05
+overall_score: 0.68
+paper_path: /home/augchao/Work/Lora-Sec/00_Paper/AdHocNet/AdHocNet-Aug.tex
+readiness: 'NEEDS WORK: Multiple weak areas require improvement'
+summary:
+  annotation_context_used: false
+  by_category:
+    evaluation:
+      issues: 1
+      score: 0.6
+    limitations:
+      issues: 0
+      score: 0.8
+    methodology:
+      issues: 0
+      score: 0.8
+    novelty:
+      issues: 1
+      score: 0.7
+    presentation:
+      issues: 0
+      score: 0.8
+    reproducibility:
+      issues: 1
+      score: 0.6
+    writing_quality:
+      issues: 2
+      score: 0.53
+  by_score:
+    acceptable: 0
+    critical: 0
+    excellent: 1
+    good: 9
+    weak: 5
+  total_criteria: 15

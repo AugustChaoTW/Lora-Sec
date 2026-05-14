@@ -181,10 +181,93 @@ changes:
       - "Addresses reviewer risk RR6: ad hoc specialist would expect these citations"
       - "Differentiation claim strengthened: SAODV + authenticated OLSR require digital signatures (infeasible on 512 KB RAM)"
 
+  - change_id: CH12
+    date: "2026-05-12"
+    category: structural
+    description: "Figure 1 redesigned: 'before/after patch' → 'model prediction vs firmware reality'"
+    files_changed: [AdHocNet-Aug.tex]
+    tex_lines: [303, 436]
+    impact:
+      - "Left panel now shows Tamarin+ns-3 model prediction: adversarial relay"
+      - "Right panel shows hardware reality: silent black hole via dst=0xCC"
+      - "Caption explicitly states finding visible only through serial logs"
+    reviewer_risk_addressed: "Figure 1 now serves main thesis not patch demo"
+
+  - change_id: CH13
+    date: "2026-05-12"
+    category: framing
+    description: "Abstract: trim patch metrics, reinforce semantic mismatch as primary finding"
+    files_changed: [AdHocNet-Aug.tex]
+    impact:
+      - "41-line, 8/8 lemmas, 0.098 ms, 2 bytes removed from para 2"
+      - "Validation para 3 simplified (removed 135 core + 90 scale enumeration)"
+
+  - change_id: CH14
+    date: "2026-05-12"
+    category: framing
+    description: "Contributions restructured from 5 items to 3 items"
+    files_changed: [AdHocNet-Aug.tex]
+    tex_lines: [207, 254]
+    impact:
+      - "C1 = Cross-layer finding (main output)"
+      - "C2 = Three-tier verification methodology (absorbed old C2+C3+C4)"
+      - "C3 = Open artifact suite"
+      - "Removes co-equal status of HMAC patch vs semantic mismatch"
+
+  - change_id: CH15
+    date: "2026-05-12"
+    category: framing
+    description: "Conclusion rewritten: 'two principles + HMAC sufficient' → finding-led"
+    files_changed: [AdHocNet-Aug.tex]
+    tex_lines: [~1905]
+    impact:
+      - "Removed 'establish two principles'"
+      - "Removed 'HMAC sufficient and practical'"
+      - "Now leads with 'endpoint identity vs forwarding-state representation'"
+      - "Consistent with limitations section (no longer claims completeness)"
+
+  - change_id: CH16
+    date: "2026-05-12"
+    category: structural
+    description: "sec:cross-layer expanded from 78 lines to ~193 lines (4 subsections)"
+    files_changed: [AdHocNet-Aug.tex]
+    tex_lines: [1443, 1665]
+    impact:
+      - "Added tab:dst-semantics: 3-row cross-layer interpretation table"
+      - "§7.2 Consequences: added silent failure vs adversarial relay distinction"
+      - "§7.3 NEW: Implications for Intrusion Detection Design (3 strategies)"
+      - "§7.4 Abstraction Gap: added RPL/BATMAN generalization"
+      - "§7.4 endemic framing: lowered from 'structural consequence' to 'design tension + candidates'"
+
+  - change_id: CH17
+    date: "2026-05-12"
+    category: risk_mitigation
+    description: "Five reviewer risk fixes: R1-R5 from self-review using gist prompt v3"
+    files_changed: [AdHocNet-Aug.tex]
+    impact:
+      - "R1 Fatal: §7.4 generalization lowered; Meshtastic as candidate; explicit future work"
+      - "R2 Major: contributions 5→3 (patch framed as instrument not co-equal)"
+      - "R3 Major: §6.4 correctness validation philosophy + removed 'relay chain' misnomer"
+      - "R4 Moderate: Tamarin 2-node scope table added in §3"
+      - "R5 Moderate: Related work: LoRaMesher/Meshtastic no community patch statement"
+
+  - change_id: CH18
+    date: "2026-05-12"
+    category: rhetoric
+    description: "Slimming pass: cut overclaim rhetoric, deterministic repetition, artifact bragging"
+    files_changed: [AdHocNet-Aug.tex]
+    impact:
+      - "'first' claims all hedged with 'to our knowledge'"
+      - "Deterministic/seed paragraph: 5 sentences → 3 sentences"
+      - "Abstract validation para: enumerated counts removed"
+      - "Conclusion: 41-line/0.098 ms/2B removed from opening"
+
 impact_summary:
   critical_fixes: 4    # CH05, CH06, CH07, CH08
   medium_fixes: 2      # CH09, CH10
   framing_changes: 3   # CH01, CH02, CH03, CH04
+  risk_mitigation_2026_05_12: 7   # CH12-CH18
   no_locked_numbers_changed: true
   no_experiment_data_changed: true
-  compilation_status: "35 pages, 765 KB, no LaTeX errors (verified 2026-05-11)"
+  compilation_status: "38 pages, 825 KB, no LaTeX errors (verified 2026-05-12)"
+  citation_status: "34 unique keys in paper, all in bib, 48 total bib entries"

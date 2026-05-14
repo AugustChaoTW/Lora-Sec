@@ -31,11 +31,31 @@ references:
     used_in_tables: []
 
   - key: sole2026-loramesher-swx
-    type: conference
-    venue_quality: acceptable
-    claim: "LoRaMesher swarm extension"
+    type: journal
+    venue_quality: good
+    venue: "SoftwareX (Elsevier), 2026"
+    claim: "LoRaMesher official library paper — architecture, DV routing, usage"
     used_in_sections: [sec:intro]
     used_in_tables: []
+    note: "FIXED 2026-05-12: was wrongly labeled conference/acceptable; is SoftwareX @article"
+
+  - key: sole2025-loramesher-tecs
+    type: journal
+    venue_quality: excellent
+    venue: "ACM Transactions on Embedded Computing Systems, Vol.24 No.4, 2025"
+    claim: "LoRaMesher middleware for distributed applications — shows ecosystem adoption but no security"
+    used_in_sections: [sec:related.mesh]
+    used_in_tables: []
+    change: "ADDED 2026-05-12"
+
+  - key: ryczek2025-secure-lora-hmac
+    type: journal
+    venue_quality: good
+    venue: "MDPI Electronics 14(24):4977, 2025"
+    claim: "AES-128-CBC + HMAC-SHA256 via mbedTLS on ESP32+LoRa — star topology, no routing layer"
+    used_in_sections: [sec:related.lightweight]
+    used_in_tables: []
+    change: "ADDED 2026-05-12 — closest published HMAC+LoRa+ESP32 implementation; differentiation: star vs mesh"
 
   - key: repetto2022-lorawan-demo
     type: conference
@@ -292,12 +312,13 @@ references:
     change: "ADDED 2026-05-11 — addresses RR6 (missing classic ad hoc routing security papers)"
 
 quality_summary:
-  total_references_in_bib: 53
-  referenced_in_paper: 34
+  total_references_in_bib: 50
+  referenced_in_paper: 36
+  last_updated: "2026-05-12"
   venue_breakdown:
-    excellent: 6    # MobiCom, SenSys, USENIX Sec, Tamarin book, WMCSA, NIST SP
-    good: 16
-    acceptable: 6
+    excellent: 7    # MobiCom, SenSys, USENIX Sec, Tamarin book, WMCSA, NIST SP, ACM TECS
+    good: 18        # +ryczek2025 (MDPI Electronics), +sole2025-loramesher-tecs
+    acceptable: 5
     preprint_residual: 1   # repetto2025 (narrow differentiation claim)
     misc_residual: 1       # cve2025-meshtastic-entropy (illustrative only)
   no_fake_authors: true
