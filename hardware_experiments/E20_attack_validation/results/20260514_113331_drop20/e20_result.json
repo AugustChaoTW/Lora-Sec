@@ -1,0 +1,60 @@
+{
+  "scenario": "drop20",
+  "n_images": 3,
+  "chain_ok_rate": 0.6666666666666666,
+  "avg_verification_pct": 83.3,
+  "avg_prefix_pct": 81.5,
+  "relay_stats": {
+    "forwarded": 58,
+    "dropped": 14,
+    "flipped": 0,
+    "replayed": 0
+  },
+  "images": [
+    {
+      "total_frags": 9,
+      "recv": 9,
+      "verified": 9,
+      "failed": 0,
+      "chain_ok": null,
+      "chain_broken": false,
+      "verify_prefix": 9,
+      "break_pos": "none",
+      "replay_det": 16,
+      "img_seq": 20,
+      "recv_total": 9,
+      "chain_ok_pct": 100.0,
+      "verify_prefix_pct": 100.0
+    },
+    {
+      "total_frags": 9,
+      "recv": 9,
+      "verified": 9,
+      "failed": 0,
+      "chain_ok": null,
+      "chain_broken": false,
+      "verify_prefix": 9,
+      "break_pos": "none",
+      "replay_det": 17,
+      "img_seq": 23,
+      "recv_total": 9,
+      "chain_ok_pct": 100.0,
+      "verify_prefix_pct": 100.0
+    },
+    {
+      "total_frags": 9,
+      "recv": 8,
+      "verified": 4,
+      "failed": 4,
+      "chain_ok": null,
+      "chain_broken": true,
+      "verify_prefix": 4,
+      "break_pos": "5",
+      "replay_det": 18,
+      "img_seq": 24,
+      "recv_total": 9,
+      "chain_ok_pct": 50.0,
+      "verify_prefix_pct": 44.0
+    }
+  ]
+}

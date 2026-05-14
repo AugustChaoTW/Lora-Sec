@@ -1,0 +1,90 @@
+{
+  "scenario": "replay",
+  "n_images": 5,
+  "chain_ok_rate": 0.2,
+  "avg_verification_pct": 28.9,
+  "avg_prefix_pct": 28.9,
+  "relay_stats": {
+    "forwarded": 66,
+    "dropped": 0,
+    "flipped": 0,
+    "replayed": 7
+  },
+  "images": [
+    {
+      "total_frags": 9,
+      "recv": 9,
+      "verified": 9,
+      "failed": 0,
+      "chain_ok": null,
+      "chain_broken": false,
+      "verify_prefix": 9,
+      "break_pos": "none",
+      "replay_det": 31,
+      "img_seq": 43,
+      "recv_total": 9,
+      "chain_ok_pct": 100.0,
+      "verify_prefix_pct": 100.0
+    },
+    {
+      "total_frags": 9,
+      "recv": 9,
+      "verified": 1,
+      "failed": 8,
+      "chain_ok": null,
+      "chain_broken": true,
+      "verify_prefix": 1,
+      "break_pos": "1",
+      "replay_det": 32,
+      "img_seq": 43,
+      "recv_total": 9,
+      "chain_ok_pct": 11.0,
+      "verify_prefix_pct": 11.0
+    },
+    {
+      "total_frags": 9,
+      "recv": 9,
+      "verified": 1,
+      "failed": 8,
+      "chain_ok": null,
+      "chain_broken": true,
+      "verify_prefix": 1,
+      "break_pos": "1",
+      "replay_det": 33,
+      "img_seq": 43,
+      "recv_total": 9,
+      "chain_ok_pct": 11.0,
+      "verify_prefix_pct": 11.0
+    },
+    {
+      "total_frags": 9,
+      "recv": 9,
+      "verified": 1,
+      "failed": 8,
+      "chain_ok": null,
+      "chain_broken": true,
+      "verify_prefix": 1,
+      "break_pos": "1",
+      "replay_det": 34,
+      "img_seq": 43,
+      "recv_total": 9,
+      "chain_ok_pct": 11.0,
+      "verify_prefix_pct": 11.0
+    },
+    {
+      "total_frags": 9,
+      "recv": 9,
+      "verified": 1,
+      "failed": 8,
+      "chain_ok": null,
+      "chain_broken": true,
+      "verify_prefix": 1,
+      "break_pos": "1",
+      "replay_det": 35,
+      "img_seq": 43,
+      "recv_total": 9,
+      "chain_ok_pct": 11.0,
+      "verify_prefix_pct": 11.0
+    }
+  ]
+}

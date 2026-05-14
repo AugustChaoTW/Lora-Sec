@@ -1,0 +1,30 @@
+{
+  "scenario": "replay",
+  "n_images": 1,
+  "chain_ok_rate": 1.0,
+  "avg_verification_pct": 100.0,
+  "avg_prefix_pct": 100.0,
+  "relay_stats": {
+    "forwarded": 16,
+    "dropped": 0,
+    "flipped": 0,
+    "replayed": 1
+  },
+  "images": [
+    {
+      "total_frags": 9,
+      "recv": 9,
+      "verified": 9,
+      "failed": 0,
+      "chain_ok": null,
+      "chain_broken": false,
+      "verify_prefix": 9,
+      "break_pos": "none",
+      "replay_det": 29,
+      "img_seq": 35,
+      "recv_total": 9,
+      "chain_ok_pct": 100.0,
+      "verify_prefix_pct": 100.0
+    }
+  ]
+}
