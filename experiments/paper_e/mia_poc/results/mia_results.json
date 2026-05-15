@@ -154,5 +154,1210 @@
         "attack_time_s": 16.78
       }
     ]
+  },
+  {
+    "backbone": "mobilenet_v3_small",
+    "dim": 128,
+    "attack": "fredrikson",
+    "dp_epsilon": null,
+    "n_samples": 10,
+    "accuracy": 0.88,
+    "ssim_mean": 0.044,
+    "ssim_std": 0.0185,
+    "ssim_max": 0.0909,
+    "lpips_mean": 1.152,
+    "lpips_std": 0.1602,
+    "privacy_claim_holds": true,
+    "samples": [
+      {
+        "ssim": 0.034,
+        "lpips": 1.1266,
+        "l2_pixel": 0.049194,
+        "sample_idx": 0,
+        "attack_time_s": 15.48
+      },
+      {
+        "ssim": 0.0406,
+        "lpips": 1.0968,
+        "l2_pixel": 0.104394,
+        "sample_idx": 1,
+        "attack_time_s": 17.72
+      },
+      {
+        "ssim": 0.0344,
+        "lpips": 1.0359,
+        "l2_pixel": 0.066813,
+        "sample_idx": 2,
+        "attack_time_s": 18.07
+      },
+      {
+        "ssim": 0.0424,
+        "lpips": 1.1625,
+        "l2_pixel": 0.070664,
+        "sample_idx": 3,
+        "attack_time_s": 17.86
+      },
+      {
+        "ssim": 0.0364,
+        "lpips": 1.218,
+        "l2_pixel": 0.098221,
+        "sample_idx": 4,
+        "attack_time_s": 16.38
+      },
+      {
+        "ssim": 0.0226,
+        "lpips": 1.489,
+        "l2_pixel": 0.203115,
+        "sample_idx": 5,
+        "attack_time_s": 16.23
+      },
+      {
+        "ssim": 0.0909,
+        "lpips": 0.9171,
+        "l2_pixel": 0.142668,
+        "sample_idx": 6,
+        "attack_time_s": 17.18
+      },
+      {
+        "ssim": 0.0279,
+        "lpips": 1.3677,
+        "l2_pixel": 0.069505,
+        "sample_idx": 7,
+        "attack_time_s": 17.19
+      },
+      {
+        "ssim": 0.0557,
+        "lpips": 1.0429,
+        "l2_pixel": 0.056912,
+        "sample_idx": 8,
+        "attack_time_s": 16.08
+      },
+      {
+        "ssim": 0.0551,
+        "lpips": 1.0636,
+        "l2_pixel": 0.092029,
+        "sample_idx": 9,
+        "attack_time_s": 22.59
+      }
+    ]
+  },
+  {
+    "backbone": "mobilenet_v3_small",
+    "dim": 128,
+    "attack": "dlg",
+    "dp_epsilon": null,
+    "n_samples": 10,
+    "accuracy": 0.805,
+    "ssim_mean": 0.0042,
+    "ssim_std": 0.0027,
+    "ssim_max": 0.0116,
+    "lpips_mean": 1.5134,
+    "lpips_std": 0.0537,
+    "privacy_claim_holds": true,
+    "samples": [
+      {
+        "ssim": 0.0025,
+        "lpips": 1.4959,
+        "l2_pixel": 0.272102,
+        "sample_idx": 0,
+        "attack_time_s": 7.6
+      },
+      {
+        "ssim": 0.0034,
+        "lpips": 1.4932,
+        "l2_pixel": 0.328803,
+        "sample_idx": 1,
+        "attack_time_s": 6.31
+      },
+      {
+        "ssim": 0.0026,
+        "lpips": 1.458,
+        "l2_pixel": 0.281552,
+        "sample_idx": 2,
+        "attack_time_s": 6.46
+      },
+      {
+        "ssim": 0.0033,
+        "lpips": 1.5822,
+        "l2_pixel": 0.302247,
+        "sample_idx": 3,
+        "attack_time_s": 6.57
+      },
+      {
+        "ssim": 0.0027,
+        "lpips": 1.5166,
+        "l2_pixel": 0.339175,
+        "sample_idx": 4,
+        "attack_time_s": 6.4
+      },
+      {
+        "ssim": 0.0032,
+        "lpips": 1.5581,
+        "l2_pixel": 0.392135,
+        "sample_idx": 5,
+        "attack_time_s": 7.54
+      },
+      {
+        "ssim": 0.006,
+        "lpips": 1.5512,
+        "l2_pixel": 0.352184,
+        "sample_idx": 6,
+        "attack_time_s": 8.24
+      },
+      {
+        "ssim": 0.0022,
+        "lpips": 1.5778,
+        "l2_pixel": 0.277854,
+        "sample_idx": 7,
+        "attack_time_s": 8.39
+      },
+      {
+        "ssim": 0.0049,
+        "lpips": 1.4997,
+        "l2_pixel": 0.290887,
+        "sample_idx": 8,
+        "attack_time_s": 7.9
+      },
+      {
+        "ssim": 0.0116,
+        "lpips": 1.4014,
+        "l2_pixel": 0.132764,
+        "sample_idx": 9,
+        "attack_time_s": 6.99
+      }
+    ]
+  },
+  {
+    "backbone": "mobilenet_v3_small",
+    "dim": 128,
+    "attack": "inversion_net",
+    "dp_epsilon": null,
+    "n_samples": 10,
+    "accuracy": 0.85,
+    "ssim_mean": 0.3574,
+    "ssim_std": 0.1036,
+    "ssim_max": 0.5752,
+    "lpips_mean": 0.7805,
+    "lpips_std": 0.0666,
+    "privacy_claim_holds": true,
+    "samples": [
+      {
+        "ssim": 0.4515,
+        "lpips": 0.6892,
+        "l2_pixel": 0.016023,
+        "sample_idx": 0,
+        "attack_time_s": 9.94
+      },
+      {
+        "ssim": 0.2056,
+        "lpips": 0.7823,
+        "l2_pixel": 0.052137,
+        "sample_idx": 1,
+        "attack_time_s": 0.0
+      },
+      {
+        "ssim": 0.3777,
+        "lpips": 0.7286,
+        "l2_pixel": 0.044392,
+        "sample_idx": 2,
+        "attack_time_s": 0.0
+      },
+      {
+        "ssim": 0.2689,
+        "lpips": 0.8205,
+        "l2_pixel": 0.050221,
+        "sample_idx": 3,
+        "attack_time_s": 0.0
+      },
+      {
+        "ssim": 0.235,
+        "lpips": 0.8779,
+        "l2_pixel": 0.113712,
+        "sample_idx": 4,
+        "attack_time_s": 0.0
+      },
+      {
+        "ssim": 0.3334,
+        "lpips": 0.7107,
+        "l2_pixel": 0.120039,
+        "sample_idx": 5,
+        "attack_time_s": 0.0
+      },
+      {
+        "ssim": 0.3598,
+        "lpips": 0.8549,
+        "l2_pixel": 0.078344,
+        "sample_idx": 6,
+        "attack_time_s": 0.0
+      },
+      {
+        "ssim": 0.4204,
+        "lpips": 0.8161,
+        "l2_pixel": 0.066917,
+        "sample_idx": 7,
+        "attack_time_s": 0.0
+      },
+      {
+        "ssim": 0.5752,
+        "lpips": 0.6918,
+        "l2_pixel": 0.032279,
+        "sample_idx": 8,
+        "attack_time_s": 0.0
+      },
+      {
+        "ssim": 0.3465,
+        "lpips": 0.833,
+        "l2_pixel": 0.058924,
+        "sample_idx": 9,
+        "attack_time_s": 0.0
+      }
+    ]
+  },
+  {
+    "backbone": "squeezenet",
+    "dim": 128,
+    "attack": "fredrikson",
+    "dp_epsilon": null,
+    "n_samples": 10,
+    "accuracy": 0.85,
+    "ssim_mean": 0.1236,
+    "ssim_std": 0.0451,
+    "ssim_max": 0.1958,
+    "lpips_mean": 0.8949,
+    "lpips_std": 0.139,
+    "privacy_claim_holds": true,
+    "samples": [
+      {
+        "ssim": 0.1904,
+        "lpips": 0.7152,
+        "l2_pixel": 0.032457,
+        "sample_idx": 0,
+        "attack_time_s": 12.74
+      },
+      {
+        "ssim": 0.152,
+        "lpips": 0.8639,
+        "l2_pixel": 0.089071,
+        "sample_idx": 1,
+        "attack_time_s": 10.58
+      },
+      {
+        "ssim": 0.0959,
+        "lpips": 1.1103,
+        "l2_pixel": 0.028577,
+        "sample_idx": 2,
+        "attack_time_s": 17.75
+      },
+      {
+        "ssim": 0.1204,
+        "lpips": 0.8045,
+        "l2_pixel": 0.047642,
+        "sample_idx": 3,
+        "attack_time_s": 12.05
+      },
+      {
+        "ssim": 0.0703,
+        "lpips": 1.1189,
+        "l2_pixel": 0.060917,
+        "sample_idx": 4,
+        "attack_time_s": 28.62
+      },
+      {
+        "ssim": 0.1575,
+        "lpips": 0.7579,
+        "l2_pixel": 0.078627,
+        "sample_idx": 5,
+        "attack_time_s": 15.29
+      },
+      {
+        "ssim": 0.1029,
+        "lpips": 0.9453,
+        "l2_pixel": 0.073213,
+        "sample_idx": 6,
+        "attack_time_s": 14.19
+      },
+      {
+        "ssim": 0.0771,
+        "lpips": 0.8403,
+        "l2_pixel": 0.13927,
+        "sample_idx": 7,
+        "attack_time_s": 8.94
+      },
+      {
+        "ssim": 0.0734,
+        "lpips": 1.0209,
+        "l2_pixel": 0.061403,
+        "sample_idx": 8,
+        "attack_time_s": 10.06
+      },
+      {
+        "ssim": 0.1958,
+        "lpips": 0.7722,
+        "l2_pixel": 0.035436,
+        "sample_idx": 9,
+        "attack_time_s": 11.82
+      }
+    ]
+  },
+  {
+    "backbone": "squeezenet",
+    "dim": 128,
+    "attack": "dlg",
+    "dp_epsilon": null,
+    "n_samples": 10,
+    "accuracy": 0.815,
+    "ssim_mean": 0.0042,
+    "ssim_std": 0.0039,
+    "ssim_max": 0.0146,
+    "lpips_mean": 1.4641,
+    "lpips_std": 0.0537,
+    "privacy_claim_holds": true,
+    "samples": [
+      {
+        "ssim": 0.0008,
+        "lpips": 1.4079,
+        "l2_pixel": 0.264181,
+        "sample_idx": 0,
+        "attack_time_s": 1.55
+      },
+      {
+        "ssim": 0.0034,
+        "lpips": 1.508,
+        "l2_pixel": 0.352227,
+        "sample_idx": 1,
+        "attack_time_s": 2.47
+      },
+      {
+        "ssim": 0.0055,
+        "lpips": 1.5924,
+        "l2_pixel": 0.226836,
+        "sample_idx": 2,
+        "attack_time_s": 2.56
+      },
+      {
+        "ssim": 0.0036,
+        "lpips": 1.4636,
+        "l2_pixel": 0.235158,
+        "sample_idx": 3,
+        "attack_time_s": 0.94
+      },
+      {
+        "ssim": 0.0146,
+        "lpips": 1.4575,
+        "l2_pixel": 0.100026,
+        "sample_idx": 4,
+        "attack_time_s": 0.49
+      },
+      {
+        "ssim": 0.0014,
+        "lpips": 1.4141,
+        "l2_pixel": 0.346287,
+        "sample_idx": 5,
+        "attack_time_s": 1.03
+      },
+      {
+        "ssim": null,
+        "lpips": null,
+        "l2_pixel": null,
+        "error": "nan",
+        "sample_idx": 6,
+        "attack_time_s": 4.72
+      },
+      {
+        "ssim": 0.002,
+        "lpips": 1.4471,
+        "l2_pixel": 0.367382,
+        "sample_idx": 7,
+        "attack_time_s": 0.46
+      },
+      {
+        "ssim": 0.0038,
+        "lpips": 1.4617,
+        "l2_pixel": 0.287564,
+        "sample_idx": 8,
+        "attack_time_s": 0.58
+      },
+      {
+        "ssim": 0.0025,
+        "lpips": 1.4245,
+        "l2_pixel": 0.286269,
+        "sample_idx": 9,
+        "attack_time_s": 0.55
+      }
+    ]
+  },
+  {
+    "backbone": "squeezenet",
+    "dim": 128,
+    "attack": "inversion_net",
+    "dp_epsilon": null,
+    "n_samples": 10,
+    "accuracy": 0.82,
+    "ssim_mean": 0.3121,
+    "ssim_std": 0.0715,
+    "ssim_max": 0.4516,
+    "lpips_mean": 0.77,
+    "lpips_std": 0.0532,
+    "privacy_claim_holds": true,
+    "samples": [
+      {
+        "ssim": 0.3378,
+        "lpips": 0.7867,
+        "l2_pixel": 0.03079,
+        "sample_idx": 0,
+        "attack_time_s": 10.67
+      },
+      {
+        "ssim": 0.2964,
+        "lpips": 0.7802,
+        "l2_pixel": 0.084539,
+        "sample_idx": 1,
+        "attack_time_s": 0.0
+      },
+      {
+        "ssim": 0.3778,
+        "lpips": 0.8092,
+        "l2_pixel": 0.030094,
+        "sample_idx": 2,
+        "attack_time_s": 0.0
+      },
+      {
+        "ssim": 0.3046,
+        "lpips": 0.7431,
+        "l2_pixel": 0.042023,
+        "sample_idx": 3,
+        "attack_time_s": 0.0
+      },
+      {
+        "ssim": 0.355,
+        "lpips": 0.7124,
+        "l2_pixel": 0.041276,
+        "sample_idx": 4,
+        "attack_time_s": 0.0
+      },
+      {
+        "ssim": 0.3118,
+        "lpips": 0.8377,
+        "l2_pixel": 0.093353,
+        "sample_idx": 5,
+        "attack_time_s": 0.0
+      },
+      {
+        "ssim": 0.2272,
+        "lpips": 0.7959,
+        "l2_pixel": 0.062115,
+        "sample_idx": 6,
+        "attack_time_s": 0.0
+      },
+      {
+        "ssim": 0.1862,
+        "lpips": 0.8198,
+        "l2_pixel": 0.160136,
+        "sample_idx": 7,
+        "attack_time_s": 0.0
+      },
+      {
+        "ssim": 0.2728,
+        "lpips": 0.7664,
+        "l2_pixel": 0.044691,
+        "sample_idx": 8,
+        "attack_time_s": 0.0
+      },
+      {
+        "ssim": 0.4516,
+        "lpips": 0.649,
+        "l2_pixel": 0.021373,
+        "sample_idx": 9,
+        "attack_time_s": 0.0
+      }
+    ]
+  },
+  {
+    "backbone": "efficientnet_lite0",
+    "dim": 128,
+    "attack": "fredrikson",
+    "dp_epsilon": null,
+    "n_samples": 10,
+    "accuracy": 0.91,
+    "ssim_mean": 0.0395,
+    "ssim_std": 0.0138,
+    "ssim_max": 0.0628,
+    "lpips_mean": 1.0835,
+    "lpips_std": 0.1049,
+    "privacy_claim_holds": true,
+    "samples": [
+      {
+        "ssim": 0.0311,
+        "lpips": 1.1554,
+        "l2_pixel": 0.108432,
+        "sample_idx": 0,
+        "attack_time_s": 15.73
+      },
+      {
+        "ssim": 0.033,
+        "lpips": 1.1577,
+        "l2_pixel": 0.096124,
+        "sample_idx": 1,
+        "attack_time_s": 19.16
+      },
+      {
+        "ssim": 0.0395,
+        "lpips": 1.0141,
+        "l2_pixel": 0.072605,
+        "sample_idx": 2,
+        "attack_time_s": 16.39
+      },
+      {
+        "ssim": 0.0346,
+        "lpips": 1.2898,
+        "l2_pixel": 0.062104,
+        "sample_idx": 3,
+        "attack_time_s": 19.2
+      },
+      {
+        "ssim": 0.0502,
+        "lpips": 1.0575,
+        "l2_pixel": 0.094192,
+        "sample_idx": 4,
+        "attack_time_s": 14.94
+      },
+      {
+        "ssim": 0.0574,
+        "lpips": 0.9209,
+        "l2_pixel": 0.064626,
+        "sample_idx": 5,
+        "attack_time_s": 15.17
+      },
+      {
+        "ssim": 0.0436,
+        "lpips": 0.9843,
+        "l2_pixel": 0.106682,
+        "sample_idx": 6,
+        "attack_time_s": 16.52
+      },
+      {
+        "ssim": 0.0288,
+        "lpips": 1.0838,
+        "l2_pixel": 0.103138,
+        "sample_idx": 7,
+        "attack_time_s": 17.05
+      },
+      {
+        "ssim": 0.0628,
+        "lpips": 0.9995,
+        "l2_pixel": 0.056136,
+        "sample_idx": 8,
+        "attack_time_s": 38.45
+      },
+      {
+        "ssim": 0.0141,
+        "lpips": 1.1723,
+        "l2_pixel": 0.093351,
+        "sample_idx": 9,
+        "attack_time_s": 15.19
+      }
+    ]
+  },
+  {
+    "backbone": "efficientnet_lite0",
+    "dim": 128,
+    "attack": "dlg",
+    "dp_epsilon": null,
+    "n_samples": 10,
+    "accuracy": 0.87,
+    "ssim_mean": 0.0085,
+    "ssim_std": 0.0044,
+    "ssim_max": 0.014,
+    "lpips_mean": 1.4715,
+    "lpips_std": 0.0734,
+    "privacy_claim_holds": true,
+    "samples": [
+      {
+        "ssim": 0.0039,
+        "lpips": 1.5668,
+        "l2_pixel": 0.357599,
+        "sample_idx": 0,
+        "attack_time_s": 26.71
+      },
+      {
+        "ssim": 0.0131,
+        "lpips": 1.5268,
+        "l2_pixel": 0.130401,
+        "sample_idx": 1,
+        "attack_time_s": 11.47
+      },
+      {
+        "ssim": 0.0102,
+        "lpips": 1.375,
+        "l2_pixel": 0.116692,
+        "sample_idx": 2,
+        "attack_time_s": 29.29
+      },
+      {
+        "ssim": 0.0095,
+        "lpips": 1.5024,
+        "l2_pixel": 0.115349,
+        "sample_idx": 3,
+        "attack_time_s": 28.57
+      },
+      {
+        "ssim": 0.0077,
+        "lpips": 1.4814,
+        "l2_pixel": 0.142889,
+        "sample_idx": 4,
+        "attack_time_s": 21.35
+      },
+      {
+        "ssim": 0.014,
+        "lpips": 1.3392,
+        "l2_pixel": 0.118222,
+        "sample_idx": 5,
+        "attack_time_s": 28.64
+      },
+      {
+        "ssim": 0.0012,
+        "lpips": 1.487,
+        "l2_pixel": 0.356523,
+        "sample_idx": 6,
+        "attack_time_s": 28.39
+      },
+      {
+        "ssim": 0.0123,
+        "lpips": 1.5212,
+        "l2_pixel": 0.135173,
+        "sample_idx": 7,
+        "attack_time_s": 27.2
+      },
+      {
+        "ssim": 0.002,
+        "lpips": 1.5309,
+        "l2_pixel": 0.302776,
+        "sample_idx": 8,
+        "attack_time_s": 19.23
+      },
+      {
+        "ssim": 0.0112,
+        "lpips": 1.3843,
+        "l2_pixel": 0.11718,
+        "sample_idx": 9,
+        "attack_time_s": 13.65
+      }
+    ]
+  },
+  {
+    "backbone": "efficientnet_lite0",
+    "dim": 128,
+    "attack": "inversion_net",
+    "dp_epsilon": null,
+    "n_samples": 10,
+    "accuracy": 0.865,
+    "ssim_mean": 0.2449,
+    "ssim_std": 0.077,
+    "ssim_max": 0.4339,
+    "lpips_mean": 0.7783,
+    "lpips_std": 0.0823,
+    "privacy_claim_holds": true,
+    "samples": [
+      {
+        "ssim": 0.1733,
+        "lpips": 0.7883,
+        "l2_pixel": 0.105127,
+        "sample_idx": 0,
+        "attack_time_s": 13.93
+      },
+      {
+        "ssim": 0.2423,
+        "lpips": 0.8541,
+        "l2_pixel": 0.094544,
+        "sample_idx": 1,
+        "attack_time_s": 0.0
+      },
+      {
+        "ssim": 0.2368,
+        "lpips": 0.7281,
+        "l2_pixel": 0.050536,
+        "sample_idx": 2,
+        "attack_time_s": 0.0
+      },
+      {
+        "ssim": 0.4339,
+        "lpips": 0.7027,
+        "l2_pixel": 0.03472,
+        "sample_idx": 3,
+        "attack_time_s": 0.0
+      },
+      {
+        "ssim": 0.279,
+        "lpips": 0.6889,
+        "l2_pixel": 0.055748,
+        "sample_idx": 4,
+        "attack_time_s": 0.0
+      },
+      {
+        "ssim": 0.2076,
+        "lpips": 0.6626,
+        "l2_pixel": 0.070959,
+        "sample_idx": 5,
+        "attack_time_s": 0.0
+      },
+      {
+        "ssim": 0.2511,
+        "lpips": 0.8945,
+        "l2_pixel": 0.106054,
+        "sample_idx": 6,
+        "attack_time_s": 0.0
+      },
+      {
+        "ssim": 0.2105,
+        "lpips": 0.8122,
+        "l2_pixel": 0.0582,
+        "sample_idx": 7,
+        "attack_time_s": 0.0
+      },
+      {
+        "ssim": 0.2838,
+        "lpips": 0.9066,
+        "l2_pixel": 0.047204,
+        "sample_idx": 8,
+        "attack_time_s": 0.0
+      },
+      {
+        "ssim": 0.1303,
+        "lpips": 0.7446,
+        "l2_pixel": 0.085124,
+        "sample_idx": 9,
+        "attack_time_s": 0.0
+      }
+    ]
+  },
+  {
+    "backbone": "resnet18",
+    "dim": 128,
+    "attack": "fredrikson",
+    "dp_epsilon": null,
+    "n_samples": 10,
+    "accuracy": 0.86,
+    "ssim_mean": 0.0816,
+    "ssim_std": 0.0274,
+    "ssim_max": 0.1251,
+    "lpips_mean": 0.8978,
+    "lpips_std": 0.0915,
+    "privacy_claim_holds": true,
+    "samples": [
+      {
+        "ssim": 0.0907,
+        "lpips": 0.888,
+        "l2_pixel": 0.04193,
+        "sample_idx": 0,
+        "attack_time_s": 14.15
+      },
+      {
+        "ssim": 0.0436,
+        "lpips": 0.9411,
+        "l2_pixel": 0.102983,
+        "sample_idx": 1,
+        "attack_time_s": 12.35
+      },
+      {
+        "ssim": 0.0687,
+        "lpips": 0.9838,
+        "l2_pixel": 0.076471,
+        "sample_idx": 2,
+        "attack_time_s": 14.35
+      },
+      {
+        "ssim": 0.0816,
+        "lpips": 1.0133,
+        "l2_pixel": 0.064743,
+        "sample_idx": 3,
+        "attack_time_s": 12.58
+      },
+      {
+        "ssim": 0.0527,
+        "lpips": 0.9953,
+        "l2_pixel": 0.077873,
+        "sample_idx": 4,
+        "attack_time_s": 12.47
+      },
+      {
+        "ssim": 0.0454,
+        "lpips": 0.9472,
+        "l2_pixel": 0.11096,
+        "sample_idx": 5,
+        "attack_time_s": 17.04
+      },
+      {
+        "ssim": 0.1251,
+        "lpips": 0.7656,
+        "l2_pixel": 0.046949,
+        "sample_idx": 6,
+        "attack_time_s": 22.16
+      },
+      {
+        "ssim": 0.0874,
+        "lpips": 0.8528,
+        "l2_pixel": 0.069409,
+        "sample_idx": 7,
+        "attack_time_s": 35.18
+      },
+      {
+        "ssim": 0.1164,
+        "lpips": 0.7301,
+        "l2_pixel": 0.06726,
+        "sample_idx": 8,
+        "attack_time_s": 34.58
+      },
+      {
+        "ssim": 0.1045,
+        "lpips": 0.8606,
+        "l2_pixel": 0.062646,
+        "sample_idx": 9,
+        "attack_time_s": 31.78
+      }
+    ]
+  },
+  {
+    "backbone": "resnet18",
+    "dim": 128,
+    "attack": "dlg",
+    "dp_epsilon": null,
+    "n_samples": 10,
+    "accuracy": 0.89,
+    "ssim_mean": 0.0032,
+    "ssim_std": 0.002,
+    "ssim_max": 0.0077,
+    "lpips_mean": 1.4083,
+    "lpips_std": 0.0668,
+    "privacy_claim_holds": true,
+    "samples": [
+      {
+        "ssim": 0.0021,
+        "lpips": 1.4582,
+        "l2_pixel": 0.297091,
+        "sample_idx": 0,
+        "attack_time_s": 6.69
+      },
+      {
+        "ssim": 0.0021,
+        "lpips": 1.4044,
+        "l2_pixel": 0.351227,
+        "sample_idx": 1,
+        "attack_time_s": 1.23
+      },
+      {
+        "ssim": 0.0023,
+        "lpips": 1.5129,
+        "l2_pixel": 0.316445,
+        "sample_idx": 2,
+        "attack_time_s": 6.64
+      },
+      {
+        "ssim": 0.0032,
+        "lpips": 1.5136,
+        "l2_pixel": 0.305183,
+        "sample_idx": 3,
+        "attack_time_s": 5.47
+      },
+      {
+        "ssim": 0.0063,
+        "lpips": 1.3981,
+        "l2_pixel": 0.309814,
+        "sample_idx": 4,
+        "attack_time_s": 5.17
+      },
+      {
+        "ssim": 0.0077,
+        "lpips": 1.2932,
+        "l2_pixel": 0.153519,
+        "sample_idx": 5,
+        "attack_time_s": 0.94
+      },
+      {
+        "ssim": 0.0033,
+        "lpips": 1.3757,
+        "l2_pixel": 0.294564,
+        "sample_idx": 6,
+        "attack_time_s": 6.09
+      },
+      {
+        "ssim": 0.0019,
+        "lpips": 1.416,
+        "l2_pixel": 0.328702,
+        "sample_idx": 7,
+        "attack_time_s": 1.58
+      },
+      {
+        "ssim": 0.0018,
+        "lpips": 1.357,
+        "l2_pixel": 0.321934,
+        "sample_idx": 8,
+        "attack_time_s": 1.06
+      },
+      {
+        "ssim": 0.0013,
+        "lpips": 1.3541,
+        "l2_pixel": 0.322887,
+        "sample_idx": 9,
+        "attack_time_s": 3.6
+      }
+    ]
+  },
+  {
+    "backbone": "resnet18",
+    "dim": 128,
+    "attack": "inversion_net",
+    "dp_epsilon": null,
+    "n_samples": 10,
+    "accuracy": 0.875,
+    "ssim_mean": 0.2655,
+    "ssim_std": 0.0721,
+    "ssim_max": 0.3939,
+    "lpips_mean": 0.8124,
+    "lpips_std": 0.0821,
+    "privacy_claim_holds": true,
+    "samples": [
+      {
+        "ssim": 0.2766,
+        "lpips": 0.9273,
+        "l2_pixel": 0.034835,
+        "sample_idx": 0,
+        "attack_time_s": 13.55
+      },
+      {
+        "ssim": 0.135,
+        "lpips": 0.8281,
+        "l2_pixel": 0.12131,
+        "sample_idx": 1,
+        "attack_time_s": 0.0
+      },
+      {
+        "ssim": 0.3068,
+        "lpips": 0.8066,
+        "l2_pixel": 0.074055,
+        "sample_idx": 2,
+        "attack_time_s": 0.0
+      },
+      {
+        "ssim": 0.2552,
+        "lpips": 0.8057,
+        "l2_pixel": 0.052902,
+        "sample_idx": 3,
+        "attack_time_s": 0.0
+      },
+      {
+        "ssim": 0.2399,
+        "lpips": 0.7485,
+        "l2_pixel": 0.063011,
+        "sample_idx": 4,
+        "attack_time_s": 0.0
+      },
+      {
+        "ssim": 0.1807,
+        "lpips": 0.8188,
+        "l2_pixel": 0.074159,
+        "sample_idx": 5,
+        "attack_time_s": 0.0
+      },
+      {
+        "ssim": 0.2774,
+        "lpips": 0.8746,
+        "l2_pixel": 0.040563,
+        "sample_idx": 6,
+        "attack_time_s": 0.0
+      },
+      {
+        "ssim": 0.3528,
+        "lpips": 0.7941,
+        "l2_pixel": 0.040405,
+        "sample_idx": 7,
+        "attack_time_s": 0.0
+      },
+      {
+        "ssim": 0.2362,
+        "lpips": 0.9017,
+        "l2_pixel": 0.073507,
+        "sample_idx": 8,
+        "attack_time_s": 0.0
+      },
+      {
+        "ssim": 0.3939,
+        "lpips": 0.6185,
+        "l2_pixel": 0.037136,
+        "sample_idx": 9,
+        "attack_time_s": 0.0
+      }
+    ]
+  },
+  {
+    "backbone": "mobilenetv2",
+    "dim": 128,
+    "attack": "dlg",
+    "dp_epsilon": null,
+    "n_samples": 10,
+    "accuracy": 0.875,
+    "ssim_mean": 0.0071,
+    "ssim_std": 0.0054,
+    "ssim_max": 0.0155,
+    "lpips_mean": 1.5399,
+    "lpips_std": 0.0729,
+    "privacy_claim_holds": true,
+    "samples": [
+      {
+        "ssim": 0.0033,
+        "lpips": 1.6051,
+        "l2_pixel": 0.296995,
+        "sample_idx": 0,
+        "attack_time_s": 12.57
+      },
+      {
+        "ssim": 0.0113,
+        "lpips": 1.4974,
+        "l2_pixel": 0.14164,
+        "sample_idx": 1,
+        "attack_time_s": 19.5
+      },
+      {
+        "ssim": 0.0032,
+        "lpips": 1.5789,
+        "l2_pixel": 0.284837,
+        "sample_idx": 2,
+        "attack_time_s": 8.1
+      },
+      {
+        "ssim": 0.0155,
+        "lpips": 1.4785,
+        "l2_pixel": 0.114527,
+        "sample_idx": 3,
+        "attack_time_s": 21.77
+      },
+      {
+        "ssim": 0.0039,
+        "lpips": 1.6041,
+        "l2_pixel": 0.303356,
+        "sample_idx": 4,
+        "attack_time_s": 9.43
+      },
+      {
+        "ssim": 0.0125,
+        "lpips": 1.4706,
+        "l2_pixel": 0.093018,
+        "sample_idx": 5,
+        "attack_time_s": 16.82
+      },
+      {
+        "ssim": 0.0016,
+        "lpips": 1.5423,
+        "l2_pixel": 0.294059,
+        "sample_idx": 6,
+        "attack_time_s": 14.74
+      },
+      {
+        "ssim": 0.0039,
+        "lpips": 1.5641,
+        "l2_pixel": 0.322771,
+        "sample_idx": 7,
+        "attack_time_s": 10.31
+      },
+      {
+        "ssim": 0.0012,
+        "lpips": 1.6555,
+        "l2_pixel": 0.321635,
+        "sample_idx": 8,
+        "attack_time_s": 16.53
+      },
+      {
+        "ssim": 0.0148,
+        "lpips": 1.4026,
+        "l2_pixel": 0.090257,
+        "sample_idx": 9,
+        "attack_time_s": 16.49
+      }
+    ]
+  },
+  {
+    "backbone": "mobilenetv2",
+    "dim": 128,
+    "attack": "inversion_net",
+    "dp_epsilon": null,
+    "n_samples": 10,
+    "accuracy": 0.88,
+    "ssim_mean": 0.308,
+    "ssim_std": 0.0879,
+    "ssim_max": 0.4586,
+    "lpips_mean": 0.8096,
+    "lpips_std": 0.0599,
+    "privacy_claim_holds": true,
+    "samples": [
+      {
+        "ssim": 0.2576,
+        "lpips": 0.7433,
+        "l2_pixel": 0.038004,
+        "sample_idx": 0,
+        "attack_time_s": 11.22
+      },
+      {
+        "ssim": 0.2489,
+        "lpips": 0.7593,
+        "l2_pixel": 0.056622,
+        "sample_idx": 1,
+        "attack_time_s": 0.0
+      },
+      {
+        "ssim": 0.4504,
+        "lpips": 0.854,
+        "l2_pixel": 0.051606,
+        "sample_idx": 2,
+        "attack_time_s": 0.0
+      },
+      {
+        "ssim": 0.3618,
+        "lpips": 0.8007,
+        "l2_pixel": 0.056114,
+        "sample_idx": 3,
+        "attack_time_s": 0.0
+      },
+      {
+        "ssim": 0.2114,
+        "lpips": 0.8923,
+        "l2_pixel": 0.053873,
+        "sample_idx": 4,
+        "attack_time_s": 0.0
+      },
+      {
+        "ssim": 0.4586,
+        "lpips": 0.8204,
+        "l2_pixel": 0.034763,
+        "sample_idx": 5,
+        "attack_time_s": 0.0
+      },
+      {
+        "ssim": 0.2854,
+        "lpips": 0.7546,
+        "l2_pixel": 0.051704,
+        "sample_idx": 6,
+        "attack_time_s": 0.0
+      },
+      {
+        "ssim": 0.2178,
+        "lpips": 0.8093,
+        "l2_pixel": 0.068562,
+        "sample_idx": 7,
+        "attack_time_s": 0.0
+      },
+      {
+        "ssim": 0.2348,
+        "lpips": 0.7416,
+        "l2_pixel": 0.086643,
+        "sample_idx": 8,
+        "attack_time_s": 0.0
+      },
+      {
+        "ssim": 0.3529,
+        "lpips": 0.9204,
+        "l2_pixel": 0.043074,
+        "sample_idx": 9,
+        "attack_time_s": 0.0
+      }
+    ]
   }
 ]

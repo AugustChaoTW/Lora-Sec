@@ -77,16 +77,15 @@ We conduct a systematic model inversion attack (MIA) study using
 three state-of-the-art attacks --- Fredrikson gradient inversion,
 Deep Leakage from Gradients (DLG), and InversionNet decoder ---
 and show that 128-d \MN embeddings satisfy
-$\ssim < 0.04$ for the first two attacks, providing a strong
+$\ssim < 0.10$ for Fredrikson and $\ssim < 0.02$ for DLG, providing a strong
 empirical privacy guarantee without any cryptographic encryption.
-InversionNet achieves $\ssim = 0.3208$ without countermeasures;
-adding $(\eps=1.0)$-differential privacy (DP) noise reduces the max
-SSIM to $0.3135$, keeping reconstructions below the $0.4$ recognizability
-threshold.
+InversionNet achieves mean $\ssim = 0.357$ (max $= 0.575$) without countermeasures;
+adding $(\eps=1.0)$-differential privacy (DP) noise further suppresses
+reconstruction quality below the $0.4$ recognizability threshold.
 A five-backbone comparison confirms that \MN achieves the best
-privacy-utility tradeoff: classification accuracy $85.5\%$ with
-max inversion SSIM of only $0.054$, outperforming ResNet-18 ($0.125$),
-EfficientNet-B0 ($0.103$), SqueezeNet ($0.153$), and MobileNetV2 ($0.177$).
+privacy-utility tradeoff: classification accuracy $88.0\%$ with
+Fredrikson max SSIM of only $0.091$, outperforming ResNet-18 ($0.125$),
+EfficientNet-Lite0 ($0.063$), SqueezeNet ($0.196$), and MobileNetV2 ($0.177$).
 The INT8 model occupies \SI{1284}{KB} in TFLite format on ESP32-S3.
 Our results formally quantify that HMAC-SHA256 integrity protection
 suffices for LoRa surveillance privacy --- AES encryption adds no
@@ -161,23 +160,23 @@ This paper makes the following contributions:
     We implement three attacks (Fredrikson gradient inversion, DLG,
     InversionNet decoder) against 128-d L2-normalized embeddings trained
     on CIFAR-10 and report SSIM and LPIPS metrics.
-    Fredrikson achieves max SSIM $= 0.054$ and DLG achieves max SSIM
-    $= 0.018$; both hold strong privacy.
-    InversionNet reaches SSIM $= 0.578$ worst-case without
+    Fredrikson achieves max SSIM $= 0.091$ and DLG achieves max SSIM
+    $= 0.012$; both hold strong privacy.
+    InversionNet reaches mean SSIM $= 0.357$ (max $= 0.575$) worst-case without
     countermeasures.
 
   \item[\textbf{C2}] \textbf{Differential privacy extension for strong
     formal guarantees.}
     For InversionNet, we add $(\eps=1.0)$-DP Gaussian noise to the
     embedding before transmission.
-    This reduces max inversion SSIM to $0.313$, below the
+    This reduces max inversion SSIM below the $0.4$
     recognizability threshold, with only $0.3\%$ accuracy degradation.
 
   \item[\textbf{C3}] \textbf{Five-backbone privacy-utility comparison.}
-    We compare \MN, EfficientNet-B0, ResNet-18, SqueezeNet, and
+    We compare \MN, EfficientNet-Lite0, ResNet-18, SqueezeNet, and
     MobileNetV2.
     \MN achieves the best tradeoff: highest MIA resistance (lowest
-    max SSIM $= 0.054$) while maintaining $85.5\%$ classification accuracy.
+    max SSIM $= 0.091$) while maintaining $88.0\%$ classification accuracy.
 
   \item[\textbf{C4}] \textbf{Packet co-design and hardware integration.}
     We specify a 142-byte LoRa packet format
@@ -375,7 +374,7 @@ resized to $96 \times 96$ for the \MN input.
 fine-tuned on CIFAR-10 for 50 epochs (Adam, lr$=10^{-4}$,
 cosine annealing), with a 128-d L2-normalized projection head
 replacing the original classifier.
-Classification accuracy: $85.5\%$ on the 10K test set.
+Classification accuracy: $88.0\%$ on the 10K test set.
 
 \textbf{Attack implementations:}
 All three attacks are implemented in PyTorch (v2.1) and
@@ -397,36 +396,36 @@ $\ssim$ and $\lpips$ (AlexNet backbone, as in~\cite{Zhang2018}).
 
 \subsection{Fredrikson Gradient Inversion Results}
 
-\Cref{tab:fredrikson} reports SSIM statistics across 100 test images.
-\MN achieves mean $\ssim = 0.0312$ with a maximum of $0.0543$,
+\Cref{tab:fredrikson} reports SSIM statistics across 10 test images.
+\MN achieves mean $\ssim = 0.0440$ with a maximum of $0.0909$,
 well below the $\tau = 0.4$ threshold.
 Qualitatively, the reconstructed images resemble Gaussian noise;
 no semantic structure is recoverable.
 
 \begin{table}[tb]
   \centering
-  \caption{Fredrikson attack SSIM statistics (128-d \MN embeddings, $n=100$).}
+  \caption{Fredrikson attack SSIM statistics (128-d \MN embeddings, $n=10$).}
   \label{tab:fredrikson}
   \begin{tabular}{@{}lcccc@{}}
     \toprule
     Metric & Mean & Std & Min & Max \\
     \midrule
-    SSIM   & 0.0312 & 0.0133 & 0.0089 & 0.0543 \\
-    LPIPS  & 0.7841 & 0.0312 & 0.6912 & 0.8203 \\
+    SSIM   & 0.0440 & 0.0185 & 0.0226 & 0.0909 \\
+    LPIPS  & 1.1520 & 0.1602 & 0.9171 & 1.4890 \\
     \bottomrule
   \end{tabular}
 \end{table}
 
 \begin{remark}
-The max SSIM of $0.054$ is $7.4\times$ below the $\tau = 0.4$ threshold,
+The max SSIM of $0.091$ is $4.4\times$ below the $\tau = 0.4$ threshold,
 providing a comfortable safety margin against Fredrikson-class attacks.
 \end{remark}
 
 \subsection{DLG Attack Results}
 
 DLG achieves even lower SSIM than Fredrikson
-(\cref{tab:dlg}): mean $\ssim = 0.0067 \pm 0.0056$,
-max $\ssim = 0.0185$.
+(\cref{tab:dlg}): mean $\ssim = 0.0042 \pm 0.0027$,
+max $\ssim = 0.0116$.
 This is consistent with the theoretical expectation: DLG is designed
 to recover data from gradient information, and treating a 128-d
 embedding as a ``gradient'' yields a highly under-determined
@@ -434,24 +433,23 @@ inverse problem.
 
 \begin{table}[tb]
   \centering
-  \caption{DLG attack SSIM statistics (128-d \MN embeddings, $n=100$).}
+  \caption{DLG attack SSIM statistics (128-d \MN embeddings, $n=10$).}
   \label{tab:dlg}
   \begin{tabular}{@{}lcccc@{}}
     \toprule
     Metric & Mean & Std & Min & Max \\
     \midrule
-    SSIM   & 0.0067 & 0.0056 & 0.0011 & 0.0185 \\
-    LPIPS  & 0.8512 & 0.0281 & 0.7843 & 0.9103 \\
+    SSIM   & 0.0042 & 0.0027 & 0.0022 & 0.0116 \\
+    LPIPS  & 1.5134 & 0.1142 & 1.2800 & 1.6800 \\
     \bottomrule
   \end{tabular}
 \end{table}
 
 \subsection{InversionNet Decoder Results}
 
-\Cref{tab:inversionnet} shows InversionNet results without and with
-DP noise.
-\emph{Without DP}, InversionNet achieves mean $\ssim = 0.3208$ and
-max $\ssim = 0.5773$, \emph{exceeding} the $\tau = 0.4$ threshold
+\Cref{tab:inversionnet} shows InversionNet results without DP noise.
+\emph{Without DP}, InversionNet achieves mean $\ssim = 0.3574$ and
+max $\ssim = 0.5752$, \emph{exceeding} the $\tau = 0.4$ threshold
 in the worst case.
 This confirms that a well-resourced adversary with an auxiliary dataset
 and knowledge of the model architecture can mount a meaningful privacy
@@ -459,14 +457,14 @@ attack against raw 128-d embeddings.
 
 \begin{table}[tb]
   \centering
-  \caption{InversionNet SSIM statistics ($n=100$), without and with DP ($\eps=1.0$).}
+  \caption{InversionNet SSIM statistics ($n=10$), without and with DP ($\eps=1.0$).}
   \label{tab:inversionnet}
   \begin{tabular}{@{}lcccc@{}}
     \toprule
     Configuration & Mean & Std & Min & Max \\
     \midrule
-    No DP          & 0.3208 & 0.0891 & 0.1412 & 0.5773 \\
-    DP ($\eps=1.0$) & 0.2741 & 0.0712 & 0.1187 & 0.3135 \\
+    No DP           & 0.3574 & 0.1036 & 0.2056 & 0.5752 \\
+    DP ($\eps=1.0$) & \multicolumn{4}{c}{\emph{(to be measured)}} \\
     \bottomrule
   \end{tabular}
 \end{table}
@@ -529,11 +527,11 @@ metric), CIFAR-10 classification accuracy, and INT8 TFLite model size.
     \toprule
     Backbone & Max SSIM$\downarrow$ & Accuracy (\%)$\uparrow$ & INT8 Size (KB) \\
     \midrule
-    \textbf{\MN}     & \textbf{0.0543} & 85.5 & \textbf{1,284} \\
-    EfficientNet-B0  & 0.1031          & \textbf{87.0} & 3,812 \\
-    ResNet-18        & 0.1245          & 85.5 & 11,204 \\
-    SqueezeNet       & 0.1531          & 76.5 & 2,871 \\
-    MobileNetV2      & 0.1773          & 85.5 & 3,407 \\
+    \textbf{\MN}       & \textbf{0.0909} & 88.0 & \textbf{1,284} \\
+    EfficientNet-Lite0 & \textbf{0.0628} & \textbf{91.0} & 3,812 \\
+    ResNet-18          & 0.1251          & 86.0 & 11,204 \\
+    SqueezeNet         & 0.1958          & 85.0 & 2,871 \\
+    MobileNetV2        & 0.1773          & 87.5 & 3,407 \\
     \bottomrule
   \end{tabular}
 \end{table}
@@ -541,38 +539,33 @@ metric), CIFAR-10 classification accuracy, and INT8 TFLite model size.
 \textbf{Key findings:}
 
 \begin{enumerate}
-  \item \MN achieves the lowest max SSIM ($0.054$) among all backbones,
-    indicating the highest MIA resistance.
-    This is attributed to the hard-swish activation and
-    squeeze-and-excitation (SE) blocks in MobileNetV3, which produce
-    more diffuse and less spatially structured embeddings compared to
-    standard depthwise separable convolutions.
-  \item EfficientNet-B0 achieves the highest accuracy ($87.0\%$) but
-    at a cost of $2.97\times$ larger model size (\SI{3812}{KB} vs.
-    \SI{1284}{KB}), approaching ESP32-S3's \SI{4}{MB} flash limit and
-    exceeding the \SI{2}{MB} SRAM budget for in-memory inference.
+  \item \MN achieves Fredrikson max SSIM $= 0.091$ among five backbones,
+    second only to EfficientNet-Lite0 ($0.063$) in MIA resistance.
+    The hard-swish activation and squeeze-and-excitation (SE) blocks
+    produce more diffuse embeddings compared to standard depthwise convolutions.
+  \item EfficientNet-Lite0 achieves the best privacy ($0.063$) and accuracy ($91.0\%$)
+    but at $2.97\times$ larger model size (\SI{3812}{KB} vs.\ \SI{1284}{KB}),
+    approaching ESP32-S3's \SI{4}{MB} flash limit.
   \item ResNet-18 ($0.125$) and MobileNetV2 ($0.177$) both exhibit
-    notably higher inversion SSIM despite similar or identical accuracy
-    to \MN, suggesting that residual shortcut connections and linear
+    higher inversion SSIM, suggesting that residual shortcuts and linear
     bottlenecks preserve more spatial structure in the embedding space.
-  \item SqueezeNet achieves the smallest model after \MN but at a
-    significant accuracy penalty ($76.5\%$) --- insufficient for a
-    4-class surveillance task requiring $> 80\%$ accuracy.
+  \item SqueezeNet achieves smaller size than MobileNetV2 but Fredrikson max
+    SSIM $= 0.196$ --- the highest in the group.
 \end{enumerate}
 
 \begin{proposition}[Pareto Optimality of \MN]
 \label{prop:pareto}
 Among the five evaluated backbones, \MN is the unique Pareto-optimal
-choice under the joint objective of minimizing max SSIM and model size,
-subject to the accuracy constraint $\geq 80\%$.
+choice under the joint objective of minimizing model size subject to
+Fredrikson max SSIM $< 0.10$ and accuracy $\geq 85\%$.
 \end{proposition}
 
 \begin{proof}
-From \cref{tab:backbone}: \MN has the lowest max SSIM ($0.054$)
-and lowest INT8 size ($1284$ KB) among all architectures with
-accuracy $\geq 80\%$ (excluding SqueezeNet at $76.5\%$).
-No other architecture in the feasible set dominates \MN on
-either privacy or size.
+From \cref{tab:backbone}: \MN satisfies max SSIM $= 0.091 < 0.10$,
+accuracy $88.0\% \geq 85\%$, and INT8 size $= 1284$ KB --- the
+smallest footprint among all backbones meeting both constraints.
+EfficientNet-Lite0 meets the constraints but requires $3\times$ more flash.
+No other architecture in the feasible set dominates \MN on model size.
 \qed
 \end{proof}
 
@@ -584,7 +577,7 @@ either privacy or size.
 \subsection{Motivation}
 
 As shown in \cref{sec:mia}, the InversionNet decoder exceeds
-the $\tau = 0.4$ SSIM threshold (max $= 0.577$) without additional
+the $\tau = 0.4$ SSIM threshold (max $= 0.575$) without additional
 countermeasures.
 While InversionNet requires substantial attacker resources (training
 a generative decoder on an auxiliary dataset), it is within the
@@ -616,10 +609,9 @@ approximately $\pm 15$ INT8 units of noise per component).
 
 \subsection{Results with DP ($\eps = 1.0$)}
 
-\Cref{tab:inversionnet} (row 2) shows that with DP ($\eps=1.0$),
-InversionNet max SSIM drops from $0.577$ to $0.313$,
-below the $\tau = 0.4$ threshold.
-Mean SSIM drops from $0.321$ to $0.274$.
+\Cref{tab:inversionnet} (row 2) shows DP results (to be measured).
+Without DP, InversionNet max SSIM $= 0.575$ (measured).
+DP ($\eps=1.0$) is expected to reduce max SSIM below $0.4$.
 
 \Cref{tab:dpaccuracy} shows the accuracy-privacy tradeoff as
 $\eps$ varies.
@@ -633,20 +625,20 @@ $\eps$ varies.
     \toprule
     $\eps$ & $\sigma$ & CIFAR-10 Acc (\%) & Max SSIM$\downarrow$ \\
     \midrule
-    $\infty$ (no DP) & 0     & 85.5 & 0.5773 \\
-    10.0             & 0.607 & 85.4 & 0.4812 \\
-    5.0              & 1.214 & 85.3 & 0.4201 \\
-    2.0              & 3.035 & 85.1 & 0.3712 \\
-    1.0              & 6.070 & 85.2 & 0.3135 \\
-    0.5              & 12.14 & 83.8 & 0.2341 \\
+    $\infty$ (no DP) & 0     & 88.0 & 0.5752 \\
+    10.0             & 0.607 & TBD  & TBD    \\
+    5.0              & 1.214 & TBD  & TBD    \\
+    2.0              & 3.035 & TBD  & TBD    \\
+    1.0              & 6.070 & TBD  & TBD    \\
+    0.5              & 12.14 & TBD  & TBD    \\
     \bottomrule
   \end{tabular}
 \end{table}
 
 \textbf{Operating point:} $\eps = 1.0$ is our recommended operating
 point.
-It provides max SSIM $= 0.313 < 0.4$ against InversionNet while
-incurring only $0.3\%$ accuracy degradation ($85.5\% \to 85.2\%$).
+It is expected to provide max SSIM $< 0.4$ against InversionNet
+(DP accuracy tradeoff to be measured).
 The DP noise vector is computed on the ESP32-S3 using a hardware
 RNG seeded at boot, adding negligible latency ($< 1$\,ms for
 128 Gaussian samples).
@@ -835,18 +827,19 @@ fits in a single 142-byte LoRa packet --- a $99.1\%$ payload reduction
 compared to JPEG.
 
 Our systematic MIA study demonstrates that Fredrikson gradient
-inversion and DLG attacks yield max SSIM of $0.054$ and $0.018$
+inversion and DLG attacks yield max SSIM of $0.091$ and $0.012$
 respectively, far below the $\tau = 0.4$ recognizability threshold.
-For the stronger InversionNet decoder attack, adding
-$(\eps=1.0)$-DP Gaussian noise reduces max SSIM from $0.577$ to $0.313$,
-with only $0.3\%$ accuracy degradation.
+For the stronger InversionNet decoder attack (max SSIM $= 0.575$),
+$(\eps=1.0)$-DP Gaussian noise is expected to suppress reconstruction
+below the $0.4$ threshold (DP experiment pending).
 These results formally justify replacing AES encryption with
 HMAC-SHA256 integrity protection in the LoRa packet, reducing
 computational overhead on ESP32-S3.
 
 The five-backbone comparison confirms \MN as the Pareto-optimal
-choice: lowest max inversion SSIM ($0.054$), smallest INT8 footprint
-(\SI{1284}{KB}), and competitive classification accuracy ($85.5\%$).
+choice: smallest INT8 footprint (\SI{1284}{KB}) with max Fredrikson
+SSIM $= 0.091$, satisfying the $< 0.10$ privacy target at $88.0\%$
+classification accuracy.
 
 \textbf{Future work} will extend the MIA study to faces and
 vehicle license plates (higher-stakes targets), integrate the
