@@ -1,0 +1,364 @@
+%% definitions.tex — Physically-Constrained Semantic Security (PCSS)
+%% Formal Definitions §3.1–3.2 (Definitions 1–6)
+%% Paper F: "Physically-Constrained Semantic Security Theory for IoT Mesh Routing"
+%% Target: IEEE S&P / USENIX Security
+%%
+%% Required preamble packages:
+%%   \usepackage{amsthm, amsmath, amssymb, mathtools}
+%%
+%% Theorem environments (declare in preamble if not already present):
+%%   \theoremstyle{definition}
+%%   \newtheorem{definition}{Definition}[section]
+%%   \newtheorem{remark}[definition]{Remark}
+%%   \newtheorem{example}[definition]{Example}
+
+% -----------------------------------------------------------------------
+\subsection{L1 — Information Semantics}
+\label{subsec:l1-semantics}
+% -----------------------------------------------------------------------
+
+We begin by formalising the state of each protocol node and the function
+that maps local state to a routing table.  All subsequent definitions
+build on this foundation.
+
+\begin{definition}[Node State]
+\label{def:node-state}
+Let $P$ be a routing protocol operating on a finite set of nodes
+$V = \{v_1, v_2, \ldots, v_n\}$.
+The \emph{state} of node $v_i \in V$ at time $t$ is the triple
+\[
+  \sigma_i(t) \;=\; \bigl(\mathcal{RT}_i(t),\; \mathcal{K}_i(t),\; \mathcal{Q}_i(t)\bigr),
+\]
+where:
+\begin{itemize}
+  \item $\mathcal{RT}_i(t) : V \rightharpoonup V$ is the \emph{routing table} of $v_i$
+        at time $t$, a partial function mapping each known destination
+        $v_d \in V$ to a next-hop node $v_j \in V$;
+
+  \item $\mathcal{K}_i(t) \subseteq \mathcal{M}$ is the \emph{local knowledge set},
+        the finite multiset of protocol messages received and retained by $v_i$
+        up to time $t$, where $\mathcal{M}$ denotes the universe of all
+        syntactically valid protocol messages; and
+
+  \item $\mathcal{Q}_i(t) = \bigl(b_i(t),\; \delta_i(t)\bigr)$ is the
+        \emph{resource state}, with $b_i(t) \in \mathbb{R}_{\ge 0}$ the
+        remaining battery charge (mAh) and
+        $\delta_i(t) \in [0,1]$ the fraction of the duty-cycle budget
+        consumed in the current accounting window.
+\end{itemize}
+The global protocol state at time $t$ is $\boldsymbol{\sigma}(t) = \{\sigma_i(t)\}_{i=1}^{n}$.
+\end{definition}
+
+\begin{definition}[Routing Decision Function]
+\label{def:routing-decision}
+The \emph{routing decision function} of node $v_i$ is
+\[
+  \mathcal{D}_r^i \;:\;
+  \mathcal{K}_i \;\times\; \mathcal{C}_{ij} \;\times\; \mathcal{Q}_i \;\times\; \mathcal{T}_i
+  \;\longrightarrow\; \mathcal{RT}_i,
+\]
+where:
+\begin{itemize}
+  \item $\mathcal{C}_{ij} = \bigl\{\,(r_{ij}, p_{ij}) \mid v_j \in V\bigr\}$ is the
+        \emph{channel state} observed by $v_i$, with
+        $r_{ij} \in [-130, 0]\ \text{dBm}$ the RSSI to neighbour $v_j$
+        and $p_{ij} \in [0,1]$ the empirical packet-delivery ratio;
+
+  \item $\mathcal{T}_i \subseteq 2^{V \times V}$ is the \emph{topology perception}
+        of $v_i$, the set of link-existence beliefs derived from received
+        control messages; and
+
+  \item $\mathcal{RT}_i$ is as in Definition~\ref{def:node-state}.
+\end{itemize}
+$\mathcal{D}_r^i$ is required to be \emph{deterministic}: given identical
+inputs it produces identical outputs.  The four arguments constitute the
+complete information available to $v_i$ at the moment it recomputes its
+routing table; no other information may influence $\mathcal{RT}_i$.
+\end{definition}
+
+\begin{definition}[Semantic Information]
+\label{def:semantic-information}
+A message $m \in \mathcal{M}$ is \emph{semantic with respect to
+$\mathcal{D}_r^i$} if there exists a node $v_i \in V$ and a state
+$\sigma_i = (\mathcal{RT}_i, \mathcal{K}_i, \mathcal{Q}_i)$ such that
+\[
+  \mathcal{D}_r^i\!\bigl(\mathcal{K}_i \cup \{m\},\,
+                         \mathcal{C}_{ij},\, \mathcal{Q}_i,\, \mathcal{T}_i\bigr)
+  \;\neq\;
+  \mathcal{D}_r^i\!\bigl(\mathcal{K}_i,\,
+                         \mathcal{C}_{ij},\, \mathcal{Q}_i,\, \mathcal{T}_i\bigr),
+\]
+i.e., processing $m$ causes at least one routing table entry of $v_i$ to
+change ($\Delta\mathcal{RT}_i \neq \emptyset$).
+The \emph{semantic set} of protocol $P$ is
+\[
+  \mathrm{Sem}(P) \;=\;
+  \bigl\{\, m \in \mathcal{M} \;\bigm|\;
+    \exists\, v_i \in V,\; \sigma_i :\;
+    \mathcal{D}_r^i(\mathcal{K}_i \cup \{m\}, \ldots)
+    \neq
+    \mathcal{D}_r^i(\mathcal{K}_i, \ldots)
+  \bigr\}.
+\]
+\end{definition}
+
+\begin{definition}[Semantic Closure]
+\label{def:semantic-closure}
+Let $d \in \mathbb{N}$ be a \emph{propagation depth bound}.
+The \emph{$d$-step semantic closure} $\mathrm{Cl}_d(\mathrm{Sem}(P))$ is the
+least fixed point of the operator
+$\Gamma_d : 2^{\mathcal{M}} \to 2^{\mathcal{M}}$ defined by
+\[
+  \Gamma_d(S) \;=\; S \;\cup\;
+  \bigl\{\, m' \in \mathcal{M} \;\bigm|\;
+    \exists\, m \in S,\; k \le d :\;
+    m \xrightarrow{k} m'
+  \bigr\},
+\]
+where $m \xrightarrow{k} m'$ denotes that $m'$ is reachable from $m$ in
+exactly $k$ protocol-transition steps under the operational semantics of
+$P$ (i.e., injecting $m$ into an honest network causes a node to emit
+$m'$ within $k$ DV-update rounds).
+Formally,
+\[
+  \mathrm{Cl}_d(\mathrm{Sem}(P))
+  \;=\;
+  \mathrm{lfp}\bigl(\Gamma_d\bigr).
+\]
+$\mathrm{Cl}_d(\mathrm{Sem}(P))$ captures every message type whose
+injection or modification can transitively alter any routing table in the
+network within $d$ protocol rounds.  For distance-vector protocols the
+convergence diameter is bounded by $n-1$; setting $d = n-1$ yields the
+full transitive semantic influence.
+\end{definition}
+
+% -----------------------------------------------------------------------
+\subsection{L2 — Causal Influence and Semantic Binding}
+\label{subsec:l2-causal}
+% -----------------------------------------------------------------------
+
+\begin{definition}[Decision-Critical Set]
+\label{def:decision-critical}
+The \emph{decision-critical set} of protocol $P$ is
+\[
+  \mathrm{DC}(P) \;=\;
+  \bigl\{\, m \in \mathrm{Sem}(P) \;\bigm|\;
+    \exists\, v_i \in V,\; \sigma_i :\;
+    \mathrm{next\_hop}_i\!\left(\mathcal{D}_r^i(\mathcal{K}_i \cup \{m\}, \ldots)\right)
+    \neq
+    \mathrm{next\_hop}_i\!\left(\mathcal{D}_r^i(\mathcal{K}_i, \ldots)\right)
+  \bigr\},
+\]
+where $\mathrm{next\_hop}_i(\mathcal{RT}_i) = \mathcal{RT}_i(v_d)$ for some
+destination $v_d$ is the next-hop entry selected by the routing table.
+$\mathrm{DC}(P) \subseteq \mathrm{Sem}(P)$ is the minimal subset of semantic
+messages whose forgery or manipulation is \emph{sufficient} to install an
+arbitrary next-hop entry at any honest node: an adversary who can produce
+an arbitrary message $m \in \mathrm{DC}(P)$ that is accepted by $v_i$ can
+redirect $v_i$'s traffic for any destination.
+\end{definition}
+
+\begin{remark}
+$\mathrm{DC}(P)$ is in general a strict subset of $\mathrm{Sem}(P)$:
+not every message that changes the routing table also changes the
+\emph{next-hop selection}.  For example, a metric update that lowers a
+secondary path's cost without displacing the best path is semantic
+(it updates internal state) but not decision-critical.
+\end{remark}
+
+\begin{definition}[Semantic Binding Condition]
+\label{def:sbc}
+Let $\mathrm{Auth}(P) \subseteq \mathcal{M}$ denote the set of all
+messages that carry a valid cryptographic authenticator under the shared
+key infrastructure of $P$
+(i.e., a message-authentication code or authenticated-encryption tag
+that is unforgeable under chosen-message attack).
+Protocol $P$ satisfies the \emph{Semantic Binding Condition},
+written $\mathrm{SBC}(P)$, if and only if all three of the following
+hold:
+
+\begin{enumerate}[label=\textbf{SBC\arabic*}., ref=SBC\arabic*]
+
+  \item \label{sbc:auth}
+        \textbf{Authenticity of $\mathrm{DC}(P)$.}\quad
+        Every decision-critical message carries an unforgeable
+        authenticator:
+        \[
+          \forall\, m \in \mathrm{DC}(P) :\;
+          m \in \mathrm{Auth}(P).
+        \]
+        Concretely, each $m \in \mathrm{DC}(P)$ must carry an
+        HMAC-SHA256 tag or an AEAD authentication tag computed under
+        a key $K$ known only to the authorised sender set.
+
+  \item \label{sbc:fresh}
+        \textbf{Freshness of $\mathrm{DC}(P)$.}\quad
+        Every decision-critical message carries a \emph{freshness token}
+        that prevents replay of previously accepted messages:
+        \[
+          \forall\, m \in \mathrm{DC}(P) :\;
+          m \text{ contains a timestamp } \tau_m
+          \text{ or a per-destination sequence number } \mathrm{seq}_m
+          \text{ such that }
+          \tau_m > \tau_{\mathrm{last}}
+          \;\text{ or }\;
+          \mathrm{seq}_m > \mathrm{seq}_{\mathrm{last}}.
+        \]
+        A node $v_i$ rejects any message $m$ for which the freshness
+        token does not strictly advance the accepted window.
+
+  \item \label{sbc:closure}
+        \textbf{No unauthenticated equivalent.}\quad
+        No unauthenticated message can produce a routing effect
+        equivalent to one in $\mathrm{DC}(P)$:
+        \[
+          \nexists\, m' \notin \mathrm{Auth}(P) \;\text{s.t.}\;
+          \exists\, v_i \in V,\; \sigma_i :\;
+          \mathcal{D}_r^i\!\bigl(\mathcal{K}_i \cup \{m'\},\ldots\bigr)
+          \neq
+          \mathcal{D}_r^i\!\bigl(\mathcal{K}_i,\ldots\bigr).
+        \]
+        Equivalently, $\mathrm{Sem}(P) \subseteq \mathrm{Auth}(P)$:
+        any message capable of influencing a routing decision must be
+        authenticated.
+\end{enumerate}
+
+$\mathrm{SBC}(P)$ holds if and only if conditions
+\ref{sbc:auth}, \ref{sbc:fresh}, and \ref{sbc:closure} are simultaneously
+satisfied.
+\end{definition}
+
+\begin{remark}[SBC is strictly stronger than message authentication]
+\label{rem:sbc-vs-auth}
+Standard message authentication (e.g., HMAC on control messages)
+requires only that \emph{selected} messages carry an authenticator.
+$\mathrm{SBC}(P)$ is strictly stronger: it requires that the
+\emph{entire} decision-critical set $\mathrm{DC}(P)$ is authenticated
+(condition~\ref{sbc:auth}), that authenticated messages cannot be
+replayed (condition~\ref{sbc:fresh}), and that no unauthenticated
+message path circumvents the binding (condition~\ref{sbc:closure}).
+A protocol that authenticates data packets but leaves control messages
+unauthenticated may satisfy standard message-authentication goals yet
+violate $\mathrm{SBC}(P)$ if those control messages lie in
+$\mathrm{DC}(P)$.
+\end{remark}
+
+% -----------------------------------------------------------------------
+\subsection{Instantiation: SBC Violations in Practice}
+\label{subsec:sbc-instantiation}
+% -----------------------------------------------------------------------
+
+We now instantiate Definitions~\ref{def:decision-critical}
+and~\ref{def:sbc} on two deployed protocols, demonstrating that
+$\mathrm{SBC}(P)$ is violated in each case, albeit for structurally
+distinct reasons.
+
+\begin{example}[LoRaMesher — unauthenticated decision-critical set]
+\label{ex:loramesher}
+In LoRaMesher (protocol $P_{\mathrm{LM}}$), the distance-vector routing
+algorithm selects next-hops based exclusively on the
+\textsc{Hello} control message.  A \textsc{Hello} message carries the
+fields
+\[
+  m_{\mathrm{Hello}} \;=\; \langle\,
+    \texttt{src},\;\texttt{dst},\;\texttt{metric},\;\texttt{next\_hop}
+  \,\rangle.
+\]
+The routing decision function $\mathcal{D}_r^i$ selects the neighbour
+$v_j$ that advertises the minimum metric to destination $v_d$:
+\[
+  \mathcal{RT}_i(v_d) \;\leftarrow\;
+  \arg\min_{v_j \in \mathcal{N}_i}
+  \bigl\{\, \texttt{metric}(m^{(j)}_{\mathrm{Hello}}) \bigr\},
+\]
+where $\mathcal{N}_i$ is the one-hop neighbourhood of $v_i$.
+Therefore:
+\[
+  \mathrm{DC}(P_{\mathrm{LM}}) \;=\; \bigl\{\, m_{\mathrm{Hello}} \bigr\}.
+\]
+
+In the default deployment of LoRaMesher, \textsc{Hello} messages are
+transmitted without any message-authentication code or integrity
+protection.  Hence $m_{\mathrm{Hello}} \notin \mathrm{Auth}(P_{\mathrm{LM}})$,
+which directly violates condition~\ref{sbc:auth}:
+\[
+  \mathrm{DC}(P_{\mathrm{LM}}) \cap \mathrm{Auth}(P_{\mathrm{LM}}) \;=\; \emptyset.
+\]
+An adversary $\mathcal{A}$ within radio range of $v_i$ can broadcast a
+forged \textsc{Hello} with $\texttt{src} = v_s$,
+$\texttt{next\_hop} = \mathcal{A}$, and $\texttt{metric} = 0$.  Since
+$\mathcal{D}_r^i$ selects the minimum-metric path and performs no
+authenticity check, $v_i$ installs $\mathcal{RT}_i(v_s) \leftarrow \mathcal{A}$.
+The critical field collapse $\texttt{dst} = \texttt{next\_hop}$ in the
+unauthenticated advertisement enables a silent black-hole attack: traffic
+destined for $v_s$ is forwarded to $\mathcal{A}$, which silently discards
+it.  $\mathrm{SBC}(P_{\mathrm{LM}})$ is \textbf{violated} (condition~\ref{sbc:auth}).
+\end{example}
+
+\begin{example}[Meshtastic — decision-critical field not bound in AEAD AAD]
+\label{ex:meshtastic}
+Meshtastic (protocol $P_{\mathrm{MT}}$, version $\ge 2.6$) encrypts
+payload data with AES-256-CTR and computes an AEAD authentication tag.
+However, the routing decision is controlled by the
+\texttt{MeshPacket.next\_hop} field, which is carried in the packet
+header.  In the default channel configuration, \texttt{next\_hop} is
+\emph{advisory}: it is not included in the Additional Authenticated Data
+(AAD) of the AEAD construction.  Formally, let
+\[
+  m_{\mathrm{MP}} \;=\; \langle\,
+    \underbrace{\texttt{from},\; \texttt{to},\; \texttt{next\_hop}}_{\text{header (plaintext)}},\;
+    \underbrace{\texttt{payload}}_{\text{AEAD-encrypted}}
+  \,\rangle.
+\]
+The routing decision function selects the relay node based on the header:
+\[
+  \mathcal{RT}_i(v_d) \;\leftarrow\; \texttt{next\_hop}(m_{\mathrm{MP}}).
+\]
+Hence
+\[
+  \mathrm{DC}(P_{\mathrm{MT}}) \;\supseteq\;
+  \bigl\{\, \texttt{MeshPacket.next\_hop} \;\text{field} \bigr\}.
+\]
+Although $m_{\mathrm{MP}} \in \mathrm{Auth}(P_{\mathrm{MT}})$ in the sense
+that the payload is authenticated, the \texttt{next\_hop} field is
+\emph{mutable after authentication}: an on-path adversary $\mathcal{A}$
+can flip the \texttt{next\_hop} field in transit without invalidating the
+AEAD tag, because \texttt{next\_hop} is not covered by the AAD.
+Condition~\ref{sbc:closure} is therefore violated:
+\[
+  \exists\, m'_{\mathrm{MP}} \notin \mathrm{Auth}(P_{\mathrm{MT}}) \;\text{s.t.}\;
+  \mathcal{D}_r^i\!\bigl(\mathcal{K}_i \cup \{m'_{\mathrm{MP}}\},\ldots\bigr)
+  \neq
+  \mathcal{D}_r^i\!\bigl(\mathcal{K}_i,\ldots\bigr),
+\]
+where $m'_{\mathrm{MP}}$ is $m_{\mathrm{MP}}$ with \texttt{next\_hop}
+replaced by $\mathcal{A}$.  The AEAD tag remains valid (payload
+unchanged), yet the routing decision is fully controlled by the adversary.
+This enables an \emph{active relay attack}: $\mathcal{A}$ receives all
+traffic forwarded through the compromised next-hop, achieving a
+gateway PDR of 100\% for intercepted flows.
+$\mathrm{SBC}(P_{\mathrm{MT}})$ is \textbf{violated} (condition~\ref{sbc:closure}),
+via a structurally distinct mechanism from LoRaMesher
+(Example~\ref{ex:loramesher}).
+\end{example}
+
+\begin{remark}[Structural taxonomy of SBC violations]
+\label{rem:taxonomy}
+Examples~\ref{ex:loramesher} and~\ref{ex:meshtastic} illustrate the
+two canonical SBC violation patterns:
+\begin{enumerate}[label=(\roman*)]
+  \item \textbf{Missing authentication} (LoRaMesher): $\mathrm{DC}(P) \cap \mathrm{Auth}(P) = \emptyset$.
+        The entire decision-critical message type is unauthenticated.
+        Attack consequence: arbitrary next-hop installation by injection.
+  \item \textbf{Partial binding} (Meshtastic): $\mathrm{DC}(P) \not\subseteq \mathrm{Auth}(P)$
+        at the field level.  The message is nominally authenticated, but the
+        decision-critical \emph{field} is excluded from the authenticated scope.
+        Attack consequence: in-transit field manipulation without breaking
+        the authentication tag.
+\end{enumerate}
+The attack categories (silent black hole vs.\ active relay) are determined
+by the \emph{structure} of $\mathrm{DC}(P)$ and the adversary's
+capability given the SBC violation — not by the violation per se.
+This observation is formalised as a corollary of Theorem~1
+(see Theorem~\ref{thm:sbc-sufficiency}).
+\end{remark}

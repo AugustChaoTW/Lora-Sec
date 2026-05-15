@@ -1,0 +1,286 @@
+%% rho_star_supplement.tex — F11: ρ* Numerical Verification and Design Guidelines
+%% Paper F: "Physically-Constrained Semantic Security Theory for IoT Mesh Routing"
+%% Issue #87 (F11)
+%%
+%% Depends on: physical_feasibility.tex (Definitions 9–11, Theorem 2)
+%% Generated from: rho_star_analysis.py
+%%
+%% Required preamble packages:
+%%   \usepackage{booktabs, multirow, siunitx, array, xcolor}
+%%   \sisetup{round-mode=figures, round-precision=3}
+
+% -----------------------------------------------------------------------
+\subsection{Numerical Verification of $\rho^*$ Across Device Profiles}
+\label{subsec:rho-star-verification}
+% -----------------------------------------------------------------------
+
+Theorem~\ref{thm:feasibility-bound} gives a closed-form expression for the
+maximum feasible authentication rate $\rho^*(E)$.  We now verify this
+formula across four representative IoT LoRa hardware profiles spanning a
+range of battery capacities, MCU architectures, and spreading factors.  All
+computations were cross-checked by the Python script
+\texttt{rho\_star\_analysis.py} (archived in the supplementary materials).
+
+% -----------------------------------------------------------------------
+\subsubsection{Device Parameters}
+\label{subsubsec:device-params}
+
+Table~\ref{tab:device-params} lists the environment model $E$ for each
+device.  Airtime $t_{\mathrm{tx}}$ is for a 142-byte LoRaMesher Hello
+frame at BW\,=\,125\,kHz; SF9 airtimes are measured values, SF7 is
+computed using the Semtech LoRa airtime formula.  HMAC-SHA256 current and
+time are measured on the respective MCUs.
+
+\begin{table}[ht]
+\centering
+\caption{Environment model parameters for four LoRa hardware profiles.}
+\label{tab:device-params}
+\small
+\begin{tabular}{@{}lrrrrrrr@{}}
+\toprule
+\textbf{Device} &
+  $B_{\mathrm{mAh}}$ &
+  $I_{\mathrm{tx}}$ &
+  $t_{\mathrm{tx}}$ &
+  $I_{\mathrm{hmac}}$ &
+  $t_{\mathrm{hmac}}$ &
+  $\delta_{\max}$ &
+  $L_{\mathrm{days}}$ \\
+  & (mAh) & (mA) & (ms) & (mA) & (ms) & & \\
+\midrule
+EoRa PI, 2$\times$AA, SF9    & 3000 & 120 & 1692 & 80 & 0.5 & 0.01 & 365 \\
+EoRa PI, 2$\times$AA, SF7    & 3000 & 120 &  461 & 80 & 0.5 & 0.01 & 365 \\
+Heltec V3, LiPo 1000\,mAh   & 1000 & 118 & 1692 & 80 & 0.5 & 0.01 & 180 \\
+RAK4631, LiPo 3000\,mAh     & 3000 &  87 & 1692 & 20 & 0.2 & 0.01 & 365 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% -----------------------------------------------------------------------
+\subsubsection{Verification Results}
+\label{subsubsec:verification-results}
+
+Table~\ref{tab:rho-star-results} presents the computed $C_{\mathrm{auth}}$,
+$\rho_\delta$, $\rho_B$, and $\rho^*$ for each profile.  The last two
+columns indicate which physical constraint is \emph{binding} (i.e., achieves
+the minimum in the $\rho^*$ expression) and whether the LoRaMesher default
+Hello rate of $1/30 \approx 3.33 \times 10^{-2}$\,pkt/s is sustainable.
+
+\begin{table}[ht]
+\centering
+\caption{%
+  Computed $\rho^*$ values for four IoT hardware profiles.
+  All rates in pkt/s; interval in seconds.
+  Default LoRaMesher Hello: 30\,s ($3.33 \times 10^{-2}$\,pkt/s).}
+\label{tab:rho-star-results}
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}lccccccl@{}}
+\toprule
+\textbf{Device} &
+  $C_{\mathrm{auth}}$ &
+  $\rho_\delta$ &
+  $\rho_B$ &
+  $\rho^*$ &
+  Min. interval &
+  Binding &
+  Default Hello \\
+  & (mAh/msg) & (pkt/s) & (pkt/s) & (pkt/s) & (s) & & sustainable? \\
+\midrule
+EoRa PI (SF9)     &
+  $5.64 \times 10^{-2}$ &
+  $5.91 \times 10^{-3}$ &
+  $1.69 \times 10^{-3}$ &
+  $\mathbf{1.69 \times 10^{-3}}$ &
+  593 &
+  battery &
+  No ($\times 19.8$) \\[2pt]
+EoRa PI (SF7)     &
+  $1.54 \times 10^{-2}$ &
+  $2.17 \times 10^{-2}$ &
+  $6.19 \times 10^{-3}$ &
+  $\mathbf{6.19 \times 10^{-3}}$ &
+  162 &
+  battery &
+  No ($\times 5.4$) \\[2pt]
+Heltec V3         &
+  $5.55 \times 10^{-2}$ &
+  $5.91 \times 10^{-3}$ &
+  $1.16 \times 10^{-3}$ &
+  $\mathbf{1.16 \times 10^{-3}}$ &
+  863 &
+  battery &
+  No ($\times 28.8$) \\[2pt]
+RAK4631           &
+  $4.09 \times 10^{-2}$ &
+  $5.91 \times 10^{-3}$ &
+  $2.33 \times 10^{-3}$ &
+  $\mathbf{2.33 \times 10^{-3}}$ &
+  430 &
+  battery &
+  No ($\times 14.3$) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\noindent
+Three findings are immediately apparent:
+
+\begin{enumerate}[label=(\roman*)]
+  \item \textbf{Battery dominates across all profiles.}
+        For every device tested, $\rho_B < \rho_\delta$; the duty-cycle
+        budget is never the binding constraint.  The duty-cycle headroom
+        ranges from $28.6\%$ consumed (EoRa PI, SF9) to $28.5\%$ (EoRa PI,
+        SF7).  This indicates that IoT LoRa nodes are
+        \emph{energy-constrained} rather than \emph{spectrum-constrained}
+        for authentication purposes, a finding that contrasts with the
+        common assumption in the duty-cycle literature.
+
+  \item \textbf{The default Hello rate is infeasible on all tested hardware.}
+        LoRaMesher's default 30\,s Hello interval corresponds to
+        $\rho_{\mathrm{DC}} = 3.33 \times 10^{-2}$\,pkt/s, which exceeds
+        $\rho^*$ by factors of $5.4 \times$ to $28.8 \times$ depending on
+        the device.  Therefore $\Phi(P_{\mathrm{LM}}, E) = 0$ for every
+        profile: full-rate HMAC authentication of Hello messages at the
+        default interval is \emph{physically infeasible}.
+
+  \item \textbf{Spreading factor affects $\rho^*$ through $C_{\mathrm{auth}}$.}
+        At SF7 ($t_{\mathrm{tx}} = 461$\,ms), the EoRa PI achieves
+        $\rho^* = 6.19 \times 10^{-3}$\,pkt/s (minimum interval 162\,s),
+        $3.67 \times$ higher than at SF9.  This is because a shorter
+        on-air time reduces $C_{\mathrm{auth}}$ proportionally, since the
+        dominant energy term is $I_{\mathrm{tx}} \cdot t_{\mathrm{tx}}$.
+        However, the default Hello rate remains infeasible even at SF7.
+\end{enumerate}
+
+% -----------------------------------------------------------------------
+\subsubsection{Sensitivity Analysis: Spreading Factor vs.\ $\rho^*$}
+\label{subsubsec:sf-sensitivity}
+
+Table~\ref{tab:sf-sensitivity} extends the EoRa PI profile across all six
+LoRa spreading factors (SF7--SF12) with a fixed 3000\,mAh battery and a
+365-day target lifetime.  The battery constraint is binding for all SFs in
+this configuration.
+
+\begin{table}[ht]
+\centering
+\caption{%
+  $\rho^*$ sensitivity to spreading factor for EoRa PI
+  ($B = 3000$\,mAh, $L = 365$\,days, $I_{\mathrm{tx}} = 120$\,mA,
+   $\delta_{\max} = 0.01$, $I_{\mathrm{hmac}} = 80$\,mA,
+   $t_{\mathrm{hmac}} = 0.5$\,ms).}
+\label{tab:sf-sensitivity}
+\small
+\begin{tabular}{@{}lrccccl@{}}
+\toprule
+SF & $t_{\mathrm{tx}}$ (ms) & $\rho_\delta$ (pkt/s) & $\rho_B$ (pkt/s) &
+   $\rho^*$ (pkt/s) & Min. interval (s) & Binding \\
+\midrule
+SF7  &   461 & $2.17 \times 10^{-2}$ & $6.19 \times 10^{-3}$ & $6.19 \times 10^{-3}$ &  162 & battery \\
+SF8  &   800 & $1.25 \times 10^{-2}$ & $3.57 \times 10^{-3}$ & $3.57 \times 10^{-3}$ &  280 & battery \\
+SF9  &  1692 & $5.91 \times 10^{-3}$ & $1.69 \times 10^{-3}$ & $1.69 \times 10^{-3}$ &  593 & battery \\
+SF10 &  2793 & $3.58 \times 10^{-3}$ & $1.02 \times 10^{-3}$ & $1.02 \times 10^{-3}$ &  979 & battery \\
+SF11 &  5077 & $1.97 \times 10^{-3}$ & $5.62 \times 10^{-4}$ & $5.62 \times 10^{-4}$ & 1779 & battery \\
+SF12 &  9928 & $1.01 \times 10^{-3}$ & $2.87 \times 10^{-4}$ & $2.87 \times 10^{-4}$ & 3479 & battery \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{remark}[SF effect on $\rho^*$: linear scaling]
+\label{rem:sf-scaling}
+Since $C_{\mathrm{auth}}(E) \approx I_{\mathrm{tx}} \cdot t_{\mathrm{tx}} / 3{,}600{,}000$
+(the HMAC term $I_{\mathrm{hmac}} \cdot t_{\mathrm{hmac}}$ is negligible:
+$80 \times 0.5 = 40$\,mA$\cdot$ms vs.\
+$120 \times 1692 = 203{,}040$\,mA$\cdot$ms for SF9), we have
+\[
+  \rho_B(E) \;\approx\;
+  \frac{B_{\mathrm{mAh}}}{\tfrac{I_{\mathrm{tx}} \cdot t_{\mathrm{tx}}}{3{,}600{,}000}
+  \cdot 86400 \cdot L_{\mathrm{days}}}
+  \;=\;
+  \frac{B_{\mathrm{mAh}} \cdot 3{,}600{,}000}
+       {I_{\mathrm{tx}} \cdot 86400 \cdot L_{\mathrm{days}}}
+  \cdot \frac{1}{t_{\mathrm{tx}}}.
+\]
+Thus $\rho_B \propto 1/t_{\mathrm{tx}}$, and so does $\rho^*$ whenever the
+battery is the binding constraint.  Halving the spreading factor (which
+roughly quarters $t_{\mathrm{tx}}$) therefore roughly quadruples $\rho^*$.
+This means \emph{switching to a lower spreading factor is the single most
+effective hardware knob} for relaxing the authentication-rate constraint,
+subject to link-budget feasibility.
+\end{remark}
+
+% -----------------------------------------------------------------------
+\subsubsection{Design Guidelines}
+\label{subsubsec:design-guidelines}
+
+The analysis above suggests the following engineering recommendations for
+authenticated LoRa mesh control planes:
+
+\begin{enumerate}[label=\textbf{DG\arabic*.}]
+
+  \item \textbf{Set Hello interval $\ge 1/\rho^*(E)$, not 30\,s.}\;
+        The LoRaMesher default of 30\,s violates the physical feasibility
+        predicate $\Phi = 1$ on every tested device.  Implementations should
+        compute $\rho^*(E)$ from the device datasheet and set the Hello
+        interval to $\lceil 1/\rho^*(E) \rceil$\,s.  For a 3000\,mAh node
+        at SF9 targeting a 365-day lifetime, this yields a minimum interval
+        of \textbf{593\,s ($\approx 10$\,min)}.
+
+  \item \textbf{Use the lowest SF consistent with link budget.}\;
+        $\rho^* \propto 1/t_{\mathrm{tx}} \propto 1/\mathrm{SF\text{-}factor}$.
+        Each step down in spreading factor (e.g., SF9 $\to$ SF7) relaxes the
+        minimum Hello interval by approximately $1692/461 \approx 3.67\times$.
+        For short-range deployments (path loss $\le 120$\,dB), SF7 is
+        preferable for security agility.
+
+  \item \textbf{Prefer energy-efficient MCUs for HMAC computation.}\;
+        The RAK4631 (nRF52840, $I_{\mathrm{hmac}} = 20$\,mA,
+        $t_{\mathrm{hmac}} = 0.2$\,ms) achieves $\rho^* = 2.33 \times 10^{-3}$\,pkt/s
+        at SF9 vs.\ $1.69 \times 10^{-3}$\,pkt/s for the EoRa PI (ESP32-S3,
+        $I_{\mathrm{hmac}} = 80$\,mA) — a $1.38\times$ improvement.  Since
+        the HMAC term contributes $< 0.1\%$ of $C_{\mathrm{auth}}$ in all
+        cases, however, radio-transmit efficiency (i.e., PA efficiency)
+        dominates: the RAK4631's lower $I_{\mathrm{tx}}$ (87 vs.\ 120\,mA)
+        is the primary driver of its higher $\rho^*$.
+
+  \item \textbf{Size the battery for the target Hello rate.}\;
+        If a protocol-mandated Hello rate $\rho_{\mathrm{DC}}$ is fixed
+        (e.g., by a standard), the minimum battery capacity to achieve
+        $\Phi = 1$ over $L_{\mathrm{days}}$ is
+        \[
+          B_{\min}
+          \;=\; C_{\mathrm{auth}}(E) \cdot 86400 \cdot L_{\mathrm{days}} \cdot \rho_{\mathrm{DC}}.
+        \]
+        For the EoRa PI at the 30\,s default and 365-day lifetime:
+        $B_{\min} = 5.641 \times 10^{-2} \times 86400 \times 365 \times (1/30)
+        \approx 59{,}300$\,mAh — clearly impractical, confirming that the
+        Hello interval must be increased rather than the battery capacity.
+
+  \item \textbf{Network-wide feasibility is determined by the weakest node.}\;
+        In a heterogeneous mesh, $\rho^*_{\mathrm{net}} = \min_{v_i} \rho^*(E_i)$
+        (Remark~\ref{rem:scope}).  A single Heltec V3 ($\rho^* = 1.16 \times 10^{-3}$)
+        in an otherwise-RAK4631 network reduces the safe network-wide rate to
+        $1.16 \times 10^{-3}$\,pkt/s (minimum interval 863\,s).  Node
+        provisioning should enforce a minimum $\rho^*$ as an admission
+        criterion.
+
+\end{enumerate}
+
+% -----------------------------------------------------------------------
+\begin{remark}[Conservative assumptions in $\rho^*$]
+\label{rem:conservative}
+The $\rho^*(E)$ formula conservatively neglects:
+\begin{itemize}
+  \item \emph{Sleep-mode current} (typically $10\text{--}100\,\mu\mathrm{A}$
+        for LoRa nodes): including it would only \emph{reduce} $\rho^*$,
+        making the bound tighter and our analysis conservative.
+  \item \emph{Receive energy}: at 10--15\% of transmit current, reception of
+        neighbour Hellos adds $\le 10\%$ to the energy budget.
+  \item \emph{Data traffic}: control-plane only.  Data-plane transmissions
+        consume additional duty-cycle and battery budget, further reducing the
+        headroom available for authentication.
+\end{itemize}
+All three factors reinforce the conclusion that the 30\,s default Hello
+interval is infeasible, and that $\rho^*$ as computed here is an
+\emph{upper bound} on the physically achievable authentication rate.
+\end{remark}

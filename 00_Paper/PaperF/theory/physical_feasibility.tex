@@ -1,0 +1,330 @@
+%% physical_feasibility.tex — PCSS Theory: L3 Physical Feasibility
+%% Paper F: "Physically-Constrained Semantic Security Theory for IoT Mesh Routing"
+%% Issue #81 (F3)
+%%
+%% Depends on: definitions.tex (Definitions 1–6), theorem1_proof.tex (Theorem 1)
+%% Referenced in: SP-PaperF.tex §3.3
+%%
+%% Required preamble packages:
+%%   \usepackage{amsthm, amsmath, amssymb, mathtools}
+%%
+%% Theorem environments (declare in preamble if not already present):
+%%   \theoremstyle{definition}
+%%   \newtheorem{definition}{Definition}[section]
+%%   \newtheorem{remark}[definition]{Remark}
+%%   \newtheorem{example}[definition]{Example}
+%%   \theoremstyle{plain}
+%%   \newtheorem{theorem}{Theorem}[section]
+
+% -----------------------------------------------------------------------
+\subsection{L3 — Physical Feasibility}
+\label{subsec:l3-feasibility}
+% -----------------------------------------------------------------------
+
+Theorem~\ref{thm:sbc-sufficiency} establishes that $\mathrm{SBC}(P)$
+is \emph{sufficient} to exclude a Dolev-Yao attacker from the routing
+table, provided authentication can be applied to every message in
+$\mathrm{DC}(P)$.  In the classical cryptographic model, computational
+resources are unlimited: a protocol is simply labelled ``correct'' or
+``incorrect'' without regard to whether it can be executed at all.
+
+IoT radio nodes operate under two hard physical ceilings that the
+standard model ignores:
+\begin{enumerate}[label=(\roman*)]
+  \item \textbf{Duty-cycle limit.}  ETSI EN~300~220 and FCC Part~15
+        restrict the fraction of time a LoRa transmitter may occupy the
+        channel to $\delta_{\max} = 1\%$ in the 868~MHz sub-band.  A node
+        that authenticates and re-transmits control messages at rate $\rho$
+        with airtime $t_{\mathrm{tx}}$ per message must satisfy
+        $\rho \cdot t_{\mathrm{tx}} \le \delta_{\max}$; exceeding this is
+        illegal and causes interference.
+
+  \item \textbf{Battery energy budget.}  A node drawing current $I$ for
+        time $t$ consumes $I \cdot t$ mAh from a finite battery of
+        capacity $B_{\mathrm{mAh}}$.  Authentication adds a non-trivial
+        computational current $I_{\mathrm{hmac}}$ for duration
+        $t_{\mathrm{hmac}}$ per message; at rate $\rho$ these costs
+        accumulate and determine the maximum protocol lifetime.
+\end{enumerate}
+
+We formalise both constraints via three definitions and then prove
+Theorem~2, which gives a closed-form \emph{maximum safe authentication
+rate} $\rho^*$ for any device--deployment pair.
+
+% -----------------------------------------------------------------------
+\begin{definition}[Environment Model]
+\label{def:environment}
+An \emph{environment model} is a tuple
+\[
+  E \;=\;
+  \bigl(
+    B_{\mathrm{mAh}},\;
+    I_{\mathrm{tx}},\; t_{\mathrm{tx}},\;
+    \delta_{\max},\;
+    I_{\mathrm{hmac}},\; t_{\mathrm{hmac}},\;
+    L_{\mathrm{days}}
+  \bigr),
+\]
+where:
+\begin{itemize}
+  \item $B_{\mathrm{mAh}} \in \mathbb{R}_{>0}$ is the \emph{battery
+        capacity} of the node (milliampere-hours);
+
+  \item $I_{\mathrm{tx}} \in \mathbb{R}_{>0}$ is the \emph{transmit
+        current} drawn by the radio during packet transmission (mA);
+
+  \item $t_{\mathrm{tx}} \in \mathbb{R}_{>0}$ is the \emph{on-air time}
+        per control-plane packet at the chosen spreading factor and
+        bandwidth (ms);
+
+  \item $\delta_{\max} \in (0, 1)$ is the \emph{maximum duty-cycle
+        fraction} mandated by the applicable radio regulation
+        (dimensionless; default 0.01 for ETSI 868~MHz);
+
+  \item $I_{\mathrm{hmac}} \in \mathbb{R}_{>0}$ is the \emph{HMAC
+        computation current} drawn by the MCU while executing
+        HMAC-SHA256 (mA);
+
+  \item $t_{\mathrm{hmac}} \in \mathbb{R}_{>0}$ is the \emph{HMAC
+        computation time} per message on the target MCU (ms); and
+
+  \item $L_{\mathrm{days}} \in \mathbb{R}_{>0}$ is the \emph{target
+        node lifetime} (days).
+\end{itemize}
+All parameters are deterministic constants characterising a specific
+device and deployment; stochastic channel effects are absorbed into the
+choice of $t_{\mathrm{tx}}$ (computed for the worst-case payload length).
+\end{definition}
+
+% -----------------------------------------------------------------------
+\begin{definition}[Authentication Cost Function]
+\label{def:auth-cost}
+Given an environment $E$, the \emph{authentication cost function}
+$C_{\mathrm{auth}}(E)$ is the total energy expended per authenticated
+control-plane message, expressed in milliampere-hours:
+\[
+  C_{\mathrm{auth}}(E)
+  \;=\;
+  \frac{I_{\mathrm{hmac}} \cdot t_{\mathrm{hmac}}
+        \;+\; I_{\mathrm{tx}} \cdot t_{\mathrm{tx}}}{3\,600\,000}
+  \quad \text{[mAh/msg]},
+\]
+where the factor $3\,600\,000$ converts milliampere-milliseconds to
+milliampere-hours
+($1\ \mathrm{mAh} = 3\,600\ \mathrm{s} \times 1000\ \mathrm{ms/s}
+  = 3\,600\,000\ \mathrm{mA{\cdot}ms}$).
+
+The first term $I_{\mathrm{hmac}} \cdot t_{\mathrm{hmac}}$ captures the
+MCU energy for computing the HMAC tag; the second term
+$I_{\mathrm{tx}} \cdot t_{\mathrm{tx}}$ captures the radio-transmit energy
+for the authenticated packet.  Reception and verification energy is
+conservatively neglected (receive current is typically $\le 15\%$ of
+transmit current for LoRa modules).
+\end{definition}
+
+% -----------------------------------------------------------------------
+\begin{definition}[Physical Feasibility Predicate]
+\label{def:feasibility}
+Let $P$ be a routing protocol, $E$ an environment model, and
+$\rho_{\mathrm{DC}}(P) \ge 0$ the \emph{required authentication rate},
+i.e., the minimum number of $\mathrm{DC}(P)$ messages per second that a
+node must authenticate and transmit to participate in the protocol.
+Define two rate bounds:
+\begin{align}
+  \rho_{\delta}(E) &\;=\; \frac{\delta_{\max}}{t_{\mathrm{tx}}/1000}
+    \qquad \text{[pkt/s], duty-cycle bound,}
+    \label{eq:rho-delta}\\[4pt]
+  \rho_{B}(E)       &\;=\; \frac{B_{\mathrm{mAh}}}
+                              {C_{\mathrm{auth}}(E) \cdot 86400 \cdot L_{\mathrm{days}}}
+    \qquad \text{[pkt/s], battery-lifetime bound,}
+    \label{eq:rho-B}
+\end{align}
+where $t_{\mathrm{tx}}/1000$ converts milliseconds to seconds in
+\eqref{eq:rho-delta}, and $86400$ converts days to seconds in
+\eqref{eq:rho-B}.
+The \emph{maximum feasible authentication rate} is
+\[
+  \rho^*(E) \;=\; \min\!\bigl(\rho_{\delta}(E),\; \rho_{B}(E)\bigr).
+\]
+The \emph{physical feasibility predicate} $\Phi(P, E)$ is:
+\[
+  \Phi(P, E) \;=\; \mathbf{1}\!\left[\,\rho_{\mathrm{DC}}(P) \;\le\; \rho^*(E)\,\right].
+\]
+$\Phi(P, E) = 1$ asserts that the protocol can sustain full-rate
+authentication of $\mathrm{DC}(P)$ messages within both the
+duty-cycle budget and the battery-lifetime budget of $E$.
+$\Phi(P, E) = 0$ asserts that at least one physical constraint is
+violated.
+\end{definition}
+
+% -----------------------------------------------------------------------
+\begin{theorem}[Physical Feasibility Bound]
+\label{thm:feasibility-bound}
+For every environment model $E$ there exists a unique $\rho^*(E) > 0$
+such that
+\[
+  \Phi(P, E) = 1
+  \quad \Longleftrightarrow \quad
+  \rho_{\mathrm{DC}}(P) \;\le\; \rho^*(E),
+\]
+with the closed form
+\[
+  \rho^*(E) \;=\;
+  \min\!\left(
+    \frac{\delta_{\max}}{t_{\mathrm{tx}}/1000},\;
+    \frac{B_{\mathrm{mAh}}}{C_{\mathrm{auth}}(E) \cdot 86400 \cdot L_{\mathrm{days}}}
+  \right).
+\]
+\end{theorem}
+
+\begin{proof}
+By Definitions~\ref{def:environment}--\ref{def:feasibility}, all
+parameters satisfy strict positivity ($B_{\mathrm{mAh}},\;
+I_{\mathrm{tx}},\; t_{\mathrm{tx}},\; \delta_{\max},\;
+I_{\mathrm{hmac}},\; t_{\mathrm{hmac}},\; L_{\mathrm{days}} > 0$).
+Therefore:
+\begin{enumerate}[label=(\roman*)]
+  \item $\rho_{\delta}(E) = \delta_{\max}/(t_{\mathrm{tx}}/1000) > 0$
+        because $\delta_{\max} > 0$ and $t_{\mathrm{tx}} > 0$.
+
+  \item $C_{\mathrm{auth}}(E) > 0$ because
+        $I_{\mathrm{tx}} \cdot t_{\mathrm{tx}} > 0$, hence
+        $\rho_{B}(E) = B_{\mathrm{mAh}} /
+        (C_{\mathrm{auth}}(E) \cdot 86400 \cdot L_{\mathrm{days}}) > 0$.
+
+  \item $\rho^*(E) = \min(\rho_{\delta}, \rho_{B}) > 0$ as the minimum
+        of two positive reals.
+\end{enumerate}
+Uniqueness is immediate since $\rho^*(E)$ is fully determined by $E$.
+The biconditional follows directly from Definition~\ref{def:feasibility}:
+$\Phi(P, E) = 1$ iff $\rho_{\mathrm{DC}}(P) \le \rho^*(E)$, and
+$\Phi(P, E) = 0$ otherwise.
+\hfill$\square$
+\end{proof}
+
+% -----------------------------------------------------------------------
+\begin{remark}[Why $\Phi$ matters: degradation of SBC under infeasibility]
+\label{rem:phi-degradation}
+Theorem~\ref{thm:sbc-sufficiency} requires $\mathrm{SBC}(P)$ to hold, which
+in turn requires every message in $\mathrm{DC}(P)$ to be authenticated at
+the rate $\rho_{\mathrm{DC}}(P)$ at which it is produced.  If
+$\Phi(P, E) = 0$, the protocol is \emph{cryptographically correct} (SBC
+holds in the abstract model) but \emph{physically infeasible}: the node
+cannot sustain full-rate HMAC computation and transmission without either
+violating its duty-cycle allocation or exhausting its battery before
+$L_{\mathrm{days}}$.
+
+The practical consequence is that the implementation must reduce the
+effective authentication rate $\rho' < \rho_{\mathrm{DC}}(P)$, for example
+by authenticating only a fraction of $\mathrm{DC}(P)$ messages or by
+increasing the inter-message interval.  This introduces a \emph{replay
+window} of duration $1/\rho'$ seconds during which a stale authenticated
+message can be re-injected without violating the freshness check
+(condition~\ref{sbc:fresh} of Definition~\ref{def:sbc}).  The effective
+security guarantee degrades from the unconditional exclusion of
+Theorem~\ref{thm:sbc-sufficiency} to a probabilistic one parameterised
+by the replay window length.
+
+The classical Dolev-Yao model has no mechanism to express this
+degradation: an attacker is either computationally bounded or not.
+The PCSS framework makes the degradation explicit through $\Phi(P, E)$
+and $\rho^*(E)$, enabling quantitative protocol design: choose the
+control-message rate $\rho_{\mathrm{DC}}(P) \le \rho^*(E)$ so that
+$\mathrm{SBC}(P)$ is simultaneously cryptographically sound and
+physically sustainable.
+\end{remark}
+
+% -----------------------------------------------------------------------
+\begin{example}[EoRa-PI instantiation of $\rho^*$]
+\label{ex:eora-pi}
+We instantiate Definition~\ref{def:feasibility} for the Ebyte EoRa-PI
+ESP32-S3 LoRa node (the hardware platform used in Papers~B and~C) with
+the following measured and regulation-fixed parameters:
+\[
+  E_{\mathrm{EoRa}} \;=\;
+  \bigl(
+    \underbrace{3000}_{\textstyle B_{\mathrm{mAh}}},\;
+    \underbrace{120}_{\textstyle I_{\mathrm{tx}}},\;
+    \underbrace{1692}_{\textstyle t_{\mathrm{tx}}},\;
+    \underbrace{0.01}_{\textstyle \delta_{\max}},\;
+    \underbrace{80}_{\textstyle I_{\mathrm{hmac}}},\;
+    \underbrace{0.5}_{\textstyle t_{\mathrm{hmac}}},\;
+    \underbrace{365}_{\textstyle L_{\mathrm{days}}}
+  \bigr),
+\]
+where $t_{\mathrm{tx}} = 1692\ \mathrm{ms}$ is the measured airtime for a
+142-byte LoRa frame at SF9/BW125 (the LoRaMesher Hello message size), and
+$I_{\mathrm{hmac}} = 80\ \mathrm{mA}$, $t_{\mathrm{hmac}} = 0.5\ \mathrm{ms}$
+are measured on the ESP32-S3 executing HMAC-SHA256 in software.
+
+\medskip
+\noindent\textbf{Step~1: Authentication cost per message (Definition~\ref{def:auth-cost}).}
+\begin{align*}
+  C_{\mathrm{auth}}(E_{\mathrm{EoRa}})
+  &= \frac{80 \times 0.5 \;+\; 120 \times 1692}{3\,600\,000} \\
+  &= \frac{40 \;+\; 203\,040}{3\,600\,000} \\
+  &= \frac{203\,080}{3\,600\,000}
+  \;\approx\; 5.641 \times 10^{-2}\ \mathrm{mAh/msg}.
+\end{align*}
+
+\medskip
+\noindent\textbf{Step~2: Duty-cycle bound $\rho_\delta$.}
+\begin{align*}
+  \rho_{\delta}(E_{\mathrm{EoRa}})
+  &= \frac{0.01}{1692/1000}
+   = \frac{0.01}{1.692}
+   \approx 5.91 \times 10^{-3}\ \mathrm{pkt/s}
+   \;\approx 1\ \mathrm{pkt\ per\ 169\ s.}
+\end{align*}
+
+\medskip
+\noindent\textbf{Step~3: Battery-lifetime bound $\rho_B$.}
+\begin{align*}
+  \rho_{B}(E_{\mathrm{EoRa}})
+  &= \frac{3000}{5.641\times10^{-2} \times 86400 \times 365} \\
+  &= \frac{3000}{1\,778\,981}
+   \;\approx\; 1.69 \times 10^{-3}\ \mathrm{pkt/s}
+   \;\approx 1\ \mathrm{pkt\ per\ 593\ s\ (\approx 9.9\ min).}
+\end{align*}
+
+\medskip
+\noindent\textbf{Step~4: Maximum feasible rate.}
+\[
+  \rho^*(E_{\mathrm{EoRa}})
+  \;=\; \min\!\bigl(5.91 \times 10^{-3},\; 1.69 \times 10^{-3}\bigr)
+  \;=\; 1.69 \times 10^{-3}\ \mathrm{pkt/s}.
+\]
+The binding constraint is the \textbf{battery-lifetime bound}, not the
+duty-cycle limit: at $\rho^*$ the node consumes approximately
+$5.641 \times 10^{-2} \times 1.69 \times 10^{-3} \times 86400 \times 365
+\approx 3000\ \mathrm{mAh}$ over 365 days, exactly exhausting the
+battery.  The duty-cycle budget is only $28.6\%$ consumed
+($1.69 \times 10^{-3} / 5.91 \times 10^{-3} \approx 0.286$), leaving
+headroom for data traffic.
+
+\medskip
+\noindent\textbf{Consequence for LoRaMesher ($P_{\mathrm{LM}}$).}\;
+The default LoRaMesher Hello interval is 30~s, corresponding to
+$\rho_{\mathrm{DC}}(P_{\mathrm{LM}}) = 1/30 \approx 3.33 \times 10^{-2}\ \mathrm{pkt/s}$.
+Since $3.33 \times 10^{-2} \gg 1.69 \times 10^{-3}$, we have
+$\Phi(P_{\mathrm{LM}}, E_{\mathrm{EoRa}}) = 0$: full-rate HMAC
+authentication of every Hello message is \emph{physically infeasible} on
+this hardware at the default interval.  The implication (Remark~\ref{rem:phi-degradation})
+is that the deployment must either (a)~increase the Hello interval to
+$\ge 593\ \mathrm{s}$ (reducing routing agility), or (b)~authenticate a
+fraction of messages (weakening SBC2 freshness), or (c)~use a higher-capacity
+battery.  The PCSS framework makes this trade-off explicit and
+quantitatively precise.
+\end{example}
+
+\begin{remark}[Scope of $E$: per-node vs.\ network-level]
+\label{rem:scope}
+Definition~\ref{def:environment} models a \emph{single node}.  In a
+heterogeneous deployment, each $v_i$ may have its own $E_i$ and hence
+its own $\rho^*(E_i)$.  The network-wide feasibility bound is
+$\rho^*_{\mathrm{net}} = \min_{v_i \in V} \rho^*(E_i)$: the most
+energy-constrained node determines the maximum protocol-wide
+authentication rate.  This motivates per-node duty-cycle adaptation
+mechanisms in multi-hop LoRa mesh protocols, which fall outside the scope
+of the present paper.
+\end{remark}

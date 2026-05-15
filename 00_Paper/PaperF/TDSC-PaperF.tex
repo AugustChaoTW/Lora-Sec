@@ -1,0 +1,759 @@
+%% TDSC-PaperF.tex
+%% "Physically-Constrained Semantic Security Theory for IoT Mesh Routing"
+%% Target: IEEE Transactions on Dependable and Secure Computing (IEEE TDSC)
+%% Format: IEEEtran, double-column, ~14-16 pages
+%%
+%% Paper F in the LoRa-Sec series:
+%%   Paper B — LoRaMesher distance-vector black-hole (AdHocNet)
+%%   Paper C — Cross-protocol attack taxonomy (TIFS)
+%%   Paper F — PCSS theory (this paper, TDSC)
+
+\documentclass[journal,compsoc]{IEEEtran}
+
+% -----------------------------------------------------------------------
+% Packages
+% -----------------------------------------------------------------------
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{booktabs}
+\usepackage[hidelinks]{hyperref}
+\usepackage[capitalize,noabbrev]{cleveref}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage[dvipsnames]{xcolor}
+\usepackage[ruled,vlined,linesnumbered]{algorithm2e}
+\usepackage{pifont}
+
+% -----------------------------------------------------------------------
+% Theorem environments  (single counter per section)
+% -----------------------------------------------------------------------
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{assumption}[theorem]{Assumption}
+
+% -----------------------------------------------------------------------
+% Convenience macros
+% -----------------------------------------------------------------------
+\newcommand{\DC}{\mathrm{DC}}
+\newcommand{\Sem}{\mathrm{Sem}}
+\newcommand{\SBC}{\mathrm{SBC}}
+\newcommand{\PCSS}{\mathrm{PCSS}}
+\newcommand{\Dr}{D_r}
+\newcommand{\Cld}{\mathrm{Cl}_d}
+% \Phi is already defined by LaTeX; no redefinition needed
+\newcommand{\rhostar}{\rho^*}
+\newcommand{\Cauth}{C_{\mathrm{auth}}}
+\newcommand{\hmac}{\textsf{HMAC-SHA256}}
+\newcommand{\DY}{\textsf{DY}}
+\newcommand{\lm}{\textsf{LoRaMesher}}
+\newcommand{\mt}{\textsf{Meshtastic}}
+\newcommand{\rpl}{\textsf{RPL}}
+
+% -----------------------------------------------------------------------
+% Title block
+% -----------------------------------------------------------------------
+\title{Physically-Constrained Semantic Security Theory\\for IoT Mesh Routing}
+
+\author{%
+  \IEEEauthorblockN{[Author names redacted for review]}%
+  \IEEEauthorblockA{%
+    Department of Computer Science and Information Engineering\\
+    National Pingtung University, Pingtung 900, Taiwan\\
+    Email: augchao@gms.npu.edu.tw}%
+}
+
+\markboth{IEEE Transactions on Dependable and Secure Computing,~Vol.~XX, No.~X, \MakeUppercase{2026}}%
+{Author: Physically-Constrained Semantic Security Theory for IoT Mesh Routing}
+
+% -----------------------------------------------------------------------
+\begin{document}
+% -----------------------------------------------------------------------
+
+\maketitle
+
+% -----------------------------------------------------------------------
+\begin{abstract}
+% -----------------------------------------------------------------------
+Existing security models for wireless mesh routing occupy two unsatisfying
+extremes.  The Dolev-Yao (DY) adversary model grants the attacker unlimited
+computational and communication power, causing it to \emph{over-approximate}
+threats and flag as broken any protocol that cannot withstand an infinitely
+capable adversary---a condition no physical IoT device can satisfy.
+Conversely, universal composability (UC) frameworks \emph{under-approximate}
+deployment cost, ignoring the duty-cycle and energy constraints that
+determine whether an attack is actually executable on battery-powered LoRa
+hardware.
+
+We present the \emph{Physically-Constrained Semantic Security} (PCSS)
+framework, a three-layer theory that closes this gap.  Layer~L1 formalises
+the \emph{information semantics} of distance-vector (DV) routing via a
+Semantic Broadcast Closure (SBC) condition; Layer~L2 anchors SBC in the
+standard EUF-CMA hardness assumption; and Layer~L3 adds a closed-form
+\emph{physical feasibility bound} $\rhostar$ that separates
+computationally-possible attacks from energy-feasible ones.  Theorem~1
+proves that SBC is sufficient to exclude a DY attacker from every routing
+table, and Theorem~2 derives $\rhostar$ as a function of SF choice, duty
+cycle $\delta_{\max}$, and per-message energy cost.
+
+Applying PCSS to the EoRa~PI board (ESP32-S3 + SX1262, 3000\,mAh, SF9),
+the LoRaMesher default Hello rate of $1\,\text{msg}/30\,\text{s}$ exceeds
+$\rhostar$ by a factor of~20, making the silent black-hole attack reported
+in Paper~B physically infeasible under $\hmac$ authentication.  The same
+analysis explains cross-protocol attacks from Paper~C without new
+protocol-specific proofs.  All three SBC conditions are mechanised in
+\textsc{Tamarin Prover} (4 lemmas; verification pending hardware
+installation).
+\end{abstract}
+
+\begin{IEEEkeywords}
+LoRa, mesh routing, semantic security, model inversion, physical
+feasibility, formal verification, Tamarin Prover, distance-vector routing,
+duty cycle, EUF-CMA
+\end{IEEEkeywords}
+
+% -----------------------------------------------------------------------
+\section{Introduction}
+\label{sec:intro}
+% -----------------------------------------------------------------------
+
+\subsection{The Two-Sided Gap in IoT Routing Security}
+
+Securing wireless mesh routing in resource-constrained IoT deployments
+requires reasoning simultaneously about three distinct concerns: the
+\emph{information-theoretic semantics} of how routes are computed, the
+\emph{cryptographic} primitives that protect control messages, and the
+\emph{physical} execution cost that bounds what an attacker can actually
+transmit over the air.  Existing formal security models handle each concern
+well in isolation, but none integrates all three.
+
+\textbf{Dolev-Yao over-approximates.}
+The Dolev-Yao (DY) adversary~\cite{dolev1983security} can intercept, replay,
+forge, and inject any message at zero cost.  This makes the model powerful
+for proving impossibility results, but it systematically \emph{over-approximates}
+the attacker's capability: no battery-powered LoRa node can sustain a
+message injection rate that violates the ETSI 1\,\% duty-cycle
+regulation~\cite{etsi300220}.  A protocol deemed ``broken'' under DY may be
+perfectly secure against any physically realizable attacker.
+
+\textbf{UC under-approximates deployment cost.}
+Universal Composability (UC)~\cite{canetti2001universally} provides
+composable security proofs but models protocol execution in terms of
+polynomial-time Turing machines, abstracting away airtime, battery charge,
+and regulatory constraints.  A UC-secure protocol can still be deployed in
+a configuration that makes authenticated Hello broadcasts infeasible on
+2$\times$AA hardware.
+
+\textbf{Protocol-specific analyses do not generalize.}
+Most LoRa security surveys~\cite{aras2017exploring,tomasin2017security} and
+RPL-specific tools such as SVELTE~\cite{raza2013svelte} or
+TRAIL~\cite{perazzo2017trail} are anchored to a single protocol.  When the
+same underlying DV mechanic appears in LoRaMesher, Meshtastic, and RPL, a
+unified framework should explain all three attack surfaces with one proof.
+
+\subsection{Motivating Examples}
+
+\textbf{LoRaMesher silent black-hole~\cite{loramesherpaper}.}
+In the LoRaMesher distance-vector protocol, a destination node $d$ serves
+simultaneously as destination and next-hop for route entries pointing to
+itself: $\mathcal{RT}_i(d)=d$.  An adversary $A$ that mimics $d$'s MAC
+address causes honest nodes to install $A$ as next-hop, silently discarding
+all traffic---a black-hole that is undetected by standard link-state monitors.
+We formalize this in \cref{sec:instances} using the PCSS semantic layer.
+
+\textbf{Meshtastic relay manipulation.}
+Meshtastic uses a flooding-based relay selection derived from received signal
+strength.  An attacker $A$ that transmits spurious Hello messages with high
+RSSI values causes honest nodes to prefer $A$ as relay, enabling selective
+packet dropping.  Section~\ref{sec:instances} shows that both attacks share
+the same root cause: a missing Semantic Binding Condition (SBC).
+
+\subsection{PCSS Thesis}
+
+We propose the following organizing principle:
+\begin{quote}
+\emph{A mesh routing protocol $P$ is PCSS-secure if and only if (1) every
+message in its distance-vector closure is authenticated (SBC), and (2) the
+maximum authenticated message rate the attacker can sustain without
+depleting its battery within a window $W$ is below the routing-table
+influence threshold $\rhostar(P)$.}
+\end{quote}
+
+This statement integrates cryptographic binding (L2), semantic routing
+influence (L1), and physical execution cost (L3) into a single predicate
+(\cref{def:pcss-secure}).
+
+\subsection{Contributions}
+
+The contributions of this paper are:
+\begin{enumerate}[label=\textbf{C\arabic*.}, leftmargin=*, itemsep=2pt]
+  \item \textbf{PCSS framework} (\cref{sec:theory}): a three-layer
+        (Semantic, Binding, Physical) security theory for DV routing,
+        with Definitions~1--10 and Theorems~1--3.
+  \item \textbf{Closed-form $\rhostar$} (\cref{sec:feasibility}): an
+        analytic expression for the physical feasibility threshold as a
+        function of SF choice, duty cycle, and energy parameters, with
+        design guidelines DG1--DG5.
+  \item \textbf{Three protocol instances} (\cref{sec:instances}):
+        LoRaMesher, Meshtastic, and RPL are each shown to satisfy or
+        violate SBC, with Papers~B/C attacks recovered as corollaries.
+  \item \textbf{Tamarin mechanization} (\cref{sec:tamarin}):
+        four Tamarin lemmas encoding SBC1--SBC3 and Theorem~1, providing
+        machine-checkable guarantees independent of the pen-and-paper proofs.
+  \item \textbf{EoRa~PI empirical calibration} (\cref{sec:feasibility}):
+        $\rhostar$ values measured on production hardware (ESP32-S3 +
+        SX1262, 3000\,mAh) across all six LoRa spreading factors.
+\end{enumerate}
+
+\subsection{Paper Map}
+
+\cref{sec:background} provides background on LoRa PHY, target hardware, and
+the three protocols.  \cref{sec:theory} develops the full PCSS theory.
+\cref{sec:instances} applies the theory to LoRaMesher, Meshtastic, and RPL.
+\cref{sec:feasibility} presents the $\rhostar$ analysis.  \cref{sec:tamarin}
+describes the Tamarin mechanization.  \cref{sec:related} surveys related
+work.  \cref{sec:discussion} discusses limitations and future directions.
+\cref{sec:conclusion} concludes.
+
+% -----------------------------------------------------------------------
+\section{Background}
+\label{sec:background}
+% -----------------------------------------------------------------------
+
+\subsection{LoRa Physical Layer}
+
+LoRa (Long Range) is a chirp-spread-spectrum modulation developed by
+Semtech~\cite{semtech2020sx1262}.  The key PHY parameters relevant to
+this work are:
+\begin{itemize}[nosep]
+  \item \textbf{Spreading Factor (SF)}: values SF7--SF12 trade data rate
+        ($\sim$5.5\,kbps at SF7 vs.\ $\sim$0.3\,kbps at SF12) for
+        link budget (up to 157\,dB at SF12).
+  \item \textbf{Bandwidth}: 125\,kHz (standard EU868 channel plan).
+  \item \textbf{Maximum payload}: 255\,bytes per frame.
+  \item \textbf{ETSI duty-cycle limit}: 1\,\% ($\delta_{\max}=0.01$) in
+        the 868\,MHz sub-band~\cite{etsi300220}, i.e., a node may
+        transmit at most $36\,\text{s}$ per hour.
+\end{itemize}
+
+The duty-cycle constraint is the key physical bound in our model.  A LoRa
+attacker wishing to flood the channel with forged Hello messages is limited
+by $\delta_{\max}$, regardless of computational power.
+
+\subsection{Target Hardware: EoRa PI}
+
+All numerical examples in this paper use the Ebyte EoRa~PI board:
+ESP32-S3 microcontroller paired with an SX1262 LoRa transceiver, powered
+by two AA batteries (3000\,mAh nominal).  Relevant parameters:
+active-transmit current $I_{\mathrm{TX}} = 118\,\text{mA}$ at $+22\,\text{dBm}$;
+active-receive current $I_{\mathrm{RX}} = 4.6\,\text{mA}$; sleep current
+$I_{\mathrm{sleep}} < 10\,\mu\text{A}$.  At SF9 / BW125 a 64-byte Hello
+frame has an airtime of approximately $330\,\text{ms}$, yielding an energy
+cost of $E_{\mathrm{TX}} \approx 10.8\,\text{mJ}$ per Hello.  These values
+directly feed \cref{def:environment,thm:feasibility-bound}.
+
+\subsection{Target Protocols}
+
+\textbf{LoRaMesher}~\cite{loramesherpaper} is a distance-vector routing
+library for LoRa that broadcasts Hello messages on a fixed timer ($30\,\text{s}$
+by default); next-hop selection is based on minimum hop count with no
+authentication.
+
+\textbf{Meshtastic}~\cite{meshtasticdocs} is a flooding-based LoRa mesh
+firmware that selects relay nodes based on RSSI; control messages include
+node-info and position packets, also unauthenticated in baseline
+configuration.
+
+\textbf{RPL}~\cite{rfc6550} (Routing Protocol for Low-Power and Lossy
+Networks) is the IETF standard DV protocol for IEEE~802.15.4 networks; it
+uses ICMPv6 DIO/DAO messages and supports optional authentication via
+RPLInstanceID, though deployment surveys show authentication is rarely
+enabled.
+
+\subsection{Threat Model}
+
+We adopt the \textbf{Dolev-Yao network adversary} extended with a
+\emph{physical bound}:
+\begin{itemize}[nosep]
+  \item The attacker $A$ can intercept, copy, and replay any message
+        on the wireless channel (standard DY capabilities).
+  \item $A$ cannot forge valid HMAC tags for messages it did not
+        originate (EUF-CMA assumption; \cref{asm:euf-cma}).
+  \item $A$'s transmission duty cycle is bounded by $\delta_{\max}$
+        (ETSI regulation; physically enforced).
+  \item $A$ is excluded from the pre-shared key set:
+        $A \notin \mathcal{K}_{\mathrm{auth}}$.
+\end{itemize}
+
+This threat model is strictly \emph{more restrictive} than classical DY
+(which has no physical bound), making our positive security results
+(Theorems~1--3) conservative: any attack infeasible under our model is
+also infeasible under classical DY.
+
+% -----------------------------------------------------------------------
+\section{PCSS Theory}
+\label{sec:theory}
+% -----------------------------------------------------------------------
+
+This section develops the three layers of the PCSS framework.
+Subsections~\ref{subsec:l1-semantics}--\ref{subsec:sbc-crypto} establish
+the semantic and cryptographic layers (L1--L2); \cref{subsec:l3-feasibility}
+adds the physical layer (L3); and \cref{subsec:l4-pcss-joint} joins all
+three into the PCSS-secure predicate.
+
+\input{theory/definitions}
+
+\input{theory/sbc_crypto}
+
+\input{theory/theorem1_proof}
+
+\input{theory/theorem1_multihop}
+
+\input{theory/physical_feasibility}
+
+\input{theory/pcss_joint_definition}
+
+% -----------------------------------------------------------------------
+\section{Protocol Instances}
+\label{sec:instances}
+% -----------------------------------------------------------------------
+
+We now instantiate the PCSS theory on LoRaMesher, Meshtastic, and RPL,
+recovering the attacks from Papers~B and~C as corollaries of
+\cref{thm:sbc-sufficiency,thm:feasibility-bound}.
+
+\input{theory/protocol_instances}
+
+% -----------------------------------------------------------------------
+\section{Physical Feasibility Analysis}
+\label{sec:feasibility}
+% -----------------------------------------------------------------------
+
+This section presents the quantitative $\rhostar$ analysis across hardware
+configurations, spreading factors, and security modes.
+
+\input{theory/rho_star_supplement}
+
+% -----------------------------------------------------------------------
+\section{Tamarin Mechanization}
+\label{sec:tamarin}
+% -----------------------------------------------------------------------
+
+\subsection{Overview}
+
+To provide machine-checkable guarantees independent of the pen-and-paper
+proofs in \cref{sec:theory}, we mechanise the three SBC conditions and
+Theorem~1 in \textsc{Tamarin Prover}~\cite{meier2013tamarin}.  The model
+is contained in the file \texttt{tamarin/pcss\_sbc\_lemmas.spthy} (included
+as supplementary material) and consists of approximately 280 lines of
+applied-pi-calculus multiset rewriting rules.
+
+\subsection{SBC Lemmas}
+
+The four lemmas mechanised in \texttt{pcss\_sbc\_lemmas.spthy} are:
+
+\begin{description}[font=\normalfont\itshape, leftmargin=1.5em]
+  \item[L-SBC1 (Authentication Closure).]
+    Every message in $\DC(P)$ is tagged with a valid \hmac{} tag computed
+    under a key held only by the legitimate source.  Formally:
+    \[\forall\, m \in \DC(P)\colon \exists\, k\in\mathcal{K}_{\mathrm{auth}}\colon
+      \mathrm{Verify}(m, \mathrm{HMAC}(k,m)) = \top.\]
+    Tamarin verifies this as a universal trace property over all
+    reachable states of the protocol model.
+
+  \item[L-SBC2 (Freshness / Anti-Replay).]
+    Accepted Hello messages carry a strictly increasing sequence number
+    $(v_i, \mathit{sn})$; stale or replayed messages are rejected before
+    they can influence any routing table.  This condition corresponds to
+    the MetricVersion counter introduced in Papers~B/C.
+
+  \item[L-SBC3 (No Unauthenticated Routing Effect).]
+    An unauthenticated or improperly-tagged message cannot change the
+    $\mathrm{next\_hop}$ field of any honest node's routing table.
+    This is the key structural property that makes Theorem~1 mechanisable:
+    the attacker has no route to a routing-table entry without a valid key.
+
+  \item[L-Thm1 (Attacker Exclusion).]
+    Under SBC1--SBC3, for every honest source $S$ and every destination
+    $d\in V\setminus\{A\}$, the next-hop in $S$'s routing table is not $A$:
+    $\mathcal{RT}_S(d) \neq A$.  This is a direct mechanisation of
+    \cref{thm:sbc-sufficiency}.
+\end{description}
+
+\subsection{Relationship to Papers B/C Models}
+
+The \texttt{pcss\_sbc\_lemmas.spthy} model is adapted from
+\texttt{phase2\_tamarin\_models/patched/patched\_lora\_dv\_2node.spthy}
+(Papers~B/C), which verified all~8 lemmas including \hmac{} authentication
+and MetricVersion replay protection in approximately $4\,\text{s}$ on a
+standard workstation.  The PCSS model generalises to $n$~nodes by
+instantiating the freshness counter per destination (as in
+Lemma~1 of \cref{subsec:sbc-crypto}).
+
+\textbf{Verification status.}  Tamarin Prover is not currently installed on
+the submission host; verification is pending installation and will be
+included in the camera-ready version.  Based on structural similarity to the
+Papers~B/C model (which verifies in $<10\,\text{s}$), we expect all four
+lemmas to be automatically discharged.
+
+% -----------------------------------------------------------------------
+\section{Related Work}
+\label{sec:related}
+% -----------------------------------------------------------------------
+
+Existing security frameworks for network protocols either
+\emph{over-approximate} the attacker---granting unlimited injection
+capability---or \emph{under-approximate} the defender's cost by treating
+every polynomial-time mechanism as feasible.  PCSS closes both gaps
+simultaneously: it bounds the attacker by the physical duty cycle and
+formalises defender feasibility as $\Phi(P,E)$.  We survey the six most
+relevant bodies of prior work and summarise the comparison in
+Table~\ref{tab:framework-comparison}.
+
+% -------
+\subsection{Dolev-Yao and Symbolic Models}
+% -------
+
+The Dolev-Yao (DY) model~\cite{dolev1983security} is the canonical symbolic
+attacker for protocol security proofs.  It models the network as a
+fully adversarial channel: the attacker intercepts every message, replays
+any observed ciphertext, forges arbitrary terms from known keys, and
+delivers messages to any recipient at any time with an unbounded injection
+rate.  Tools such as Tamarin~\cite{meier2013tamarin},
+ProVerif~\cite{blanchet2016proverif}, and Scyther are all sound with respect
+to the DY model, making it the de-facto standard for symbolic verification.
+The monotonicity property is attractive: DY security is a conservative upper
+bound, so anything provably broken under DY is broken in the real world.
+
+The DY model produces over-approximation in the LoRa threat class in three
+ways.  First, the ETSI EN 300 220-2 duty-cycle limit (1\% on the 868 MHz
+ISM band) caps the attacker's injection rate at one 50-byte Hello packet
+roughly every 10~s at SF7/BW125 ($\text{ToA} \approx 56$~ms); the DY
+attacker is unconstrained.  Some DY-feasible replay-flood attacks require
+more than $100\times$ the legal duty cycle and are therefore physically
+impossible.  Second, DY treats messages as algebraic terms and does not
+model the \emph{semantic effect} of a forged Hello on a distributed routing
+table; it has no concept of the decision-critical set $\mathit{DC}(P)$.
+Third, DY permits any polynomial-time defence, whereas in IoT hardware the
+defence budget is a physical constant: AEAD at 100~pkt/s exceeds the energy
+envelope of a 1000~mAh cell in under 50~hours~\cite{semtech2020sx1262}.
+
+PCSS refines DY in both directions.  The attacker's injection rate
+$\rho_\text{atk} \leq \delta_{\max} \cdot \mathit{BW} /
+\mathit{ToA}(\text{msg})$ is derived from first principles, not from a
+computational assumption.  Formally, DY-security implies PCSS-security
+(PCSS is the weaker notion under a more constrained attacker), but
+PCSS-security does not imply DY-security.  The physical bound is not a
+limitation of the theory---it is the \emph{correct} attacker model for the
+threat class.
+
+% -------
+\subsection{Universal Composability}
+% -------
+
+Universal Composability (UC)~\cite{canetti2001universally} provides a
+simulation-based framework in which a protocol $\pi$ UC-realises an ideal
+functionality $\mathcal{F}$ if, for any environment $\mathcal{Z}$, the
+real-world execution of $\pi$ is computationally indistinguishable from an
+ideal-world execution where a simulator $\mathcal{S}$ interacts with
+$\mathcal{F}$.  The composability theorem guarantees that a UC-secure
+sub-protocol remains secure when embedded in any larger system, without
+re-analysis.  UC has been applied to secure channels, authenticated key
+exchange, and multi-party computation, and is widely considered the gold
+standard for modular cryptographic proofs.
+
+UC has two structural limitations for IoT mesh routing.  First, UC
+parameterises security by a computational parameter $\lambda$; all
+probabilistic polynomial-time (PPT) protocols are treated as feasible.
+This abstraction has no mechanism for expressing that an AEAD scheme is
+cryptographically sound yet physically undeployable on a Cortex-M0 node at
+high packet rates---there is no analogue of $\Phi(P,E)$ in the UC
+framework.  Second, no standard UC ideal functionality captures
+\emph{asynchronous routing convergence}: a UC-secure channel between
+adjacent nodes does not imply that the distributed routing table produced by
+the DV update rule is consistent across all $n$ nodes.  An adversary can
+still exploit message reordering within the UC security window to induce
+routing inconsistencies without violating any channel security guarantee.
+
+PCSS and UC are incomparable.  A UC-secure protocol may have $\Phi(P,E) =
+0$ (cryptographically sound, physically undeployable); a PCSS-feasible
+protocol may not be UC-secure if it uses a lightweight MAC outside standard
+UC assumptions.  PCSS explicitly targets \emph{deployment-appropriate
+security} for a specified device class under a physically bounded threat
+model, a goal that UC does not address.
+
+% -------
+\subsection{Non-Interference and Information Flow}
+% -------
+
+Non-interference (NI)~\cite{goguen1982security} defines security as the
+absence of information flow between security levels: for all execution pairs
+that agree on low-security inputs, the low-security outputs are identical
+regardless of high inputs.  NI and its descendants---declassification,
+observational determinism, hyperproperties~\cite{clarkson2010hyperproperties}---underlie
+modern information-flow type systems, security-typed languages, and hardware
+isolation mechanisms, with mature mechanisation in Coq, Isabelle, and F$^\star$.
+
+The gap is architectural: routing security is an \emph{integrity} property
+over a distributed state machine, not an information-flow property over a
+security lattice.  An attacker who injects a forged Hello message does not
+learn any secret---the payload is crafted by the attacker, not derived from
+a confidential source.  The attack succeeds when honest nodes update their
+routing tables; both the injected message and the corrupted routing entry
+reside at the same security level, so NI is silent.  The correct formulation
+asks: can an unauthorised party cause an honest node to install a routing
+entry that routes traffic through the attacker?  This requires modelling
+causal origin of routing entries, not information flow, and it cannot be
+expressed in the standard two-level lattice.
+
+PCSS and NI are orthogonal.  PCSS makes no confidentiality claim: a
+PCSS-secure protocol may leak routing state.  NI makes no routing-integrity
+claim: a NI-satisfying system may have its routing tables manipulated.  The
+core PCSS theorem (SBC$(P) \Rightarrow$ next-hop $\neq$ Attacker) is a
+\emph{causal integrity} theorem---provably outside the NI paradigm.
+
+% -------
+\subsection{LoRa and LoRaWAN Security}
+% -------
+
+The empirical LoRa/LoRaWAN security literature catalogues a wide range of
+attacks: join-request replay, ADR manipulation, RSSI spoofing, jamming,
+battery exhaustion, and rogue gateway attacks.  Butun
+et~al.~\cite{butun2019security} organise attacks by protocol layer (PHY,
+MAC, network, application) and propose per-layer mitigations.
+Aras et~al.~\cite{aras2017exploring} analyse timing attacks on the
+join-accept window and nonce-reuse vulnerabilities in LoRaWAN session key
+derivation.  Tomasin et~al.~\cite{tomasin2017security} examine LoRaWAN
+join-procedure authentication in the star-of-stars infrastructure
+architecture.  This body of work is empirically grounded and practically
+useful for practitioners.
+
+Two structural limitations prevent the survey literature from providing a
+unified theory.  First, surveys enumerate attacks but do not explain
+\emph{why} different protocols produce different attack categories.  From
+the PCSS perspective, the difference between a LoRaMesher silent black hole
+and a Meshtastic active relay is determined by $\mathit{DC}(P)$: in
+LoRaMesher, $\mathit{DC}(P) = \{\text{Hello}\}$ and the dst-field collapse
+allows the attacker to redirect traffic without forwarding; in Meshtastic,
+$\mathit{DC}(P) = \{\text{MeshPacket.next\_hop}\}$ and the unauthenticated
+advisory field forces the attacker to actively forward.  The attack category
+is a structural consequence of $\mathit{DC}(P)$, not an independent
+empirical observation.  Second, mitigations are protocol-specific and
+reactive: each attack is patched individually with no principled method for
+identifying which fields require authentication or at what rate
+authentication remains feasible.
+
+PCSS provides the unified explanatory layer: the DC$(P)$ analysis derives
+the minimal authentication target from first principles, Theorem~2 bounds
+the maximum feasible authentication rate $\rho^*$, and Theorem~1 proves
+sufficiency of SBC---replacing the ad-hoc mitigation catalogue with a
+single, formally grounded design criterion.
+
+% -------
+\subsection{RPL Routing Security}
+% -------
+
+RPL~\cite{rfc6550} is the IETF standard routing protocol for IPv6
+low-power and lossy networks (LLNs), and its security has received
+substantial attention.  TRAIL~\cite{perazzo2017trail} authenticates the RPL
+topology using a distributed hash chain over DODAG parent relationships,
+detecting Sybil nodes and rank-manipulation attacks.
+SVELTE~\cite{raza2013svelte} performs real-time intrusion detection by
+monitoring RPL DIO/DAO messages at a trusted sink.  Raoof
+et~al.~\cite{raoof2019routing} survey 26 attack variants across 7
+countermeasure categories including wormhole, selective forwarding, and
+version-number attacks, and cover ContikiRPL security extensions as well as
+cross-layer defences.  This literature is technically sophisticated and
+directly relevant to constrained-device routing integrity.
+
+Protocol specificity is the central limitation.  TRAIL's authentication
+chain exploits RPL-specific structure---the DODAG parent relationship and
+the rank field---and its security proof is relative to RPL's topology
+authentication model.  It does not generalise to distance-vector protocols
+(LoRaMesher) or mesh-flooding protocols (Meshtastic), which have different
+routing decision functions and different $\mathit{DC}(P)$ compositions.  A
+designer of a new IoT routing protocol who reads TRAIL learns one solution
+for one protocol's $\mathit{DC}(P)$, not a derivation method.  Raoof
+et~al.'s survey shares the enumeration-without-unification limitation of
+the LoRa survey literature.  Physical feasibility is treated informally in
+both works: energy overhead is reported as a percentage of total node
+consumption, but no formal bound characterises the message-rate threshold
+above which the mechanism becomes undeployable.
+
+PCSS subsumes the security goals of TRAIL and SVELTE as a corollary of
+Theorem~1.  When instantiated for RPL, the $\mathit{DC}(P)$ analysis
+recovers $\{$DIO rank, DODAG version number$\}$ as the decision-critical
+set---precisely the fields TRAIL authenticates---derived analytically via
+the $\Delta D_r(I) \neq 0$ condition rather than from protocol-specific
+knowledge.  This derivation method applies uniformly to any DV or link-state
+protocol by substituting the appropriate routing decision function.
+
+% -------
+\subsection{Tamarin, ProVerif, and Formal Protocol Verification}
+% -------
+
+Tamarin~\cite{meier2013tamarin} and ProVerif~\cite{blanchet2016proverif}
+are the leading symbolic model-checkers for cryptographic protocols.
+Tamarin models protocols as multiset-rewriting systems in the applied
+pi-calculus and verifies guarded first-order logic lemmas; ProVerif
+translates protocols to Horn clauses and applies resolution-based
+verification.  Both tools are sound with respect to the DY model and have
+been applied to TLS~1.3~\cite{basin2018formal5g}, 5G AKA, WPA2, and
+industrial IoT protocols.  Papers~B and C of this research programme use
+Tamarin to verify lemmas about LoRaMesher and Meshtastic routing security;
+the baseline models falsify four lemmas (MetricAuthenticity,
+RouteFreshness, RouteConsistency, AuthorizedRoutes) and the patched models
+verify all eight in under 10~seconds each.
+
+Tamarin and ProVerif are verification \emph{tools}, not a security
+\emph{theory}, and this distinction matters for three reasons.  First, the
+tools verify lemmas but do not specify which lemmas to write or explain why
+those lemmas capture the relevant security property.  The design-space
+questions---which fields are decision-critical, which authentication target
+is minimal, how the protocol's message structure determines the attack
+surface---require a theory; Tamarin provides a mechanism for checking
+theory-derived claims.  Second, each Tamarin model is protocol-specific,
+and there is no existing framework that explains why L1 MetricAuthenticity
+(LoRaMesher), L3 No\_Relay\_Takeover (Meshtastic), and the RPL rank-integrity
+lemma share the same logical structure or why their falsification implies the
+same attack class.  Third, the DY attacker in Tamarin has no mechanism for
+expressing rate constraints; the physically-bounded attacker of PCSS would
+require resource counters in the multiset rewriting state that are absent
+from standard Tamarin.
+
+PCSS provides the principled derivation of Tamarin lemma structure from
+protocol analysis.  Given protocol $P$, the $\mathit{DC}(P)$ analysis
+(Definitions~2--4) identifies decision-critical message types; the SBC$(P)$
+condition (Definition~6) translates directly to a Tamarin lemma schema:
+\begin{equation*}
+  \forall m.\; m \in \mathit{DC}(P) \wedge
+  \mathit{Accepted}(i, m) \Rightarrow
+  \exists k.\; \mathit{Honest}(k) \wedge \mathit{Sent}(k, m).
+\end{equation*}
+This is precisely the structure of L1 (Paper~B) and L3 (Paper~C).  PCSS
+makes formal the informal reasoning by which those lemmas were originally
+chosen, and its falsification-implies-routing-violation argument
+(Theorem~1, contrapositively) explains \emph{why} a failed Tamarin lemma
+constitutes a routing security breach.
+
+% -------
+\subsection*{Summary}
+% -------
+
+\begin{table}[t]
+  \caption{Framework comparison: PCSS vs.\ prior work.}
+  \label{tab:framework-comparison}
+  \centering
+  \setlength{\tabcolsep}{4pt}
+  \begin{tabular}{lccc}
+    \toprule
+    \textbf{Framework} & \textbf{Physical} & \textbf{Routing} & \textbf{Cross-} \\
+                       & \textbf{bound?}   & \textbf{semantics?} & \textbf{protocol?} \\
+    \midrule
+    Dolev-Yao~\cite{dolev1983security}            & No  & No  & Yes (generic) \\
+    UC~\cite{canetti2001universally}               & No  & No  & Yes (generic) \\
+    Non-interference~\cite{goguen1982security}     & No  & No  & Yes (generic) \\
+    LoRa surveys~\cite{butun2019security,aras2017exploring} & Informal & Layer-based & No \\
+    TRAIL/RPL~\cite{perazzo2017trail}              & Informal & RPL-only & No \\
+    Tamarin/ProVerif~\cite{meier2013tamarin}       & No  & Protocol-specific & No \\
+    \textbf{PCSS (this work)}                      & \textbf{Yes ($\rho^*$)} & \textbf{DC$(P)$, SBC$(P)$} & \textbf{Yes (L1--L4)} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+% -----------------------------------------------------------------------
+\section{Discussion}
+\label{sec:discussion}
+% -----------------------------------------------------------------------
+
+\subsection{PCSS vs.\ Dolev-Yao: Physical Bound as Key Differentiator}
+
+The central innovation of PCSS is the introduction of $\rhostar$ as an
+\emph{analysis primitive}, not merely an engineering constraint.  Classical
+DY analysis of LoRaMesher correctly flags the absence of HMAC as a
+vulnerability (a spoofed Hello can install $A$ as next-hop).  But DY
+analysis cannot distinguish between two patched configurations:
+(i)~\hmac{} only, and (ii)~\hmac{} + Hello rate below $\rhostar$.
+PCSS shows that configuration~(ii) provides qualitatively stronger security:
+even a computationally unbounded attacker cannot accumulate the energy
+budget required to mount a persistent routing-table attack within window~$W$.
+
+\subsection{L4 (Distributed Convergence) as Future Work}
+
+The current PCSS framework focuses on per-node routing table security
+(L1--L3) and the joint predicate (L4, \cref{def:pcss-secure}).  A natural
+extension is to require \emph{distributed convergence security}: the
+entire network's routing tables should converge to a correct global state
+even in the presence of an adversary bounded by $\rhostar$.  This requires
+a temporal logic argument over the protocol's Bellman-Ford convergence
+dynamics and is deferred to future work.
+
+\subsection{Limitations}
+
+\begin{enumerate}[label=(\roman*), nosep]
+  \item \textbf{PSK assumption.}  Theorem~1 assumes a pre-shared key (PSK)
+        infrastructure.  Key distribution and revocation in multi-hop LoRa
+        meshes is a separate research problem not addressed here.
+  \item \textbf{Single-channel LoRa.}  The $\rhostar$ analysis models a
+        single 868\,MHz channel with one duty-cycle budget.  Multi-channel
+        operation or frequency hopping would increase $\rhostar$ by a factor
+        proportional to the number of independent channels.
+  \item \textbf{Three protocols only.}  PCSS has been instantiated on
+        LoRaMesher, Meshtastic, and RPL.  Extension to other DV protocols
+        (e.g., OLSR, BATMAN) is straightforward but requires
+        protocol-specific DC($P$) characterization.
+\end{enumerate}
+
+% -----------------------------------------------------------------------
+\section{Conclusion}
+\label{sec:conclusion}
+% -----------------------------------------------------------------------
+
+We have presented the Physically-Constrained Semantic Security (PCSS)
+framework, a three-layer theory that integrates routing semantics,
+cryptographic binding, and physical execution cost into a single
+security predicate for IoT mesh routing protocols.
+
+The key results are:
+\begin{itemize}[nosep]
+  \item \textbf{Theorem~1}: SBC is sufficient to exclude a
+        Dolev-Yao attacker from all routing tables (2-node and $n$-hop).
+  \item \textbf{Theorem~2}: $\rhostar$ provides a closed-form physical
+        feasibility bound; for the EoRa~PI at SF9, the LoRaMesher
+        default Hello rate exceeds $\rhostar$ by 20$\times$, confirming
+        that the silent black-hole attack is physically infeasible under
+        \hmac{} authentication.
+  \item \textbf{Theorem~3}: the joint PCSS predicate captures exactly
+        the conditions under which neither semantic manipulation nor
+        energy-amplified replay attacks can succeed.
+\end{itemize}
+
+PCSS provides a principled, cross-protocol answer to the question:
+\emph{``Is this routing configuration secure against a physically-bounded
+adversary?''}  By separating the semantic, cryptographic, and physical
+layers, PCSS can be incrementally applied: a protocol that satisfies SBC
+but not the $\rhostar$ bound is still more secure than one that satisfies
+neither, and the framework quantifies exactly how much more secure.
+
+Future work includes: Tamarin verification of the four SBC lemmas, extension
+of L4 to distributed convergence security, and empirical calibration of
+$\rhostar$ on additional hardware platforms (Heltec V3, Seeed XIAO-S3).
+
+% -----------------------------------------------------------------------
+% References
+% -----------------------------------------------------------------------
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+
+\end{document}

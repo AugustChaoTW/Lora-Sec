@@ -1,0 +1,345 @@
+%% protocol_instances.tex
+%% Paper F -- PCSS Theory: Protocol Instantiations (§4)
+%% Issue #82 (F4)
+%%
+%% Instantiates DC(P), SBC analysis, and attack prediction for:
+%%   Instance 1: LoRaMesher
+%%   Instance 2: Meshtastic
+%%   Instance 3: RPL
+%%
+%% Depends on: pcss_definitions.tex (Definitions 1--6), theorem1_proof.tex
+%% Referenced in: SP-PaperF.tex §4
+
+% ---------------------------------------------------------------------------
+\section{Protocol Instantiations}
+\label{sec:instances}
+% ---------------------------------------------------------------------------
+
+This section instantiates the PCSS framework (§3) on three deployed IoT mesh
+routing protocols.
+For each protocol we identify the Decision-Critical Set $\mathrm{DC}(P)$
+(Definition~4), assess whether the Semantic Binding Condition $\mathrm{SBC}(P)$
+holds in the default deployment (Definition~6), and derive the predicted attack
+from the violated SBC condition.
+Table~\ref{tab:instances-summary} summarises the results; §\ref{sec:taxonomy-corollary}
+states the attack taxonomy corollary.
+
+\begin{table}[t]
+\centering
+\caption{PCSS instantiation summary for three IoT mesh routing protocols.
+  A \ding{55} in the SBC column means at least one condition of Definition~6
+  fails in the default (unpatched) deployment.
+  ``Patch target'' is the minimal message set that must receive
+  an unforgeable authenticator to restore SBC.}
+\label{tab:instances-summary}
+\begin{tabular}{llcll}
+\toprule
+Protocol        & DC$(P)$                                   & SBC? & Attack category          & Patch target \\
+\midrule
+LoRaMesher      & \{Hello\}                                 & \ding{55} & Silent black hole       & HMAC on Hello \\
+Meshtastic v2.6 & \{\texttt{MeshPacket.next\_hop}\}         & \ding{55} & Active relay (intercept) & Bind \texttt{next\_hop} in AEAD AAD \\
+RPL (RFC 6550)  & \{DIO rank, DODAG version\}               & \ding{55} & DODAG subversion / reset & Authenticate DIO \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ---------------------------------------------------------------------------
+\subsection{Instance 1: LoRaMesher}
+\label{sec:instances-lm}
+% ---------------------------------------------------------------------------
+
+\subsubsection*{Routing Decision Function}
+
+In LoRaMesher~\cite{loramesher2023}, the distance-vector routing function for
+node $i$ computes:
+\[
+  D_{r}^{i} = f(K_{i}, C_{ij}, Q_{i}, T_{i})
+  \;:\;
+  \mathrm{dst} \;\mapsto\; (\mathrm{next\_hop},\, \mathrm{metric})
+\]
+where the metric is the hop-count advertised in Hello messages, and the
+next-hop selection rule is:
+\[
+  \mathrm{next\_hop}(\mathrm{dst}) \;=\;
+  \arg\min_{n \in \mathrm{Neighbours}} \bigl(\mathrm{metric}_{n}(\mathrm{dst}) + 1\bigr).
+\]
+
+\subsubsection*{Decision-Critical Set}
+
+\begin{proposition}
+$\mathrm{DC}(P_{\mathrm{LM}}) = \{\texttt{Hello}\}$.
+\end{proposition}
+
+\begin{proof}
+A Hello message carries the sender's node-id, a destination list, and
+per-destination metric values.
+Receiving a Hello is sufficient to update every routing entry for every
+destination advertised; it is also necessary, since $D_{r}^{i}$ is updated only
+on Hello receipt (not on data packets).
+Hence Hello is both in $\mathrm{Cl}_{d}(\mathrm{Sem}(P_{\mathrm{LM}}))$ and
+minimal: no strict subset is sufficient.
+\end{proof}
+
+\subsubsection*{SBC Violation}
+
+In the baseline LoRaMesher implementation, Hello messages carry \emph{no
+authenticator}: any node (or attacker) can broadcast a Hello with arbitrary
+metric values.
+Specifically, Definition~6 part~(1) fails: Hello $\in \mathrm{DC}(P_{\mathrm{LM}})$
+but $\sigma_{m}$ is absent.
+No condition of Definition~6 prevents an unauthorized party from producing a
+valid-looking Hello.
+Therefore $\mathrm{SBC}(P_{\mathrm{LM}})$ does not hold in the default deployment.
+
+\subsubsection*{Attack Prediction and Field-Collapse Consequence}
+
+By the SBC violation, an attacker $A$ can inject a Hello with metric~$= 0$
+for a target destination dst.
+This causes $D_{r}^{i}$ to install $A$ as the next-hop for dst:
+\[
+  \mathrm{RT}_{i}[\mathrm{dst}] \;\gets\; (\underbrace{A}_{\mathrm{next\_hop}},\; 0).
+\]
+
+However, LoRaMesher employs a \emph{dst~$=$~next\_hop field structure}: the
+packet header sets \texttt{dst} equal to \texttt{next\_hop} at the MAC layer.
+When a data packet arrives at $A$, the MAC header reads
+\texttt{dst} $=$ \texttt{next\_hop} $= A$, so the packet is delivered
+\emph{to $A$ as the final destination} and is not forwarded.
+Since $A$ is not the intended application-layer destination, the packet is
+silently discarded: \textbf{silent black hole}.
+
+The field-collapse is formally captured by the domain structure of $D_{r}^{i}$:
+the routing table maps dst $\to$ next\_hop, but the MAC layer enforces
+dst $\equiv$ next\_hop, collapsing the image of $D_{r}^{i}$ to singletons.
+This is distinct from protocols where dst and next\_hop are independent fields.
+
+\subsubsection*{Hardware Evidence}
+
+Paper~B experiment E5b: under the spoofing attack, PDR drops to $0\%$ across
+all tested topologies (linear, mesh, star).
+After applying HMAC-SHA256 on Hello (the minimal patch that restores
+$\mathrm{SBC}(P_{\mathrm{LM}})$), PDR is restored to baseline.
+The Tamarin lemma \texttt{L1\_MetricAuthenticity} is falsified on the
+baseline model and verified on the patched model (\texttt{patched\_lora\_dv\_2node.spthy}).
+
+\subsubsection*{Patch and SBC Restoration}
+
+Adding HMAC-SHA256 to every Hello message with key $K$ shared by
+$\mathrm{AuthorizedSet}(P_{\mathrm{LM}})$ restores $\mathrm{SBC}(P_{\mathrm{LM}})$:
+all three conditions of Definition~6 are satisfied.
+Theorem~\ref{thm:sbc-sufficiency} then applies, and the silent black-hole
+attack is impossible (Corollary~\ref{cor:bc-impossible}).
+The physical cost of HMAC-SHA256 per Hello is ${\approx}2\,\mathrm{ms}$ CPU and
+$32$ bytes airtime overhead; at one Hello per 10 s, this costs
+${\approx}0.17\,\mathrm{mAh/day}$ on EoRa~PI (ESP32-S3, 1000~mAh), well within
+the feasibility envelope (Theorem~2, §5).
+
+% ---------------------------------------------------------------------------
+\subsection{Instance 2: Meshtastic}
+\label{sec:instances-mesh}
+% ---------------------------------------------------------------------------
+
+\subsubsection*{Routing Decision Function}
+
+In Meshtastic v2.6+~\cite{meshtastic2024}, the routing function selects the
+next relay for a packet via the \texttt{MeshPacket.next\_hop} field in the
+packet header.
+NodeInfo messages carry node identity and are authenticated via AEAD
+(AES-256-CTR with a channel key), but \emph{they do not determine the
+forwarding path}: forwarding is determined solely by \texttt{next\_hop}.
+
+\subsubsection*{Decision-Critical Set}
+
+\begin{proposition}
+$\mathrm{DC}(P_{\mathrm{Mesh}}) = \{\texttt{MeshPacket.next\_hop}\}$.
+\end{proposition}
+
+\begin{proof}
+The relay selection at node $i$ is:
+\[
+  D_{r}^{i} \;:\; \mathrm{dst} \;\mapsto\; \mathrm{MeshPacket.next\_hop}.
+\]
+Modifying \texttt{next\_hop} directly changes the forwarding decision without
+altering any other header field; NodeInfo messages influence the
+neighbor table but not the per-packet forwarding decision.
+Hence $\mathrm{DC}(P_{\mathrm{Mesh}}) = \{\texttt{MeshPacket.next\_hop}\}$,
+and NodeInfo $\notin \mathrm{DC}(P_{\mathrm{Mesh}})$.
+\end{proof}
+
+\subsubsection*{SBC Violation}
+
+Although NodeInfo is AEAD-authenticated, \texttt{MeshPacket.next\_hop} is
+\emph{advisory} in the Meshtastic packet format: it is carried in the
+\textbf{unencrypted} portion of the header and is \emph{not} included in the
+AEAD AAD.
+Definition~6 part~(1) therefore fails for $\mathrm{DC}(P_{\mathrm{Mesh}})$:
+the authenticator on NodeInfo does not bind \texttt{next\_hop}.
+An attacker who can observe or relay a packet can overwrite \texttt{next\_hop}
+with its own node-id without breaking any cryptographic tag.
+
+\begin{remark}[HMAC on NodeInfo Does Not Fix This]
+A common but incorrect patch intuition is to add authentication to NodeInfo
+messages.
+This does not restore $\mathrm{SBC}(P_{\mathrm{Mesh}})$ because NodeInfo
+$\notin \mathrm{DC}(P_{\mathrm{Mesh}})$: it does not determine the forwarding
+decision.
+The correct patch is to include \texttt{next\_hop} in the AEAD AAD of
+\texttt{MeshPacket}, binding the relay identity to the per-packet authenticator.
+\end{remark}
+
+\subsubsection*{Attack Prediction and Active-Relay Consequence}
+
+An attacker $A$ rewrites \texttt{MeshPacket.next\_hop} to its own node-id in a
+packet destined for node $D$.
+The MAC layer at the preceding hop forwards the packet to $A$.
+Unlike LoRaMesher, the Meshtastic header carries \textbf{separate} dst and
+next\_hop fields: \texttt{dst} remains $D$, so $A$ recognises that the packet
+must be forwarded and delivers it (optionally after copying the payload).
+The consequence is an \textbf{active relay attack}: $A$ becomes an
+intermediate relay, achieving 100\% payload intercept.
+
+The structural difference from Instance~1 is captured by the domain of $D_{r}^{i}$:
+in $P_{\mathrm{Mesh}}$, $D_{r}^{i}$ maps dst $\to$ next\_hop with
+dst $\neq$ next\_hop in general.
+The image of $D_{r}^{i}$ is not collapsed to singletons, so the attacker
+receives and can forward the packet, rather than silently dropping it.
+
+\subsubsection*{Hardware Evidence}
+
+Paper~C experiment E16: PDR $= 100\%$ and intercept $= 100\%$ under the
+unpatched protocol across all tested topologies.
+Both metrics drop to $\leq 5\%$ (noise floor) when \texttt{next\_hop} is
+bound in AEAD AAD.
+The Tamarin lemma \texttt{L3\_No\_Relay\_Takeover} is falsified on the
+baseline model and verified on the patched model
+(\texttt{meshtastic\_patch.spthy}).
+
+% ---------------------------------------------------------------------------
+\subsection{Instance 3: RPL}
+\label{sec:instances-rpl}
+% ---------------------------------------------------------------------------
+
+\subsubsection*{Routing Decision Function}
+
+In RPL (RFC~6550)~\cite{rfc6550}, the DODAG routing function for node $i$ is:
+\[
+  D_{r}^{i} \;:\; \mathrm{dst} \;\mapsto\; \mathrm{preferred\_parent}
+\]
+where preferred\_parent is selected by minimising rank among received DIO
+(DODAG Information Object) messages.
+The DODAG version number is used to trigger global topology resets.
+
+\subsubsection*{Decision-Critical Set}
+
+\begin{proposition}
+$\mathrm{DC}(P_{\mathrm{RPL}}) = \{\texttt{DIO.rank},\; \texttt{DIO.version}\}$.
+\end{proposition}
+
+\begin{proof}
+Rank determines preferred\_parent selection: a DIO advertising rank $r$
+causes any node with current rank $> r + \mathrm{MinHopRankIncrease}$ to
+adopt the sender as preferred parent, updating $D_{r}^{i}$.
+DODAG version number triggers a DODAG reset: any node receiving a DIO with
+a higher version number MUST rejoin and discard its current routing table.
+Both fields are therefore sufficient and necessary to control the routing
+topology; DAO (destination advertisement) messages are downstream of
+preferred\_parent selection and do not independently control it.
+\end{proof}
+
+\subsubsection*{SBC Violation}
+
+RFC~6550 does not mandate DIO authentication in the default profile; the
+optional RPL security mode (Section~10 of RFC~6550) specifies a security
+object but it is disabled by default in major implementations
+(Contiki-NG, RIOT OS).
+Definition~6 part~(1) fails: DIO messages carrying rank and version are
+unauthenticated, so any on-path or in-range node can forge or replay them.
+
+\subsubsection*{Attack Predictions}
+
+Two independent SBC violations lead to two distinct attack categories:
+
+\begin{itemize}
+  \item \textbf{Rank manipulation.}\;
+    An attacker broadcasts a DIO with rank $= 1$ (minimal),
+    causing all neighbouring nodes to adopt it as preferred parent.
+    The DODAG is subverted into a topology where all traffic flows through $A$.
+    Literature: Raoof et al.~\cite{raoof2019rpl} catalogue this as the
+    ``rank attack''; Perrey et al.~\cite{perrey2016trail} propose the TRAIL
+    mechanism as a countermeasure, confirming the prediction.
+
+  \item \textbf{Version attack.}\;
+    An attacker broadcasts a DIO with a future version number $v' > v_{\mathrm{current}}$,
+    forcing a global DODAG reset.
+    All nodes must rejoin, discarding routing state and triggering a
+    convergence storm.
+    This is a denial-of-service attack derived directly from the SBC
+    violation on \texttt{DIO.version}.
+    Literature: \cite{raoof2019rpl,dvir2011vera} confirm that unauthenticated
+    version increments cause topology oscillation.
+\end{itemize}
+
+Unlike Instances~1 and~2, RPL has no hardware evidence in this paper series;
+the prediction is validated by the independent literature above.
+
+% ---------------------------------------------------------------------------
+\subsection{Attack Taxonomy Corollary}
+\label{sec:taxonomy-corollary}
+% ---------------------------------------------------------------------------
+
+\begin{corollary}[DC$(P)$ Structure Determines Attack Category]
+\label{cor:taxonomy}
+Let $P_{1}$ and $P_{2}$ be two protocols with the same type of SBC violation
+(Definition~6 part~(1) fails), but different structures of $D_{r}^{i}$:
+\begin{itemize}
+  \item[$P_{1}$:] $D_{r}^{i}$ has dst $\equiv$ next\_hop
+    (field collapse; $\mathrm{Im}(D_{r}^{i})$ maps each dst to itself).
+  \item[$P_{2}$:] $D_{r}^{i}$ has dst $\neq$ next\_hop in general
+    (separate fields; $\mathrm{Im}(D_{r}^{i})$ is unconstrained).
+\end{itemize}
+Then an attacker exploiting the SBC violation in $P_{1}$ produces a
+\emph{silent black-hole} attack, whereas the same SBC violation in $P_{2}$
+produces an \emph{active-relay} attack.
+\end{corollary}
+
+\begin{proof}
+In $P_{1}$, forwarding a packet to next\_hop $= A$ delivers the packet to
+$A$ as the final MAC-layer destination.
+Since dst $\equiv$ next\_hop, the packet header gives $A$ no information about
+the application-layer destination $D$; $A$ discards the packet (silent black hole).
+In $P_{2}$, forwarding to next\_hop $= A$ delivers the packet to $A$ with
+dst $= D \neq A$ visible in the header.
+$A$ recognises it is an intermediate relay, copies the payload, and
+(optionally) forwards, achieving active relay with full intercept.
+The SBC violation --- inability to forge a valid authenticator for
+$m \in \mathrm{DC}(P)$ without key $K$ --- is identical in both cases;
+the attack category is determined entirely by the structural property of $D_{r}^{i}$.
+\hfill$\square$
+\end{proof}
+
+\begin{remark}[Cross-Paper Recovery]
+Corollary~\ref{cor:taxonomy} formally recovers Paper~C's header-semantics
+taxonomy~\cite{paperC} as a corollary of the PCSS framework.
+Paper~C introduced the dst/next\_hop field-collapse observation empirically;
+the PCSS framework provides the structural explanation: it is a consequence of
+$\mathrm{Im}(D_{r}^{i})$ collapsing to singletons in $P_{\mathrm{LM}}$ but not
+in $P_{\mathrm{Mesh}}$.
+Table~\ref{tab:taxonomy} summarises the cross-paper corollary.
+\end{remark}
+
+\begin{table}[t]
+\centering
+\caption{Attack taxonomy as corollary of PCSS.
+  All three protocols share the same SBC violation type; attack category is
+  determined by $D_{r}^{i}$ structure.}
+\label{tab:taxonomy}
+\begin{tabular}{llll}
+\toprule
+Protocol        & SBC violation         & $D_{r}^{i}$ structure & Attack category \\
+\midrule
+LoRaMesher      & Hello unauthenticated  & dst $\equiv$ next\_hop & Silent black hole (Paper~B) \\
+Meshtastic      & next\_hop advisory     & dst $\neq$ next\_hop   & Active relay / intercept (Paper~C) \\
+RPL             & DIO unauthenticated    & rank $\to$ parent      & DODAG subversion / reset \\
+\bottomrule
+\end{tabular}
+\end{table}

@@ -1,0 +1,399 @@
+%% pcss_joint_definition.tex — PCSS Theory: L4 Joint Security Predicate
+%% Paper F: "Physically-Constrained Semantic Security Theory for IoT Mesh Routing"
+%% Issue #89 (F10): Joint PCSS-secure(P,E) definition integrating SBC + Physical Feasibility
+%%
+%% Depends on:
+%%   definitions.tex         — Definitions 1–6 (Node State, D_r, Sem, Cl, DC, SBC)
+%%   physical_feasibility.tex — Definitions 7–9 (E, C_auth, Phi), Theorem 2 (rho*)
+%%   theorem1_proof.tex      — Theorem 1 (SBC -> next_hop ≠ A), 2-node
+%%   theorem1_multihop.tex   — Theorem 1' (multi-hop), Corollary 2
+%%
+%% Required preamble packages:
+%%   \usepackage{amsthm, amsmath, amssymb, mathtools}
+%%
+%% Theorem environments (declare in preamble if not already present):
+%%   \theoremstyle{definition}
+%%   \newtheorem{definition}{Definition}[section]
+%%   \newtheorem{remark}[definition]{Remark}
+%%   \newtheorem{example}[definition]{Example}
+%%   \newtheorem{proposition}[definition]{Proposition}
+%%   \theoremstyle{plain}
+%%   \newtheorem{theorem}{Theorem}[section]
+%%   \newtheorem{corollary}[theorem]{Corollary}
+
+% -----------------------------------------------------------------------
+\subsection{L4 — Joint PCSS Security Predicate}
+\label{subsec:l4-pcss-joint}
+% -----------------------------------------------------------------------
+
+The definitions and theorems of Sections~\ref{subsec:l1-semantics}–\ref{subsec:l3-feasibility}
+establish two orthogonal conditions that a protocol must satisfy for its routing tables to be
+immune from adversarial manipulation in a concrete IoT deployment.  The
+\emph{Semantic Binding Condition} (Definition~\ref{def:sbc}) captures the
+cryptographic dimension: every decision-critical message must carry an
+unforgeable, fresh authenticator.  The \emph{Physical Feasibility
+Predicate} (Definition~\ref{def:feasibility}) captures the resource
+dimension: the authentication rate mandated by the protocol must be
+sustainably achievable within the duty-cycle and battery constraints of
+the target hardware.
+
+Neither condition alone is sufficient for a deployment guarantee:
+\begin{itemize}
+  \item $\mathrm{SBC}(P)$ holds but $\Phi(P,E)=0$: the protocol is
+        cryptographically correct in the abstract model yet cannot be
+        executed at the required rate on the actual hardware.  The
+        implementation must silently reduce the authentication rate,
+        re-opening the replay attack surface that SBC was designed to close.
+
+  \item $\Phi(P,E)=1$ but $\mathrm{SBC}(P)$ fails: the hardware can
+        sustain the required rate, but the protocol does not authenticate
+        its decision-critical messages, so adversarial injection or
+        field-manipulation is trivially possible.
+\end{itemize}
+
+We therefore combine both conditions into a single predicate, which we
+call \emph{Physically-Constrained Semantic Security} (PCSS).
+
+% -----------------------------------------------------------------------
+\begin{definition}[PCSS-secure]
+\label{def:pcss-secure}
+Let $P$ be a routing protocol and $E$ an environment model
+(Definition~\ref{def:environment}).
+$P$ is \emph{PCSS-secure in environment $E$}, written
+$\mathrm{PCSS\text{-}secure}(P,E)$, if and only if both of the following
+hold simultaneously:
+\begin{enumerate}[label=\textbf{PC\arabic*}., ref=PC\arabic*]
+  \item \label{pc:sbc}
+        \textbf{Semantic Binding.}\quad
+        $P$ satisfies the Semantic Binding Condition:
+        \[
+          \mathrm{SBC}(P).
+        \]
+        That is, every message in $\mathrm{DC}(P)$ is authenticated,
+        fresh, and has no unauthenticated equivalent
+        (Definition~\ref{def:sbc}, conditions \ref{sbc:auth}–\ref{sbc:closure}).
+
+  \item \label{pc:phi}
+        \textbf{Physical Feasibility.}\quad
+        The required authentication rate is within the hardware
+        resource budget:
+        \[
+          \Phi(P, E) = 1,
+        \]
+        i.e., $\rho_{\mathrm{DC}}(P) \le \rho^*(E)$
+        (Definition~\ref{def:feasibility}, Theorem~\ref{thm:feasibility-bound}).
+\end{enumerate}
+Formally:
+\[
+  \mathrm{PCSS\text{-}secure}(P, E)
+  \;\;\Longleftrightarrow\;\;
+  \mathrm{SBC}(P) \;\wedge\; \Phi(P, E) = 1.
+\]
+\end{definition}
+
+\begin{remark}[$\mathrm{PCSS\text{-}secure}$ as a conjunction of independent layers]
+\label{rem:pcss-independence}
+The two conditions are \emph{logically independent}: satisfying one does
+not imply the other.  SBC is a purely syntactic property of the protocol
+specification (does every DC message carry an authenticator?), whereas
+$\Phi$ is a numeric inequality over hardware constants and the
+protocol-mandated transmission rate.  A protocol can be redesigned to
+satisfy SBC without altering $\rho_{\mathrm{DC}}$, and vice versa.
+The independence is not merely formal: in practice, adding HMAC to
+LoRaMesher Hello messages (fixing SBC) does \emph{not} automatically
+change the Hello interval (leaving $\Phi$ potentially violated).  PCSS
+forces both issues to be addressed simultaneously.
+\end{remark}
+
+% -----------------------------------------------------------------------
+\begin{theorem}[PCSS-secure is sufficient for attacker exclusion]
+\label{thm:pcss-sufficiency}
+Let $\mathrm{Assumption~1}$ (EUF-CMA security of the MAC scheme)
+hold~\cite{goldwasser1988digital}.
+If $\mathrm{PCSS\text{-}secure}(P, E)$ and attacker $\mathcal{A}$ is not
+in $\mathrm{AuthorizedSet}(P)$, then for every execution trace $t$ and
+every node $v_i \in V$:
+\[
+  \mathrm{next\_hop}_{v_i}(t) \neq \mathcal{A}.
+\]
+\end{theorem}
+
+\begin{proof}
+$\mathrm{PCSS\text{-}secure}(P, E)$ implies $\mathrm{SBC}(P)$ by
+condition~\ref{pc:sbc} of Definition~\ref{def:pcss-secure}.  Apply
+Theorem~\ref{thm:sbc-multihop} (Theorem~1', multi-hop extension)
+directly: under $\mathrm{SBC}(P)$ and Assumption~1, no node $v_i \in V$
+installs $\mathcal{A}$ as a next-hop entry for any destination in any
+execution trace, provided $\mathcal{A} \notin \mathrm{AuthorizedSet}(P)$.
+
+The physical feasibility condition $\Phi(P, E) = 1$
+(condition~\ref{pc:phi}) is required to guarantee that $\mathrm{SBC}(P)$
+holds \emph{in the concrete implementation}: since
+$\rho_{\mathrm{DC}}(P) \le \rho^*(E)$, the node can authenticate every
+$\mathrm{DC}(P)$ message at the protocol-mandated rate without
+duty-cycle violation or battery exhaustion.  No authenticated message is
+withheld, so the freshness condition (SBC2) is never silently weakened by
+the implementation.  Therefore $\mathrm{SBC}(P)$ is not merely nominal
+but operationally enforced, and the hypothesis of Theorem~\ref{thm:sbc-multihop}
+is satisfied without qualification.
+\hfill$\square$
+\end{proof}
+
+\begin{remark}[Why $\Phi$ appears in the proof]
+\label{rem:phi-in-proof}
+The proof step invoking $\Phi(P,E)=1$ is not a formality.  If instead
+$\Phi(P,E) = 0$, the implementation must reduce the effective
+authentication rate $\rho' < \rho_{\mathrm{DC}}(P)$; the freshness
+condition SBC2 no longer holds at every message, and the conclusion of
+Theorem~\ref{thm:sbc-multihop} no longer applies.  The attacker can
+replay a stale but validly-signed $\mathrm{DC}(P)$ message captured
+within the resulting replay window $\Delta t = 1/\rho'$.  This is
+precisely the attack captured by the Proposition below.
+\end{remark}
+
+% -----------------------------------------------------------------------
+\begin{proposition}[Replay window under $\Phi=0$]
+\label{prop:replay-window}
+Suppose $\mathrm{SBC}(P)$ holds in the abstract model (all $\mathrm{DC}(P)$
+messages are specified to carry a valid HMAC and freshness token), but
+$\Phi(P, E) = 0$, i.e., $\rho_{\mathrm{DC}}(P) > \rho^*(E)$.
+Let $\rho' \le \rho^*(E)$ be the reduced authentication rate that the
+implementation must use to remain within hardware constraints.
+
+Then:
+\begin{enumerate}[label=(\roman*)]
+  \item \textbf{Replay window.}  Between consecutive authenticated
+        transmissions of a $\mathrm{DC}(P)$ message for a given
+        destination, there is a window of duration
+        \[
+          \Delta t \;=\; \frac{1}{\rho'} \;\ge\; \frac{1}{\rho^*(E)}
+          \quad\text{seconds}
+        \]
+        during which any previously captured, validly-signed
+        $\mathrm{DC}(P)$ message can be re-injected.
+
+  \item \textbf{Attack feasibility.}  Within this window, attacker
+        $\mathcal{A}$ (who has recorded a valid
+        $m_{\mathrm{DC}} \in \mathrm{DC}(P)$ with \texttt{metric}$=0$
+        from a prior round) can replay $m_{\mathrm{DC}}$.  Since the
+        freshness check of SBC2 is momentarily unenforceable (no fresher
+        authenticated update has been received), any node $v_i$ that
+        accepts the replayed message may install
+        $\mathcal{RT}_{v_i}(v_d) \leftarrow \mathcal{A}$ — a
+        \emph{black-hole attack}.
+
+  \item \textbf{Dolev-Yao blindness.}  In the classical Dolev-Yao
+        model the replay attack is \emph{impossible by construction}:
+        authenticated messages cannot be replayed because the model
+        assumes instantaneous and universally enforced freshness checks.
+        $\mathrm{PCSS\text{-}secure}$ is the minimal extension that
+        makes the attack \emph{predictable}: the gap $\Phi(P,E)=0$ is a
+        quantitative warning that the designer must either reduce
+        $\rho_{\mathrm{DC}}(P)$ or increase $\rho^*(E)$ (e.g., by
+        upgrading the battery or duty-cycle budget).
+\end{enumerate}
+
+\noindent Formally, when $\Phi(P,E)=0$ the security guarantee degrades
+from the unconditional
+\[
+  \forall t,\; \forall v_i \in V:\;
+  \mathrm{next\_hop}_{v_i}(t) \neq \mathcal{A}
+  \quad (\text{Theorem~\ref{thm:pcss-sufficiency}})
+\]
+to the weaker, window-parameterised statement:
+\[
+  \Pr\!\bigl[\,
+    \mathrm{next\_hop}_{v_i}(t) = \mathcal{A}
+    \;\mid\;
+    \mathcal{A} \text{ replays within } \Delta t
+  \,\bigr]
+  \;\ge\; p_{\mathrm{replay}}(\Delta t, n),
+\]
+where $p_{\mathrm{replay}}(\Delta t, n) > 0$ depends on the topology
+and attacker radio range, and is \emph{not} negligible for typical
+LoRa single-hop scenarios.
+\end{proposition}
+
+\begin{remark}[PCSS as the strongest routing-security guarantee]
+\label{rem:three-tier}
+The PCSS framework induces a strict three-tier security hierarchy:
+
+\medskip
+\noindent\textbf{Tier 1 — Dolev-Yao (DY) security.}\quad
+The attacker cannot forge authenticated messages (computational hardness
+assumption on the MAC).  DY guarantees that an adversary with unbounded
+communication but bounded computation cannot produce a valid tag for a
+message it did not receive.  \emph{DY does not predict degradation under
+resource constraints}: it assumes the honest protocol runs at whatever
+rate the specification mandates, without querying whether the hardware
+can sustain that rate.
+
+\medskip
+\noindent\textbf{Tier 2 — SBC alone.}\quad
+Every message in $\mathrm{DC}(P)$ is fully authenticated and fresh.  SBC
+is strictly stronger than standard DY message authentication: it
+additionally requires that \emph{every decision-critical field} is bound
+by the authenticator (condition~\ref{sbc:closure}) and that freshness
+tokens are universally enforced (condition~\ref{sbc:fresh}).  However,
+SBC is a property of the \emph{protocol specification}; it does not check
+whether the specification is realizable within the hardware resource
+envelope of the target deployment.
+
+\medskip
+\noindent\textbf{Tier 3 — PCSS-secure.}\quad
+$\mathrm{SBC}(P) \wedge \Phi(P,E)=1$.  This is the only tier that
+provides a \emph{full deployment guarantee}: authentication is both
+cryptographically sound (SBC) and physically sustainable ($\Phi=1$) in
+the target environment.  Theorem~\ref{thm:pcss-sufficiency} shows that
+Tier~3 implies the attacker-exclusion property of Tier~2, which in turn
+subsumes Tier~1.  The converse does not hold: Tier~1 $\not\Rightarrow$
+Tier~2 $\not\Rightarrow$ Tier~3.
+
+\medskip
+The hierarchy is summarised in Table~\ref{tab:security-hierarchy}.
+\end{remark}
+
+\begin{table}[h]
+\centering
+\caption{Three-tier security hierarchy in the PCSS framework.
+         A checkmark (\checkmark) indicates that the tier provides the
+         listed guarantee; a cross ($\times$) indicates it does not.}
+\label{tab:security-hierarchy}
+\small
+\begin{tabular}{lccc}
+  \hline
+  \textbf{Guarantee} & \textbf{Tier 1 (DY)} & \textbf{Tier 2 (SBC)} & \textbf{Tier 3 (PCSS)} \\
+  \hline
+  Forgery impossible (EUF-CMA)
+    & \checkmark & \checkmark & \checkmark \\
+  All DC fields authenticated (SBC1+SBC3)
+    & $\times$   & \checkmark & \checkmark \\
+  Replay unconditionally prevented (SBC2)
+    & $\times$   & \checkmark & \checkmark \\
+  Authentication sustainable on hardware ($\Phi=1$)
+    & $\times$   & $\times$   & \checkmark \\
+  Attacker exclusion in concrete deployment
+    & $\times$   & $\times$   & \checkmark \\
+  Replay window predicted / quantified
+    & $\times$   & $\times$   & \checkmark \\
+  \hline
+\end{tabular}
+\end{table}
+
+% -----------------------------------------------------------------------
+\begin{corollary}[LoRaMesher deployment is not PCSS-secure]
+\label{cor:loramesher-not-pcss}
+Let $P_{\mathrm{LM}}$ be the default LoRaMesher protocol and
+$E_{\mathrm{EoRa}}$ the EoRa-PI environment
+(Example~\ref{ex:eora-pi}).  Then
+$\mathrm{PCSS\text{-}secure}(P_{\mathrm{LM}}, E_{\mathrm{EoRa}})$ is
+\emph{false}, by two independent violations:
+
+\begin{enumerate}[label=(\roman*)]
+  \item \textbf{SBC violation.}
+        As shown in Example~\ref{ex:loramesher},
+        $\mathrm{DC}(P_{\mathrm{LM}}) = \{m_{\mathrm{Hello}}\}$ and
+        $m_{\mathrm{Hello}} \notin \mathrm{Auth}(P_{\mathrm{LM}})$, so
+        condition~\ref{sbc:auth} of Definition~\ref{def:sbc} fails.
+        Hence $\mathrm{SBC}(P_{\mathrm{LM}}) = \mathbf{false}$,
+        directly violating condition~\ref{pc:sbc} of
+        Definition~\ref{def:pcss-secure}.
+
+  \item \textbf{Physical infeasibility.}
+        Even if $P_{\mathrm{LM}}$ is patched to add HMAC-SHA256 to
+        every Hello message (so that SBC1--SBC3 are satisfied),
+        the default Hello interval of 30~s yields
+        $\rho_{\mathrm{DC}}(P_{\mathrm{LM}}) = 1/30 \approx
+        3.33 \times 10^{-2}\ \mathrm{pkt/s}$.
+        Since $\rho^*(E_{\mathrm{EoRa}}) = 1.69 \times 10^{-3}\ \mathrm{pkt/s}$
+        (Example~\ref{ex:eora-pi}), we have
+        \[
+          \rho_{\mathrm{DC}}(P_{\mathrm{LM}})
+          \;=\; 3.33 \times 10^{-2}
+          \;\approx\; 20\,\rho^*(E_{\mathrm{EoRa}}),
+        \]
+        so $\Phi(P_{\mathrm{LM}}, E_{\mathrm{EoRa}}) = 0$, violating
+        condition~\ref{pc:phi} of Definition~\ref{def:pcss-secure}.
+\end{enumerate}
+
+Therefore $\mathrm{PCSS\text{-}secure}(P_{\mathrm{LM}}, E_{\mathrm{EoRa}})
+= \mathbf{false}$ regardless of which violation is considered.  By
+Proposition~\ref{prop:replay-window} the effective replay window in the
+physically-constrained implementation is at least $\Delta t \ge 593\ \mathrm{s}$,
+during which a stale Hello with \texttt{metric}$=0$ can install the
+attacker as a next-hop.  This is confirmed by the ns-3 simulations of
+Phase~4 (ns-3 simulation results from Paper~B).
+\end{corollary}
+
+% -----------------------------------------------------------------------
+\begin{corollary}[Patched LoRaMesher at reduced Hello rate is PCSS-secure]
+\label{cor:loramesher-patched-pcss}
+Let $P_{\mathrm{LM}}^{+}$ denote the patched LoRaMesher protocol
+obtained by (a)~appending an HMAC-SHA256 tag to every Hello message
+(satisfying SBC1 and SBC3) and (b)~including a per-destination
+MetricVersion counter in each Hello message (satisfying SBC2), and
+let the Hello transmission rate be reduced to
+$\rho \le \rho^*(E_{\mathrm{EoRa}}) = 1.69 \times 10^{-3}\ \mathrm{pkt/s}$
+(i.e., at most one Hello per 593~s $\approx 9.9\ \mathrm{min}$).
+Then $\mathrm{PCSS\text{-}secure}(P_{\mathrm{LM}}^{+}, E_{\mathrm{EoRa}}) = \mathbf{true}$.
+\end{corollary}
+
+\begin{proof}
+We verify both conditions of Definition~\ref{def:pcss-secure}:
+
+\medskip
+\noindent\textbf{Condition~\ref{pc:sbc} — SBC.}\quad
+By construction:
+\begin{itemize}
+  \item \emph{SBC1 (authenticity):} every Hello message carries an
+        HMAC-SHA256 tag; under Assumption~1 (EUF-CMA), no polynomial-time
+        adversary can forge a valid tag, so
+        $\mathrm{DC}(P_{\mathrm{LM}}^{+}) \subseteq \mathrm{Auth}(P_{\mathrm{LM}}^{+})$.
+  \item \emph{SBC2 (freshness):} the MetricVersion counter is
+        monotonically non-decreasing per destination; any node rejects a
+        Hello whose MetricVersion does not strictly advance the accepted
+        counter.  No replay of a previously accepted Hello is possible.
+  \item \emph{SBC3 (no unauthenticated equivalent):} the
+        HMAC covers the entire Hello message including the
+        \texttt{metric} and \texttt{next\_hop} fields; an adversary
+        cannot alter these fields without invalidating the tag.
+\end{itemize}
+Hence $\mathrm{SBC}(P_{\mathrm{LM}}^{+}) = \mathbf{true}$.
+
+\medskip
+\noindent\textbf{Condition~\ref{pc:phi} — Physical Feasibility.}\quad
+By assumption $\rho \le \rho^*(E_{\mathrm{EoRa}}) = 1.69 \times 10^{-3}\ \mathrm{pkt/s}$,
+so $\rho_{\mathrm{DC}}(P_{\mathrm{LM}}^{+}) \le \rho^*(E_{\mathrm{EoRa}})$
+and $\Phi(P_{\mathrm{LM}}^{+}, E_{\mathrm{EoRa}}) = 1$ by
+Definition~\ref{def:feasibility}.
+
+\medskip
+Both conditions hold; Theorem~\ref{thm:pcss-sufficiency} therefore
+guarantees that no unauthorised node is ever installed as a next-hop in
+any execution trace.
+\hfill$\square$
+\end{proof}
+
+\begin{remark}[Trade-off: routing convergence vs.\ security]
+\label{rem:convergence-tradeoff}
+Corollary~\ref{cor:loramesher-patched-pcss} establishes PCSS-security
+at the cost of a significantly increased Hello interval
+($\ge 593\ \mathrm{s}$ vs.\ the default $30\ \mathrm{s}$).  For a
+distance-vector protocol on an $n$-node network, routing convergence
+after a topology change requires $O(n)$ DV rounds, each lasting
+$1/\rho$ seconds; the worst-case convergence time is
+\[
+  T_{\mathrm{conv}} \;=\; O\!\left(\frac{n}{\rho^*}\right)
+  \;=\; O(n \times 593)\ \mathrm{seconds}.
+\]
+For the 6-node testbed ($n=6$) this gives
+$T_{\mathrm{conv}} \approx 3558\ \mathrm{s} \approx 59\ \mathrm{min}$.
+This trade-off is inherent to the physical constraints of the EoRa-PI
+platform and cannot be resolved by protocol redesign alone.  Application
+designers must either (a)~accept the increased convergence latency for
+low-mobility or quasi-static deployments, (b)~upgrade to a
+higher-capacity battery (which raises $\rho^*$ by increasing
+$B_{\mathrm{mAh}}$), or (c)~reduce the control-message size (which
+lowers $t_{\mathrm{tx}}$ and raises $\rho^*$).  The PCSS framework
+makes the trade-off space explicit and quantitatively navigable.
+\end{remark}

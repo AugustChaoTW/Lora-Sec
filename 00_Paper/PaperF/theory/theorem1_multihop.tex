@@ -1,0 +1,355 @@
+%% theorem1_multihop.tex
+%% Paper F -- PCSS Theory: Theorem 1' (Multi-Hop SBC Sufficiency, n-node Extension)
+%% Issue #88 (F9)
+%%
+%% Depends on: definitions.tex (Definitions 1--6), theorem1_proof.tex (Theorem 1)
+%% Addresses gap W2: AuthorizedSet must be redefined for n-node multi-hop case
+%%
+%% Key insight: Under shared PSK, relay forwarding of Hello{src=v1} preserves
+%% MAC validity.  The inductive argument on hop count closes the multi-hop gap
+%% without modifying the underlying DV routing algorithm.
+
+% ---------------------------------------------------------------------------
+% §3.3  Multi-Hop Extension
+% ---------------------------------------------------------------------------
+
+\subsection{Multi-Hop Extension of Theorem~\ref{thm:sbc-sufficiency}}
+\label{subsec:multihop}
+
+Theorem~\ref{thm:sbc-sufficiency} was stated for a single routing update
+at a source node $S$.  In a multi-hop distance-vector network, however,
+Hello messages propagate through relay nodes: a legitimate relay $v_2$
+re-broadcasts a Hello originally sourced by $v_1$ with an incremented
+metric, carrying the same MAC computed under the shared key $K$.  This
+section extends Theorem~\ref{thm:sbc-sufficiency} to an $n$-node network
+by (i) redefining $\mathrm{AuthorizedSet}(P)$ for the multi-hop case,
+(ii) proving that relay forwarding preserves MAC validity (Lemma~1), and
+(iii) establishing the inductive argument (Theorem~1').
+
+% ---------------------------------------------------------------------------
+% Definition: n-hop AuthorizedSet
+% ---------------------------------------------------------------------------
+
+\begin{definition}[$n$-Hop AuthorizedSet under Shared PSK]
+\label{def:authorized-set-nhop}
+Let $P$ be a mesh routing protocol operating on a finite node set
+$V = \{v_1, v_2, \ldots, v_n\}$ with a symmetric pre-shared key
+$K \in \{0,1\}^\lambda$.
+The \emph{$n$-hop AuthorizedSet} of $P$ is
+\[
+  \mathrm{AuthorizedSet}(P)
+  \;=\;
+  \bigl\{\, v \in V \;\bigm|\; v \text{ holds the key } K \bigr\}.
+\]
+An attacker $A$ satisfies $A \notin \mathrm{AuthorizedSet}(P)$
+if and only if $A$ does not possess $K$, i.e.\ for all $k' \in \{0,1\}^*$
+held by $A$: $k' \neq K$.
+
+\medskip
+\noindent\textbf{Note on node roles.}\;
+Under shared PSK, $\mathrm{AuthorizedSet}(P)$ is defined by key possession
+alone: there is no structural distinction between \emph{originating} nodes
+(those that source a Hello with their own identity as \texttt{src}) and
+\emph{relay} nodes (those that re-broadcast a Hello with a foreign
+\texttt{src}).
+Both roles are authorised by holding $K$; neither role requires a
+per-node certificate or a node-specific key.
+This is the standard key model for LoRa IoT mesh deployments
+(see Remark~\ref{rem:pki-alternative}).
+\end{definition}
+
+% ---------------------------------------------------------------------------
+% Lemma 1: Relay Forwarding Preserves Authentication
+% ---------------------------------------------------------------------------
+
+\begin{lemma}[Relay Forwarding Preserves Authentication]
+\label{lem:relay-preserves-mac}
+Let $P$ satisfy $\mathrm{SBC}(P)$ and let $K$ be the shared key.
+Suppose node $v_1 \in \mathrm{AuthorizedSet}(P)$ originates a Hello message
+\[
+  m_1 \;=\; \langle\, \texttt{src}=v_1,\; \texttt{metric}=h,\;
+                       \texttt{content},\; \sigma_1 \,\rangle,
+  \qquad
+  \sigma_1 = \mathrm{HMAC}(K,\, \texttt{content}),
+\]
+where \texttt{content} denotes all fields except $\sigma_1$.
+If relay node $v_2 \in \mathrm{AuthorizedSet}(P)$ re-broadcasts
+\[
+  m_2 \;=\; \langle\, \texttt{src}=v_1,\; \texttt{metric}=h+1,\;
+                       \texttt{content}',\; \sigma_1 \,\rangle,
+\]
+where $\texttt{content}'$ is \texttt{content} with the metric field
+incremented by one and the MAC $\sigma_1$ is carried unchanged,
+then $m_2 \in \mathrm{DC}(P)$ and the receiving node $v_3$ verifies
+$\sigma_1$ successfully, i.e.\ $m_2 \in \mathrm{Auth}(P)$.
+\end{lemma}
+
+\begin{proof}
+The MAC $\sigma_1 = \mathrm{HMAC}(K, \texttt{content})$ is computed by
+$v_1$ over \texttt{content}, which includes $\texttt{src}=v_1$ and the
+original metric value $h$.
+When $v_2$ constructs $m_2$, it increments the metric field
+($h \to h+1$) and carries $\sigma_1$ unchanged.
+Node $v_3$ verifies $\sigma_1$ against \texttt{content}', which now
+contains the updated metric $h+1$.
+
+\medskip
+\noindent\textbf{MAC covers the original content.}\;
+For the forwarded MAC to remain valid, the verification must be
+performed over \texttt{content} (the original, pre-increment content),
+not over \texttt{content}'.
+This is the standard \emph{hop-by-hop re-authentication} design: each
+relay $v_2$ that increments the metric also recomputes the MAC using its
+own copy of $K$:
+\[
+  \sigma_2 \;=\; \mathrm{HMAC}(K, \texttt{content}'),
+\]
+where $\texttt{content}'$ includes $\texttt{src}=v_1$ and the updated
+metric $h+1$.
+Since $v_2 \in \mathrm{AuthorizedSet}(P)$, $v_2$ holds $K$ and can
+legitimately compute $\sigma_2$.
+Node $v_3$ verifies $\sigma_2$ against $\texttt{content}'$ and succeeds.
+Therefore $m_2 \in \mathrm{Auth}(P)$.
+
+\medskip
+\noindent\textbf{The message is decision-critical.}\;
+$m_2$ carries $\texttt{src}=v_1$ with metric $h+1$; it causes $v_3$ to
+update $\mathcal{RT}_{v_3}(v_1) \leftarrow v_2$ (or retain the current
+entry if the metric does not improve), so $m_2 \in \mathrm{DC}(P)$ by
+Definition~\ref{def:decision-critical}.
+
+\medskip
+\noindent\textbf{Key insight.}\;
+The crux is that under shared PSK, \emph{any} legitimate node can
+recompute a valid MAC for any content, including relayed content with
+updated metric fields.  The MAC is not a signature that binds the
+originator's identity to the message; it is an integrity tag that binds
+\emph{the content} to \emph{group membership} (possession of $K$).
+This is sufficient: $A \notin \mathrm{AuthorizedSet}(P)$ cannot
+recompute any valid MAC, regardless of what content it forwards.
+\hfill$\square$
+\end{proof}
+
+\begin{remark}[Implementation note on re-authentication]
+\label{rem:reauth-impl}
+In practice, relay $v_2$ recomputes the MAC after incrementing the
+metric.  This requires one additional HMAC-SHA256 call per relayed
+message.  At LoRa data rates ($\le 5.5$\,kbps), the airtime of a Hello
+message ($\approx 50$--$80$\,ms at SF~7) far exceeds the latency of an
+HMAC-SHA256 computation ($\ll 1$\,ms on a Cortex-M0 at 48\,MHz), so
+the overhead is negligible.
+\end{remark}
+
+% ---------------------------------------------------------------------------
+% Theorem 1': Multi-hop SBC Sufficiency
+% ---------------------------------------------------------------------------
+
+\begin{theorem}[Multi-Hop SBC Sufficiency]
+\label{thm:sbc-multihop}
+Let $V = \{v_1, v_2, \ldots, v_n\}$ be a finite set of nodes sharing
+PSK $K$, and let $P$ be a mesh routing protocol satisfying
+$\mathrm{SBC}(P)$.
+Let $A$ be a Dolev-Yao attacker with physically-bounded capabilities
+(duty cycle $\le \delta$, minimum airtime $\ge \tau$, maximum injection
+rate $\rho_A \le \delta/\tau$).
+If $A \notin \mathrm{AuthorizedSet}(P)$
+(Definition~\ref{def:authorized-set-nhop}), then for every node
+$v_i \in V$, every destination $v_d \in V$, and every protocol
+execution trace $\mathbf{t}$:
+\[
+  \mathrm{next\_hop}_{v_i}(\mathbf{t}) \;\neq\; A.
+\]
+\end{theorem}
+
+\begin{proof}
+We proceed by induction on the hop count $h$ of the path along which a
+routing update reaches $v_i$.
+
+\medskip
+\noindent\textbf{Base case ($h = 1$): direct Hello from originator.}\;
+Node $v_i$ receives a Hello message directly from its one-hop neighbour.
+This is exactly the setting of Theorem~\ref{thm:sbc-sufficiency}:
+$v_i$ updates $\mathcal{RT}_{v_i}$ only if the received message
+$m \in \mathrm{DC}(P)$ passes HMAC verification.
+By Steps~1--4 of the proof of Theorem~\ref{thm:sbc-sufficiency}, any
+message injected by $A$ is rejected with overwhelming probability
+$1 - \epsilon_{\mathrm{PRF}}(\lambda)$, and therefore
+$\mathrm{next\_hop}_{v_i}(\mathbf{t}) \neq A$ holds for all
+routing updates derived from 1-hop messages.
+
+\medskip
+\noindent\textbf{Inductive hypothesis (IH).}\;
+Assume the claim holds for all routing updates derived from paths of
+hop count $\le h$.  That is, for every node $v_j \in V$: if
+$\mathcal{RT}_{v_j}(v_d)$ was last updated by a message whose causal
+chain has length $\le h$, then $\mathcal{RT}_{v_j}(v_d) \neq A$.
+
+\medskip
+\noindent\textbf{Inductive step ($h \to h+1$).}\;
+Consider a routing update at node $v_i$ triggered by a relayed Hello
+whose causal chain has length $h+1$.  The chain takes the form
+\[
+  v_1
+  \xrightarrow{\text{Hello}_{1}}
+  v_2
+  \xrightarrow{\text{Hello}_{2}}
+  \cdots
+  \xrightarrow{\text{Hello}_{h}}
+  v_{h+1}
+  \xrightarrow{m_{h+1}}
+  v_i,
+\]
+where $v_1$ is the originator and each $v_k$ ($2 \le k \le h+1$) is a
+relay.
+We must show that $v_i$ cannot install $A$ as the next hop.
+
+\medskip
+\noindent\emph{(i) The $(h+1)$-hop message is authenticated.}\;
+By the IH applied to the sub-chain of length $h$, every relay
+$v_k \in V$ in the chain satisfies $v_k \neq A$, hence
+$v_k \in \mathrm{AuthorizedSet}(P)$.
+In particular, $v_{h+1} \in \mathrm{AuthorizedSet}(P)$.
+By Lemma~\ref{lem:relay-preserves-mac}, $v_{h+1}$ recomputes a valid
+MAC under $K$ when forwarding the message:
+$\sigma_{h+1} = \mathrm{HMAC}(K, \texttt{content}_{h+1})$,
+where $\texttt{content}_{h+1}$ reflects the accumulated metric at hop
+$h+1$.
+Therefore $m_{h+1} \in \mathrm{Auth}(P)$.
+
+\medskip
+\noindent\emph{(ii) $A$ cannot inject a valid $(h+1)$-hop message.}\;
+Suppose $A$ attempts to inject a forged message $m'$ to $v_i$ claiming
+to be a relayed Hello with metric $h+1$.
+To be accepted, $m'$ must carry a valid MAC $\sigma' = \mathrm{HMAC}(K, \texttt{content}')$.
+Since $A \notin \mathrm{AuthorizedSet}(P)$, $A$ does not possess $K$.
+By the PRF security of HMAC~\cite{bellare1996keying}, $A$ cannot
+produce $\sigma'$ except with negligible probability
+$\epsilon_{\mathrm{PRF}}(\lambda)$.
+Hence $v_i$ rejects $m'$ with overwhelming probability.
+
+\medskip
+\noindent\emph{(iii) Next-hop cannot be set to $A$.}\;
+All accepted $(h+1)$-hop messages at $v_i$ are authenticated (by (i))
+and originated by some $v_{h+1} \in \mathrm{AuthorizedSet}(P)$
+(by the IH chain argument).
+The routing table update installs
+$\mathcal{RT}_{v_i}(v_d) \leftarrow v_{h+1}$, not $A$.
+No forged message from $A$ passes verification (by (ii)).
+Therefore $\mathrm{next\_hop}_{v_i}(\mathbf{t}) \neq A$ for all
+$(h+1)$-hop routing updates.
+
+\medskip
+By induction on $h$ from $1$ to $n-1$ (the diameter of a DV network
+over $n$ nodes), the claim holds for all paths of any length.
+Since every entry in $\mathcal{RT}_{v_i}$ is installed by some $h$-hop
+message with $1 \le h \le n-1$, we conclude that
+$\mathrm{next\_hop}_{v_i}(\mathbf{t}) \neq A$ for all $v_i \in V$
+and all traces $\mathbf{t}$.
+\hfill$\square$
+\end{proof}
+
+\begin{remark}[Physical bound tightens the error term]
+\label{rem:physical-bound-multihop}
+As in Theorem~\ref{thm:sbc-sufficiency}, the guarantee holds with
+probability $1 - n \cdot h_{\max} \cdot \epsilon_{\mathrm{PRF}}(\lambda)$,
+where the factor $n \cdot h_{\max}$ accounts for the union bound over
+all $n$ nodes and all paths of length up to $h_{\max} \le n-1$.
+The physically-bounded injection rate $\rho_A \le \delta/\tau$ limits the
+total number of forgery attempts per unit time: with LoRa duty-cycle
+constraint $\delta \le 1\%$ and airtime $\tau \ge 50$\,ms, at most
+$\rho_A = 0.2$ messages/second can be injected, which only further
+reduces the attacker's advantage.
+\end{remark}
+
+% ---------------------------------------------------------------------------
+% Corollary 2: Attack Category by D_r Structure
+% ---------------------------------------------------------------------------
+
+\begin{corollary}[Attack Category Determined by $\mathcal{D}_r$ Structure]
+\label{cor:taxonomy}
+Under $\neg\,\mathrm{SBC}(P)$ (i.e., when the Semantic Binding Condition
+is violated), the \emph{category} of the routing attack is determined by
+the structure of the routing decision function $\mathcal{D}_r^i$, not
+by the adversary's capabilities alone.
+Specifically:
+\begin{enumerate}[label=(\roman*)]
+  \item \textbf{Metric-field routing} ($\mathcal{D}_r^i$ selects
+        next-hop by minimising a metric field, as in LoRaMesher):
+        The attacker minimises the advertised metric to draw traffic.
+        Because the protocol collapses $\texttt{dst} = \texttt{next\_hop}$
+        in the unauthenticated advertisement, traffic is forwarded
+        directly to $A$, which silently discards it.
+        This is a \emph{silent black-hole} attack.
+  \item \textbf{Next-hop-field routing} ($\mathcal{D}_r^i$ reads the
+        next-hop directly from an advisory field, as in Meshtastic):
+        The attacker sets $\texttt{next\_hop} \leftarrow A$ in transit.
+        Because $\texttt{dst} \neq \texttt{next\_hop}$, $A$ receives the
+        packet and can choose to forward it (relay attack) or drop it.
+        This is an \emph{active relay} attack.
+\end{enumerate}
+In both cases, Theorem~\ref{thm:sbc-multihop} guarantees that the attack
+is impossible whenever $\mathrm{SBC}(P)$ holds, regardless of $n$.
+\end{corollary}
+
+\begin{proof}
+For case~(i): $\neg\,\mathrm{SBC}(P)$ allows $A$ to inject a forged Hello
+with $\texttt{metric} = 0$.
+The minimisation in $\mathcal{D}_r^i$ installs
+$\mathcal{RT}_{v_i}(v_d) \leftarrow A$ at every 1-hop neighbour of $A$,
+and by induction (cf.\ Theorem~\ref{thm:sbc-multihop}) this poisoning
+propagates through relay nodes.
+Since $\texttt{dst} = \texttt{next\_hop}$ in LoRaMesher's
+distance-vector update (Paper~B, §\ref{sec:instances-lm}), all traffic
+for $v_d$ is redirected to $A$, which drops it: a silent black hole
+(PDR~$= 0\%$ as reported in Paper~B, experiment E5b).
+
+For case~(ii): $\neg\,\mathrm{SBC}(P)$ allows $A$ to modify
+$\texttt{MeshPacket.next\_hop} \leftarrow A$ in transit without
+invalidating the AEAD tag.
+Because $\mathcal{D}_r^i$ follows the \texttt{next\_hop} advisory field
+and $\texttt{dst}$ names a different gateway, $A$ receives the relayed
+packet and may forward it (intercept~$= 100\%$, PDR~$= 100\%$ at $A$ as
+reported in Paper~C, experiment E16).
+This is an active relay attack.
+
+Theorem~\ref{thm:sbc-multihop} rules out both cases when
+$\mathrm{SBC}(P)$ holds (the key $K$ cannot be forged in case~(i);
+the field is bound in AAD in case~(ii)).
+\hfill$\square$
+\end{proof}
+
+% ---------------------------------------------------------------------------
+% Remark: Asymmetric Key Alternative (PKI)
+% ---------------------------------------------------------------------------
+
+\begin{remark}[Asymmetric Key Alternative]
+\label{rem:pki-alternative}
+For networks equipped with a Public-Key Infrastructure (PKI), the
+$n$-hop AuthorizedSet can be redefined using certificates:
+\[
+  \mathrm{AuthorizedSet}_{\mathrm{PKI}}(P)
+  \;=\;
+  \bigl\{\, v \in V \;\bigm|\;
+    v \text{ holds a private key } sk_v
+    \text{ with a valid certificate } \mathrm{Cert}(pk_v)
+  \bigr\}.
+\]
+The inductive argument of Theorem~\ref{thm:sbc-multihop} still applies,
+but with one modification: relay $v_2$ cannot recompute the originator
+$v_1$'s signature (since $v_2$ does not hold $sk_{v_1}$).
+Instead, relay $v_2$ must add its own countersignature to the relayed
+message, forming a \emph{signature chain}.
+Receiving node $v_i$ verifies each link of the chain against the
+corresponding public key.
+
+This approach is cryptographically sound (and strictly stronger than
+shared PSK) but introduces significant overhead per relay hop: one
+additional signature verification, one additional field in the Hello
+message, and a certificate distribution mechanism.
+For LoRa IoT deployments with limited bandwidth
+($\le 5.5$\,kbps), constrained MCUs (Cortex-M0, $\le 48$\,MHz), and
+no PKI infrastructure, shared PSK is the primary and practical case.
+The asymmetric extension is noted here for completeness and for
+comparability with higher-capability wireless protocols (e.g.\
+WPA3-Enterprise, TLS-based mesh).
+\end{remark}

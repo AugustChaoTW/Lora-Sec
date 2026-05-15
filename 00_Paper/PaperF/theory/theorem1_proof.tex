@@ -1,0 +1,150 @@
+%% theorem1_proof.tex
+%% Paper F -- PCSS Theory: Theorem 1 (SBC Sufficiency for Relay Security)
+%% Issue #80 (F2)
+%%
+%% Depends on: pcss_definitions.tex (Definitions 1--6)
+%% Referenced in: SP-PaperF.tex §3.2
+
+% ---------------------------------------------------------------------------
+% Theorem 1: SBC Sufficiency for Relay Security
+% ---------------------------------------------------------------------------
+
+\begin{theorem}[SBC Sufficiency for Relay Security]
+\label{thm:sbc-sufficiency}
+Let $P$ be a mesh routing protocol and let $A$ be a Dolev-Yao attacker with
+physically-bounded capabilities: duty cycle $\leq \delta$, minimum airtime per
+message $\geq \tau$, and maximum injection rate $\rho_{A} \leq \delta/\tau$.
+Let $K$ be the symmetric key shared among nodes in $\mathrm{AuthorizedSet}(P)$.
+If $\mathrm{SBC}(P)$ holds (Definition~6) and $A \notin \mathrm{AuthorizedSet}(P)$,
+then for every protocol execution trace $\mathbf{t}$ and every source node $S$:
+\[
+  \mathrm{next\_hop}_{S}(\mathbf{t}) \;\neq\; A.
+\]
+\end{theorem}
+
+\begin{proof}[Proof Sketch]
+We establish the result in four steps, tracing the causal chain from
+$\mathrm{SBC}(P)$ to the routing-table invariant.
+
+\medskip
+\noindent\textbf{Step~1 (Unforgeability of DC$(P)$ messages).}\;
+By $\mathrm{SBC}(P)$, Definition~6 part~(1), every message $m \in \mathrm{DC}(P)$
+carries an authenticator $\sigma_{m}$ computed as
+$\sigma_{m} = \mathrm{HMAC}(K, m)$,
+where $K$ is the shared key held only by $\mathrm{AuthorizedSet}(P)$.
+Since $A \notin \mathrm{AuthorizedSet}(P)$, $A$ does not possess $K$.
+By the PRF security of HMAC (standard cryptographic assumption~\cite{bellare1996keying}),
+no probabilistic polynomial-time adversary without $K$ can produce a pair
+$(m', \sigma')$ with $\sigma' = \mathrm{HMAC}(K, m')$ except with negligible
+probability $\epsilon_{\mathrm{PRF}}(\lambda)$.
+Hence, with overwhelming probability, any message $m'$ injected by $A$ satisfies
+$\sigma_{m'} \neq \mathrm{HMAC}(K, m')$, and is rejected by the receiver's
+verification step.
+
+\medskip
+\noindent\textbf{Step~2 (No unauthenticated message produces routing effect).}\;
+By $\mathrm{SBC}(P)$, Definition~6 part~(3), no message $m' \notin \mathrm{DC}(P)$
+(i.e., no message that fails authentication) can produce an equivalent routing
+effect.
+Formally, for all $i$ and all rejected messages $m'$:
+\[
+  \Delta D_{r}^{i}(m') = 0
+  \quad
+  \text{(the routing decision function is unchanged).}
+\]
+This is enforced at the implementation level: the routing update handler
+discards any message that fails the HMAC verification before updating the
+routing table $\mathrm{RT}_{i}$.
+Together with Step~1, no message injected by $A$ can modify $\mathrm{RT}_{i}$
+for any honest node $i$.
+
+\medskip
+\noindent\textbf{Step~3 (Next-hop selection is determined by DC$(P)$).}\;
+By Definition~5, the Authorized Causal Cone $\mathcal{C}(D_{r})$ contains
+exactly those $(n, m, t)$ triples with $n \in \mathrm{AuthorizedSet}(P)$,
+$m \in \mathrm{DC}(P)$, and $t \in \mathrm{ValidWindow}$.
+The routing decision function $D_{r}^{i} = f(K_{i}, C_{ij}, Q_{i}, T_{i})$
+(Definition~1) is updated only when a message in $\mathrm{DC}(P)$ is received from
+a sender inside $\mathcal{C}(D_{r})$.
+Since Steps~1--2 establish that no message from $A$ enters $\mathcal{C}(D_{r})$,
+the evolution of $D_{r}^{i}$ across trace $\mathbf{t}$ is identical to an
+honest execution in which $A$ is absent.
+In particular, $\mathrm{RT}_{i}$ at every state of $\mathbf{t}$ contains only
+entries installed by honest nodes in $\mathrm{AuthorizedSet}(P)$.
+
+\medskip
+\noindent\textbf{Step~4 (Attacker cannot appear as next hop).}\;
+The next-hop function for source $S$ is:
+\[
+  \mathrm{next\_hop}_{S}(\mathbf{t}) \;=\;
+  \mathrm{RT}_{S}\bigl[\,\mathrm{dst}\,\bigr].\mathrm{nexthop}
+\]
+where the entry is determined solely by $\mathrm{DC}(P)$ messages from honest
+senders (Step~3).
+All honest senders $n \in \mathrm{AuthorizedSet}(P)$ advertise only their own
+identity in the source field; since $A \notin \mathrm{AuthorizedSet}(P)$,
+$A$'s identity never appears as a legitimately authenticated next-hop
+candidate.
+Therefore $\mathrm{next\_hop}_{S}(\mathbf{t}) \in \mathrm{AuthorizedSet}(P)$
+and hence $\mathrm{next\_hop}_{S}(\mathbf{t}) \neq A$.
+\hfill$\square$
+\end{proof}
+
+\begin{remark}[Physical Bound and Negligible Error]
+The guarantee in Theorem~\ref{thm:sbc-sufficiency} holds with probability
+$1 - \epsilon_{\mathrm{PRF}}(\lambda)$, where $\lambda$ is the HMAC key length.
+The physically-bounded injection rate $\rho_{A} \leq \delta/\tau$ limits the
+number of forgery attempts per unit time, which only reduces the attacker's
+advantage relative to an unbounded Dolev-Yao adversary.
+\end{remark}
+
+% ---------------------------------------------------------------------------
+% Corollary 1: Papers B and C attacks are impossible under SBC
+% ---------------------------------------------------------------------------
+
+\begin{corollary}[Papers B and C Attacks Impossible under SBC]
+\label{cor:bc-impossible}
+Let $P_{\mathrm{LM}}$ denote LoRaMesher with HMAC-SHA256 on all Hello messages,
+and let $P_{\mathrm{Mesh}}$ denote Meshtastic with \texttt{next\_hop} bound in the
+AEAD AAD.
+If $\mathrm{SBC}(P_{\mathrm{LM}})$ holds, then the silent black-hole attack of
+Paper~B (attacker injecting Hello with metric~$= 0$ causing dst~$=$~next\_hop
+field collapse) is impossible.
+If $\mathrm{SBC}(P_{\mathrm{Mesh}})$ holds, then the active-relay attack of
+Paper~C (attacker poisoning \texttt{MeshPacket.next\_hop} to intercept payload)
+is impossible.
+\end{corollary}
+
+\begin{proof}
+Instantiate Theorem~\ref{thm:sbc-sufficiency} with $P = P_{\mathrm{LM}}$ and
+$P = P_{\mathrm{Mesh}}$ respectively.
+For $P_{\mathrm{LM}}$: $\mathrm{DC}(P_{\mathrm{LM}}) = \{\texttt{Hello}\}$
+(Definition~4, §\ref{sec:instances-lm}).
+Under $\mathrm{SBC}(P_{\mathrm{LM}})$, no forged Hello is accepted, so the
+metric field is never poisoned and the dst~$=$~next\_hop collapse cannot occur.
+Hardware evidence: Paper~B experiment E5b reports PDR~$= 0\%$ under the
+unpatched protocol; after applying HMAC-Hello patch, PDR is restored to baseline.
+For $P_{\mathrm{Mesh}}$: $\mathrm{DC}(P_{\mathrm{Mesh}}) = \{\texttt{MeshPacket.next\_hop}\}$
+(Definition~4, §\ref{sec:instances-mesh}).
+Under $\mathrm{SBC}(P_{\mathrm{Mesh}})$, no tampered \texttt{next\_hop} field
+is accepted by the AEAD layer (binding in AAD), so the attacker cannot insert
+itself as the next relay.
+Hardware evidence: Paper~C experiment E16 reports PDR~$= 100\%$ and intercept~$= 100\%$
+under the unpatched protocol; both drop to~0 under $\mathrm{SBC}$.
+\hfill$\square$
+\end{proof}
+
+\begin{remark}[Diagnostic Power of PCSS]
+Corollary~\ref{cor:bc-impossible} illustrates the diagnostic value of the
+PCSS framework: it derives the patch target (the DC$(P)$ message that must
+receive the authenticator) from first principles, rather than from ad hoc
+inspection.
+In both protocols, the root cause is the same --- SBC is violated for
+$\mathrm{DC}(P)$ --- but the attack \emph{category} differs (silent black hole
+vs.\ active relay) because the structure of $D_{r}^{i}$ differs: in
+$P_{\mathrm{LM}}$ the dst and next\_hop fields collapse to the same value,
+whereas in $P_{\mathrm{Mesh}}$ they are separate fields, allowing the attacker
+to receive the forwarded packet.
+See §\ref{sec:instances} and the attack taxonomy corollary
+(Corollary~\ref{cor:taxonomy}) for the formal account of this distinction.
+\end{remark}

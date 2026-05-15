@@ -1,0 +1,265 @@
+%% sbc_crypto.tex — Cryptographic Grounding for SBC (Issue #86, F8)
+%% Paper F: "Physically-Constrained Semantic Security Theory for IoT Mesh Routing"
+%% Target venue: IEEE Transactions on Dependable and Secure Computing (IEEE TDSC)
+%%
+%% Purpose: Anchors the Semantic Binding Condition (Definition 6) in a standard
+%%          cryptographic hardness assumption (EUF-CMA), resolving the gap W1
+%%          identified in the Le Chun evaluation.
+%%
+%% Design choice: Option A — reposition SBC as a protocol analysis methodology
+%%   that invokes a single crypto assumption (Assumption 1), rather than Option B
+%%   (define SBC itself as a security game), which would require 2-3 pages of
+%%   game-based machinery inappropriate for the TDSC systems/security audience.
+%%
+%% Required preamble packages:
+%%   \usepackage{amsthm, amsmath, amssymb, mathtools}
+%%
+%% Theorem environments (declare in preamble if not already present):
+%%   \theoremstyle{definition}
+%%   \newtheorem{assumption}[definition]{Assumption}
+%%   \newtheorem{remark}[definition]{Remark}
+
+% -----------------------------------------------------------------------
+\subsection{Cryptographic Grounding of SBC}
+\label{subsec:sbc-crypto}
+% -----------------------------------------------------------------------
+
+Definition~\ref{def:sbc} (SBC) specifies that every message in
+$\mathrm{DC}(P)$ must carry an \emph{unforgeable authenticator}, but
+does not name the underlying cryptographic hardness assumption.
+The proof of Theorem~\ref{thm:sbc-sufficiency} invokes ``PRF security
+of HMAC'' informally (Step~1).  This subsection makes that assumption
+explicit and repositions SBC as a \emph{protocol analysis methodology}
+that reduces routing security to a single standard cryptographic
+assumption.
+
+% -----------------------------------------------------------------------
+\subsubsection*{Assumption 1: EUF-CMA Security of the MAC Scheme}
+% -----------------------------------------------------------------------
+
+\begin{assumption}[EUF-CMA MAC]
+\label{asm:euf-cma}
+Let $\lambda \in \mathbb{N}$ be the security parameter and let
+$\Pi = (\mathcal{K}\text{gen}, \mathrm{MAC}, \mathrm{Vfy})$ be a
+message authentication code scheme.  Consider the following
+\emph{existential unforgeability under chosen-message attack}
+(EUF-CMA) game between a challenger $\mathcal{C}$ and a probabilistic
+polynomial-time (PPT) adversary $\mathcal{A}$:
+
+\begin{enumerate}[label=(\arabic*)]
+  \item $\mathcal{C}$ samples $k \xleftarrow{\$} \mathcal{K}\text{gen}(1^\lambda)$
+        and gives $1^\lambda$ to $\mathcal{A}$.
+  \item $\mathcal{A}$ makes arbitrarily many adaptive \emph{signing oracle}
+        queries: for each query $m_i$, $\mathcal{C}$ returns
+        $\sigma_i \leftarrow \mathrm{MAC}_k(m_i)$.
+  \item $\mathcal{A}$ outputs a forgery candidate $(m^*, \sigma^*)$.
+  \item $\mathcal{A}$ \emph{wins} if $\mathrm{Vfy}_k(m^*, \sigma^*) = 1$
+        and $m^* \notin \{m_1, m_2, \ldots\}$ (i.e., $m^*$ was never
+        submitted to the signing oracle).
+\end{enumerate}
+
+We define the \emph{EUF-CMA advantage} of $\mathcal{A}$ as
+\[
+  \mathrm{Adv}^{\mathrm{euf-cma}}_{\Pi}(\mathcal{A}, \lambda)
+  \;=\;
+  \Pr\!\bigl[\,\mathrm{EUF\text{-}CMA}(\mathcal{A}, \Pi, \lambda) = 1\,\bigr].
+\]
+
+\textbf{Assumption 1} states: $\Pi$ is \emph{EUF-CMA secure} if for
+every PPT adversary $\mathcal{A}$,
+\[
+  \mathrm{Adv}^{\mathrm{euf-cma}}_{\Pi}(\mathcal{A}, \lambda)
+  \;\leq\;
+  \mathrm{negl}(\lambda),
+\]
+where $\mathrm{negl}(\lambda)$ denotes any function that decreases
+faster than the inverse of any polynomial.
+
+\textbf{Instantiation.}  In this paper, $\Pi$ is instantiated as
+HMAC-SHA256 with key length $\lambda = 256$ bits.
+HMAC-SHA256 is EUF-CMA secure under the assumption that SHA-256 is a
+pseudorandom function family~\cite{bellare1996keying}.
+\end{assumption}
+
+\begin{remark}[PRF vs.\ EUF-CMA]
+\label{rem:prf-euf}
+Theorem~\ref{thm:sbc-sufficiency} (Step~1) invokes ``PRF security
+of HMAC.''  This is a \emph{sufficient} condition for EUF-CMA security:
+any MAC scheme whose tag function is a PRF is automatically EUF-CMA
+secure~\cite{katz2020introduction}.  Assumption~\ref{asm:euf-cma}
+unifies both formulations under the weaker, standard EUF-CMA condition,
+which is the appropriate security notion for message authentication in
+protocol analysis.
+\end{remark}
+
+% -----------------------------------------------------------------------
+\subsubsection*{SBC as Protocol Analysis Methodology}
+% -----------------------------------------------------------------------
+
+\begin{remark}[SBC is a protocol analysis tool, not a security definition]
+\label{rem:sbc-methodology}
+$\mathrm{SBC}(P)$ (Definition~\ref{def:sbc}) should be understood as a
+\emph{three-step analysis methodology}:
+
+\begin{enumerate}[label=\textbf{Step~\arabic*.}, leftmargin=2.5em]
+  \item \textbf{Identify $\mathrm{DC}(P)$.}  Enumerate the minimal set of
+        protocol messages whose forgery or manipulation is sufficient to
+        install an arbitrary next-hop entry at any honest node
+        (Definition~\ref{def:decision-critical}).
+
+  \item \textbf{Check completeness.}  Verify that every message in
+        $\mathrm{DC}(P)$ carries an authenticator computed under $\Pi$
+        (conditions~\ref{sbc:auth} and~\ref{sbc:closure} of
+        Definition~\ref{def:sbc}).
+
+  \item \textbf{Invoke Assumption~\ref{asm:euf-cma}.}  If the
+        completeness check passes \emph{and} $\Pi$ satisfies
+        Assumption~\ref{asm:euf-cma}, then $\mathrm{SBC}(P)$ holds
+        and the routing security guarantee of
+        Theorem~\ref{thm:sbc-sufficiency} follows.
+\end{enumerate}
+
+The three SBC conditions in Definition~\ref{def:sbc} (\ref{sbc:auth},
+\ref{sbc:fresh}, \ref{sbc:closure}) are \emph{protocol-level
+requirements}, not cryptographic security games.  Their force derives
+entirely from Assumption~\ref{asm:euf-cma}: without it, the
+requirements are vacuous.  With it, the requirements reduce routing
+integrity to the EUF-CMA guarantee of HMAC-SHA256.
+\end{remark}
+
+% -----------------------------------------------------------------------
+\subsubsection*{Revised Theorem 1 Preamble}
+% -----------------------------------------------------------------------
+
+The following is the full, assumption-explicit statement of
+Theorem~\ref{thm:sbc-sufficiency}.  (The proof in
+Theorem~\ref{thm:sbc-sufficiency} is unchanged; this restatement adds an
+explicit preamble that names the assumption.)
+
+\begin{theorem}[SBC Sufficiency for Relay Security — Assumption-Explicit Form]
+\label{thm:sbc-sufficiency-explicit}
+Let $\Pi = (\mathcal{K}\text{gen}, \mathrm{MAC}, \mathrm{Vfy})$
+satisfy \textbf{Assumption~\ref{asm:euf-cma}} (EUF-CMA security of
+HMAC-SHA256).  Let $P$ be a mesh routing protocol with key $K$
+shared among $\mathrm{AuthorizedSet}(P)$, and let $A$ be a Dolev-Yao
+attacker with physically-bounded capabilities: duty cycle $\leq \delta$,
+minimum airtime per message $\geq \tau$, and maximum injection rate
+$\rho_A \leq \delta/\tau$.
+
+If $\mathrm{SBC}(P)$ holds (Definition~\ref{def:sbc}) and
+$A \notin \mathrm{AuthorizedSet}(P)$, then for every protocol execution
+trace $\mathbf{t}$ and every source node $S$,
+\[
+  \mathrm{next\_hop}_{S}(\mathbf{t}) \;\neq\; A,
+\]
+except with probability at most
+\[
+  \epsilon(\lambda)
+  \;=\;
+  q(\lambda) \cdot \mathrm{Adv}^{\mathrm{euf-cma}}_\Pi(\mathcal{A}, \lambda)
+  \;\leq\;
+  q(\lambda) \cdot \mathrm{negl}(\lambda),
+\]
+where $q(\lambda)$ is a polynomial upper-bounding the total number of
+routing-message forgery attempts by $A$ during the execution (bounded
+in practice by the physical injection rate $\rho_A$).
+\end{theorem}
+
+\begin{remark}[Tightness of the reduction]
+\label{rem:reduction-tightness}
+The factor $q(\lambda)$ arises from a standard hybrid argument: $A$ can
+make at most $q(\lambda)$ forgery attempts during the trace, each
+contributing at most $\mathrm{Adv}^{\mathrm{euf-cma}}_\Pi$ to the
+overall success probability via a union bound.  For the IoT mesh
+setting (LoRa duty-cycle $\delta = 1\%$, message airtime $\tau \geq 0.2$\,s),
+$\rho_A \leq 18$\,msg/min, so $q(\lambda)$ grows only linearly in trace
+duration.  At $\lambda = 256$ bits, $\mathrm{negl}(\lambda) \approx 2^{-256}$,
+making $\epsilon(\lambda)$ negligible even for week-long deployments.
+\end{remark}
+
+% -----------------------------------------------------------------------
+\subsubsection*{Remarks on Security Model Scope}
+% -----------------------------------------------------------------------
+
+\begin{remark}[SBC vs.\ UC Security]
+\label{rem:sbc-vs-uc}
+$\mathrm{SBC}(P)$ is a \emph{weaker} notion than Universal
+Composability (UC) security~\cite{canetti2001universally}, and this
+is by design.
+
+UC security requires a \emph{simulation-based} proof: one must exhibit
+an ideal-world simulator $\mathcal{S}$ such that no environment
+$\mathcal{Z}$ can distinguish real executions of $P$ from ideal
+executions.  UC guarantees \emph{cryptographic composability}: a
+protocol that is UC-secure for a functionality $\mathcal{F}$ remains
+secure when composed with arbitrary other protocols running
+concurrently.
+
+$\mathrm{SBC}(P)$ requires only:
+\begin{enumerate}[label=(\roman*)]
+  \item EUF-CMA security of the MAC scheme (Assumption~\ref{asm:euf-cma}), and
+  \item a protocol-level completeness check on $\mathrm{DC}(P)$.
+\end{enumerate}
+
+The weaker assumption is \emph{sufficient} for IoT mesh routing for the
+following reason: IoT mesh protocols operate in a single administrative
+domain with a pre-shared key, a single active session per node, and no
+concurrent session interleaving that a UC adversary could exploit.
+Specifically:
+\begin{itemize}
+  \item LoRa half-duplex radio prevents simultaneous transmission and
+        reception; concurrent session exploitation is physically
+        impossible at a single node.
+  \item The duty-cycle constraint ($\leq 1\%$) limits the attacker's
+        message injection rate to $\rho_A \leq 18$\,msg/min, ruling out
+        the high-volume adaptive chosen-ciphertext queries that motivate
+        UC security in the multi-session setting.
+  \item Pre-shared key deployment means there is no key-exchange
+        sub-protocol to compose with; the only cryptographic operation
+        is HMAC verification.
+\end{itemize}
+
+Adopting UC security would add substantial proof machinery (simulator
+construction, environment distinguishers) without providing any
+additional protection against the physically-constrained Dolev-Yao
+adversary modelled here.  We therefore follow the standard practice of
+applied protocol analysis~\cite{cremers2019comprehensive} and state the
+minimal sufficient assumption (Assumption~\ref{asm:euf-cma}) explicitly.
+\end{remark}
+
+\begin{remark}[Why not define SBC as a security game? (Option B)]
+\label{rem:why-not-game}
+An alternative design (Option~B) would define $\mathrm{SBC}(P)$ as a
+formal security game: an adversary is given oracle access to the
+routing protocol and wins if it installs an unauthorized next-hop entry.
+This would make SBC a self-contained security definition comparable to
+those in the cryptographic protocol literature.
+
+We deliberately chose \textbf{Option~A} (SBC as methodology invoking
+Assumption~\ref{asm:euf-cma}) for two reasons:
+
+\begin{enumerate}[label=(\arabic*)]
+  \item \textbf{Audience.}  IEEE TDSC targets the systems-security
+        community.  A 2--3-page game-based definition would shift the
+        paper's contribution toward a cryptography-theory result,
+        diluting the primary contribution: a framework for \emph{protocol
+        analysis} applicable across IoT mesh stacks.  Assumption~\ref{asm:euf-cma}
+        is a one-paragraph standard reference; it anchors the theory
+        without monopolizing the exposition.
+
+  \item \textbf{Scope precision.}  The gap identified by the Le Chun
+        evaluation (W1) is that ``SBC is stated as design requirement
+        but does not specify the underlying cryptographic assumption.''
+        Option~A closes this gap minimally and precisely: it names the
+        assumption (EUF-CMA), cites the standard reference, and
+        propagates it into Theorem~\ref{thm:sbc-sufficiency} as an
+        explicit hypothesis.  Option~B would over-engineer the fix and
+        introduce new proof obligations (game reduction, simulator
+        construction) that are unnecessary for the theorem as stated.
+\end{enumerate}
+
+Authors who wish to extend the framework to a multi-domain or
+multi-session setting (where composability matters) may layer a
+UC-style proof on top of Assumption~\ref{asm:euf-cma}; this is left
+as future work.
+\end{remark}
