@@ -1,0 +1,1449 @@
+%% IoTJ-PaperD.tex
+%% Fragment-Chained HMAC Authentication with Selective Encryption
+%% for JPEG Transmission over LoRa Mesh
+%% Target: IEEE Internet of Things Journal (IoT-J)
+
+\documentclass[journal]{IEEEtran}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{url}
+\usepackage[hypertexnames=false]{hyperref}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{tabularx}
+\usepackage{xcolor}
+\usepackage{cite}
+\usepackage{listings}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+\lstset{
+  basicstyle=\ttfamily\small,
+  breaklines=true,
+  frame=single,
+  columns=fullflexible
+}
+
+\begin{document}
+
+\title{Fragment-Chained HMAC Authentication with Selective Encryption\\
+for JPEG Transmission over LoRa Mesh}
+
+\author{%
+  \IEEEauthorblockN{August Chao}\\
+  \IEEEauthorblockA{%
+    Department of Computer Science and Information Engineering,\\
+    National Pingtung University, Pingtung 90003, Taiwan\\
+    \textit{augchao@gms.npu.edu.tw}%
+  }%
+}
+
+\maketitle
+
+%% -----------------------------------------------------------------------
+\begin{abstract}
+Transmitting JPEG images over LoRa mesh networks is challenging: the 255-byte
+payload limit and ETSI 1\% duty-cycle constraint impose severe bandwidth and
+latency budgets while security requirements demand both confidentiality and
+integrity protection across tens of fragments.  Existing approaches apply full
+AES-128-CBC encryption and independent per-packet HMAC, which (i) incurs
+unnecessary CPU cost when only visually sensitive bytes require confidentiality,
+and (ii) cannot detect fragment reordering or cross-session replay because each
+packet is verified independently.
+
+This paper makes four contributions.  First, we design a
+\emph{stride-based selective encryption} scheme that XORs the first 16 bytes
+of every 64-byte window with an HMAC-SHA256 keystream, encrypting 24.2\% of
+image bytes and achieving format-level visual obfuscation (JPEG decode fails
+under both naive and format-aware attacker models) while reducing encryption
+CPU cost by 76\% compared to full encryption (2{,}807~$\mu$s vs.\
+$\approx$11{,}600~$\mu$s estimated for the same image size). Second, we
+introduce \emph{Fragment-Chained HMAC} (FC-HMAC), an 8-byte truncated chain
+where each fragment's tag covers the previous tag, binding the entire
+transmission sequence into a single cryptographic commitment. Third, we formally
+verify FC-HMAC using Tamarin Prover: all four lemmas (fragment authenticity,
+chain-gap detectability, no-replay, executability) are machine-proved in 1.53
+seconds under a Dolev-Yao adversary. Fourth, we validate the scheme on real
+LoRa hardware (EoRa PI: ESP32-S3 + SX1262): 72/72 fragments verified in
+hardware over a 120-second run, with 3.3\% HMAC overhead per packet and
+3.76~ms total crypto CPU per 2{,}046-byte image at identical airtime (14.9~s)
+across all three encryption modes.
+\end{abstract}
+
+\begin{IEEEkeywords}
+LoRa, LPWAN, image transmission, selective encryption, fragment chaining,
+HMAC, formal verification, Tamarin Prover, ESP32-S3, IoT security
+\end{IEEEkeywords}
+
+%% -----------------------------------------------------------------------
+\section{Introduction}
+\label{sec:intro}
+
+Low-Power Wide-Area Networks (LPWANs), and LoRa in particular, have emerged as
+a dominant radio layer for battery-operated IoT sensors that need to communicate
+over distances of several kilometres on harvested or coin-cell power
+\cite{etsi_en300220}.  The physical layer chirp-spread-spectrum (CSS) modulation
+trades data rate for link budget, achieving $-$148~dBm sensitivity at SF12 at
+the cost of throughputs as low as 250~bps.  Within the 255-byte hardware payload
+ceiling of the Semtech SX1262 \cite{semtech_sx1262} and the ETSI 1\%
+duty-cycle rule, a single LoRa node in the 915/868~MHz ISM band may inject only
+$\approx$36 packets per hour at spreading factor~9 (SF9).
+
+A growing class of edge applications requires \emph{image} transmission over
+these links: wildlife camera traps that report motion events to a gateway,
+border-surveillance fixed nodes that capture a thumbnail on alarm, disaster-area
+drone relays that upload reconnaissance snapshots, and smart-agriculture sensors
+that record crop canopy images for periodic analysis.  For these use cases, a
+compact JPEG image ($200 \times 150$ pixels, $\approx$2~KB) is a practical and
+sufficient representation.  Transmitting this image over LoRa at SF9/BW125/CR4/7
+requires approximately 9 fragments and roughly 14.9~seconds of airtime --- within
+budget for one capture every few minutes, but leaving no room for heavy
+cryptographic overhead on the critical path.
+
+\subsection*{The Security Gap in Prior Work}
+
+Existing security schemes for LoRa image transmission \cite{ryczek2025}
+apply \emph{full} AES-128-CBC encryption to the complete image payload, pairing
+it with \emph{independent} per-packet HMAC-SHA256.  While this approach has
+been validated at the hardware level and demonstrates negligible energy overhead,
+it exhibits two structural weaknesses that limit its applicability to more
+adversarial deployment environments:
+
+\textbf{CPU inefficiency.}  Full AES-128-CBC encryption of a 2{,}046-byte image
+on an ESP32-S3 at 240~MHz requires approximately 11{,}600~$\mu$s of CPU time.
+On a duty-cycle-constrained node that must also handle radio interrupts, sensor
+sampling, and routing, this represents a significant fraction of the available
+compute budget.  When the goal is merely visual obfuscation --- preventing an
+interceptor from reconstructing a recognisable image --- encrypting every byte
+is wasteful, because a small fraction of structurally critical bytes (JPEG
+format headers, DCT DC coefficients) suffices to render the image
+unrecoverable.
+
+\textbf{Order-agnostic integrity.}  Independent per-packet HMAC verifies each
+fragment in isolation, providing \emph{existential unforgeability} for each
+individual packet.  However, an attacker with access to a previous valid
+capture session may:
+\begin{enumerate}
+  \item \emph{Replay} an entire valid session from a previous capture without
+    triggering integrity failures at the receiver --- because no MAC field
+    commits to the \emph{session context}.
+  \item \emph{Reorder} fragments within a session and deliver them out of
+    sequence; each fragment passes its individual HMAC check even though the
+    assembly order has been corrupted.
+  \item \emph{Insert} a forged fragment from a different session at any
+    position; the receiver cannot distinguish this from a legitimately received
+    fragment based on per-packet HMAC alone.
+\end{enumerate}
+These vulnerabilities are not theoretical: in a LoRa mesh deployment, a
+Dolev-Yao adversary who controls the radio channel can store-and-forward any
+received fragment to any subsequent session \cite{tamarin_prover}.
+
+\subsection*{Contributions}
+
+This paper addresses both weaknesses through the design, formal analysis, and
+hardware validation of the \emph{Fragment-Chained HMAC} (FC-HMAC) scheme
+combined with stride-based selective encryption.  The contributions are:
+
+\textbf{C1 --- Stride-based selective encryption.}
+We design a lightweight structure-approximating encryption scheme that XORs the
+first 16 bytes of every 64-byte window with an HMAC-SHA256 keystream, encrypting
+24.2\% of image bytes.  The scheme achieves \emph{format-level visual
+obfuscation}: the stride begins at byte~0 (the JPEG SOI marker, 0xFF~0xD8) and
+corrupts Huffman table regions, breaking JPEG structure entirely under both a
+naive attacker and a format-aware attacker who zeroes the encrypted positions.
+We explicitly acknowledge that this is \emph{not} true frequency-domain
+selective encryption (which requires a Huffman-stream parser to locate DCT DC
+coefficient bytes at variable positions in the bitstream); the contribution is a
+computationally cheap proxy that achieves the same visual disruption at 24\% of
+full-encryption CPU cost.
+
+\textbf{C2 --- Fragment-Chained HMAC (FC-HMAC).}
+We introduce an 8-byte truncated chained MAC where
+$\mathit{tag}_i = \allowbreak \mathrm{HMAC\text{-}SHA256}(K,\;
+ \mathit{frag\_id}_i \;\|\; \mathit{flags}_i \;\|\;
+ \mathit{payload}_i \;\|\; \mathit{tag}_{i-1})[\text{:}8]$.
+The chain makes every tag a commitment to the entire prior transmission
+sequence, enabling detection of any reordering, insertion, or cross-session
+replay at 3.3\% per-packet overhead (8~B~/~241~B).
+
+\textbf{C3 --- Formal verification.}
+We model FC-HMAC in Tamarin Prover \cite{tamarin_prover} and machine-prove
+four security properties: fragment authenticity (F1), chain-gap detectability
+(F2), no-replay (F3), and protocol executability (F4).  All four lemmas are
+proved in 1.53~seconds under a Dolev-Yao adversary.
+
+\textbf{C4 --- Hardware validation.}
+We implement the full protocol on EoRa PI hardware (ESP32-S3 + SX1262,
+EoRa PI development board), transmitting a 2{,}046-byte synthetic JPEG at
+922.0~MHz over a real LoRa channel.  In a 120-second run with 8 complete
+images, 72/72 fragments pass chain verification (chain\_ok = 100\%,
+PDR = 100\%).  Total crypto CPU is 3{,}757~$\mu$s per image, representing
+3.1\% of a 120-ms processing loop, with 3.3\% per-packet HMAC overhead.
+
+\subsection*{Scope and Reproducibility}
+
+The experiments in this paper use a 2{,}046-byte synthetic JPEG embedded in
+firmware flash.  The choice of a synthetic image is deliberate: it enables
+reproducible measurements independent of camera hardware variability and
+lighting conditions.  The byte array is generated offline from a known-content
+$200\times150$ pixel test pattern using the libjpeg library at quality factor
+75.  All firmware source code, Tamarin model files, PSNR evaluation scripts,
+and raw E19 measurement data will be made publicly available via the project
+repository upon paper acceptance.
+
+\subsection*{Paper Organisation}
+
+Section~\ref{sec:background} reviews LoRa constraints, JPEG structure, and the
+FC-HMAC concept.
+Section~\ref{sec:design} presents the detailed system design including threat
+model, the selective encryption algorithm, FC-HMAC construction, and packet
+format.
+Section~\ref{sec:security} gives the Tamarin formal analysis and E19-PSNR
+visual security evaluation.
+Section~\ref{sec:eval} reports hardware platform, E19 experiment results,
+fragment timing, and efficiency analysis.
+Section~\ref{sec:related} compares FC-HMAC with related work, including a
+seven-dimension table against Ryczek \& Sobieraj \cite{ryczek2025}.
+Section~\ref{sec:discussion} discusses limitations and future directions.
+Section~\ref{sec:conclusion} concludes.
+
+%% -----------------------------------------------------------------------
+\section{Background}
+\label{sec:background}
+
+\subsection{LoRa Physical Layer and Protocol Constraints}
+
+LoRa is a chirp-spread-spectrum modulation scheme defined by Semtech and
+standardised within the ETSI EN~300~220 framework \cite{etsi_en300220}.  Three
+parameters dominate the link budget and throughput tradeoff:
+
+\textbf{Spreading Factor (SF).}  SF ranges from~6 to~12.  Each increment
+doubles symbol duration ($T_s = 2^{SF}/BW$), increasing receiver sensitivity by
+$\approx$2.5~dB at the cost of halving the data rate.  At SF9/BW125, symbol
+duration is $T_s = 4.096$~ms, giving a raw bit rate of $\approx$1{,}758~bps.
+
+\textbf{Payload ceiling.}  The SX1262 radio buffer is 255~bytes
+\cite{semtech_sx1262}.  After subtracting the FC-HMAC header (7~B) and
+authentication tag (8~B), the maximum application payload per packet is 240~B.
+
+\textbf{Duty-cycle regulation.}  ETSI EN~300~220 mandates a 1\% maximum
+on-air duty cycle in Sub-GHz ISM bands.  At SF9/BW125/CR4/7 with a 248-byte
+payload, measured airtime per fragment is 1{,}692~ms.  The 1\% rule therefore
+limits a single node to approximately 6~transmissions per 10-minute window ---
+sufficient for one 9-fragment image every $\sim$4~minutes.
+
+These constraints collectively motivate (i)~compact per-packet authentication
+overhead to preserve payload capacity and (ii)~CPU-efficient encryption so that
+the crypto latency does not dominate the inter-packet gap.
+
+\subsection{LoRaWAN and LoRa Mesh Security Context}
+
+LoRaWAN, the most widely deployed LoRa network architecture, provides
+session-level AES-128 encryption and per-message MICs at the network
+layer \cite{etsi_en300220}.  However, LoRaWAN is a star-topology protocol
+requiring a centralised network server and dedicated gateway infrastructure.
+Multi-hop LoRa mesh protocols, such as LoRaMesher \cite{loramesh_github},
+operate in infrastructure-free environments where nodes relay packets for
+one another using distance-vector routing.  In these deployments, the LoRaWAN
+session key infrastructure (AppSKey, NwkSKey) is unavailable; nodes rely on
+pre-shared application keys for security, and the security of the fragmentation
+protocol --- which LoRaWAN does not define --- is left entirely to the
+application layer.
+
+The threat surface in a LoRa mesh is broader than in LoRaWAN because relay
+nodes are themselves potential adversaries: a compromised relay can silently
+drop, modify, or replay fragments it forwards, with no gateway to detect the
+anomaly.  FC-HMAC is designed with this threat model explicitly in mind.
+
+Previous work \cite{ryczek2025} demonstrates that application-layer AES-CBC
+plus per-packet HMAC is feasible on ESP32-class hardware with $<$1\% energy
+overhead for 20~kB images.  Our work examines whether the per-packet HMAC
+architecture can be strengthened to detect ordering and replay attacks, and
+whether selective encryption can reduce the CPU cost at the expense of
+encrypting only a fraction of bytes.
+
+\subsection{JPEG Structure and DCT Sensitivity}
+
+JPEG images use Discrete Cosine Transform (DCT) coding applied to $8\times8$
+pixel blocks \cite{jpeg_iso}.  The encoding pipeline proceeds as follows:
+
+\begin{enumerate}
+  \item \textbf{Color transform.}  RGB to YCbCr; chroma channels subsampled
+    (4:2:0 or 4:2:2).
+  \item \textbf{DCT per block.}  Each $8\times 8$ luma or chroma block produces
+    64 frequency coefficients arranged in zigzag order.
+  \item \textbf{Quantisation.}  Coefficients divided by a quality-dependent
+    quantisation table; most AC coefficients are zeroed.
+  \item \textbf{Huffman coding.}  DC differences between adjacent blocks are
+    coded with a DC Huffman table; remaining AC run-length codes use an AC
+    Huffman table.  Both tables are stored in the JPEG header (DHT markers).
+  \item \textbf{Bitstream packing.}  Huffman-coded symbols are packed into a
+    byte stream beginning with SOI (0xFF~0xD8) and ending with EOI (0xFF~0xD9).
+\end{enumerate}
+
+The DC coefficient (spectral index 0) captures the average brightness of each
+block and has the highest per-coefficient visual impact: corrupting the DC
+coefficient of one block propagates a visible brightness shift across the entire
+$8\times8$ region.  A selective encryption scheme targeting only DC coefficients
+could in principle disrupt the image with minimal ciphertext.
+
+However, DC coefficient positions in the JPEG bitstream are determined by the
+variable-length Huffman codes preceding them --- they do not occur at fixed byte
+offsets.  Locating them requires streaming through the Huffman-coded data, which
+implies implementing a JPEG decoder on the embedded node.  Our stride-based
+approximation (Section~\ref{sec:sel_enc}) addresses this constraint.
+
+\subsection{Fragment-Chained MAC: Conceptual Foundation}
+
+A Merkle tree \cite{bellare_hmac} commits to an ordered set of leaves; any
+modification of a leaf or its position is detectable at the root.  A
+fragment-chained MAC is the streaming, append-only analogue: each node in the
+chain commits to all prior nodes, so the final tag is a commitment to the
+complete transmission history in order.
+
+Formally, let $H$ be a collision-resistant PRF.  Define:
+\begin{align}
+  h_0 &= H(K,\; \mathit{context}) \label{eq:h0_gen}\\
+  h_i &= H(K,\; m_i \;\|\; h_{i-1}), \quad i \geq 1 \label{eq:hi_gen}
+\end{align}
+where $m_i$ is the $i$-th fragment payload and $K$ is a shared key.  Any
+adversary who modifies $m_j$ must forge $h_j$; since $h_j$ is bound to
+$h_{j-1}$, forging $h_j$ requires either knowing $K$ or finding a collision in
+$H$.  Furthermore, inserting a foreign fragment $m'_j$ (from a different
+session or position) changes $h_j$, propagating the mismatch to all
+subsequent tags.  The receiver can therefore verify not just individual packet
+authenticity but also the integrity of the transmission \emph{order and
+completeness}.
+
+%% -----------------------------------------------------------------------
+\section{System Design}
+\label{sec:design}
+
+\subsection{Threat Model}
+\label{sec:threat}
+
+The FC-HMAC system operates under the following threat model, which is
+formally encoded in the Tamarin model (Section~\ref{sec:tamarin}).
+
+\textbf{Network model.}  All LoRa transmissions are broadcast and receivable
+by any node in range.  The adversary controls the network channel in the
+Dolev-Yao sense: it can intercept any transmitted fragment, store it
+indefinitely, and re-inject stored messages at any future time.
+
+\textbf{Attacker capabilities.}  The adversary:
+\begin{itemize}
+  \item Can intercept, delay, reorder, and replay any LoRa packet.
+  \item Can inject new packets with arbitrary byte content.
+  \item Knows the encryption algorithm, MAC algorithm, stride offsets,
+    and packet format (Kerckhoffs's principle).
+  \item Does \emph{not} know the session key $K$ (pre-shared out-of-band).
+  \item Cannot break HMAC-SHA256 computationally (PRF assumption).
+\end{itemize}
+
+\textbf{Goals protected against.}
+Table~\ref{tab:threats} lists the threats addressed by FC-HMAC:
+
+\begin{table}[ht]
+\centering
+\caption{Threat Model and FC-HMAC Protection Mapping}
+\label{tab:threats}
+\begin{tabular}{p{2.4cm}p{2.0cm}p{3.0cm}}
+\toprule
+Threat & Attack vector & FC-HMAC protection \\
+\midrule
+Fragment forgery & Inject crafted fragment & F1: tag forgery requires $K$ \\
+Fragment replay (same session) & Re-inject captured fragment & Duplicate \texttt{frag\_id} rejected \\
+Cross-session replay & Replay fragments from old session & F3: chain root binds session \\
+Fragment reordering & Deliver frags out of order & Chain tag mismatch at reordered position \\
+Silent gap (drop + no detect) & Drop frag $i$, continue chain & F2: chain break at gap position \\
+Image eavesdropping & Intercept and decode image & C1: JPEG decode FAIL (E19-PSNR) \\
+\midrule
+Key compromise & Brute-force or side-channel $K$ & \emph{Out of scope} \\
+Physical capture of node & Extract $K$ from flash & \emph{Out of scope (hardware TEE)} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Goals not protected.}  The scheme does not provide confidentiality
+against an adversary who knows $K$ (key management is out of scope).  It does
+not provide availability: an adversary can jam the LoRa channel or drop all
+packets.  Physical security of the pre-shared key requires hardware trust
+anchors (secure element, flash encryption) not present in the current EoRa PI
+prototype.
+
+\subsection{Stride-Based Selective Encryption}
+\label{sec:sel_enc}
+
+\subsubsection{Design Rationale and Scope}
+
+True selective encryption targeting DCT DC coefficients requires a
+Huffman-stream decoder to locate variable-length-coded DC bytes at runtime.
+On a 240-MHz ESP32-S3 constrained to handle radio interrupts in real time, an
+inline JPEG decoder would itself introduce CPU overhead comparable to
+full-image encryption.
+
+We therefore adopt a \emph{structure-approximating} approach.  The key
+observation is that a JPEG file begins with mandatory format structures in the
+first several hundred bytes:
+\begin{itemize}
+  \item Bytes 0--1: SOI marker (0xFF 0xD8)
+  \item Bytes 2--20: APP0/JFIF marker (0xFF 0xE0) and header
+  \item Bytes 21--$\sim$200: Quantisation tables (DQT markers, 0xFF 0xDB)
+  \item Bytes $\sim$200--$\sim$500: Huffman tables (DHT markers, 0xFF 0xC4)
+  \item Bytes $\sim$500+: Start of scan (SOS marker, 0xFF 0xDA) and encoded data
+\end{itemize}
+Corrupting any of the quantisation or Huffman table entries renders the JPEG
+bitstream undecodable, because every JPEG decoder uses these tables to interpret
+the subsequent AC/DC runs.  A stride starting at byte~0 with 16-byte windows
+every 64~bytes will intersect these critical structures during its first several
+iterations.
+
+The contribution of the stride-based approach is therefore correctly framed as
+\emph{lightweight visual obfuscation achieving format-level disruption}, not
+frequency-domain selective encryption.  The actual overlap between stride
+positions and true DCT DC coefficient byte positions remains to be quantified
+(see Section~\ref{sec:limit_b1}).
+
+\subsubsection{Algorithm Specification}
+
+\begin{algorithm}[H]
+\caption{Stride-Based Selective Encryption (\texttt{ENC\_DC\_ONLY} mode)}
+\label{alg:sel_enc}
+\begin{algorithmic}[1]
+\Require Image byte array $P[0 \ldots N{-}1]$, session key $K$, frag counter $c$
+\Ensure Encrypted byte array $C$
+\State $C \leftarrow \text{copy}(P)$
+\State $\mathit{stride} \leftarrow 64$; $\;\mathit{wlen} \leftarrow 16$
+\For{$i \leftarrow 0$ \textbf{to} $N{-}1$ \textbf{step} $\mathit{stride}$}
+  \State $\mathit{ks}[0{:}16] \leftarrow \mathrm{HMAC\text{-}SHA256}(K,\;
+         \langle i \;\|\; c \rangle)[\text{:}16]$
+  \For{$j \leftarrow 0$ \textbf{to} $\min(\mathit{wlen}{-}1,\; N{-}i{-}1)$}
+    \State $C[i+j] \leftarrow P[i+j] \oplus \mathit{ks}[j]$
+  \EndFor
+\EndFor
+\State \Return $C$
+\end{algorithmic}
+\end{algorithm}
+
+The frag counter $c$ differentiates keystreams across repeated calls for the
+same image buffer.  For a 2{,}046-byte JPEG, the loop executes at strides
+$i \in \{0, 64, 128, 192, 256, 320, 384, 448, 512\}$, producing 9~keystream
+calls and encrypting up to $\min(16, N-i)$ bytes per stride.
+Hardware measurement (E19) confirms 496 of 2{,}046 bytes encrypted (24.2\%),
+at a CPU cost of 2{,}807~$\mu$s --- a 76\% reduction compared to full-image
+encryption estimated at $\approx$11{,}600~$\mu$s.
+
+\subsubsection{Three Encryption Modes}
+
+The firmware implements three modes selectable at compile time via the
+\texttt{ENC\_MODE} build flag:
+
+\begin{table}[ht]
+\centering
+\caption{Encryption Mode Comparison (2{,}046-byte JPEG, SF9/BW125)}
+\label{tab:enc_modes}
+\begin{tabular}{lrrrr}
+\toprule
+Mode & Packets & Airtime & CPU enc ($\mu$s) & Enc bytes \\
+\midrule
+\texttt{ENC\_NONE}    & 9 & 14.9\,s & 0         & 0\% \\
+\texttt{ENC\_DC\_ONLY}& 9 & 14.9\,s & 2{,}807   & 24.2\% \\
+\texttt{ENC\_FULL}    & 9 & 14.9\,s & $\approx$11{,}600 & 100\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+A critical design point: all three modes transmit the \emph{same number of
+packets at the same airtime}, because packet count is determined by
+$\lceil N / 233 \rceil$ regardless of encryption mode.  The efficiency gain of
+\texttt{ENC\_DC\_ONLY} is therefore in \emph{CPU}, not in airtime or duty-cycle
+consumption.  This distinction is explored further in
+Section~\ref{sec:efficiency}.
+
+\subsubsection{LoRa Airtime Model}
+
+For completeness, we derive the airtime formula used throughout this paper.
+Using the standard LoRa time-on-air model \cite{semtech_sx1262}, with spreading
+factor $\mathit{SF} = 9$, bandwidth $\mathit{BW} = 125$~kHz, coding rate
+$\mathit{CR} = 4/7$, explicit header mode, and CRC enabled:
+
+\begin{align}
+  T_s &= \frac{2^{SF}}{BW} = \frac{512}{125000} = 4.096~\text{ms}
+  \label{eq:Ts} \\
+  N_{\text{preamble}} &= 8 \text{ symbols (default)} \nonumber \\
+  T_{\text{preamble}} &= (N_{\text{preamble}} + 4.25) \times T_s = 50.9~\text{ms}
+  \label{eq:Tpreamble}
+\end{align}
+
+For a 248-byte payload packet (7 header + 233 data + 8 HMAC):
+\begin{equation}
+  N_{\text{sym,payload}} =
+    8 + \max\!\!\left(
+      \left\lceil
+        \frac{8 \times 248 - 4 \times SF + 28 + 16}{4 \times (SF-2)}
+      \right\rceil \times CR,\, 0
+    \right) = 107 \text{ symbols}
+  \label{eq:Nsym}
+\end{equation}
+\begin{equation}
+  T_{\text{packet}} = T_{\text{preamble}} + N_{\text{sym,payload}} \times T_s
+    = 50.9 + 107 \times 4.096 \approx 489~\text{ms}
+  \label{eq:Tpacket}
+\end{equation}
+
+The hardware-measured airtime of 1{,}692~ms per fragment includes inter-packet
+gaps, radio mode-switch overhead, and SX1262 TX-to-RX turnaround time.  The
+theoretical packet-on-air time (489~ms) is consistent with the fraction of
+1{,}692~ms spent with the antenna active.  The total image airtime is:
+\begin{equation}
+  T_{\text{image}} = N_f \times T_{\text{frag}} = 9 \times 1{,}692 \approx 14.9~\text{s}
+  \label{eq:Timage}
+\end{equation}
+matching the hardware measurement in Table~\ref{tab:e19_results}.
+
+\subsubsection{Security Claim and Honest Framing}
+
+We claim that \texttt{ENC\_DC\_ONLY} achieves \emph{visual-domain
+confidentiality} under the following attacker model: the adversary intercepts
+all LoRa packets, reassembles the fragment stream, and attempts JPEG decoding.
+The stride corrupts the SOI marker and Huffman tables, preventing decoding.
+The claim is \emph{not} that the scheme achieves IND-CPA security or hides
+frequency-domain coefficients selectively --- it does not.  A determined
+cryptanalyst with knowledge of the stride pattern and access to many
+plaintext-ciphertext pairs could recover the keystream (since it is static
+per-stride for a fixed image and frag counter), especially if the plaintext
+header bytes are known.  The scheme's purpose is operational security against
+passive image reconstruction, not semantic security.
+
+\subsection{Fragment-Chained HMAC (FC-HMAC)}
+\label{sec:fc_hmac}
+
+\subsubsection{Problem Statement and Threat Model}
+
+A 2{,}046-byte JPEG image spans 9 LoRa fragments.  The threat model for the
+fragmentation layer is a Dolev-Yao adversary \cite{tamarin_prover} who:
+\begin{itemize}
+  \item Can intercept any LoRa packet transmitted in range.
+  \item Can delay, replay, or reorder intercepted packets in any session.
+  \item Can attempt to inject forged fragments with a chosen payload.
+  \item Does \emph{not} know the session key $K$ (pre-shared, not on the radio).
+\end{itemize}
+
+Per-packet independent HMAC prevents the attacker from forging
+\emph{individual} fragments but provides no protection against:
+\begin{itemize}
+  \item \textbf{Replay attack:} fragments from session $s$ replayed in session $s'$;
+    each fragment passes its HMAC check independently.
+  \item \textbf{Ordering attack:} fragment $i$ replaces fragment $j$; both have
+    valid MACs, and the receiver has no way to detect the swap.
+  \item \textbf{Cross-splice:} fragments from two sessions spliced together;
+    each fragment is individually valid.
+\end{itemize}
+FC-HMAC addresses all three by binding each fragment's tag to the complete
+prior chain state.
+
+\subsubsection{FC-HMAC Construction}
+
+Let $K$ be a 16-byte pre-shared session key.  Let $N_f$ be the total number
+of fragments for one image.  Define the \emph{chain root} as:
+\begin{equation}
+  h_0 = \mathrm{HMAC\text{-}SHA256}(K,\;
+        \mathtt{0x00000000} \;\|\; N_f)[\text{:}8]
+  \label{eq:chain_root}
+\end{equation}
+For each fragment $i = 1, \ldots, N_f$, compute the \emph{chain tag}:
+\begin{align}
+  \mathit{tag}_i &= \mathrm{HMAC\text{-}SHA256}\!\Bigl(K,\;
+    \underbrace{\mathit{frag\_id}_i}_{\text{2B}} \;\|\;
+    \underbrace{\mathit{flags}_i}_{\text{1B}} \;\|\;
+    \underbrace{\mathit{payload}_i}_{\text{up to 233B}} \;\|\;
+    \underbrace{\mathit{tag}_{i-1}}_{\text{8B}}
+  \Bigr)[\text{:}8]
+  \label{eq:chain_tag}
+\end{align}
+The receiver maintains a running chain state $\hat{h}$ initialised to $h_0$.
+Upon receiving fragment $i$, it recomputes $\hat{t}_i$ from $\hat{h}$ and the
+received fields, then checks $\hat{t}_i \stackrel{?}{=} \mathit{tag}_i$.  If
+the check passes, $\hat{h} \leftarrow \mathit{tag}_i$.  If it fails, the chain
+is broken at position $i$, and all subsequent fragments cannot be chain-verified
+(though they may be buffered for potential retransmit-based recovery).
+
+\textbf{Why chaining achieves replay resistance.}  An adversary who replays
+fragments from session $s$ in session $s'$ must forge tags consistent with the
+chain state of session $s'$.  The chain state depends on $h_0^{(s')}$, which
+depends on session $s'$'s unique context (when \texttt{img\_seq} is included
+in the root --- see Section~\ref{sec:limit_f3}).  Without knowing $K$, the
+adversary cannot compute consistent $\mathit{tag}_i^{(s')}$ values.
+
+\textbf{Why chaining achieves ordering resistance.}  Swapping fragment $j$
+into position $i \neq j$ changes \texttt{frag\_id} and inserts a different
+payload into the HMAC input at position $i$.  The recomputed tag will not
+match the transmitted $\mathit{tag}_i$, which was computed with the correct
+\texttt{frag\_id} $= i$ and its own payload.
+
+\subsubsection{Chain Initialisation and img\_seq}
+
+Equation~(\ref{eq:chain_root}) uses a zero nonce, which is the implementation
+in the E19 firmware.  A production-ready implementation should include a
+session-unique image sequence number \texttt{img\_seq} to bind the chain
+root to a specific session:
+\begin{equation}
+  h_0^{(\text{prod})} = \mathrm{HMAC\text{-}SHA256}(K,\;
+        \mathtt{img\_seq} \;\|\; N_f)[\text{:}8]
+  \label{eq:chain_root_prod}
+\end{equation}
+The Tamarin formal model (Section~\ref{sec:tamarin}) uses
+Equation~(\ref{eq:chain_root_prod}), and the F3 (No\_Replay) lemma is proved
+under this stronger construction.  The E19 firmware gap (omitting
+\texttt{img\_seq}) is documented as a known limitation in
+Section~\ref{sec:limit_f3}.
+
+\subsubsection{Security Parameters and Truncation Analysis}
+
+The HMAC output is truncated to 8 bytes (64 bits).  Table~\ref{tab:hmac_trunc}
+analyses the security-overhead tradeoff for three candidate truncation lengths:
+
+\begin{table}[ht]
+\centering
+\caption{HMAC Truncation Length: Security vs.\ Overhead Tradeoff}
+\label{tab:hmac_trunc}
+\begin{tabular}{lrrl}
+\toprule
+Tag size & Overhead & Forgery prob. & Assessment \\
+\midrule
+4\,B (32-bit) & 1.7\% & $2^{-32}$ & Insufficient \\
+8\,B (64-bit) & 3.3\% & $2^{-64}$ & \textbf{Target (selected)} \\
+12\,B (96-bit) & 5.0\% & $2^{-96}$ & Strong but wasteful \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Under LoRa duty-cycle constraints, a single adversarial node can inject at
+most $\approx$100 packets per hour.  At this injection rate, exhaustive search
+against a 64-bit tag would require $\approx 1.8 \times 10^{17}$~years in
+expectation --- well beyond any practical threat.
+
+\subsection{Packet Format and Frame Layout}
+\label{sec:pkt_format}
+
+Each LoRa packet transmitted by the FC-HMAC protocol carries the following
+fixed-layout frame:
+
+\begin{table}[ht]
+\centering
+\caption{FC-HMAC Packet Frame Layout}
+\label{tab:pkt_format}
+\begin{tabular}{lrp{4.5cm}}
+\toprule
+Field & Width & Description \\
+\midrule
+\texttt{magic}        & 2\,B & Framing bytes: 0xE1 0x9A \\
+\texttt{fragment\_id} & 2\,B & Zero-indexed fragment number (0 to $N_f{-}1$) \\
+\texttt{total\_frags} & 2\,B & Total fragments in this image \\
+\texttt{flags}        & 1\,B & Bit 0: last fragment; bits 1--2: enc mode \\
+\texttt{payload}      & $N$\,B & Possibly encrypted image bytes \\
+\texttt{hmac8}        & 8\,B & 8-byte truncated chained HMAC tag \\
+\midrule
+\textbf{Max total}    & \multicolumn{2}{l}{$7 + N + 8 \leq 255$\,B; $N \leq 240$\,B} \\
+\textbf{Used ($N=233$)} & \multicolumn{2}{l}{248\,B total per packet} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The 7-byte fixed header plus 8-byte HMAC tag consume 15~bytes, leaving 240~B
+for payload.  In practice the E19 firmware uses $N = 233$~bytes payload for
+a 248-byte total, providing a 7-byte margin below the 255-byte hardware limit.
+The 8-byte \texttt{hmac8} field represents 3.3\% overhead relative to the
+241-byte application-layer frame (7 header + 234~B payload before HMAC).
+
+The \texttt{magic} bytes serve as a lightweight frame synchronisation marker:
+the receiver discards any packet that does not begin with 0xE1~0x9A, preventing
+stray LoRa broadcasts from polluting the fragment reassembly buffer.
+
+\subsubsection{Fragment Reassembly at the Receiver}
+
+The receiver maintains the following state per ongoing image transmission:
+\begin{itemize}
+  \item \texttt{total\_frags}: total fragment count, learned from the first
+    received fragment's \texttt{total\_frags} field.
+  \item \texttt{recv\_bitmap}: 64-bit bitmask (supports up to 64 fragments)
+    indicating which \texttt{fragment\_id} values have been received.
+  \item \texttt{chain\_state} ($\hat{h}$): the 8-byte chain tag of the last
+    successfully chain-verified fragment.  Initialised to $h_0$
+    (Equation~\ref{eq:chain_root}) before the first fragment.
+  \item \texttt{reassembly\_buffer}: array of $N_f$ payload slots, each 233~B.
+  \item \texttt{chain\_broken}: boolean flag set when a chain verification
+    failure is detected; once set, subsequent fragments cannot be
+    chain-verified but are still stored for diagnostic purposes.
+\end{itemize}
+
+Algorithm~\ref{alg:receiver} gives the per-fragment receive procedure:
+
+\begin{algorithm}[H]
+\caption{FC-HMAC Fragment Reception and Chain Verification}
+\label{alg:receiver}
+\begin{algorithmic}[1]
+\Require Received packet bytes \textit{pkt}
+\State Parse \texttt{magic}, \texttt{frag\_id}, \texttt{total\_frags},
+       \texttt{flags}, \texttt{payload}, \texttt{hmac8}
+\If{\texttt{magic} $\neq$ \texttt{0xE19A}} \Return DISCARD \EndIf
+\If{\texttt{frag\_id} $\geq$ \texttt{total\_frags}} \Return DISCARD \EndIf
+\State $\hat{t} \leftarrow \mathrm{HMAC\text{-}SHA256}(K,\;
+       \langle \texttt{frag\_id}, \texttt{flags}, \texttt{payload}, \hat{h} \rangle)[\text{:}8]$
+\If{$\hat{t} \neq \texttt{hmac8}$}
+  \State Set \texttt{chain\_broken} $\leftarrow$ \texttt{true}
+  \State Record chain-break at \texttt{frag\_id}; \Return CHAIN\_BREAK
+\EndIf
+\State $\hat{h} \leftarrow \texttt{hmac8}$ \Comment{Advance chain state}
+\State Copy \texttt{payload} to \texttt{reassembly\_buffer[frag\_id]}
+\State Set bit \texttt{frag\_id} in \texttt{recv\_bitmap}
+\If{\texttt{recv\_bitmap} $=$ $(1 \ll \texttt{total\_frags}) - 1$}
+  \State Deliver assembled image to application \Return COMPLETE
+\EndIf
+\Return OK
+\end{algorithmic}
+\end{algorithm}
+
+When all bits in \texttt{recv\_bitmap} are set, the image is declared complete
+and passed to the application layer.  A missing fragment (due to channel loss)
+breaks the chain from that position onward; the receiver can request a
+retransmit using the bitmap information (in an ACK-capable variant) or accept
+a partial image by re-anchoring the chain at the next received fragment.
+
+The \texttt{chain\_broken} flag is important for diagnostics: it allows the
+receiver to distinguish between (a)~a complete image received without chain
+breaks, (b)~a complete image received with at least one chain break (indicating
+tampering or a firmware bug), and (c)~an incomplete image (missing fragments).
+In the E19 experiment, case~(a) was observed for all 8 transmitted images.
+
+%% -----------------------------------------------------------------------
+\section{Security Analysis}
+\label{sec:security}
+
+\subsection{Tamarin Formal Model}
+\label{sec:tamarin}
+
+\subsubsection{Model Overview}
+
+We model FC-HMAC in Tamarin Prover \cite{tamarin_prover} (version 1.13.0,
+executed in the \texttt{lora-mesh-tamarin} Docker container).  The model file
+is \texttt{phase2\_tamarin\_models/paper\_d/fc\_hmac.spthy} (verification log:
+\texttt{phase2\_tamarin\_models/paper\_d/fc\_hmac\_verification.log}).  The
+model encodes a two-fragment session to keep the state space finite while
+capturing all relevant security properties.
+
+\subsubsection{Modelling Decisions}
+
+\textbf{MAC as perfect PRF.}  The \texttt{mac/2} function symbol is declared
+with no inversion or cancellation equations.  This models HMAC-SHA256 as an
+ideal pseudorandom function under the standard symbolic (Dolev-Yao) model,
+where the adversary cannot invert, decompose, or partially evaluate the MAC
+without the key.
+
+\textbf{Dolev-Yao network adversary.}  The attacker controls all network
+communication: it can intercept, store, replay, and inject arbitrary LoRa
+messages.  It knows all public values (fragment IDs, total-frag counts,
+ciphertexts) but not the session key $K$.
+
+\textbf{State-space bounds.}  Two Tamarin restrictions limit rule applications:
+\texttt{OneSetup} ensures a single sender initialisation per session, and
+\texttt{ReceiverOnce} bounds receiver state to one verification chain per
+session.  These restrictions prevent unbounded rule application while preserving
+the security properties of interest.
+
+\textbf{Chain initialisation.}  The \texttt{Sender\_Init} rule computes
+$h_0 = \mathit{mac}(K,\, \langle \mathit{sess},\, \mathit{tf} \rangle)$,
+where \texttt{sess} is a fresh session identifier and \texttt{tf} is the total
+fragment count.  This matches Equation~(\ref{eq:chain_root_prod}).
+
+\textbf{Fragment rules.}  \texttt{Sender\_Frag1} and \texttt{Sender\_Frag2}
+each compute a chained tag
+$\mathit{tag}_i = \mathit{mac}(K,\,
+ \langle \mathit{frag\_id},\, f,\, p,\, \mathit{tag}_{\mathit{prev}} \rangle)$
+and output the packet to the adversary-controlled network via \texttt{Out(\ldots)}.
+\texttt{Receiver\_Frag1} and \texttt{Receiver\_Frag2} each receive a packet
+via \texttt{In(\ldots)}, re-derive the expected tag, and enforce equality via
+the \texttt{Eq(lhs, rhs)} restriction, which causes Tamarin to prune all
+execution traces where the check fails.
+
+\subsubsection{Lemma Statements and Results}
+
+The four lemmas and their proof results are summarised in
+Table~\ref{tab:tamarin}.  All four lemmas were proved in 1.53~seconds total on a
+standard workstation (Intel Core i7, 16~GB RAM) running Tamarin 1.13.0.
+
+\begin{table}[ht]
+\centering
+\caption{Tamarin Verification Results (fc\_hmac.spthy, 1.53\,s total)}
+\label{tab:tamarin}
+\begin{tabular}{cllr}
+\toprule
+ID & Lemma Name & Result & Steps \\
+\midrule
+F4 & \textit{Executability} & PROVED & 14 \\
+F1 & \textit{Fragment\_Authenticity} & PROVED & 10 \\
+F2 & \textit{Chain\_Gap\_Detectable} & PROVED & 3 \\
+F3 & \textit{No\_Replay} & PROVED & 12 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{F4 (Executability, 14 steps)} is a sanity lemma: it proves the
+existence of a complete honest execution trace where the sender sends two
+fragments and the receiver successfully verifies both.  This confirms the
+model is not vacuously satisfied.
+
+\textbf{F1 (Fragment\_Authenticity, 10 steps)} states: if the receiver
+successfully verifies fragment $i$, then there exists a sender action that
+emitted a fragment with the same fragment ID, flags, payload, and chain tag.
+Formally, the adversary cannot cause the receiver to accept a fragment that
+was never sent by a legitimate sender holding key $K$.
+
+\textbf{F2 (Chain\_Gap\_Detectable, 3 steps)} states: if fragment $i$ is
+missing from the chain and fragment $i+1$ is received, then the receiver's
+verification of fragment $i+1$ will fail.  The chain cannot ``skip'' a missing
+fragment without detection.  This property is unique to FC-HMAC and has no
+analogue in per-packet independent HMAC schemes.
+
+\textbf{F3 (No\_Replay, 12 steps)} states: if the receiver accepts fragment
+$i$ from session $s'$, then it was originally sent in session $s'$ (not
+replayed from a different session $s \neq s'$).  This property requires
+\texttt{img\_seq} in the chain root, as discussed in
+Section~\ref{sec:limit_f3}.
+
+\subsubsection{Security Properties Summary}
+
+Table~\ref{tab:security_props} summarises the four security properties in the
+FC-HMAC model and maps them to the design elements and attacker goals they address.
+
+\begin{table}[ht]
+\centering
+\caption{FC-HMAC Security Properties and Design Mapping}
+\label{tab:security_props}
+\begin{tabular}{cllp{2.4cm}}
+\toprule
+Lemma & Property & Precondition & Defeated attack \\
+\midrule
+F1 & Fragment authenticity & Key $K$ unknown to adversary & Fragment forgery \\
+F2 & Chain-gap detectable & Chain integrity & Silent fragment drop \\
+F3 & No cross-session replay & \texttt{img\_seq} in chain root & Session replay \\
+F4 & Executability (witness) & None & Protocol liveness \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsubsection{Comparison with Independent Per-Packet HMAC}
+
+To underscore the novelty of chain-based verification, Table~\ref{tab:hmac_compare}
+contrasts the security properties achievable by independent per-packet HMAC
+(as in Ryczek \cite{ryczek2025}) versus FC-HMAC.
+
+\begin{table}[ht]
+\centering
+\caption{Independent Per-Packet HMAC vs.\ FC-HMAC: Security Property Coverage}
+\label{tab:hmac_compare}
+\begin{tabular}{lcc}
+\toprule
+Security Property & Per-Packet HMAC & FC-HMAC \\
+\midrule
+Fragment forgery prevention     & \checkmark & \checkmark \\
+Individual packet integrity     & \checkmark & \checkmark \\
+Fragment reorder detection      & $\times$   & \checkmark \\
+Fragment insertion detection    & $\times$   & \checkmark \\
+Cross-session replay prevention & $\times$   & \checkmark (with \texttt{img\_seq}) \\
+Silent gap detection            & $\times$   & \checkmark \\
+Formally verified (machine-checked) & $\times$ & \checkmark \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsubsection{F3 Firmware Gap}
+\label{sec:limit_f3_tamarin}
+
+The Tamarin F3 lemma is proved under the model with \texttt{img\_seq} in the
+chain root.  The E19 firmware (Section~\ref{sec:e19}) uses a zero nonce
+instead, creating a gap between the formal model and the hardware
+implementation.  This is a documented limitation; the E20 firmware (planned)
+addresses it by encoding \texttt{img\_seq} in bytes 0--3 of the
+\texttt{frag\_id=0} payload prefix.  The F1, F2, and F4 lemmas hold
+regardless of whether \texttt{img\_seq} is present.
+
+\subsection{Visual Security Evaluation (E19-PSNR)}
+\label{sec:psnr}
+
+\subsubsection{Evaluation Methodology}
+
+The visual security evaluation script (\texttt{tools/psnr\_attack\_eval.py})
+applies each encryption mode to a synthetic JPEG and then simulates attacker
+reconstruction attempts.  Two attacker models are considered:
+
+\textbf{A1 --- Naive attacker:} receives the encrypted byte stream
+(after FC-HMAC verification strips the header) and attempts to decode it
+directly as a JPEG file using a standard decoder.
+
+\textbf{A2 --- Format-aware attacker:} knows the stride pattern (16 bytes
+per 64-byte window) and the starting offset.  Before decoding, the attacker
+zeroes all bytes at stride positions, replacing ciphertext with zeros to
+recover the underlying format structures.  This simulates a partial chosen-plaintext
+attack by an adversary with full knowledge of the encryption algorithm but
+not the key.
+
+For both attackers, success is measured as either a finite PSNR value (image
+decoded, compared to original) or a JPEG decode failure.
+
+\subsubsection{Results and Analysis}
+
+\begin{table}[ht]
+\centering
+\caption{Visual Security Evaluation Results (E19-PSNR, \texttt{psnr\_attack\_eval.py})}
+\label{tab:psnr}
+\begin{tabular}{cllll}
+\toprule
+Mode & Enc bytes & Stride calls & A1 & A2 \\
+\midrule
+\texttt{ENC\_NONE}    & 0\%   & 0 & PSNR $= \infty$ & N/A \\
+\texttt{ENC\_DC\_ONLY}& 24.9\% & 9 & \textbf{Decode FAIL} & \textbf{Decode FAIL} \\
+\texttt{ENC\_FULL}    & 99.8\% & 256 & \textbf{Decode FAIL} & \textbf{Decode FAIL} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\texttt{ENC\_DC\_ONLY} at 24.9\% encrypted bytes completely prevents JPEG
+reconstruction under both attacker models.  The A2 format-aware attacker fails
+because the stride begins at byte~0 (SOI marker) and the 9~encryption windows
+cover the first $9 \times 64 = 576$~bytes of the image.  Within this range,
+the JPEG SOI marker (bytes 0--1), APP0 header (bytes 2--20), quantisation
+tables (bytes $\sim$21--200), and Huffman tables (bytes $\sim$200--500) are all
+partially encrypted.  Even if the attacker zeroes the encrypted positions,
+the non-zero residual pattern in the surrounding bytes is inconsistent with any
+valid JPEG structure, causing decoder failure.
+
+The PSNR target originally set for this evaluation (PSNR attack $<$ 20~dB) is
+superseded: decode failure provides a stronger guarantee than a finite PSNR
+value, since the attacker obtains zero visual information rather than a
+degraded reconstruction.
+
+\subsubsection{Limitation: Semantic Security}
+
+The E19-PSNR evaluation confirms that format-level obfuscation is achieved
+against both attacker models tested.  However, we do not claim semantic
+security (IND-CPA) for the stride scheme.  An adversary with access to multiple
+plaintexts encrypted under the same key and stride would observe the same XOR
+pattern at stride positions across images, potentially recovering keystream
+blocks.  The scheme is intended for deployments where the same key is rotated
+periodically and the attacker has limited oracle access.
+
+%% -----------------------------------------------------------------------
+\section{Hardware Evaluation}
+\label{sec:eval}
+
+\subsection{Platform and Experimental Setup}
+\label{sec:platform}
+
+Both transmitter and receiver nodes use the EoRa PI development board, which
+integrates an Espressif ESP32-S3 \cite{esp32s3_datasheet} (Xtensa LX7 dual-core,
+240~MHz, 512~KB internal SRAM, 2~MB PSRAM) with a Semtech SX1262 LoRa
+transceiver \cite{semtech_sx1262} on-board.  The SX1262 is connected via SPI
+with the following pin mapping: NSS = GPIO7, SCK = GPIO5, MOSI = GPIO6,
+MISO = GPIO3, RST = GPIO8, BUSY = GPIO34, DIO1 = GPIO33.
+
+The firmware is compiled with ESP32 Arduino SDK~3.x with CDCOnBoot enabled for
+USB serial output.  The mbedTLS library bundled with the SDK provides
+software-only HMAC-SHA256 and AES operations; no hardware cryptographic
+accelerator is used.  All CPU timing measurements reflect pure software
+execution on a single Xtensa LX7 core.
+
+Experimental parameters are summarised in Table~\ref{tab:platform}.
+
+\begin{table}[ht]
+\centering
+\caption{Hardware Platform and LoRa Configuration (E19)}
+\label{tab:platform}
+\begin{tabular}{ll}
+\toprule
+Parameter & Value \\
+\midrule
+MCU & ESP32-S3 (Xtensa LX7, 240\,MHz, 2\,MB PSRAM) \\
+Radio & Semtech SX1262 \\
+Firmware SDK & ESP32 Arduino SDK 3.x, mbedTLS \\
+Frequency & 922.0\,MHz \\
+Spreading Factor & SF9 \\
+Bandwidth & 125\,kHz \\
+Coding Rate & 4/7 \\
+TX power & 2\,dBm \\
+Max LoRa payload & 255\,B (SX1262 hardware register limit) \\
+Fragment size & 248\,B (7\,B header + 233\,B data + 8\,B HMAC) \\
+Session key & 16-byte pre-shared (AES-128 equivalent) \\
+Test image & Synthetic JPEG, $200\times150$ px, 2{,}046\,B \\
+Fragments per image & 9 \\
+Measured fragment airtime & 1{,}692\,ms \\
+Measured image airtime & 14.9\,s \\
+Experiment duration & 120\,s \\
+Images transmitted & 8 (complete) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The transmitter sends the test image as a C byte array (\texttt{test\_image.h})
+embedded in the firmware flash.  This approach isolates the protocol layer from
+camera hardware variability, enabling reproducible measurements.  A live camera
+attachment (OV2640, DVP interface via EoRa PI GPIO) is planned for Phase~3
+validation (Section~\ref{sec:future}).
+
+\subsection{E19 Experiment Results}
+\label{sec:e19}
+
+Table~\ref{tab:e19_results} reports all primary measurements from experiment
+E19 (results file: \texttt{hardware\_experiments/E19\_selective\_enc/results/e19\_results.md}).
+
+\begin{table}[ht]
+\centering
+\caption{E19 Hardware Experiment Summary (120\,s, 2$\times$ EoRa PI, SF9/BW125)}
+\label{tab:e19_results}
+\begin{tabular}{ll}
+\toprule
+Metric & Measured Value \\
+\midrule
+Images transmitted & 8 \\
+Total fragments & 72 \\
+Fragments verified (chain\_ok) & 72 / 72 = \textbf{100\%} \\
+Packet Delivery Ratio (PDR) & \textbf{100\%} \\
+Airtime per image & 14.9\,s \\
+Measured fragment airtime & 1{,}692\,ms per fragment \\
+\midrule
+HMAC overhead (per packet) & 8\,B / 241\,B = \textbf{3.3\%} \\
+HMAC overhead (per image) & 72\,B / 2{,}046\,B = \textbf{3.5\%} \\
+HMAC CPU per image & $\approx$950\,$\mu$s (9 HMAC-SHA256 calls) \\
+Enc CPU per image (DC\_ONLY) & 2{,}807\,$\mu$s (9 HMAC-PRF keystream calls) \\
+Total crypto CPU per image & 950 + 2{,}807 = \textbf{3{,}757\,$\mu$s} ($\approx$ 3.76\,ms) \\
+\midrule
+Encrypted bytes & 496 / 2{,}046\,B = \textbf{24.2\%} \\
+Encryption mode & \texttt{ENC\_DC\_ONLY} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+All 72 fragments in the 120-second run pass FC-HMAC chain verification under
+benign conditions (no packet loss, no tampering, line-of-sight 1-metre indoor
+range).  The 100\% chain-ok rate confirms that (i)~the HMAC-SHA256 computation
+is deterministic and consistent between sender and receiver, (ii)~the chain
+initialisation and tag update logic are correctly implemented, and (iii)~the
+SX1262 LoRa radio delivers fragments without bit errors in this test
+environment.
+
+The HMAC overhead of 3.3\% per packet is below the theoretical 4-byte-tag
+bound of 1.7\%, which would be insufficient for security, and below the
+12-byte bound of 5.0\%, which would be wasteful --- placing the 8-byte design
+squarely at the optimal security-overhead point (Table~\ref{tab:hmac_trunc}).
+
+\subsubsection{Fragment Timing and Inter-Fragment Gap}
+
+Table~\ref{tab:frag_timing} breaks down the measured per-fragment timing into
+its constituent phases as observed in the E19 firmware.
+
+\begin{table}[ht]
+\centering
+\caption{Per-Fragment Timing Breakdown (E19, 248-byte fragment, SF9/BW125)}
+\label{tab:frag_timing}
+\begin{tabular}{lr}
+\toprule
+Phase & Duration \\
+\midrule
+SX1262 TX preparation (SPI config) & $\approx$5\,ms \\
+LoRa preamble + header on air & 50.9\,ms \\
+Payload on air (107 symbols $\times$ 4.096\,ms) & 438\,ms \\
+TX-to-idle turnaround & $\approx$2\,ms \\
+\midrule
+\textit{Theoretical packet on air} & \textit{489\,ms} \\
+\midrule
+Application-layer inter-fragment gap & $\approx$1{,}200\,ms \\
+\textbf{Total per-fragment cycle (measured)} & \textbf{1{,}692\,ms} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The 1{,}200~ms inter-fragment gap is enforced at the application layer to
+comply with the ETSI 1\% duty-cycle rule: $T_{\text{on-air}} /
+(T_{\text{on-air}} + T_{\text{gap}}) = 489 / (489 + 1{,}200) \approx 0.29\%$,
+well below the 1\% ceiling.  The gap also gives the receiver time to process
+the received fragment and update its chain state before the next packet arrives.
+
+Within the 1{,}200-ms inter-fragment gap, the sender computes the selective
+encryption keystream and the FC-HMAC tag for the next fragment (3{,}757~$\mu$s /
+9 = 417~$\mu$s per fragment), builds the packet frame, and loads it into the
+SX1262 FIFO.  The crypto processing occupies only 0.035\% of the inter-fragment
+gap, confirming that FC-HMAC introduces no detectable increase in duty-cycle
+compliance risk.
+
+\subsection{Efficiency Analysis}
+\label{sec:efficiency}
+
+\subsubsection{Airtime Invariance Across Encryption Modes}
+
+A fundamental observation from Table~\ref{tab:enc_modes} is that selective
+encryption does \emph{not} reduce airtime relative to full encryption.  All
+three modes (\texttt{ENC\_NONE}, \texttt{ENC\_DC\_ONLY}, \texttt{ENC\_FULL})
+transmit 9 fragments of 248~bytes each, producing identical 14.9-second airtime.
+
+This invariance arises because airtime is determined by:
+\begin{equation}
+  T_{\text{image}} = N_f \times T_{\text{frag}}(L_{\text{frag}})
+  \label{eq:airtime}
+\end{equation}
+where $N_f = \lceil N_{\text{img}} / N_{\text{payload}} \rceil$ depends only
+on image size and per-fragment payload capacity, and $T_{\text{frag}}$ depends
+only on fragment length and LoRa parameters.  Neither depends on how many bytes
+within the payload are encrypted.  Encryption changes individual byte values
+but not the byte count.
+
+The practical implication for the design: selective encryption is \emph{not}
+an airtime optimisation technique.  It is a CPU optimisation technique.
+Claims in the literature that selective encryption reduces LoRa duty-cycle
+consumption should be scrutinised to determine whether they refer to CPU
+cost or to selective \emph{fragment omission} (transmitting fewer fragments
+by skipping non-critical image regions).
+
+\subsubsection{CPU Cost Breakdown}
+
+\begin{table}[ht]
+\centering
+\caption{CPU Cost by Encryption Mode (2{,}046-byte image, ESP32-S3 240\,MHz)}
+\label{tab:cpu_savings}
+\begin{tabular}{lrrrr}
+\toprule
+Mode & Enc CPU & HMAC CPU & Total crypto & vs.\ FULL \\
+\midrule
+\texttt{ENC\_NONE}    & 0\,$\mu$s & 950\,$\mu$s & 950\,$\mu$s & $-$92\% \\
+\texttt{ENC\_DC\_ONLY}& 2{,}807\,$\mu$s & 950\,$\mu$s & 3{,}757\,$\mu$s & $-$\textbf{76\%} \\
+\texttt{ENC\_FULL}    & $\approx$11{,}600\,$\mu$s & 950\,$\mu$s & $\approx$12{,}550\,$\mu$s & baseline \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The \texttt{ENC\_DC\_ONLY} mode reduces encryption CPU by 76\% compared to
+\texttt{ENC\_FULL} (2{,}807~$\mu$s vs.\ $\approx$11{,}600~$\mu$s) while
+maintaining format-level visual obfuscation (Table~\ref{tab:psnr}).  The HMAC
+CPU (950~$\mu$s) is identical across all modes because all fragments carry the
+FC-HMAC chain tag.
+
+Total crypto CPU for \texttt{ENC\_DC\_ONLY} is 3{,}757~$\mu$s (3.76~ms) per
+2{,}046-byte image.  For a one-image-per-minute transmission schedule, the image
+transmission occupies 14.9~s of airtime and 3.76~ms of crypto CPU per 60-second
+cycle.  The crypto fraction of the non-airtime processing budget is therefore
+negligible: $3.76 \text{ ms} / (60\,\text{s} - 14.9\,\text{s}) \approx 0.008\%$.
+
+\subsubsection{Overhead Scalability}
+
+The FC-HMAC overhead has two components:
+\begin{enumerate}
+  \item \textbf{Per-packet tag overhead:} 8~B per fragment, constant regardless
+    of payload size.  For a 233-byte payload, this is 3.3\%.  For a
+    30-byte payload (in a network where packets are smaller), this rises to
+    21\% --- a significant penalty.  The 8-byte tag is therefore best suited
+    to near-maximum-payload fragments.
+  \item \textbf{Per-image CPU overhead:} $O(N_f)$ HMAC calls, one per fragment.
+    For a 20-kB image (as in Ryczek \cite{ryczek2025}) split into
+    $\lceil 20480 / 233 \rceil = 88$~fragments, the HMAC CPU scales to
+    $\approx$9{,}250~$\mu$s --- still below the estimated 113{,}600~$\mu$s for
+    full encryption of 20~kB, representing the same 76\% relative saving.
+\end{enumerate}
+
+%% -----------------------------------------------------------------------
+\section{Related Work}
+\label{sec:related}
+
+\subsection{Image Transmission Security over LoRa}
+
+Ryczek and Sobieraj \cite{ryczek2025} present the most closely related prior
+work: an ESP32-CAM paired with an E220 LoRa module (SX1262-based) transmitting
+20~kB camera images with full AES-128-CBC encryption and independent
+per-packet HMAC-SHA256.  They report PDR~=~100\% in indoor experiments and
+$<$1\% energy overhead on the transmitter side for encrypted vs.\ plaintext
+transmission.  Their work demonstrates the viability of application-layer
+encryption on ESP32-class hardware.
+
+Our work differs in three structural ways.  First, we use \emph{selective}
+rather than full encryption, demonstrating a 76\% CPU saving while maintaining
+visual obfuscation.  Second, we replace independent per-packet HMAC with a
+\emph{chained} structure (FC-HMAC) that binds the entire fragment sequence,
+enabling detection of ordering attacks and cross-session replay.  Third, we
+provide machine-checked formal proofs of chain-gap detectability and no-replay
+via Tamarin Prover --- properties that per-packet HMAC schemes cannot satisfy
+and that have not been formally verified in prior LoRa image security work.
+
+\subsection{Selective Encryption for Compressed Media}
+
+Selective encryption has been extensively studied for MPEG video
+\cite{rfc3610}: encrypting I-frame headers, motion vectors, or DC coefficients
+provides visual confidentiality at a fraction of full-encryption cost.  The
+key insight is that video and image codecs have an \emph{entropy hierarchy}:
+a small number of structurally critical bits, when corrupted, propagate errors
+throughout the decoded signal.  Targeting these bits maximises disruption per
+encrypted byte.
+
+Applying this principle to JPEG over LoRa introduces a new constraint absent
+from video settings: the encoder runs on a microcontroller without floating-point
+DSP hardware, the JPEG bitstream is static (not a live stream), and the
+per-fragment overhead budget is measured in bytes, not kilobytes.  Our
+stride-based approximation is a pragmatic adaptation that achieves the same
+format-level disruption without requiring a Huffman-stream parser.
+
+Earlier work on selective JPEG encryption for mobile and embedded devices
+targeted megapixel-range images on processors with hardware floating-point and
+large caches, where full JPEG parsing is feasible.  At the LoRa constraint
+level (2~KB images, 240-MHz MCU with no hardware AES, 8-byte overhead budget per
+packet), a parsing-free approximation is the appropriate design point.
+
+It is important to note that selective encryption of JPEG images can achieve
+format disruption at the \emph{syntax} layer (as in our scheme) or at the
+\emph{semantic} layer (targeting specific DCT frequencies).  Our scheme operates
+at the syntax layer: by corrupting the Huffman table segments, we prevent the
+decoder from interpreting any subsequent coded data.  This is a weaker claim
+than frequency-domain selective encryption but is achievable with a 9-call
+keystream computation in firmware.  The relationship between syntax-layer and
+frequency-domain selective encryption is discussed further in
+Section~\ref{sec:limit_b1}.
+
+\subsection{MAC Authentication for Constrained Wireless Networks}
+
+TinySec \cite{tinysec} introduced MAC-only and encryption+MAC modes for IEEE
+802.15.4 sensor networks in 2004, demonstrating that 4-byte MACs are sufficient
+for low-data-rate wireless links at acceptable energy overhead.  TinySec uses
+CBC-MAC (cipher-block chaining MAC) applied independently to each packet,
+which prevents forgery of individual packets but does not chain across packet
+boundaries.  TinySec's design inspired the choice of compact MAC sizes in
+constrained networks; our 8-byte tag selection extends this by adding
+cross-packet chain binding.
+
+RFC~3610 \cite{rfc3610} defines AES-CCM, which combines encryption and
+authentication in a single pass using CTR mode for encryption and CBC-MAC for
+authentication.  AES-CCM requires hardware AES support (or significant software
+overhead) and does not natively support fragment chaining.  Furthermore,
+AES-CCM is not available in mbedTLS without an AES hardware accelerator on
+ESP32-S3 (the hardware AES driver is not linked in the ESP32 Arduino SDK
+configuration used in E19).  Our scheme uses HMAC-SHA256 (available as a
+pure-software primitive in mbedTLS), truncated to 8 bytes, chained across
+fragments.
+
+The HMAC-based PRF construction \cite{bellare_hmac} provides a provable
+security reduction from the MAC security to the PRF security of the underlying
+hash function (SHA-256), under the random oracle model.  This is a stronger
+foundation than CBC-MAC (which has known weaknesses for variable-length
+messages) and more widely available in embedded TLS stacks than AES-CMAC.
+
+\subsection{Formal Verification of IoT Protocol Security}
+
+Tamarin Prover \cite{tamarin_prover} has been applied to verify LoRaWAN
+join-accept procedures \cite{tamarin_prover}, lightweight RFID authentication
+protocols, and TLS 1.3.  In the LoRa context, prior Tamarin work has focused
+on the LoRaWAN session-establishment phase, not on application-layer
+fragmentation integrity.  Our FC-HMAC model is the first formal verification
+of a fragment-chained MAC for image transmission over LoRa.
+
+The F2 (Chain\_Gap\_Detectable) and F3 (No\_Replay) lemmas are novel
+contributions: F2 captures a property that is unique to chained MACs and has
+no analogue in per-packet HMAC systems; F3 proves session binding that is
+typically assumed but not formally checked in IoT security papers.
+
+\subsection{Detailed Comparison: FC-HMAC vs.\ Ryczek \& Sobieraj 2025}
+
+Table~\ref{tab:comparison} provides a structured seven-dimension comparison
+between FC-HMAC (this work) and the nearest prior work \cite{ryczek2025}.
+
+\begin{table*}[ht]
+\centering
+\caption{FC-HMAC vs.\ Ryczek \& Sobieraj 2025: Seven-Dimension Comparison}
+\label{tab:comparison}
+\begin{tabular}{p{2.6cm}p{5.0cm}p{5.8cm}}
+\toprule
+Dimension &
+  Ryczek \& Sobieraj (Electronics 2025) \cite{ryczek2025} &
+  \textbf{FC-HMAC (this work)} \\
+\midrule
+\textbf{Encryption scope} &
+  Full image, AES-128-CBC, 100\% bytes encrypted &
+  Stride-based selective (24.2\% bytes); format-level obfuscation; 76\% CPU saving \\
+\addlinespace
+\textbf{Authentication} &
+  Per-packet HMAC-SHA256, independent tags; each packet self-contained &
+  FC-HMAC chain: $\mathit{tag}_i$ commits to $\mathit{tag}_{i-1}$; reordering, insertion, replay detectable \\
+\addlinespace
+\textbf{Loss behaviour} &
+  Lost packet does not affect other packets; receiver can accept partial image transparently &
+  Chain break at loss position; receiver obtains a verified prefix chain up to the first gap \\
+\addlinespace
+\textbf{Formal verification} &
+  None &
+  Tamarin Prover: F1 (authenticity), F2 (chain-gap), F3 (no-replay), F4 (executability); all proved in 1.53\,s \\
+\addlinespace
+\textbf{HMAC overhead} &
+  $\approx$4--5\% (estimated from paper data; not directly hardware-measured) &
+  3.3\% per packet, 3.5\% per image; directly hardware-measured in E19 \\
+\addlinespace
+\textbf{PSNR under attack} &
+  Not measured; visual security assumed from full encryption &
+  JPEG decode FAIL for both A1 (naive) and A2 (format-aware) attackers; measured via \texttt{psnr\_attack\_eval.py} \\
+\addlinespace
+\textbf{Hardware platform} &
+  ESP32-CAM + EBYTE E220 (SX1262), 20\,kB JPEG images, OV2640 camera &
+  EoRa PI (ESP32-S3 + SX1262), 2{,}046-byte synthetic JPEG; OV2640 attachment planned for Phase~3 \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+%% -----------------------------------------------------------------------
+\section{Discussion}
+\label{sec:discussion}
+
+\subsection{Limitation B1: Stride Approximation vs.\ True DCT-Domain Encryption}
+\label{sec:limit_b1}
+
+The primary theoretical limitation of Phase~1 is that the stride-based scheme
+is \emph{not} true frequency-domain selective encryption.  We explicitly
+acknowledge and reframe this as follows.
+
+True selective encryption for JPEG --- specifically targeting DCT DC coefficient
+bytes --- requires streaming through the Huffman-coded bitstream, which encodes
+DC differences as variable-length codes that do not occur at predictable byte
+offsets.  Implementing such a parser on a constrained embedded node introduces
+CPU overhead comparable to full-image encryption for the decoding step alone.
+
+The stride-based approximation achieves visual-domain disruption through a
+different mechanism: it corrupts the JPEG format infrastructure (SOI marker,
+Huffman tables) rather than DCT frequency coefficients.  The E19-PSNR evaluation
+confirms that this achieves the operational goal (JPEG decode failure under both
+attacker models) without frequency-domain targeting.  The honest framing of the
+contribution is therefore:
+
+\textit{Lightweight visual obfuscation via structure-level disruption, not
+frequency-domain selective encryption.}
+
+Future work (\texttt{tools/jpeg\_dc\_offset\_extractor.py}) will quantify the
+actual overlap between stride positions and true DC coefficient byte positions
+for a corpus of JPEG images.  If the overlap is high ($>$50\%), the
+approximation claim is partially vindicated; if it is low ($<$20\%), the
+obfuscation result must be attributed entirely to header corruption, and the
+``DCT-targeting'' framing should be abandoned.
+
+The path to true frequency-domain selective encryption for Phase~2 would
+require: (a)~a lightweight JPEG entropy decoder that identifies DC code
+boundaries, (b)~in-place XOR of those bytes only, and (c)~evaluation of
+whether the decoder overhead is justified by the additional security properties
+(IND-CPA against an attacker who knows the stride pattern but not the key).
+
+\subsection{Limitation F3: img\_seq Omission in E19 Firmware}
+\label{sec:limit_f3}
+
+The Tamarin F3 lemma (No\_Replay) is proved under the assumption that
+\texttt{img\_seq} is included in the chain root (Equation~\ref{eq:chain_root_prod}).
+The E19 firmware uses a zero nonce (Equation~\ref{eq:chain_root}), creating a
+gap between the formal model and the hardware implementation.
+
+Under the E19 firmware, an adversary who captures a complete valid fragment
+sequence from session $s$ and replays it as session $s'$ will succeed: the
+receiver re-derives the same chain tags (since $h_0$ is the same for both
+sessions) and accepts the replayed fragments.  This attack requires the
+adversary to capture a complete prior session in its entirety, which is a
+non-trivial requirement in a LoRa deployment where the attacker may not be
+continuously present.  Nevertheless, it represents a formal gap that should be
+closed before deployment.
+
+The fix is a one-line firmware change: replace
+\texttt{0x00000000} with \texttt{img\_seq} (a monotonically incrementing
+\texttt{uint32} counter) in the \texttt{Sender\_Init} HMAC call.  This
+modification brings the firmware into conformance with the Tamarin model and
+closes the F3 gap.
+
+\subsection{Future Work}
+\label{sec:future}
+
+\textbf{E20 --- FC-HMAC verifiability under packet loss (3$\times$ EoRa PI).}
+A three-node experiment (sender, relay/dropper, receiver) will evaluate chain
+verifiability at 10\% and 20\% packet drop rates, measuring the verifiable
+prefix length and comparing FC-HMAC (chained) vs.\ per-packet HMAC (Ryczek
+model).  The E20 firmware adds the \texttt{img\_seq} fix above, closing the F3
+gap on hardware.
+
+\textbf{E21 --- CPU/energy tradeoff measurement.}
+A controlled comparison of \texttt{ENC\_NONE} / \texttt{ENC\_DC\_ONLY} /
+\texttt{ENC\_FULL} on the same 2{,}046-byte JPEG, measuring both CPU
+microseconds and, if a Joulescope power meter is available, milliwatt-hours per
+image per mode.  The \texttt{ENC\_FULL} CPU estimate of $\approx$11{,}600~$\mu$s
+used in this paper is derived from AES-128 software benchmarks on ESP32-S3;
+E21 will provide a direct hardware measurement.
+
+\textbf{Phase~3 live camera validation.}  The EoRa PI GPIO bank supports DVP
+camera interface; attaching an OV2640 module will enable end-to-end experiments
+with real captured images, validating that the stride-based scheme disrupts
+natural (non-synthetic) JPEG images equally effectively.  Natural JPEG images
+have more varied Huffman table layouts than synthetic test images; it is
+important to confirm that the stride-at-byte-0 property holds across diverse
+JPEG generators (e.g., libjpeg vs.\ ESP32-CAM's JPEG encoder).
+
+\textbf{ROI-only partial transmission for true airtime reduction.}
+As established in Section~\ref{sec:efficiency}, selective encryption alone does
+not reduce airtime.  A future variant that identifies DCT-sensitive macroblocks
+and \emph{omits} non-ROI fragments from transmission could reduce fragment count
+to $\approx$24\% of the full image (2 of 9 fragments for a 200$\times$150 image
+with a small ROI), cutting airtime from 14.9~s to $\approx$3.6~s.  This
+requires the JPEG parser infrastructure that Phase~1 deliberately avoids, and
+introduces partial-image reconstruction at the receiver.
+
+\textbf{Per-session key derivation.}  The current pre-shared key model requires
+manual key provisioning, which limits scalability.  A practical deployment
+should use HKDF-derived per-session keys: $K_s = \mathrm{HKDF}(K_{\text{master}},
+\texttt{img\_seq} \;\|\; \texttt{node\_id})$.  This eliminates the
+\texttt{img\_seq} replay risk entirely (F3 gap) without requiring per-session
+out-of-band key exchange.
+
+\textbf{Multi-node LoRa mesh evaluation.}  The E19 and E20 experiments use
+point-to-point LoRa links.  A LoRa mesh deployment with 5--10 nodes introduces
+routing-layer fragmentation (LoRaMesher distance-vector routing) in addition to
+application-layer JPEG fragmentation.  FC-HMAC must be evaluated in this
+multi-hop context, where a relay node processes and re-transmits fragments and
+may be compromised.  The formal Tamarin model currently assumes direct sender-to-receiver
+communication; extending it to a relay model is planned for future work.
+
+%% -----------------------------------------------------------------------
+\section{Conclusion}
+\label{sec:conclusion}
+
+We presented Fragment-Chained HMAC (FC-HMAC), a lightweight authenticated
+selective encryption scheme for JPEG image transmission over LoRa mesh networks.
+FC-HMAC chains 8-byte HMAC-SHA256 tags across fragments and combines them with
+a stride-based selective encryption that encrypts 24.2\% of image bytes.
+
+The scheme achieves four properties simultaneously:
+\begin{enumerate}
+  \item \textbf{Visual obfuscation:} JPEG decode fails under both naive and
+    format-aware attacker models (E19-PSNR evaluation, format-level disruption
+    confirmed), while the CPU cost is 76\% lower than full encryption
+    (2{,}807~$\mu$s vs.\ $\approx$11{,}600~$\mu$s for 2{,}046 bytes on ESP32-S3).
+  \item \textbf{Airtime neutrality:} all three encryption modes (ENC\_NONE,
+    ENC\_DC\_ONLY, ENC\_FULL) transmit 9 identical-length fragments at 14.9~s
+    total airtime; the efficiency gain is strictly in CPU, not duty cycle.
+  \item \textbf{Formal security:} four FC-HMAC lemmas proved in 1.53~s by
+    Tamarin Prover under a Dolev-Yao adversary model, including chain-gap
+    detectability (F2) and no-replay (F3) --- properties that per-packet
+    independent HMAC cannot provide.
+  \item \textbf{Hardware validation:} 72/72 fragments pass chain verification
+    (100\% chain-ok, 100\% PDR) on EoRa PI hardware in a 120-second experiment
+    at 922.0~MHz SF9/BW125, with 3.3\% per-packet HMAC overhead.
+\end{enumerate}
+
+FC-HMAC addresses the ordering and cross-session replay vulnerabilities of
+per-packet independent HMAC at the cost of one 8-byte tag per fragment --- a
+cost well within the 255-byte LoRa payload budget.  Future work will close the
+F3 firmware gap by adding image sequence numbers to the chain root, validate
+verifiability under 10--20\% packet loss in a three-node relay experiment,
+and extend hardware measurements to live camera captures.
+
+%% -----------------------------------------------------------------------
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+
+\end{document}
