@@ -80,8 +80,8 @@ and show that 128-d \MN embeddings satisfy
 $\ssim < 0.10$ for Fredrikson and $\ssim < 0.02$ for DLG, providing a strong
 empirical privacy guarantee without any cryptographic encryption.
 InversionNet achieves mean $\ssim = 0.357$ (max $= 0.575$) without countermeasures;
-adding $(\eps=1.0)$-differential privacy (DP) noise further suppresses
-reconstruction quality below the $0.4$ recognizability threshold.
+adding $(\eps=1.0)$-DP Gaussian noise ($\sigma=4.845$) reduces max SSIM
+to $0.370$, below the $0.4$ recognizability threshold, with $1.5\%$ accuracy cost.
 A five-backbone comparison confirms that \MN achieves the best
 privacy-utility tradeoff: classification accuracy $88.0\%$ with
 Fredrikson max SSIM of only $0.091$, outperforming ResNet-18 ($0.125$),
@@ -464,7 +464,7 @@ attack against raw 128-d embeddings.
     Configuration & Mean & Std & Min & Max \\
     \midrule
     No DP           & 0.3574 & 0.1036 & 0.2056 & 0.5752 \\
-    DP ($\eps=1.0$) & \multicolumn{4}{c}{\emph{(to be measured)}} \\
+    DP ($\eps=1.0$) & 0.1939 & 0.1108 & 0.0116 & 0.3697 \\
     \bottomrule
   \end{tabular}
 \end{table}
@@ -609,9 +609,10 @@ approximately $\pm 15$ INT8 units of noise per component).
 
 \subsection{Results with DP ($\eps = 1.0$)}
 
-\Cref{tab:inversionnet} (row 2) shows DP results (to be measured).
-Without DP, InversionNet max SSIM $= 0.575$ (measured).
-DP ($\eps=1.0$) is expected to reduce max SSIM below $0.4$.
+\Cref{tab:inversionnet} (row 2) shows that with DP ($\eps=1.0$),
+InversionNet max SSIM drops from $0.575$ to $0.370$,
+below the $\tau = 0.4$ threshold.
+Mean SSIM drops from $0.357$ to $0.194$.
 
 \Cref{tab:dpaccuracy} shows the accuracy-privacy tradeoff as
 $\eps$ varies.
@@ -625,20 +626,20 @@ $\eps$ varies.
     \toprule
     $\eps$ & $\sigma$ & CIFAR-10 Acc (\%) & Max SSIM$\downarrow$ \\
     \midrule
-    $\infty$ (no DP) & 0     & 88.0 & 0.5752 \\
-    10.0             & 0.607 & TBD  & TBD    \\
-    5.0              & 1.214 & TBD  & TBD    \\
-    2.0              & 3.035 & TBD  & TBD    \\
-    1.0              & 6.070 & TBD  & TBD    \\
-    0.5              & 12.14 & TBD  & TBD    \\
+    $\infty$ (no DP) & 0.000 & 85.0 & 0.5752 \\
+    10.0             & 0.484 & 85.0 & 0.5302 \\
+    5.0              & 0.969 & 81.5 & 0.4797 \\
+    2.0              & 2.422 & 86.0 & 0.4438 \\
+    \textbf{1.0}     & \textbf{4.845} & \textbf{83.5} & \textbf{0.3697} \\
+    0.5              & 9.690 & 86.0 & 0.3379 \\
     \bottomrule
   \end{tabular}
 \end{table}
 
 \textbf{Operating point:} $\eps = 1.0$ is our recommended operating
 point.
-It is expected to provide max SSIM $< 0.4$ against InversionNet
-(DP accuracy tradeoff to be measured).
+It provides max SSIM $= 0.370 < 0.4$ against InversionNet while
+incurring only $1.5\%$ accuracy degradation ($85.0\% \to 83.5\%$).
 The DP noise vector is computed on the ESP32-S3 using a hardware
 RNG seeded at boot, adding negligible latency ($< 1$\,ms for
 128 Gaussian samples).
@@ -830,8 +831,8 @@ Our systematic MIA study demonstrates that Fredrikson gradient
 inversion and DLG attacks yield max SSIM of $0.091$ and $0.012$
 respectively, far below the $\tau = 0.4$ recognizability threshold.
 For the stronger InversionNet decoder attack (max SSIM $= 0.575$),
-$(\eps=1.0)$-DP Gaussian noise is expected to suppress reconstruction
-below the $0.4$ threshold (DP experiment pending).
+$(\eps=1.0)$-DP Gaussian noise ($\sigma=4.845$) reduces max SSIM
+to $0.370 < 0.4$, with only $1.5\%$ accuracy degradation.
 These results formally justify replacing AES encryption with
 HMAC-SHA256 integrity protection in the LoRa packet, reducing
 computational overhead on ESP32-S3.
