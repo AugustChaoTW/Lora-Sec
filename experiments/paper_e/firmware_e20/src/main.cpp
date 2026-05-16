@@ -109,18 +109,19 @@ void setup() {
     bool pir_wake = (cause == ESP_SLEEP_WAKEUP_EXT0);
 
     if (!pir_wake) {
-        // Cold boot or non-PIR reset — just go back to sleep immediately
-        Serial.println("[E20] Cold boot / reset — configuring PIR wake, entering deep sleep.");
+        // Cold boot: run one self-test cycle (simulates PIR event) before sleeping.
+        // This lets serial monitoring verify firmware without physical PIR wiring.
+        Serial.println("[E20] Cold boot — running self-test event (no PIR needed).");
         Serial.printf("  PIR pin: GPIO%d  (HC-SR501 OUT)\n", (int)PIR_PIN);
-        Serial.flush();
-        esp_sleep_enable_ext0_wakeup(PIR_PIN, 1);  // wake on HIGH
-        esp_deep_sleep_start();
-        // unreachable
-    }
+        // fall through to PIR-wake path below
+    } else {
 
-    // ── PIR-triggered wake ────────────────────────────────────────────────────
+    } // end else (pir_wake)
+
+    // ── PIR-triggered wake (or self-test on cold boot) ───────────────────────
     uint32_t t_wake = millis();
-    Serial.printf("[E20] PIR triggered, t=%u ms  (wake #%u)\n", t_wake, wake_count);
+    Serial.printf("[E20] %s, t=%u ms  (event #%u)\n",
+                  pir_wake ? "PIR triggered" : "Self-test", t_wake, wake_count);
 
     // ── Step 1: Simulated TFLite inference (6203 ms) ─────────────────────────
     Serial.printf("  Simulating inference... (%u ms)\n", INFERENCE_MS);
@@ -151,14 +152,20 @@ void setup() {
         (void)duty;
     }
 
-    // ── Step 5: Return to deep sleep ─────────────────────────────────────────
-    Serial.println("[E20] Returning to deep sleep (PIR wake armed on GPIO14 HIGH)...");
-    Serial.flush();
-    delay(50);  // flush USB buffer before sleep
-
-    esp_sleep_enable_ext0_wakeup(PIR_PIN, 1);
-    esp_deep_sleep_start();
-    // unreachable
+    // ── Step 5: Return to deep sleep (PIR wake) or idle loop (cold boot) ────
+    if (pir_wake) {
+        Serial.println("[E20] Returning to deep sleep (PIR wake armed on GPIO14 HIGH)...");
+        Serial.flush();
+        delay(50);
+        esp_sleep_enable_ext0_wakeup(PIR_PIN, 1);
+        esp_deep_sleep_start();
+        // unreachable
+    } else {
+        // Cold boot self-test: stay awake so USB CDC remains visible
+        Serial.println("[E20] Self-test complete. Staying awake (USB CDC). Reset to re-test.");
+        Serial.println("[E20] In deployment, cold boot goes to deep sleep immediately.");
+        while (1) { delay(5000); Serial.println("[E20] idle..."); }
+    }
 }
 
 void loop() {
