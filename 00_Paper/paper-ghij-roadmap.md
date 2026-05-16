@@ -410,10 +410,21 @@ Paper C → UC2: 跨協議攻擊頻率分佈
   K：LoRaWild 含兩種協議節點，security event 分佈在真實數據中驗證 C 的分類學
   效果：C 的分類學有 empirical evidence
 
-Paper E → UC3: 128-d embedding privacy 跨 dataset 泛化
-  E：CIFAR-10 lab dataset，SSIM < 0.4
-  K：LoRaWild 真實 telemetry 中，embedding 的 MIA 成功率分佈
-  效果：E 的 privacy claim 在真實部署中成立
+Paper E → 技術前提（非 use case）
+  E 的直接數據貢獻：幾乎無（LoRaWild 節點無相機，image embedding 不進 dataset）
+  E 對 K 的真正角色：
+    1. E19 實測（6203ms，INT8 1.25MB on EoRa PI）
+       → 證明 ESP32-S3 能跑 INT8 model
+       → Paper H 的 <80KB 蒸餾 CNN 可行性前提
+       → Paper K §3 "Hardware feasibility" 引用 E19
+    2. E 的 MIA 分析框架（SSIM 指標 + 閾值方法論）
+       → Paper H 需做同等分析：fingerprint:32 能否反推裝置 IQ 特徵？
+       → H 借用 E 的 SSIM 方法，但問題方向相反
+
+Paper H → UC3: fingerprint:32 在野外的認證效果與隱私性
+  H（lab）：蒸餾 CNN 識別率 >90%；fingerprint 不能反推原始 IQ（SSIM 分析）
+  K：LoRaWild 真實部署中，fingerprint chain 驗證成功率 vs. 攻擊者 deanonymize 嘗試
+  效果：H 的 authentication + privacy 雙 claim 在真實 multi-hop 環境中成立
 
 Paper F → UC4: PCSS Φ(P,E) 實時計算
   F：PCSS 抽象理論（ρ* 閉合式）
@@ -471,7 +482,8 @@ Paper B ✓ (AdHocNet)                ◄── LoRaWild UC1: B attack in-the-wi
     │       cross-protocol taxonomy; #53 draft pending
     ├──► Paper D (IoTJ)
     │       selective encryption; #67 E21 open (P3)
-    ├──► Paper E (IoTJ/FGCS)        ◄── LoRaWild UC3: embedding privacy in-the-wild
+    ├──► Paper E (IoTJ/FGCS)        → E19 INT8 pipeline → Paper H 技術前提
+    │       (LoRaWild 無相機節點；E 不直接貢獻 dataset 數據)
     │       split inference + MIA; #72 E20 INA219 open
     └──► Paper F ✓ (S&P/USENIX)    ◄── LoRaWild UC4: PCSS Φ(P,E) live enforcement
              PCSS theory
@@ -492,6 +504,7 @@ Paper B ✓ (AdHocNet)                ◄── LoRaWild UC1: B attack in-the-wi
     │  │  Depends: B, C, F + [1,2,9]                             │ │
     │  │      │                                                   │ │
     │  │      ├──► Paper H (TIFS/JSAC) ← LoRaWild RF fingerprint     │ │
+    │  │           ◄── LoRaWild UC3: fingerprint auth+privacy in-the-wild │ │
     │  │      │    Node: mesh-aware RFFI attestation              │ │
     │  │      │    Depends: B, E + [3,4,5]                       │ │
     │  │      │                                                   │ │
