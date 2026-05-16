@@ -1,0 +1,54 @@
+{
+  "parameters": {
+    "idle_uA": 10.0,
+    "active_mA": 80.0,
+    "active_ms": 6253,
+    "inference_ms": 6203,
+    "tx_ms": 50,
+    "battery_mAh": 3000.0
+  },
+  "event_rates": [
+    {
+      "event_rate_per_hr": 1,
+      "period_s": 3600.0,
+      "duty_cycle_pct": 0.1737,
+      "avg_current_mA": 0.1489,
+      "battery_life_days": 839.3
+    },
+    {
+      "event_rate_per_hr": 5,
+      "period_s": 720.0,
+      "duty_cycle_pct": 0.8685,
+      "avg_current_mA": 0.7047,
+      "battery_life_days": 177.4
+    },
+    {
+      "event_rate_per_hr": 10,
+      "period_s": 360.0,
+      "duty_cycle_pct": 1.7369,
+      "avg_current_mA": 1.3994,
+      "battery_life_days": 89.3
+    },
+    {
+      "event_rate_per_hr": 30,
+      "period_s": 120.0,
+      "duty_cycle_pct": 5.2108,
+      "avg_current_mA": 4.1781,
+      "battery_life_days": 29.9
+    },
+    {
+      "event_rate_per_hr": 60,
+      "period_s": 60.0,
+      "duty_cycle_pct": 10.4217,
+      "avg_current_mA": 8.3463,
+      "battery_life_days": 15.0
+    }
+  ],
+  "always_on_baseline": {
+    "event_rate_per_hr": "always-on",
+    "period_s": 0,
+    "duty_cycle_pct": 100.0,
+    "avg_current_mA": 80.0,
+    "battery_life_days": 1.6
+  }
+}

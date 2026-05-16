@@ -396,6 +396,24 @@ $\ssim$ and $\lpips$ (AlexNet backbone, as in~\cite{Zhang2018}).
 
 \subsection{Fredrikson Gradient Inversion Results}
 
+% --- MIA reconstruction grid figure ------------------------------------------
+\begin{figure*}[t]
+  \centering
+  \includegraphics[width=\linewidth]{%
+    ../../experiments/paper_e/mia_poc/results/fig_mia_recon}
+  \caption{%
+    Original vs.\ reconstructed face crops under three model-inversion attacks
+    on MobileNetV3-Small 128-d embeddings ($n=3$ representative samples each).
+    \textbf{Fredrikson} (gradient inversion) and \textbf{DLG} produce outputs
+    indistinguishable from noise (SSIM\,$<$\,0.10).
+    \textbf{InversionNet}, which exploits a trained auxiliary decoder, achieves
+    higher fidelity (SSIM up to 0.58) but remains below the $\tau=0.4$
+    recognisability threshold when DP noise ($\varepsilon=2$) is applied.
+    SSIM values shown beneath each reconstructed image.}
+  \label{fig:mia_recon}
+\end{figure*}
+% ------------------------------------------------------------------------------
+
 \Cref{tab:fredrikson} reports SSIM statistics across 10 test images.
 \MN achieves mean $\ssim = 0.0440$ with a maximum of $0.0909$,
 well below the $\tau = 0.4$ threshold.
