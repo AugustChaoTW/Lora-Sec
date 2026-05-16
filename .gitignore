@@ -41,3 +41,9 @@ phase4_ns3_simulation/results/
 *.toc
 *.xdv
 *.bak*
+
+# Intermediate model conversion artifacts (Paper E)
+experiments/paper_e/models/mobilenetv3_128d_savedmodel/
+
+# Claude internal lock files
+.claude/scheduled_tasks.lock
