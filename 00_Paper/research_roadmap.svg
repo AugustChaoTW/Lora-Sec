@@ -1,201 +1,274 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="960" viewBox="0 0 1400 960" font-family="'Courier New', monospace">
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1200" viewBox="0 0 1600 1200" font-family="'Courier New', monospace">
 
-  <!-- Background -->
-  <rect width="1400" height="960" fill="#0d1117"/>
-
-  <!-- Title -->
-  <text x="700" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#e6edf3">LoRa-Sec Research Roadmap — Issue Dependency Map</text>
-  <text x="700" y="56" text-anchor="middle" font-size="11" fill="#8b949e">■ solid border = all issues closed   ■ dashed red border = open issues remain   → = inherits/depends</text>
-
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <!-- LAYER 0: Foundation (#1–#20) -->
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <rect x="540" y="80" width="320" height="90" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
-  <text x="700" y="100" text-anchor="middle" font-size="12" font-weight="bold" fill="#8b949e">FOUNDATION  #1–#29</text>
-  <text x="700" y="117" text-anchor="middle" font-size="10" fill="#6e7681">LoRaMesher DV vulnerability discovery</text>
-  <text x="700" y="132" text-anchor="middle" font-size="10" fill="#6e7681">Tamarin baseline · ns-3 · HW bench · Threat model</text>
-  <text x="700" y="147" text-anchor="middle" font-size="10" fill="#6e7681">Risks R1–R5 closed · L1–L3 done · L4 #30 open</text>
-
-  <!-- L4 open badge -->
-  <rect x="840" y="88" width="80" height="18" rx="3" fill="none" stroke="#da3633" stroke-width="1.5" stroke-dasharray="4,2"/>
-  <text x="880" y="101" text-anchor="middle" font-size="9" fill="#da3633">#30 open</text>
-
-  <!-- Arrow Foundation → Paper B -->
-  <line x1="700" y1="170" x2="700" y2="210" stroke="#30363d" stroke-width="1.5" marker-end="url(#arr-gray)"/>
-
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <!-- PAPER B — AdHocNet (#41–#45)  ALL CLOSED -->
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <rect x="540" y="210" width="320" height="105" rx="6" fill="#0d2135" stroke="#1f6feb" stroke-width="2"/>
-  <text x="700" y="232" text-anchor="middle" font-size="13" font-weight="bold" fill="#58a6ff">Paper B — AdHocNet  ✓</text>
-  <text x="700" y="250" text-anchor="middle" font-size="10" fill="#79c0ff">LoRaMesher DV: Formally-Proven Vulnerabilities &amp; Patches</text>
-  <text x="556" y="268" font-size="9" fill="#8b949e">#41 Tamarin proofs (L1–L5)            ✓</text>
-  <text x="556" y="281" font-size="9" fill="#8b949e">#42 HMAC-SHA256 + MetricVersion patch  ✓</text>
-  <text x="556" y="294" font-size="9" fill="#8b949e">#43 ns-3 225 runs · 3 topo · 3 attack  ✓</text>
-  <text x="556" y="307" font-size="9" fill="#8b949e">#44 ESP32-S3 HW benchmark 98µs          ✓</text>
-
-  <!-- Arrows B → C, D, E, F -->
-  <!-- B → C: left branch -->
-  <line x1="580" y1="315" x2="230" y2="390" stroke="#30363d" stroke-width="1.5" marker-end="url(#arr-gray)"/>
-  <!-- B → D: center-left -->
-  <line x1="645" y1="315" x2="470" y2="400" stroke="#30363d" stroke-width="1.5" marker-end="url(#arr-gray)"/>
-  <!-- B → E: center-right -->
-  <line x1="755" y1="315" x2="850" y2="400" stroke="#30363d" stroke-width="1.5" marker-end="url(#arr-gray)"/>
-  <!-- B → F: right branch -->
-  <line x1="820" y1="315" x2="1150" y2="390" stroke="#30363d" stroke-width="1.5" marker-end="url(#arr-gray)"/>
-  <!-- B → P0 companion (thin dashed) -->
-  <line x1="700" y1="315" x2="700" y2="790" stroke="#30363d" stroke-width="1" stroke-dasharray="5,3" marker-end="url(#arr-gray)"/>
-
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <!-- PAPER C — Cross-Protocol (#53–#57)  #53 OPEN -->
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <rect x="40" y="390" width="330" height="120" rx="6" fill="#12201a" stroke="#da3633" stroke-width="2" stroke-dasharray="6,3"/>
-  <text x="205" y="412" text-anchor="middle" font-size="13" font-weight="bold" fill="#3fb950">Paper C — TIFS  (partial)</text>
-  <text x="205" y="430" text-anchor="middle" font-size="10" fill="#56d364">Cross-Protocol Attack Taxonomy: LoRaMesher vs Meshtastic</text>
-  <text x="56"  y="448" font-size="9" fill="#8b949e">#54 E16: Meshtastic next_hop hijack HW    ✓</text>
-  <text x="56"  y="461" font-size="9" fill="#8b949e">#55 E17: GW-centric IDS failure modes     ✓</text>
-  <text x="56"  y="474" font-size="9" fill="#8b949e">#56 E18: Patch asymmetry analysis         ✓</text>
-  <text x="56"  y="487" font-size="9" fill="#8b949e">#57 EoRa PI Meshtastic board config       ✓</text>
-  <text x="56"  y="501" font-size="9" fill="#da3633">#53 Taxonomy paper draft            ○ OPEN</text>
-
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <!-- PAPER D — IoTJ Selective Encryption (#46,#58–#68)  #67 open -->
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <rect x="390" y="400" width="330" height="145" rx="6" fill="#1a1a2e" stroke="#da3633" stroke-width="1.5" stroke-dasharray="6,3"/>
-  <text x="555" y="422" text-anchor="middle" font-size="13" font-weight="bold" fill="#d2a8ff">Paper D — IoTJ  (partial)</text>
-  <text x="555" y="440" text-anchor="middle" font-size="10" fill="#bc8cff">Authenticated Selective Encryption for LoRa Image TX</text>
-  <text x="406" y="458" font-size="9" fill="#8b949e">#58 B1: Reframe thesis (stride-based)     ✓</text>
-  <text x="406" y="471" font-size="9" fill="#8b949e">#59 B2: PSNR_attack measurement           ✓</text>
-  <text x="406" y="484" font-size="9" fill="#8b949e">#60 B3: Correct airtime claim             ✓</text>
-  <text x="406" y="497" font-size="9" fill="#8b949e">#61 R1: FC-HMAC HW verifiability          ✓</text>
-  <text x="406" y="510" font-size="9" fill="#8b949e">#62 R2: Tamarin fc_hmac.spthy             ✓</text>
-  <text x="406" y="523" font-size="9" fill="#8b949e">#66 R3: Related work table                ✓</text>
-  <text x="406" y="536" font-size="9" fill="#8b949e">#68 LaTeX draft (IoTJ format)             ✓</text>
-  <text x="406" y="530" font-size="9" fill="#da3633">#67 E21: CPU/Energy tradeoff HW   ○ OPEN P3</text>
-
-  <!-- fix overlap: move E21 line -->
-  <text x="406" y="543" font-size="9" fill="#da3633">#67 E21: CPU/Energy tradeoff HW   ○ OPEN P3</text>
-  <!-- suppress above dupe, use correct y -->
-
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <!-- PAPER E — IoTJ/FGCS Split Inference (#47,#69–#77)  #72 open -->
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <rect x="730" y="400" width="345" height="175" rx="6" fill="#1a1f2e" stroke="#da3633" stroke-width="1.5" stroke-dasharray="6,3"/>
-  <text x="903" y="422" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffa657">Paper E — IoTJ/FGCS  (partial)</text>
-  <text x="903" y="440" text-anchor="middle" font-size="10" fill="#ffc680">Privacy-Preserving Split Inference: MobileNetV3 + MIA Resistance</text>
-  <text x="746" y="458" font-size="9" fill="#8b949e">#69 B1: Fix 270B→128-d INT8 packet       ✓</text>
-  <text x="746" y="471" font-size="9" fill="#8b949e">#70 E1: MIA PoC DLG+Fredrikson           ✓</text>
-  <text x="746" y="484" font-size="9" fill="#8b949e">#71 E2/E19: TFLite MN3 on ESP32-S3       ✓  6203ms</text>
-  <text x="746" y="497" font-size="9" fill="#8b949e">#73 E4: LaTeX draft (IoTJ/FGCS)          ✓</text>
-  <text x="746" y="510" font-size="9" fill="#8b949e">#74 E5: Related work gap analysis        ✓</text>
-  <text x="746" y="523" font-size="9" fill="#8b949e">#75 E6: 5 backbone × 3 attack MIA grid  ✓  SSIM&lt;0.4</text>
-  <text x="746" y="536" font-size="9" fill="#8b949e">#76 E7: DP ε sweep (ε=1.0 optimal)       ✓</text>
-  <text x="746" y="549" font-size="9" fill="#8b949e">#77 E8: JPEG+AES vs embed+HMAC           ✓</text>
-  <text x="746" y="562" font-size="9" fill="#da3633">#72 E3/E20: PIR HW energy (INA219) ○ OPEN</text>
-
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <!-- PAPER F — PCSS Theory (#78–#89)  ALL CLOSED -->
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <rect x="1000" y="390" width="355" height="185" rx="6" fill="#1c1a1e" stroke="#6e40c9" stroke-width="2"/>
-  <text x="1178" y="412" text-anchor="middle" font-size="13" font-weight="bold" fill="#d2a8ff">Paper F — IEEE S&amp;P / USENIX  ✓</text>
-  <text x="1178" y="430" text-anchor="middle" font-size="10" fill="#bc8cff">Physically-Constrained Semantic Security (PCSS) Theory</text>
-  <text x="1016" y="448" font-size="9" fill="#8b949e">#79 F1: Routing semantics / SBI defs      ✓</text>
-  <text x="1016" y="461" font-size="9" fill="#8b949e">#80 F2: 2-node Theorem 1 (SBC→no-hijack)  ✓</text>
-  <text x="1016" y="474" font-size="9" fill="#8b949e">#81 F3: Physical feasibility ρ* bridge    ✓</text>
-  <text x="1016" y="487" font-size="9" fill="#8b949e">#82 F4: LoRaMesher / Meshtastic / RPL     ✓</text>
-  <text x="1016" y="500" font-size="9" fill="#8b949e">#83 F5: Related work vs DY / UC / NI      ✓</text>
-  <text x="1016" y="513" font-size="9" fill="#8b949e">#84 F6: Tamarin/Coq mechanization         ✓</text>
-  <text x="1016" y="526" font-size="9" fill="#8b949e">#85 F7: LaTeX draft (S&amp;P format)          ✓</text>
-  <text x="1016" y="539" font-size="9" fill="#8b949e">#86 F8: SBC EUF-CMA formalization         ✓</text>
-  <text x="1016" y="552" font-size="9" fill="#8b949e">#87 F11: ρ* closed-form derivation        ✓</text>
-  <text x="1016" y="565" font-size="9" fill="#8b949e">#88 F9: Multi-hop n-node extension        ✓</text>
-
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <!-- FUTURE PIPELINE — Vol II proposals (#46–#51) -->
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <rect x="190" y="620" width="1020" height="120" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1" stroke-dasharray="8,4"/>
-  <text x="700" y="642" text-anchor="middle" font-size="12" font-weight="bold" fill="#8b949e">VOL-II PIPELINE — All proposals open</text>
-
-  <!-- P03 -->
-  <rect x="205" y="655" width="195" height="72" rx="4" fill="#12201a" stroke="#3fb950" stroke-width="1"/>
-  <text x="302" y="672" text-anchor="middle" font-size="10" font-weight="bold" fill="#3fb950">Paper P03 — TIFS  risk:high</text>
-  <text x="302" y="686" text-anchor="middle" font-size="9" fill="#6e7681">CRIME-like Compression</text>
-  <text x="302" y="699" text-anchor="middle" font-size="9" fill="#6e7681">Side-Channel on LoRa</text>
-  <text x="302" y="712" text-anchor="middle" font-size="9" fill="#da3633">#48  ○ proposal only</text>
-
-  <!-- P04 -->
-  <rect x="415" y="655" width="195" height="72" rx="4" fill="#1a1a2e" stroke="#8957e5" stroke-width="1"/>
-  <text x="512" y="672" text-anchor="middle" font-size="10" font-weight="bold" fill="#8957e5">Paper P04 — TMC  risk:med</text>
-  <text x="512" y="686" text-anchor="middle" font-size="9" fill="#6e7681">MeshSecVid: E2E Auth</text>
-  <text x="512" y="699" text-anchor="middle" font-size="9" fill="#6e7681">Video over Multi-hop LoRa</text>
-  <text x="512" y="712" text-anchor="middle" font-size="9" fill="#da3633">#49  ○ proposal only</text>
-
-  <!-- P05 -->
-  <rect x="625" y="655" width="195" height="72" rx="4" fill="#1a1f2e" stroke="#58a6ff" stroke-width="1"/>
-  <text x="722" y="672" text-anchor="middle" font-size="10" font-weight="bold" fill="#58a6ff">Paper P05 — ComST  risk:med</text>
-  <text x="722" y="686" text-anchor="middle" font-size="9" fill="#6e7681">Secure Multimedia over</text>
-  <text x="722" y="699" text-anchor="middle" font-size="9" fill="#6e7681">LPWAN: Systematic Survey</text>
-  <text x="722" y="712" text-anchor="middle" font-size="9" fill="#da3633">#50  ○ proposal only</text>
-
-  <!-- P0 companion -->
-  <rect x="835" y="655" width="195" height="72" rx="4" fill="#1c1a1e" stroke="#6e40c9" stroke-width="1"/>
-  <text x="932" y="672" text-anchor="middle" font-size="10" font-weight="bold" fill="#d2a8ff">Paper P0 — AdHocNet</text>
-  <text x="932" y="686" text-anchor="middle" font-size="9" fill="#6e7681">E7–E15 Threat Char.</text>
-  <text x="932" y="699" text-anchor="middle" font-size="9" fill="#6e7681">+ IDS Layer Companion</text>
-  <text x="932" y="712" text-anchor="middle" font-size="9" fill="#da3633">#51  ○ proposal only</text>
-
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <!-- OPEN ISSUES SUMMARY BOX -->
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <rect x="40" y="790" width="570" height="140" rx="6" fill="#161b22" stroke="#da3633" stroke-width="1.5"/>
-  <text x="325" y="812" text-anchor="middle" font-size="12" font-weight="bold" fill="#da3633">OPEN ISSUES (11 total)</text>
-  <text x="56"  y="830" font-size="9" fill="#e6edf3">#30  L4  Framework tool (DV parameterizable analyzer)</text>
-  <text x="56"  y="843" font-size="9" fill="#e6edf3">#39  Tier3  RF Fingerprinting (requires SDR hardware)</text>
-  <text x="56"  y="856" font-size="9" fill="#e6edf3">#46  Paper D  proposal tracking issue</text>
-  <text x="56"  y="869" font-size="9" fill="#e6edf3">#47  Paper E  proposal tracking issue</text>
-  <text x="56"  y="882" font-size="9" fill="#e6edf3">#48–51  Vol-II proposals P03/P04/P05/P0</text>
-  <text x="56"  y="895" font-size="9" fill="#e6edf3">#53  Paper C  taxonomy draft (experiments done)</text>
-  <text x="56"  y="908" font-size="9" fill="#ffa657">#67  Paper D  E21 CPU/Energy HW  ← P3, non-blocking</text>
-  <text x="56"  y="921" font-size="9" fill="#ffa657">#72  Paper E  E20 PIR INA219 HW  ← medium, non-blocking</text>
-
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <!-- INHERITANCE / KEY CLAIMS BOX -->
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <rect x="630" y="790" width="730" height="140" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
-  <text x="995" y="812" text-anchor="middle" font-size="12" font-weight="bold" fill="#e6edf3">KEY FINDINGS &amp; INHERITANCE CHAIN</text>
-  <text x="646" y="830" font-size="9" fill="#58a6ff">B→C: dst=next-hop bug → silent black-hole; HMAC insufficient alone</text>
-  <text x="646" y="843" font-size="9" fill="#d2a8ff">B→D: HMAC authenticates; stride-based selective enc reduces payload; AES overhead</text>
-  <text x="646" y="856" font-size="9" fill="#ffa657">B→E: 128-d INT8 embedding = 142B packet; SSIM&lt;0.4 no AES needed; DP ε=1.0</text>
-  <text x="646" y="869" font-size="9" fill="#d2a8ff">B→F: PCSS = SBC(P) ∧ Φ(P,E)=1; predicts degradation attacks DY cannot</text>
-  <text x="646" y="882" font-size="9" fill="#3fb950">E→P03: compression ratio leaks content class → CRIME variant on LoRa</text>
-  <text x="646" y="895" font-size="9" fill="#8957e5">D+E→P04: auth video pipeline over multi-hop LoRa mesh</text>
-  <text x="646" y="908" font-size="9" fill="#58a6ff">B+C+D+E→P05: survey anchors all findings in LPWAN multimedia security</text>
-  <text x="646" y="921" font-size="9" fill="#6e7681">F→all: PCSS framework formally justifies security claims across D, E, C</text>
-
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <!-- Arrowhead markers -->
-  <!-- ═══════════════════════════════════════════════════════ -->
   <defs>
     <marker id="arr-gray" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
       <path d="M0,0 L0,6 L8,3 z" fill="#8b949e"/>
     </marker>
+    <marker id="arr-teal" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#0d9488"/>
+    </marker>
   </defs>
 
-  <!-- Paper C → P03 (compression side-channel) -->
-  <line x1="205" y1="540" x2="280" y2="655" stroke="#3fb950" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#arr-gray)"/>
+  <!-- Background -->
+  <rect width="1600" height="1200" fill="#0d1117"/>
 
-  <!-- Paper E → P04 -->
-  <line x1="903" y1="575" x2="512" y2="655" stroke="#8957e5" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#arr-gray)"/>
+  <!-- Title -->
+  <text x="800" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#e6edf3">LoRa-Sec Research Roadmap — Issue Dependency Map</text>
+  <text x="800" y="55" text-anchor="middle" font-size="10" fill="#8b949e">■ solid = all closed   ■ dashed-red = open issues   ■ dashed-amber = not started   ■ solid-teal = active infra   → = inherits/depends</text>
 
-  <!-- Paper B → P05 (survey) -->
-  <line x1="700" y1="315" x2="722" y2="655" stroke="#58a6ff" stroke-width="0.8" stroke-dasharray="4,4" marker-end="url(#arr-gray)"/>
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- FOUNDATION -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <rect x="630" y="70" width="340" height="85" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+  <text x="800" y="90" text-anchor="middle" font-size="12" font-weight="bold" fill="#8b949e">FOUNDATION  #1–#29</text>
+  <text x="800" y="107" text-anchor="middle" font-size="10" fill="#6e7681">LoRaMesher DV vulnerability discovery</text>
+  <text x="800" y="122" text-anchor="middle" font-size="10" fill="#6e7681">Tamarin · ns-3 · HW bench · Threat model</text>
+  <text x="800" y="137" text-anchor="middle" font-size="10" fill="#6e7681">L1–L5 done · L4 framework #30 open</text>
+  <rect x="962" y="76" width="76" height="16" rx="3" fill="none" stroke="#da3633" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <text x="1000" y="88" text-anchor="middle" font-size="9" fill="#da3633">#30 open</text>
 
-  <!-- STATUS legend -->
-  <rect x="40" y="760" width="8" height="8" fill="none" stroke="#1f6feb" stroke-width="2"/>
-  <text x="55" y="769" font-size="9" fill="#8b949e">all closed</text>
-  <rect x="120" y="760" width="8" height="8" fill="none" stroke="#da3633" stroke-width="1.5" stroke-dasharray="4,2"/>
-  <text x="135" y="769" font-size="9" fill="#8b949e">open issues remain</text>
-  <text x="260" y="769" font-size="9" fill="#8b949e">✓ = closed   ○ = open</text>
+  <!-- Foundation → B -->
+  <line x1="800" y1="155" x2="800" y2="193" stroke="#30363d" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- PAPER B -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <rect x="580" y="193" width="440" height="100" rx="6" fill="#0d2135" stroke="#1f6feb" stroke-width="2"/>
+  <text x="800" y="215" text-anchor="middle" font-size="13" font-weight="bold" fill="#58a6ff">Paper B — Ad Hoc Networks  ✓</text>
+  <text x="800" y="233" text-anchor="middle" font-size="10" fill="#79c0ff">LoRaMesher DV: Formally-Proven Vulnerabilities &amp; Patches</text>
+  <text x="596" y="251" font-size="9" fill="#8b949e">#41 Tamarin L1–L5  ✓     #42 HMAC+MetricVersion  ✓</text>
+  <text x="596" y="264" font-size="9" fill="#8b949e">#43 ns-3 225 runs  ✓     #44 ESP32-S3 HW 98µs    ✓</text>
+  <text x="596" y="277" font-size="9" fill="#6e7681">Finding: dst=next-hop → silent black-hole; HMAC insufficient alone</text>
+
+  <!-- B → C, D, E, F -->
+  <line x1="638" y1="293" x2="218" y2="338" stroke="#30363d" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <line x1="706" y1="293" x2="590" y2="338" stroke="#30363d" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <line x1="894" y1="293" x2="1010" y2="338" stroke="#30363d" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <line x1="962" y1="293" x2="1382" y2="338" stroke="#30363d" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- PAPER C -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <rect x="20" y="338" width="370" height="175" rx="6" fill="#12201a" stroke="#da3633" stroke-width="2" stroke-dasharray="6,3"/>
+  <text x="205" y="360" text-anchor="middle" font-size="13" font-weight="bold" fill="#3fb950">Paper C — TIFS  (partial)</text>
+  <text x="205" y="377" text-anchor="middle" font-size="9" fill="#56d364">Cross-Protocol Attack Taxonomy</text>
+  <text x="205" y="390" text-anchor="middle" font-size="9" fill="#56d364">LoRaMesher vs Meshtastic</text>
+  <text x="36" y="407" font-size="9" fill="#8b949e">#54 E16: Meshtastic next_hop hijack  ✓</text>
+  <text x="36" y="420" font-size="9" fill="#8b949e">#55 E17: GW-centric IDS failure      ✓</text>
+  <text x="36" y="433" font-size="9" fill="#8b949e">#56 E18: Patch asymmetry analysis    ✓</text>
+  <text x="36" y="446" font-size="9" fill="#8b949e">#57 EoRa PI Meshtastic config        ✓</text>
+  <text x="36" y="459" font-size="9" fill="#da3633">#53 Taxonomy draft               ○ OPEN</text>
+  <text x="36" y="476" font-size="9" fill="#0d9488">UC1: silent black-hole in-wild</text>
+  <text x="36" y="489" font-size="9" fill="#0d9488">UC2: cross-protocol distribution</text>
+  <text x="36" y="505" font-size="9" fill="#6e7681">→ P03: CRIME-like compression side-ch.</text>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- PAPER D -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <rect x="405" y="338" width="375" height="175" rx="6" fill="#1a1a2e" stroke="#da3633" stroke-width="1.5" stroke-dasharray="6,3"/>
+  <text x="592" y="360" text-anchor="middle" font-size="13" font-weight="bold" fill="#d2a8ff">Paper D — IoTJ  (partial)</text>
+  <text x="592" y="377" text-anchor="middle" font-size="9" fill="#bc8cff">Authenticated Selective Encryption</text>
+  <text x="592" y="390" text-anchor="middle" font-size="9" fill="#bc8cff">for LoRa Image TX</text>
+  <text x="421" y="407" font-size="9" fill="#8b949e">#58 B1: stride-based reframe         ✓</text>
+  <text x="421" y="420" font-size="9" fill="#8b949e">#59–60 PSNR_attack + airtime         ✓</text>
+  <text x="421" y="433" font-size="9" fill="#8b949e">#61–62 FC-HMAC HW + Tamarin         ✓</text>
+  <text x="421" y="446" font-size="9" fill="#8b949e">#66 Related work table               ✓</text>
+  <text x="421" y="459" font-size="9" fill="#8b949e">#68 LaTeX draft (IoTJ)               ✓</text>
+  <text x="421" y="472" font-size="9" fill="#da3633">#67 E21: CPU/Energy HW           ○ P3</text>
+  <text x="421" y="489" font-size="9" fill="#6e7681">→ D+E enable Paper P04 (video)</text>
+  <text x="421" y="502" font-size="9" fill="#6e7681">→ image TX security baseline</text>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- PAPER E -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <rect x="796" y="338" width="375" height="190" rx="6" fill="#1a1f2e" stroke="#da3633" stroke-width="1.5" stroke-dasharray="6,3"/>
+  <text x="983" y="360" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffa657">Paper E — IoTJ/FGCS  (partial)</text>
+  <text x="983" y="377" text-anchor="middle" font-size="9" fill="#ffc680">Privacy-Preserving Split Inference</text>
+  <text x="983" y="390" text-anchor="middle" font-size="9" fill="#ffc680">MobileNetV3 + MIA Resistance</text>
+  <text x="812" y="407" font-size="9" fill="#8b949e">#70 E1: MIA DLG+Fredrikson           ✓</text>
+  <text x="812" y="420" font-size="9" fill="#8b949e">#71 E19: TFLite MN3 ESP32-S3         ✓  6203ms</text>
+  <text x="812" y="433" font-size="9" fill="#8b949e">#75 5-backbone × 3-attack grid       ✓  SSIM&lt;0.4</text>
+  <text x="812" y="446" font-size="9" fill="#8b949e">#76 DP ε=1.0 sweep                   ✓  max=0.370</text>
+  <text x="812" y="459" font-size="9" fill="#8b949e">#77 E8: JPEG+AES vs embed+HMAC       ✓</text>
+  <text x="812" y="472" font-size="9" fill="#da3633">#72 E20: PIR INA219 HW           ○ open</text>
+  <text x="812" y="489" font-size="9" fill="#ffa657">HW feasibility prereq for Paper H</text>
+  <text x="812" y="502" font-size="9" fill="#6e7681">(no cameras on LoRaWild nodes)</text>
+  <text x="812" y="515" font-size="9" fill="#6e7681">→ E19 6203ms proves ESP32 viability</text>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- PAPER F -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <rect x="1190" y="338" width="385" height="175" rx="6" fill="#1c1a1e" stroke="#6e40c9" stroke-width="2"/>
+  <text x="1382" y="360" text-anchor="middle" font-size="13" font-weight="bold" fill="#d2a8ff">Paper F — IEEE S&amp;P / USENIX  ✓</text>
+  <text x="1382" y="377" text-anchor="middle" font-size="9" fill="#bc8cff">PCSS: Physically-Constrained</text>
+  <text x="1382" y="390" text-anchor="middle" font-size="9" fill="#bc8cff">Semantic Security Theory</text>
+  <text x="1206" y="407" font-size="9" fill="#8b949e">#79–80 SBC defs + 2-node Thm1       ✓</text>
+  <text x="1206" y="420" font-size="9" fill="#8b949e">#81 ρ* physical feasibility          ✓</text>
+  <text x="1206" y="433" font-size="9" fill="#8b949e">#82 LoRaMesher/Meshtastic/RPL inst.  ✓</text>
+  <text x="1206" y="446" font-size="9" fill="#8b949e">#84 Tamarin/Coq mechanization        ✓</text>
+  <text x="1206" y="459" font-size="9" fill="#8b949e">#85–88 LaTeX+EUF-CMA+n-node ext.    ✓</text>
+  <text x="1206" y="472" font-size="9" fill="#8b949e">All #78–#89 closed                   ✓</text>
+  <text x="1206" y="489" font-size="9" fill="#0d9488">UC4: PCSS Φ computed live</text>
+  <text x="1206" y="502" font-size="9" fill="#6e7681">→ formally justifies G, I security</text>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- UC arrows from C, F → LoRaWild -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <line x1="205" y1="513" x2="350" y2="552" stroke="#0d9488" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#arr-teal)"/>
+  <line x1="1382" y1="513" x2="1250" y2="552" stroke="#0d9488" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#arr-teal)"/>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- LORAWILD BAND -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <rect x="20" y="552" width="1560" height="72" rx="6" fill="#0b2520" stroke="#0d9488" stroke-width="2.5"/>
+  <!-- NOW badge -->
+  <rect x="32" y="561" width="72" height="22" rx="4" fill="#0d9488"/>
+  <text x="68" y="577" text-anchor="middle" font-size="11" font-weight="bold" fill="#ffffff">▶ NOW</text>
+  <text x="800" y="576" text-anchor="middle" font-size="14" font-weight="bold" fill="#2dd4bf">LoRaWild Dataset — K-infra (launched 2026-05)  #90–#94</text>
+  <text x="800" y="594" text-anchor="middle" font-size="10" fill="#5eead4">Open AI-Annotated Living LoRa Mesh Dataset · Penghu Pilot · 5 nodes · Discord #lorawild</text>
+  <text x="800" y="611" text-anchor="middle" font-size="9" fill="#0f766e">[node_id:2|timestamp:4|fingerprint:32|rssi:2|snr:1|hop:1|battery_mv:2|HMAC:8] = 52B · 4-layer YAML schema · AI annotation: H(node)+I(gw)+G(cloud)</text>
+
+  <!-- LoRaWild → G, H, I, K arrows (downward) -->
+  <line x1="270" y1="624" x2="270" y2="660" stroke="#0d9488" stroke-width="1" stroke-dasharray="3,2" marker-end="url(#arr-teal)"/>
+  <line x1="800" y1="624" x2="800" y2="660" stroke="#0d9488" stroke-width="1" stroke-dasharray="3,2" marker-end="url(#arr-teal)"/>
+  <line x1="1330" y1="624" x2="1330" y2="660" stroke="#0d9488" stroke-width="1" stroke-dasharray="3,2" marker-end="url(#arr-teal)"/>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- PAPER G — Cloud LLM -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <rect x="20" y="660" width="490" height="148" rx="6" fill="#201a0d" stroke="#d29922" stroke-width="1.5" stroke-dasharray="6,3"/>
+  <text x="265" y="682" text-anchor="middle" font-size="13" font-weight="bold" fill="#e3b341">Paper G — ToSN / TDSC</text>
+  <text x="265" y="700" text-anchor="middle" font-size="10" fill="#d29922">AI-Assisted Evolvable Threat Model</text>
+  <text x="265" y="715" text-anchor="middle" font-size="9" fill="#d29922">Cloud LLM · weekly threat taxonomy update</text>
+  <text x="36" y="733" font-size="9" fill="#6e7681">• ChirpOTLE-fork RF anomaly detect. (need maintainer OK)</text>
+  <text x="36" y="746" font-size="9" fill="#6e7681">• GPT-4o → threat YAML pushed to gateways weekly</text>
+  <text x="36" y="759" font-size="9" fill="#6e7681">• Co-evolutionary: 3-round defense/attacker eval</text>
+  <text x="36" y="772" font-size="9" fill="#6e7681">• Standardization path: Meshtastic RFC → IETF MANET</text>
+  <text x="36" y="787" font-size="9" fill="#da3633">Target: Q4 2026  |  #95 ○ not started</text>
+  <text x="36" y="800" font-size="9" fill="#0d9488">→ G labels LoRaWild weekly (threat_class field)</text>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- PAPER H — Node RFFI -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <rect x="555" y="660" width="490" height="148" rx="6" fill="#0d1a2e" stroke="#388bfd" stroke-width="1.5" stroke-dasharray="6,3"/>
+  <text x="800" y="682" text-anchor="middle" font-size="13" font-weight="bold" fill="#79c0ff">Paper H — TIFS / JSAC</text>
+  <text x="800" y="700" text-anchor="middle" font-size="10" fill="#58a6ff">Mesh-Aware RF Fingerprint Authentication</text>
+  <text x="800" y="715" text-anchor="middle" font-size="9" fill="#58a6ff">Node-tier &lt;80KB INT8 CNN · fingerprint:32 per packet</text>
+  <text x="571" y="733" font-size="9" fill="#6e7681">• Shen2022 distillation (need Zhang weight authorization)</text>
+  <text x="571" y="746" font-size="9" fill="#6e7681">• DP ε=1.0 privacy (inherits E protocol, SSIM&lt;0.4)</text>
+  <text x="571" y="759" font-size="9" fill="#6e7681">• fingerprint:32 IS the LoRaWild packet field (UC3)</text>
+  <text x="571" y="772" font-size="9" fill="#6e7681">• E19 6203ms HW feasibility prerequisite satisfied</text>
+  <text x="571" y="787" font-size="9" fill="#da3633">Target: Q1 2027  |  #96 ○ not started</text>
+  <text x="571" y="800" font-size="9" fill="#0d9488">UC3: RFFI in-wild cross-environment validation</text>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- PAPER I — Gateway transformer -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <rect x="1090" y="660" width="490" height="148" rx="6" fill="#0d201a" stroke="#3fb950" stroke-width="1.5" stroke-dasharray="6,3"/>
+  <text x="1335" y="682" text-anchor="middle" font-size="13" font-weight="bold" fill="#56d364">Paper I — TMC / IoTJ</text>
+  <text x="1335" y="700" text-anchor="middle" font-size="10" fill="#3fb950">Cross-Layer Quantized Transformer</text>
+  <text x="1335" y="715" text-anchor="middle" font-size="9" fill="#3fb950">Gateway-tier anomaly detect. + attack classification</text>
+  <text x="1106" y="733" font-size="9" fill="#6e7681">• Quantized transformer on Raspberry Pi 4B + SX1302</text>
+  <text x="1106" y="746" font-size="9" fill="#6e7681">• anomaly_score + attack_type → security_event layer</text>
+  <text x="1106" y="759" font-size="9" fill="#6e7681">• PCSS Φ metric computed live per-packet (F→I)</text>
+  <text x="1106" y="772" font-size="9" fill="#6e7681">• Three-timescale eval (R47 consensus)</text>
+  <text x="1106" y="787" font-size="9" fill="#da3633">Target: Q2 2027  |  #97 ○ not started</text>
+  <text x="1106" y="800" font-size="9" fill="#0d9488">→ I writes security_event layer to LoRaWild</text>
+
+  <!-- G, H, I → LoRaWild (upward contribution) -->
+  <line x1="265" y1="660" x2="265" y2="624" stroke="#d29922" stroke-width="1" stroke-dasharray="2,2" marker-end="url(#arr-teal)"/>
+  <line x1="800" y1="660" x2="800" y2="624" stroke="#388bfd" stroke-width="1" stroke-dasharray="2,2" marker-end="url(#arr-teal)"/>
+  <line x1="1335" y1="660" x2="1335" y2="624" stroke="#3fb950" stroke-width="1" stroke-dasharray="2,2" marker-end="url(#arr-teal)"/>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- PAPER J — System Integration -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <rect x="20" y="830" width="690" height="120" rx="6" fill="#1a1a30" stroke="#8957e5" stroke-width="1.5" stroke-dasharray="6,3"/>
+  <text x="365" y="852" text-anchor="middle" font-size="13" font-weight="bold" fill="#bc8cff">Paper J — SenSys / INFOCOM</text>
+  <text x="365" y="870" text-anchor="middle" font-size="10" fill="#8957e5">Scaling &amp; Real Deployment: G+H+I Integrated System</text>
+  <text x="36" y="888" font-size="9" fill="#6e7681">• Penghu multi-island mesh: Magong–Baisha–Xiyu (~8km sea hops)</text>
+  <text x="36" y="901" font-size="9" fill="#6e7681">• 3-timescale eval: attack resilience / topology drift / enviro. adapt.</text>
+  <text x="36" y="914" font-size="9" fill="#6e7681">• Co-evolutionary adversary: ≥3 rounds defense/attacker co-evolution</text>
+  <text x="36" y="929" font-size="9" fill="#da3633">Target: Q3 2027  |  #98 ○ not started  UC5: seasonal RF + topology drift</text>
+
+  <!-- LoRaWild → J arrow -->
+  <line x1="365" y1="830" x2="365" y2="808" stroke="#8957e5" stroke-width="1" stroke-dasharray="3,2" marker-end="url(#arr-gray)"/>
+  <line x1="365" y1="808" x2="365" y2="624" stroke="#8957e5" stroke-width="0.8" stroke-dasharray="3,3"/>
+
+  <!-- G,H,I → J arrows -->
+  <line x1="265" y1="808" x2="265" y2="830" stroke="#30363d" stroke-width="1" stroke-dasharray="3,2" marker-end="url(#arr-gray)"/>
+  <line x1="800" y1="808" x2="500" y2="830" stroke="#30363d" stroke-width="1" stroke-dasharray="3,2" marker-end="url(#arr-gray)"/>
+  <line x1="1335" y1="808" x2="700" y2="830" stroke="#30363d" stroke-width="1" stroke-dasharray="3,2" marker-end="url(#arr-gray)"/>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- PAPER K — Dataset Paper -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <rect x="760" y="830" width="820" height="120" rx="6" fill="#0b2520" stroke="#0d9488" stroke-width="2"/>
+  <!-- Dataset badge -->
+  <rect x="772" y="838" width="110" height="20" rx="3" fill="#0d9488"/>
+  <text x="827" y="852" text-anchor="middle" font-size="10" font-weight="bold" fill="#ffffff">Dataset Paper</text>
+  <text x="1170" y="852" text-anchor="middle" font-size="13" font-weight="bold" fill="#2dd4bf">Paper K — NeurIPS D&amp;B / SIGCOMM / TPDS</text>
+  <text x="1170" y="870" text-anchor="middle" font-size="10" fill="#0d9488">LoRaWild: AI-Annotated Living Dataset for LoRa Mesh Security</text>
+  <text x="776" y="888" font-size="9" fill="#6e7681">• K-infra: 5 nodes, RPi 4B GW, SX1302 HAT, IP65 enclosures  #91–94 ▶</text>
+  <text x="776" y="901" font-size="9" fill="#6e7681">• 4-tier access: T0 public agg / T1 anon trace / T2 IRB / T3 IQ-raw (never)</text>
+  <text x="776" y="914" font-size="9" fill="#6e7681">• Privacy: DP ε=1.0, rotating pseudonym, 30-day delay, 500m grid location</text>
+  <text x="776" y="929" font-size="9" fill="#2dd4bf">• Written after 6 months data collected · #90 active · ImageNet analogy</text>
+
+  <!-- LoRaWild → K arrow -->
+  <line x1="1170" y1="624" x2="1170" y2="830" stroke="#0d9488" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-teal)"/>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- VOL-II compact -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <rect x="20" y="970" width="1560" height="85" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1" stroke-dasharray="8,4"/>
+  <text x="800" y="990" text-anchor="middle" font-size="11" font-weight="bold" fill="#6e7681">VOL-II FUTURE PROPOSALS  (all open #48–#51)</text>
+  <rect x="35" y="1000" width="355" height="46" rx="4" fill="#12201a" stroke="#3fb950" stroke-width="1"/>
+  <text x="212" y="1017" text-anchor="middle" font-size="10" font-weight="bold" fill="#3fb950">P03 — TIFS  #48  ○</text>
+  <text x="212" y="1034" text-anchor="middle" font-size="9" fill="#6e7681">CRIME-like Compression Side-Channel on LoRa</text>
+  <rect x="405" y="1000" width="355" height="46" rx="4" fill="#1a1a2e" stroke="#8957e5" stroke-width="1"/>
+  <text x="582" y="1017" text-anchor="middle" font-size="10" font-weight="bold" fill="#8957e5">P04 — TMC  #49  ○</text>
+  <text x="582" y="1034" text-anchor="middle" font-size="9" fill="#6e7681">MeshSecVid: E2E Auth Video over Multi-hop LoRa</text>
+  <rect x="775" y="1000" width="355" height="46" rx="4" fill="#1a1f2e" stroke="#58a6ff" stroke-width="1"/>
+  <text x="952" y="1017" text-anchor="middle" font-size="10" font-weight="bold" fill="#58a6ff">P05 — ComST  #50  ○</text>
+  <text x="952" y="1034" text-anchor="middle" font-size="9" fill="#6e7681">Secure Multimedia over LPWAN: Survey</text>
+  <rect x="1145" y="1000" width="420" height="46" rx="4" fill="#1c1a1e" stroke="#6e40c9" stroke-width="1"/>
+  <text x="1355" y="1017" text-anchor="middle" font-size="10" font-weight="bold" fill="#d2a8ff">P0 — AdHocNet  #51  ○</text>
+  <text x="1355" y="1034" text-anchor="middle" font-size="9" fill="#6e7681">E7–E15 Threat Characterization + IDS Companion</text>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- LEGEND -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <rect x="20" y="1065" width="8" height="8" fill="none" stroke="#1f6feb" stroke-width="2"/>
+  <text x="34" y="1075" font-size="9" fill="#8b949e">all closed</text>
+  <rect x="110" y="1065" width="8" height="8" fill="none" stroke="#da3633" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <text x="124" y="1075" font-size="9" fill="#8b949e">open issues</text>
+  <rect x="222" y="1065" width="8" height="8" fill="none" stroke="#d29922" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <text x="236" y="1075" font-size="9" fill="#8b949e">not started</text>
+  <rect x="330" y="1065" width="8" height="8" fill="none" stroke="#0d9488" stroke-width="2"/>
+  <text x="344" y="1075" font-size="9" fill="#8b949e">active infra (K)</text>
+  <text x="460" y="1075" font-size="9" fill="#8b949e">✓ closed  ○ open  ▶ active  UC1–5 = LoRaWild use-cases</text>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- OPEN ISSUES SUMMARY -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <rect x="20" y="1085" width="760" height="105" rx="6" fill="#161b22" stroke="#da3633" stroke-width="1.5"/>
+  <text x="400" y="1105" text-anchor="middle" font-size="11" font-weight="bold" fill="#da3633">OPEN ISSUES (16 total)</text>
+  <text x="36" y="1121" font-size="9" fill="#e6edf3">#30 L4 DV analyzer · #39 RF fingerprint (SDR HW req.)</text>
+  <text x="36" y="1134" font-size="9" fill="#e6edf3">#46/#47 Paper D/E tracking · #48–51 Vol-II proposals</text>
+  <text x="36" y="1147" font-size="9" fill="#e6edf3">#53 Paper C taxonomy draft · #67 D/E21 HW (P3) · #72 E/E20 INA219</text>
+  <text x="36" y="1160" font-size="9" fill="#ffa657">#90 K-infra ▶ · #91 Penghu pilot · #92 node FW · #93 GW svc · #94 schema</text>
+  <text x="36" y="1173" font-size="9" fill="#ffa657">#95 Paper G · #96 Paper H · #97 Paper I · #98 Paper J  ○ not started</text>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- INHERITANCE CHAIN -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <rect x="800" y="1085" width="780" height="105" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+  <text x="1190" y="1105" text-anchor="middle" font-size="11" font-weight="bold" fill="#e6edf3">INHERITANCE &amp; KEY FINDINGS</text>
+  <text x="816" y="1121" font-size="9" fill="#58a6ff">B→C: dst=next-hop → silent black-hole; HMAC alone insufficient</text>
+  <text x="816" y="1134" font-size="9" fill="#ffa657">B→E: 128-d INT8=142B; SSIM&lt;0.4 → no AES needed; DP ε=1.0 · E prereq H</text>
+  <text x="816" y="1147" font-size="9" fill="#d2a8ff">B→F: PCSS SBC(P)∧Φ=1; predicts degradation attacks beyond Dolev-Yao</text>
+  <text x="816" y="1160" font-size="9" fill="#2dd4bf">B–F motivate K; H(node)+I(gw)+G(cloud) annotate LoRaWild; J validates scale</text>
+  <text x="816" y="1173" font-size="9" fill="#d29922">G+H+I→J: 3-timescale eval; co-evolutionary adversary ≥3 rounds (R47,R48)</text>
 
 </svg>
