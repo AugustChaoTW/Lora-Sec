@@ -18,6 +18,7 @@
 #include <RadioLib.h>
 #include <SPI.h>
 #include "mbedtls/md.h"
+#include "mbedtls/constant_time.h"
 
 // ----- Radio pins (EoRa PI) -----
 #define LORA_NSS    7
@@ -50,6 +51,9 @@ inline void eora_radio_init() {
 #define HMAC_KEY_LEN  16
 #define HMAC_TAG_LEN  16
 
+// WARNING: NIST FIPS-197 AES-128 test vector key — FOR EVALUATION ONLY.
+// Replace with a randomly generated 16-byte key before any deployment.
+// See: https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.197-upd1.pdf Appendix B
 static const uint8_t NETWORK_PSK[HMAC_KEY_LEN] = {
   0x2b, 0x7e, 0x15, 0x16, 0x28, 0xae, 0xd2, 0xa6,
   0xab, 0xf7, 0x15, 0x88, 0x09, 0xcf, 0x4f, 0x3c
@@ -118,7 +122,7 @@ static bool verify_hmac(const uint8_t *data, size_t dlen,
                         const uint8_t *key, const uint8_t *tag) {
   uint8_t expected[HMAC_TAG_LEN];
   compute_hmac(data, dlen, key, expected);
-  return memcmp(expected, tag, HMAC_TAG_LEN) == 0;
+  return mbedtls_ct_memcmp(expected, tag, HMAC_TAG_LEN) == 0;
 }
 
 static void sign_hello(HelloMsg *m) {

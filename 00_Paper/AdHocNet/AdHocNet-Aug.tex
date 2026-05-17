@@ -46,43 +46,31 @@
 \ead{[email]}
 
 \begin{abstract}
-Route injection in LoRaMesher—an open-source distance-vector mesh
-routing stack for ESP32-class LoRa nodes—creates a
-\emph{silent traffic black hole}, not an adversarial relay:
-the deployed firmware encodes next-hop forwarding state in the
-destination field rather than the final gateway identity assumed
-by symbolic and packet-level analyses.
-This cross-layer semantic mismatch explains the observed
-topology-dependent attack gradient (0\% PDR on linear topologies;
-77.4\% under attack on tree and grid), is invisible to both
-Tamarin formal models and ns-3 packet-level simulation, and only
-becomes visible through physical hardware serial-log inspection.
+LoRaMesher, a widely used open-source distance-vector mesh routing
+stack for ESP32-class LoRa nodes, carries no cryptographic
+authentication on its control plane, exposing it to route injection
+by any attacker with a commodity \$20 LoRa transceiver.
 
-LoRaMesher's control plane carries no cryptographic authentication,
-enabling this attack by any adversary with a commodity \$20 LoRa
-transceiver in networks deployed across precision agriculture,
-environmental monitoring, and disaster-response systems.
+We show that successful route injection produces a \emph{silent
+traffic black hole}, not an adversarial relay.
+The root cause is a cross-layer semantic mismatch: the deployed
+firmware encodes next-hop forwarding state in the destination
+field rather than the final-gateway identity assumed by symbolic
+and packet-level analyses.
+This mismatch is invisible to both Tamarin formal models and ns-3
+packet-level simulation; it becomes visible only through physical
+hardware serial-log inspection.
 
-We present \textbf{a formally verified security study} of
-LoRa ad~hoc mesh routing control-plane security—to our knowledge
-one of the first studies combining Tamarin machine-checked proofs with
-physical hardware validation on deployed mesh firmware.
-Tamarin machine-checked counterexample traces confirm two attack
-classes—unauthorized route injection and rekey-epoch confusion.
-We then design, formally prove, and hardware-validate a lightweight
-patch: HMAC-SHA256 per-message authentication and a per-destination
-MetricVersion counter, requiring no PKI infrastructure.
-The finding reclassifies the attack as a confirmed traffic black hole
-rather than an adversarial relay—a distinction with direct implications
-for intrusion detection: gateway-centric monitoring observes only
-silence, so effective detection requires relay-side observation.
-
-We validate the patched protocol across ns-3 simulation
-(linear, tree, and grid topologies; scale up to 49~nodes)
-and on six physical EoRa-PI boards, confirming 0\% residual
-PDR degradation under full patching across all conditions.
-All artifacts—Tamarin models, ns-3 code, patched firmware,
-and hardware logs—are publicly released.
+We address this gap with a three-tier methodology: Tamarin
+machine-checked proofs confirming four attack lemmas on the
+unpatched protocol, ns-3 simulation across 135 scenarios and
+up to 49 nodes, and validation on six physical EoRa-PI boards.
+We design a lightweight patch—HMAC-SHA256 per-message
+authentication combined with a per-destination MetricVersion
+counter—that requires no PKI infrastructure.
+The patched protocol achieves 0\% residual PDR degradation under
+all tested conditions.
+All artifacts are publicly released.
 \end{abstract}
 
 \begin{keyword}
@@ -169,9 +157,10 @@ LoRaWAN security~\cite{ieee2025-lorawan-key-vulnerability,ieee2025-lorawan-key-v
 targets the star-topology WAN layer managed by network servers;
 it provides no mechanism for mesh control-plane authentication.
 Standard mesh security protocols (802.15.4 CCM*, AODV-SEC~\cite{hu2002-sead},
-ARIADNE~\cite{hu2002-ariadne}) assume either PKI infrastructure or symmetric key
-pre-distribution schemes incompatible with LoRaMesher's join model
-and ESP32's memory constraints. TinyECC and similar lightweight
+ARIADNE~\cite{hu2002-ariadne}) assume either PKI infrastructure or
+time-based one-way function chains (TESLA) requiring clock synchronisation
+infeasible under LoRa's duty-cycle and sleep-cycle constraints.
+TinyECC~\cite{liu2008-tinyecc} and similar lightweight
 asymmetric solutions require $>$500~ms per operation on
 ESP32—prohibitive for Hello messages sent every 10~seconds.
 Existing surveys~\cite{hessel2022-lorawan-survey,butun2019-lorawan-security-risk}
@@ -501,7 +490,7 @@ Our patch must operate within ESP32-S3 constraints:
     \textbf{Resource} & \textbf{Available} & \textbf{Patch Overhead} \\
     \midrule
     Flash              & 8~MB             & 2.1~KB (+0.03\%) \\
-    SRAM               & 512~KB           & 2~B/route entry (\texttt{uint16} MV) \\
+    SRAM               & 512~KB           & 2~B/route entry (\texttt{uint16} MV, 7.6-day exhaust at 10\,s interval) \\
     CPU (HMAC-SHA256)  & 240~MHz          & 0.098~ms/message \\
     LoRa link latency  & 100–250~ms       & CPU overhead $<$0.1\% \\
     LoRa airtime (Hello) & 124~ms (SF9)  & 206~ms patched (+66\%) \\
@@ -548,32 +537,31 @@ We adopt the Dolev-Yao adversary adapted to LoRa ad hoc mesh networks:
   \item \textbf{Radio capabilities}: Full observation and injection
     on the target channel and spreading factor. No jamming or
     side-channel attacks assumed~\cite{ieee2025-lorawan-jamming-ids}.
-  \item \textbf{Limited compromise}: May compromise up to $k < n/2$
-    nodes to extract long-term keys.
+  \item \textbf{External adversary}: The network remains secure against
+    external adversaries as long as the pre-shared group key is not
+    compromised; any node compromise requires network-wide key rotation.
   \item \textbf{No cryptographic break}: Cannot break HMAC-SHA256
     in polynomial time.
 \end{itemize}
 
 \textbf{Key provisioning.}
-Each node is pre-provisioned with a shared symmetric key
-$k_v \in \{0,1\}^{128}$ at deployment time (out-of-band, e.g.,
+All nodes share a single pre-shared group key
+$k \in \{0,1\}^{128}$ provisioned at deployment time (out-of-band, e.g.,
 via USB or secure Bluetooth pairing before field installation).
+All nodes in the mesh share this single group key; any node compromise
+leaks the network key and requires out-of-band rekey.
 This assumption is standard for LoRa mesh deployments without
 a network server~\cite{sole2024-loramesher-dv} and is consistent
 with ESP32's secure-boot and NVS-encrypted flash capabilities.
 Group key rotation (rekeying) is triggered by the
-30-second \texttt{RekeyNotice} protocol; per-node keys are not
-rotated in the current design.
+30-second \texttt{RekeyNotice} protocol.
 
 \textbf{Node compromise and revocation.}
 If a node is physically captured and its key extracted,
-the attacker gains a valid HMAC key for that node's identity.
+the attacker gains a valid HMAC key and can forge control messages.
 The current patch does not include a key revocation mechanism;
 an operator must reflash all nodes with a new group key.
 This is a known limitation (Section~\ref{sec:limitations}).
-The $k < n/2$ compromise bound ensures that a majority of honest
-nodes retain valid routing state; the network continues to
-route through uncompromised paths.
 
 \textbf{MetricVersion counter reset.}
 The per-destination MetricVersion counter $mv_v$ is initialized
@@ -763,12 +751,21 @@ SPIN, and manual inductive proofs.
 \textbf{Model scope and two-node design.}
 The Tamarin model uses two honest nodes (sender + gateway) plus
 one Dolev-Yao attacker.
-This is sufficient for all five security lemmas (L1--L5):
-each property is a statement about the relationship between a
-single sender's message and a single receiver's route table
-entry under arbitrary attacker capability—not a statement about
-multi-hop forwarding chains.
-Adding a third honest node would not change the proof because
+This is sufficient for all security lemmas by a monotonicity argument:
+L1 (\emph{MetricAuthenticity}) and L2 (\emph{RouteFreshness}) are
+statements about a single sender--receiver pair; the attacker's
+capability is already maximal (full intercept, replay, injection)
+in the two-node model, so no additional honest participant could
+provide a new attack surface.
+L3 (\emph{RouteConsistency}) and L4 (\emph{AuthorizedRoutes}) extend
+to multi-receiver scenarios because the HMAC check is applied
+independently at each honest receiver: if a forged message cannot
+deceive a single honest receiver in the two-node model, it cannot
+deceive any receiver in a larger network, since the verification
+predicate does not depend on network size or other participants.
+L5 (\emph{Executability}) requires only one valid execution, trivially
+satisfied with two honest nodes.
+Adding a third honest node would not change any proof because
 the attacker already has full network access (intercept, replay,
 inject) regardless of the number of honest participants.
 Topology-dependent properties—specifically, the PDR gradient
@@ -802,10 +799,11 @@ $\xrightarrow{\text{RekeyNotice}}$ \textsc{Rekeying}.
 We encode the protocol as Tamarin multiset-rewriting rules~\cite{basin2025-tamarin-book}
 over three persistent facts:
 \begin{lstlisting}
-!JoinedMesh(node, key, epoch)
-!RouteActive(src, dst, metric, ver)
-!RekeyPending(node, oldKey, newKey)
+!RouteTable(node, dest, metric, nextHop, seq, ver)
+!MetricVersion(node, dest, ver)
+!PSK(node, node, psk)
 \end{lstlisting}
+\noindent(Names match the \texttt{.spthy} artifact exactly; see Table~\ref{tab:tamarin-mapping} for the implementation correspondence.)
 
 The patched Hello reception rule asserts \texttt{Eq(hmac, HMAC(ltk(sender), \textlangle sender,mv\textrangle))} before the \texttt{RecvHello} action fact fires, binding MAC verification to route acceptance in a single rewriting step.
 
@@ -1061,6 +1059,7 @@ HMAC module, already included in most ESP32 firmware builds).
 
 Each node maintains a per-destination \texttt{metricVersion}
 counter (one \texttt{uint16\_t}, 2~bytes per routing table entry).
+The counter is declared \texttt{uint16\_t}; at a 10\,s Hello interval, exhaustion requires $65{,}535 \times 10\,\text{s} \approx 7.6$~days—sufficient for most deployments, though operators with multi-week unattended deployments should monitor for wrap-around or plan a session rekey within that window.
 On receiving a \texttt{RekeyNotice}, the handler first verifies
 the HMAC tag, then enforces strict epoch ordering
 (\texttt{msg.epoch > local\_epoch}); a stale or replayed epoch
@@ -1445,6 +1444,14 @@ topology:
 Node~A~(0xAA, sender) $\to$ R1~(0x11) $\to$ R2~(0x22) $\to$
 R3~(0x33) $\to$ Node~B~(0xBB, gateway), with Node~C~(0xCC)
 as the Dolev-Yao attacker.
+All six boards were co-located at bench distance ($<$1~m); all nodes are within RF range of each other.
+The linear routing behavior emerges from hop-count metric arithmetic: each relay re-broadcasts received Hellos with metric\,+\,1, so Node~B's Hello (\texttt{metric=0}) reaches Node~A as \texttt{metric=4} through the chain, making the direct link effectively the worst-cost route.
+No source-based packet filtering was applied; relay nodes accept Hellos from any sender.
+This bench setup validates HMAC authentication logic and multi-relay poisoning behavior under realistic firmware scheduling; spatial PDR characterization across multi-hop physical distances is provided by the ns-3 evaluation (Section~\ref{sec:eval}).
+
+\textbf{Relay backoff.}
+Relay nodes introduce a 500\,ms software backoff before re-broadcasting Hellos to reduce collision probability on the shared channel; this blocking delay may contribute to the 13--15\% residual PDR gap alongside near-field RF reflections.
+
 Relay nodes (R1--R3) re-broadcast received Hellos with
 metric\,+\,1, creating a hop-by-hop route advertisement chain;
 they also forward Data packets addressed to themselves toward
@@ -1645,6 +1652,7 @@ Three detection strategies follow directly from this insight:
   cross-layer mismatch at the forwarding node—either the
   routing table has been poisoned or the firmware's
   header-writing logic has diverged from the routing decision.
+  This strategy is conceptually related to Watchdog/Pathrater~\cite{marti2000-watchdog} but requires no promiscuous-mode listening---infeasible under LoRa's half-duplex duty-cycle constraints.
 
   \item \textbf{Convergence-time IDS.}
   Route injection causes topology-wide route convergence within
@@ -1696,14 +1704,16 @@ next-hop binding semantics.
 Meshtastic~v2.6+ avoids the dst-field collapse entirely:
 its \texttt{MeshPacket} header carries a separate \texttt{next\_hop}
 field alongside the final \texttt{to} field.
-Our Tamarin analysis of the Meshtastic routing model shows that
+A preliminary informal analysis of the Meshtastic routing model suggests that
 this design eliminates the silent-black-hole category but
 introduces a \emph{different} symbolic-layer divergence:
 an unauthenticated \texttt{next\_hop} lets an adversary become
 an active relay (intercept, inspect, selectively drop) rather
 than an absent destination.
 Lemmas L1--L3 are falsified, L4 identifies an admin-command
-replay vulnerability, and the appropriate IDS architecture
+replay vulnerability (these observations are based on manual protocol inspection;
+a machine-checked Tamarin model of Meshtastic routing is deferred to future work),
+and the appropriate IDS architecture
 shifts from sender-centric anomaly detection to relay-path
 authentication—a distinct design space from the LoRaMesher case.
 This comparison confirms that constrained-header design is not
@@ -1793,6 +1803,7 @@ replay, and selective-forwarding threats that parallel those we
 characterize for LoRaMesher's DV control plane.
 To our knowledge, ours is among the first formal treatments of DV routing
 security under LoRa channel constraints and ESP32 resource budgets.
+The Secure Routing Protocol (SRP)~\cite{papadimitratos2002-srp} and the rushing-attack countermeasure~\cite{hu2003-rushing} establish MANET route authentication but both require PKI infrastructure or source-routing semantics unavailable in LoRaMesher's broadcast DV design.
 Intrusion-resilient routing for VANETs~\cite{springer2026-vanet-routing}
 shares our goal of maintaining PDR under adversarial conditions
 but assumes vehicular infrastructure absent in LoRa mesh.
@@ -1814,8 +1825,8 @@ protocol-level flaws are detectable with tractable model sizes.
 NIST finalized ASCON as its lightweight cryptography standard for
 constrained devices~\cite{nist2025-sp800-232}; ASCON-AEAD128 provides
 authenticated encryption competitive with HMAC-SHA256.
-Our evaluation uses HMAC-SHA256 for compatibility with existing
-ESP32 mbedTLS deployments; adopting ASCON would reduce per-message
+Our evaluation uses HMAC-SHA256 because (a)~mbedTLS is available by default in ESP-IDF and requires no new library dependency, (b)~routing control messages require authentication but not confidentiality, making a MAC primitive sufficient without AEAD overhead, and (c)~the existing LoRaMesher deployment base assumes mbedTLS availability.
+Adopting ASCON would reduce per-message
 overhead from 0.098~ms to $\approx$0.08~ms, a direction for
 future work.
 Ryczek and Sobieraj~\cite{ryczek2025-secure-lora-hmac} implement
@@ -1935,7 +1946,8 @@ No prior study assembles all three for any LoRa mesh routing protocol.
 
   \item \textbf{Layer~3 --- Resource exhaustion}: Three DoS vectors
     are unaddressed: ACK spoofing against \texttt{sendReliable()}
-    (no HMAC on \texttt{AckMsg}), Sybil table exhaustion
+    (no HMAC on \texttt{AckMsg}) can create a silent availability attack: the sender believes packets are delivered while the gateway receives nothing.
+    Additional unaddressed vectors include Sybil table exhaustion
     (\texttt{MAX\_ROUTES}=8), and Hello flooding against AS923's
     1\% duty-cycle budget.
     Rate-limiting and per-epoch entry bounds are outside this paper's

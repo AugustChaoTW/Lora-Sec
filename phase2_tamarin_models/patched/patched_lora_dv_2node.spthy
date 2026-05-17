@@ -5,100 +5,170 @@ begin
  Simplified patched model for LoRaMesher DV routing (2-node topology).
  Focus: Verify HMAC authentication + MetricVersion binding.
  Target: L1-L5 all proved within tractable verification time.
+
+ Fixes applied (v2):
+  - MetricVersion_Increment now produces succ(mv) from mv (genuine
+    successor encoding).  succ/1 is declared as a free function so
+    Tamarin treats different chain lengths as distinct terms:
+      'v0', succ('v0'), succ(succ('v0')), ...
+  - Route_Update_Verify no longer requires !Honest(src).  Security
+    comes from HMAC equality only — an attacker cannot forge
+    hmac(payload, psk) without knowing psk (free function, no equations).
+  - Hello_Broadcast_Auth and Route_Update_Verify now work with any mv,
+    not the fixed literal 'v0'.
+  - L2_RouteFreshness_Patched is now non-trivial: two RouteAccepted events
+    at the same node for the same (dst, seq, ver) must agree on (metric,
+    nextHop), because a valid HMAC binds the full tuple.
 */
 
-functions: hmac/2
+functions: hmac/2, succ/1
+
+/* ── Initialization ─────────────────────────────────────────────── */
 
 rule Node_Init:
   [ Fr(~id), Fr(~psk), Fr(~seq) ]
-  --[ NodeInit(~id), HonestNode(~id), PSKInit(~id,~psk) ]->
-  [ !Node(~id,'honest'),
+  --[ NodeInit(~id), HonestNode(~id), PSKInit(~id, ~psk) ]->
+  [ !Node(~id, 'honest'),
     !Honest(~id),
-    !PSK(~id,~id,~psk),
-    !HelloSeq(~id,~seq),
-    !MetricVersion(~id,~id,'v0')
+    !PSK(~id, ~id, ~psk),
+    !HelloSeq(~id, ~seq),
+    !MetricVersion(~id, ~id, 'v0')
   ]
+
+/* ── MetricVersion successor ─────────────────────────────────────── */
+/*
+ Persistent facts accumulate: adding !MetricVersion(n, dst, succ(mv))
+ does NOT remove !MetricVersion(n, dst, mv).  Both coexist, modelling
+ the set of versions a node has ever announced.  The security argument
+ is: an HMAC-bearing message fixes a specific (mv, payload) pair;
+ without the PSK the attacker cannot forge a different payload for the
+ same mv, and cannot replay a stale mv as a fresh one.
+*/
+rule MetricVersion_Increment:
+  [ !MetricVersion(n, dst, mv) ]
+  --[ IncrementVersion(n, dst, mv) ]->
+  [ !MetricVersion(n, dst, succ(mv)) ]
+
+/* ── Hello broadcast (sender uses any mv it currently holds) ─────── */
 
 rule Hello_Broadcast_Auth:
-  [ !Node(n,'honest'), !Honest(n), !HelloSeq(n,seq), !PSK(n,n,psk), !MetricVersion(n,n,'v0') ]
-  --[ HelloSent(n,'zero',seq), HMACGenerated(n,'zero',seq,'v0') ]->
-  [ Out(<n,'zero',seq,n,'v0',hmac(<n,'zero',seq,n,'v0'>,psk)>) ]
-
-rule Route_Update_Verify:
-  [ In(<src,metric,seq_new,nextHop,'v0',hmac(<src,metric,seq_new,nextHop,'v0'>,psk_src)>),
-    !Node(dst,'honest'),
-    !Honest(src),
-    !PSK(src,src,psk_src),
-    !MetricVersion(src,src,'v0')
+  [ !Node(n, 'honest'), !Honest(n),
+    !HelloSeq(n, seq),
+    !PSK(n, n, psk),
+    !MetricVersion(n, n, mv)
   ]
-  --[ RouteUpdate(dst,src,metric,seq_new), HMACVerified(dst,src,metric,seq_new), RouteAccepted(dst,src,metric,nextHop,seq_new,'v0') ]->
-  [ !RouteTable(dst,src,metric,nextHop,seq_new,'v0') ]
+  --[ HelloSent(n, 'zero', seq), HMACGenerated(n, 'zero', seq, mv) ]->
+  [ Out(<n, 'zero', seq, n, mv, hmac(<n, 'zero', seq, n, mv>, psk)>) ]
 
-rule MetricVersion_Increment:
-  [ !MetricVersion(n,n,'v0') ]
-  --[ MetricVersionIncrement(n,'v0') ]->
-  [ !MetricVersion(n,n,'v0') ]
+/* ── Route update verification ───────────────────────────────────── */
+/*
+ !Honest(src) removed: security is provided by the HMAC equality check.
+ An honest receiver dst looks up !PSK(src, src, psk_src) and verifies
+ that the incoming MAC equals hmac(payload, psk_src).  Without psk_src
+ an active attacker cannot produce a valid MAC (hmac is a free function).
+*/
+rule Route_Update_Verify:
+  [ In(<src, metric, seq_new, nextHop, mv,
+        hmac(<src, metric, seq_new, nextHop, mv>, psk_src)>),
+    !Node(dst, 'honest'),
+    !PSK(src, src, psk_src)
+  ]
+  --[ RouteUpdate(dst, src, metric, seq_new),
+      HMACVerified(dst, src, metric, seq_new),
+      RouteAccepted(dst, src, metric, nextHop, seq_new, mv)
+  ]->
+  [ !RouteTable(dst, src, metric, nextHop, seq_new, mv) ]
+
+/* ── Node compromise (leaks PSK) ───────────────────────────────── */
 
 rule Compromise_Node:
-  [ !Node(n,'honest'), !PSK(n,n,psk) ]
+  [ !Node(n, 'honest'), !PSK(n, n, psk) ]
   --[ Compromise(n), Compromised(n) ]->
   [ Out(psk) ]
 
-/* Security Properties */
+/* ══════════════════════════════════════════════════════════════════
+   Security Properties
+   ══════════════════════════════════════════════════════════════════ */
 
+/*
+ L1: Route Metric Authenticity.
+     Every route accepted by an honest, uncompromised receiver for
+     destination dst was actually originated by dst (proof: the HMAC
+     can only be produced by the holder of psk_src = psk(dst), and
+     HelloSent(dst,...) is the only action that generates such an HMAC).
+*/
 lemma L1_RouteMetricAuthenticity_Patched:
   "All node dst metric nh seq ver #i.
-      RouteAccepted(node,dst,metric,nh,seq,ver) @ i
+      RouteAccepted(node, dst, metric, nh, seq, ver) @ i
       & (Ex #h1. HonestNode(node) @ h1)
       & (Ex #h2. HonestNode(dst) @ h2)
       & not (Ex #c. Compromised(dst) @ c)
-    ==> (Ex #j. HelloSent(dst,'zero',seq) @ j & j < i)"
+    ==> (Ex #j. HelloSent(dst, 'zero', seq) @ j & #j < #i)"
 
+/*
+ L2: Route Freshness / HMAC binding (non-trivial).
+     Two RouteAccepted events at the same node, for the same
+     (dst, seq, ver), must carry identical (metric, nextHop).
+     This is non-trivial with !Honest(src) removed: it requires that
+     the HMAC prevents an attacker from producing two valid messages
+     with the same (src, seq, mv) but different payload fields.
+*/
 lemma L2_RouteFreshness_Patched:
-  "All node dst metric1 metric2 nh1 nh2 seq ver1 ver2 #i #j.
-      RouteAccepted(node,dst,metric1,nh1,seq,ver1) @ i
-      & RouteAccepted(node,dst,metric2,nh2,seq,ver2) @ j
+  "All node dst metric1 metric2 nh1 nh2 seq ver #i #j.
+      RouteAccepted(node, dst, metric1, nh1, seq, ver) @ i
+      & RouteAccepted(node, dst, metric2, nh2, seq, ver) @ j
       & (Ex #h. HonestNode(node) @ h)
       & not (Ex #c. Compromised(dst) @ c)
-    ==> ver1 = ver2"
+    ==> metric1 = metric2 & nh1 = nh2"
 
+/*
+ L3: Route Consistency across receivers.
+*/
 lemma L3_RouteConsistency_Patched:
   "All dst seq metric1 metric2 node1 node2 nh1 nh2 ver #i #j.
-      RouteAccepted(node1,dst,metric1,nh1,seq,ver) @ i
-      & RouteAccepted(node2,dst,metric2,nh2,seq,ver) @ j
+      RouteAccepted(node1, dst, metric1, nh1, seq, ver) @ i
+      & RouteAccepted(node2, dst, metric2, nh2, seq, ver) @ j
       & (Ex #h1. HonestNode(node1) @ h1)
       & (Ex #h2. HonestNode(node2) @ h2)
       & (Ex #d. HonestNode(dst) @ d)
       & not (Ex #c. Compromised(dst) @ c)
     ==> metric1 = metric2"
 
+/*
+ L4: No Unauthorized Route.
+*/
 lemma L4_NoUnauthorizedRoute_Patched:
   "All node attacker dst metric seq ver #i.
-      RouteAccepted(node,dst,metric,attacker,seq,ver) @ i
+      RouteAccepted(node, dst, metric, attacker, seq, ver) @ i
       & (Ex #h1. HonestNode(node) @ h1)
       & (Ex #h2. HonestNode(dst) @ h2)
       & not (Ex #c. Compromised(dst) @ c)
     ==> (Ex #ha. HonestNode(attacker) @ ha)"
 
+/*
+ L5: PSK Confidentiality.
+*/
 lemma L5_PSKConfidentiality_Patched:
   "All node psk #i.
-      PSKInit(node,psk) @ i
+      PSKInit(node, psk) @ i
       & not (Ex #c. Compromised(node) @ c)
     ==> not (Ex #k. K(psk) @ k)"
 
-/* Sanity Checks */
+/* ══════════════════════════════════════════════════════════════════
+   Sanity / Executability Checks
+   ══════════════════════════════════════════════════════════════════ */
 
 lemma L_Sanity1_Honest_Route_Exists: exists-trace
   "Ex dst src metric nh seq ver #i #h1 #h2.
-    RouteAccepted(dst,src,metric,nh,seq,ver) @ i
+    RouteAccepted(dst, src, metric, nh, seq, ver) @ i
     & HonestNode(dst) @ h1
     & HonestNode(src) @ h2"
 
 lemma L_Sanity2_HMAC_Verified: exists-trace
   "Ex dst src metric seq #i.
-    HMACVerified(dst,src,metric,seq) @ i"
+    HMACVerified(dst, src, metric, seq) @ i"
 
 lemma L_Sanity3_MetricVersion_Increment_Happens: exists-trace
-  "Ex n ver #i. MetricVersionIncrement(n,ver) @ i"
+  "Ex n dst ver #i. IncrementVersion(n, dst, ver) @ i"
 
 end
