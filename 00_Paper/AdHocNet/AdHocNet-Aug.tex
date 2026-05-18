@@ -89,22 +89,22 @@ LoRa \sep ad hoc mesh routing \sep distance-vector routing security
 
 LoRa-based ad~hoc mesh networks have achieved remarkable
 deployment scale.
-Individual installations now span hundreds of self-organizing
-sensor nodes across farmland, mountain ranges, and urban districts,
-relying on multi-hop distance-vector (DV) routing to relay data
+Individual installations now span hundreds of sensor nodes across
+farmland, mountain ranges, and urban districts.
+Multi-hop distance-vector (DV) routing is used to relay data
 where fixed infrastructure is absent or cost-prohibitive~\cite{ieee2025-lora-hierarchy-routing}.
-At the core of many such deployments is
-LoRaMesher~\cite{sole2022-loramesher,sole2024-loramesher-dv,sole2026-loramesher-swx,repetto2022-lorawan-demo}:
-an open-source DV mesh routing stack for ESP32-class
-microcontrollers (240~MHz, 512~KB RAM) that provides dynamic
-route discovery, neighbor management, and periodic session
-rekeying without requiring fixed gateway infrastructure.
-Yet, despite the protocol's growing adoption, \emph{the security
-of its control-plane messages has never been formally analyzed}:
-to our knowledge, no prior published work has produced
-machine-checked vulnerability proofs, proposed a formally verified
-patch, or validated the result across multi-topology simulation and
-physical hardware for any LoRa ad~hoc mesh routing protocol.
+LoRaMesher~\cite{sole2022-loramesher,sole2024-loramesher-dv,sole2026-loramesher-swx,repetto2022-lorawan-demo}
+is at the core of many such deployments:
+an open-source mesh routing stack for ESP32-class nodes
+(240~MHz, 512~KB RAM) providing route discovery, neighbor
+management, and session rekeying without fixed infrastructure.
+Despite its growing adoption, \emph{the security of
+LoRaMesher's control-plane messages has not been formally
+analyzed}.
+To our knowledge, no prior published work has produced
+machine-checked vulnerability proofs for any LoRa mesh routing
+protocol, proposed a formally verified patch, or validated the
+result across multi-topology simulation and physical hardware.
 
 \subsection{The Deployment Security Problem}
 
@@ -133,16 +133,18 @@ attack vectors available to any adversary with commodity hardware:
     to decrypt traffic with a compromised old key.
 \end{enumerate}
 
-Both attacks share a common structural root cause: LoRaMesher's
-control plane treats all received messages as equally authoritative,
-without verifying sender identity or message freshness. This
-design—inherited from classical DV routing built for trusted wired
-networks—creates an \emph{adversarial state injection surface}:
-any node within radio range can permanently corrupt the shared
-routing state of the entire mesh by transmitting a single
-well-timed control message. The two attack classes are therefore
-not independent defects but two manifestations of the same missing
-property: authenticated state transitions in a broadcast medium.
+Both attacks share a common structural root cause.
+LoRaMesher's control plane treats received messages as equally
+authoritative without verifying sender identity or message
+freshness.
+This design—inherited from classical DV routing built for
+trusted wired networks—creates an \emph{adversarial state
+injection surface}: the routing state of the entire mesh can be
+permanently corrupted by a single well-timed control message
+from any node within radio range.
+The two attack classes are therefore two manifestations of the
+same missing property: authenticated state transitions in a
+broadcast medium.
 
 Neither attack requires node compromise or cryptographic break—only
 a commodity LoRa radio.
@@ -153,17 +155,18 @@ topologies.
 
 LoRaWAN security~\cite{ieee2025-lorawan-key-vulnerability,ieee2025-lorawan-key-verification,mohamed2022-lorawan-gateways,butun2019-lorawan-security-risk}
 targets the star-topology WAN layer managed by network servers;
-it provides no mechanism for mesh control-plane authentication.
-Standard mesh security protocols (802.15.4 CCM*, AODV-SEC~\cite{hu2002-sead},
-ARIADNE~\cite{hu2002-ariadne}) assume either PKI infrastructure or
-time-based one-way function chains (TESLA) requiring clock synchronisation
-infeasible under LoRa's duty-cycle and sleep-cycle constraints.
-TinyECC~\cite{liu2008-tinyecc} and similar lightweight
-asymmetric solutions require $>$500~ms per operation on
-ESP32—prohibitive for Hello messages sent every 10~seconds.
-Existing surveys~\cite{hessel2022-lorawan-survey,butun2019-lorawan-security-risk}
-document that deployed LPWAN protocols frequently lack formal
-security analysis, leaving them exposed to well-known attack classes.
+no mechanism for mesh control-plane authentication is provided.
+Standard mesh security protocols—802.15.4 CCM*, AODV-SEC~\cite{hu2002-sead},
+and ARIADNE~\cite{hu2002-ariadne}—assume PKI infrastructure or
+TESLA-based one-way chains requiring clock synchronisation.
+Both prerequisites are infeasible under LoRa's duty-cycle and
+sleep-cycle constraints.
+Lightweight asymmetric alternatives such as
+TinyECC~\cite{liu2008-tinyecc} require $>$500~ms per operation
+on ESP32—prohibitive at a 10-second Hello interval.
+As documented in existing surveys~\cite{hessel2022-lorawan-survey,butun2019-lorawan-security-risk},
+deployed LPWAN protocols frequently lack formal security
+analysis, leaving them exposed to well-known attack classes.
 
 \textbf{The gap.} Existing work has addressed LoRaWAN WAN-layer
 security and generic mesh routing security separately, but none has
@@ -1032,7 +1035,7 @@ is required to achieve 0\% success universally.
 \label{sec:patch}
 % ==================================================================
 
-The patch is designed around three ESP32 deployment constraints:
+Three ESP32 deployment constraints shaped the patch design:
 (a)~minimal flash footprint, (b)~sub-millisecond CPU overhead,
 and (c)~no PKI or trusted-third-party dependency.
 
@@ -1498,13 +1501,14 @@ Raw serial logs are archived in
 % ==================================================================
 
 Route injection in LoRaMesher creates a \emph{silent traffic
-black hole}---not an adversarial relay---because the deployed
+black hole}---not an adversarial relay.
+The root cause is a cross-layer semantic mismatch: the deployed
 firmware encodes next-hop forwarding state in the destination
-field rather than the final gateway identity assumed by symbolic
-and packet-level analyses.
-This cross-layer semantic mismatch explains the observed
-topology-dependent attack gradient and only becomes visible
-through hardware-level validation.
+field, whereas symbolic and packet-level analyses assume that
+field carries the final gateway identity.
+This mismatch explains the topology-dependent attack gradient
+observed across topologies and is detectable only through
+hardware-level serial-log inspection.
 
 \subsection{The dst-as-Next-Hop Encoding}
 \label{sec:cross-layer-encoding}
@@ -1585,15 +1589,16 @@ from the topology graph alone.
 Both Tamarin and ns-3 describe the attack as ``traffic diverted
 to the attacker,'' implying the attacker could inspect or relay
 packets.
-Hardware serial logs show the actual outcome: packets carry
-$\texttt{dst}=\texttt{0xCC}$ and are discarded at every honest
-intermediate node, never reaching the attacker's radio receive
-buffer.
+The actual outcome, as revealed by hardware serial logs, is
+different: packets are addressed to \texttt{0xCC} and discarded
+at every honest intermediate node, never reaching the attacker's
+radio receive buffer.
 The attacker is not a relay—it is an absent destination.
-This distinction matters for data confidentiality: if the
-attacker were a relay, end-to-end encryption would be the
-appropriate countermeasure; since packets are silently dropped,
-the primary impact is availability, not confidentiality.
+This distinction has direct consequences for threat modeling:
+if an adversarial relay were the threat, end-to-end encryption
+would be the appropriate countermeasure; because packets are
+silently dropped, the primary impact is availability, not
+confidentiality.
 
 \textbf{Gateway-blind failure.}
 The gateway neither receives the misdirected packets nor
@@ -1648,13 +1653,14 @@ Three detection strategies follow directly from this insight:
 
 All three strategies require partial observation at intermediate
 nodes, which is incompatible with LoRaWAN's gateway-centric
-monitoring model. For ad hoc deployments, designated guardian
+monitoring model.
+For ad hoc deployments, designated guardian
 nodes~\cite{ieee2025-blackhole-optimization} with elevated
-monitoring privilege are the most practical realization.
-We note that these detection strategies are derived from
-protocol-layer analysis; quantitative evaluation of their
-false-positive rates and energy overhead on constrained hardware
-remains outside the scope of this study and is left for future work.
+monitoring privilege are identified as the most practical
+realization.
+These detection strategies are derived from protocol-layer
+analysis; quantitative evaluation of false-positive rates and
+energy overhead on constrained hardware is left for future work.
 
 \subsection{Abstraction Gap and Generalization}
 \label{sec:cross-layer-generalization}
@@ -1938,15 +1944,14 @@ combining all three for any LoRa mesh routing protocol.
 % ==================================================================
 
 The LoRaMesher control plane—deployed on commodity ESP32 hardware
-in unattended ad hoc mesh fields—has been shown to accept
-unauthenticated routing updates, enabling any actor with a
-\$20 radio to hijack traffic or confuse session epochs across
-an entire sensor field.
-Formal analysis (Tamarin) confirms the vulnerabilities and
-verifies the corrective patch; hardware validation on physical
-EoRa-PI boards confirms no attack-induced PDR degradation and—
-critically—reveals the correct threat semantics that formal
-and simulation models cannot capture alone.
+in unattended ad hoc mesh fields—accepts unauthenticated routing
+updates, enabling any actor with a \$20 radio to hijack traffic
+or confuse session epochs across an entire sensor field.
+Tamarin formal analysis confirms the vulnerabilities and verifies
+the corrective patch.
+Physical validation on EoRa-PI boards confirms no attack-induced
+PDR degradation and—critically—reveals the correct threat
+semantics that formal and simulation models cannot capture alone.
 
 Our central finding is that routing-security analysis must
 explicitly distinguish \emph{endpoint identity} from
@@ -1956,13 +1961,13 @@ silent traffic black holes as adversarial relays—yielding
 incorrect IDS designs (gateway-centric monitoring misses the
 attack) and overstated confidentiality risks (packets are
 discarded, not intercepted).
-Formal verification and simulation accurately characterize
-the control-plane vulnerability; hardware validation is
-required to establish the correct attack semantics.
-Together, they show that constrained ad hoc mesh routing can
-be secured against the actual threat—availability loss via
-silent misdirection—with a minimal, PKI-free patch that
-is deployable on commodity ESP32 hardware.
+Formal verification and simulation accurately characterize the
+control-plane vulnerability; hardware validation establishes
+the correct attack semantics.
+Together, the three tiers show that constrained ad hoc mesh
+routing can be secured against the actual threat—availability
+loss via silent misdirection—with a minimal, PKI-free patch
+running on commodity ESP32 hardware.
 
 All artifacts are released under MIT license as a reproducible
 baseline for future LoRa mesh routing security research.
