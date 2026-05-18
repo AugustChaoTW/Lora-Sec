@@ -68,8 +68,8 @@ up to 49 nodes, and validation on six physical EoRa-PI boards.
 We design a lightweight patch—HMAC-SHA256 per-message
 authentication combined with a per-destination MetricVersion
 counter—that requires no PKI infrastructure.
-The patched protocol achieves 0\% residual PDR degradation under
-all tested conditions.
+The patched protocol achieves no attack-induced PDR degradation
+under all tested conditions.
 All artifacts are publicly released.
 \end{abstract}
 
@@ -104,10 +104,10 @@ networks without fixed gateway infrastructure—a canonical ad~hoc
 networking scenario.
 Yet, despite the protocol's growing adoption, \emph{the security
 of its control-plane messages has never been formally analyzed}:
-no prior work has produced machine-checked vulnerability proofs,
-proposed a formally verified patch, or validated the result across
-multi-topology simulation and physical hardware for any LoRa
-ad~hoc mesh routing protocol.
+to our knowledge, no prior published work has produced
+machine-checked vulnerability proofs, proposed a formally verified
+patch, or validated the result across multi-topology simulation and
+physical hardware for any LoRa ad~hoc mesh routing protocol.
 
 \subsection{The Deployment Security Problem}
 
@@ -1408,23 +1408,17 @@ Node~C replays the captured Hello (mv=21, HMAC still valid) repeatedly at
 8-second intervals, targeting the reboot window.
 
 \textbf{Mode 1 (HMAC only, no NVS).}
-After reboot Node~A initialises $mv[\texttt{BB}]=0$ from SRAM.
-The replayed Hello (mv=21) satisfies $21 > 0$, so Node~A accepts it and
-installs the stale route entry (\texttt{[ROUTE] Added dst=0xBB via=0xBB metric=1 mv=21}).
-The attacker successfully exploits the reboot window.
+After reboot Node~A re-initialises $mv[\texttt{BB}]=0$ from SRAM;
+the replayed Hello (mv=21) satisfies $21 > 0$ and is accepted,
+confirming the reboot-window vulnerability.
 
 \textbf{Mode 2 (HMAC + MetricVersion + NVS).}
-After reboot Node~A reads the NVS and recovers $mv[\texttt{BB}]=25$
-(\texttt{[NVS]~Loaded mv[0xBB]=25 (reboot window closed)}).
-The first legitimate Hello from Node~B (mv=32) is accepted and the NVS entry
-is updated to 32.
-Every subsequent replay attempt is rejected:
-\begin{quote}\small
-\texttt{[DROP] Hello from 0xBB: MV=21 <= stored=32 (REPLAY REJECTED)}
-\end{quote}
-Node~C's replays are rejected on every 8-second interval for the full
-120-second run; Node~A maintains a stable route via the legitimate gateway
-and achieves 88\% PDR.
+After reboot Node~A recovers $mv[\texttt{BB}]=25$ from NVS flash.
+All subsequent replay attempts (mv=21) are rejected because
+$21 \leq 25$; the first legitimate Hello from Node~B (mv=32)
+is accepted and the NVS entry advances normally.
+Node~A achieves 88\% PDR with no routing-table disruption across
+the full 120-second run.
 
 \textbf{Summary.}
 NVS persistence converts the bounded-time reboot window into a permanently
@@ -1464,27 +1458,17 @@ next-hop to all four sensor nodes simultaneously.
 
 \textbf{Baseline results (SECURITY\_MODE=0).}
 All three relay nodes immediately update their routing tables to
-point at the attacker:
-\begin{quote}\small
-\texttt{[R1] [ROUTE] NH=0xCC metric=1}\\
-\texttt{[R2] [ROUTE] NH=0xCC metric=1}\\
-\texttt{[R3] [ROUTE] NH=0xCC metric=1}
-\end{quote}
-Subsequent data transmissions from R1, R2, and R3 are all sent
-\texttt{via=0xCC}; Node~B's reception rate drops sharply.
+\texttt{NH=0xCC}; subsequent data from R1--R3 is addressed to the
+attacker and silently dropped at every honest relay.
 \textbf{3 of 4 honest sensor nodes are simultaneously compromised}
-by a single injected control message—demonstrating that the
-attack scales linearly with network size.
+by a single injected control message—confirming linear scaling
+of the attack with network size.
 
 \textbf{Patched results (SECURITY\_MODE=1).}
-Every forged Hello is rejected at all four nodes with
-\texttt{[DROP] Hello from 0xCC: HMAC FAILED}.
+Every forged Hello is rejected at all four nodes (HMAC failure).
 All nodes maintain their legitimate routes; Node~A achieves
-\textbf{85\%~PDR} and Node~B receives data continuously from all
-four sensor nodes.
-The attacker's injection rate (one every 8~s) produces
-\emph{zero} routing table updates across all honest nodes for the
-full 120-second run.
+\textbf{85\%~PDR} and zero routing-table updates are induced
+by the attacker across the full 120-second run.
 
 \begin{table}[h]
   \centering
@@ -1696,26 +1680,19 @@ forwarding behavior.
 We observe that this design tension is not unique to
 LoRaMesher, and offer two candidate instances as plausibility
 arguments, explicitly flagging them as requiring independent
-empirical verification:
+empirical verification.
 RPL~\cite{ietf-rfc7416} encodes preferred parent identity in the
-DODAG parent set; a formal analysis abstracting
-``preferred parent'' as an endpoint identity may miss the
-next-hop binding semantics.
-Meshtastic~v2.6+ avoids the dst-field collapse entirely:
-its \texttt{MeshPacket} header carries a separate \texttt{next\_hop}
-field alongside the final \texttt{to} field.
-A preliminary informal analysis of the Meshtastic routing model suggests that
-this design eliminates the silent-black-hole category but
-introduces a \emph{different} symbolic-layer divergence:
-an unauthenticated \texttt{next\_hop} lets an adversary become
-an active relay (intercept, inspect, selectively drop) rather
-than an absent destination.
-Lemmas L1--L3 are falsified, L4 identifies an admin-command
-replay vulnerability (these observations are based on manual protocol inspection;
-a machine-checked Tamarin model of Meshtastic routing is deferred to future work),
-and the appropriate IDS architecture
-shifts from sender-centric anomaly detection to relay-path
-authentication—a distinct design space from the LoRaMesher case.
+DODAG parent set; a formal model abstracting ``preferred parent''
+as an endpoint identity may similarly miss next-hop binding
+semantics, though a machine-checked analysis is left for future work.
+Meshtastic~v2.6+ separates these concerns by adding a distinct
+\texttt{next\_hop} field alongside the final \texttt{to} field,
+eliminating the silent-black-hole category but introducing a
+different symbolic divergence: an unauthenticated \texttt{next\_hop}
+enables active relay rather than silent discard—a distinct IDS
+design space requiring relay-path authentication rather than
+sender-centric anomaly detection (preliminary informal analysis;
+machine-checked verification deferred to future work).
 This comparison confirms that constrained-header design is not
 uniformly harmful: it changes the \emph{category} of the
 resulting attack rather than simply preventing or permitting it.
@@ -1904,7 +1881,8 @@ ESP32 constraints; and (iii)~cross-layer hardware validation that
 revealed the \texttt{dst}-as-next-hop implementation subtlety
 (Section~\ref{sec:cross-layer}) invisible to both symbolic
 and packet-level models.
-No prior study assembles all three for any LoRa mesh routing protocol.
+To the best of our knowledge, we are unaware of prior work jointly
+combining all three for any LoRa mesh routing protocol.
 
 % ==================================================================
 \section{Limitations and Future Work}
@@ -1967,7 +1945,7 @@ unauthenticated routing updates, enabling any actor with a
 an entire sensor field.
 Formal analysis (Tamarin) confirms the vulnerabilities and
 verifies the corrective patch; hardware validation on physical
-EoRa-PI boards confirms 0\% residual PDR degradation and—
+EoRa-PI boards confirms no attack-induced PDR degradation and—
 critically—reveals the correct threat semantics that formal
 and simulation models cannot capture alone.
 
