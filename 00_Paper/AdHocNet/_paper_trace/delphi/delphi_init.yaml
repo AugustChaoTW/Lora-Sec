@@ -1,0 +1,385 @@
+paper_path: /home/augchao/Work/Lora-Sec/00_Paper/AdHocNet/AdHocNet-Aug.tex
+target_journal: "Ad Hoc Networks (Elsevier, ISSN 1570-8705, IF ~4.8)"
+delphi_version: "R1"
+created: "2026-05-17"
+paper_stage: "pre-submission (post CH01-CH18)"
+paper_state_summary:
+  pages: 38
+  compilation: "clean (no LaTeX errors, 2026-05-12)"
+  contributions: 3      # C1=finding, C2=methodology, C3=artifacts
+  reviewer_risks_documented: 6   # RR1-RR6
+  limitations_documented: 6     # L1-L6
+  changes_logged: 18    # CH01-CH18
+  locked_numbers: 13    # N1-N13
+
+# ─────────────────────────────────────────────────────────────
+# DELPHI PURPOSE
+# ─────────────────────────────────────────────────────────────
+# Simulate 5 independent expert reviewers matching Ad Hoc Networks
+# reviewer profiles. Each evaluates independently (Round 1), then
+# issues are synthesized (Round 2) into a prioritized fix list.
+#
+# Goal: identify BLOCKING issues before submission, not cosmetic fixes.
+# ─────────────────────────────────────────────────────────────
+
+panel:
+
+  - expert_id: E1
+    role: "Ad Hoc Networks Routing Specialist"
+    persona: >
+      Professor with 20 years in MANET and wireless mesh routing.
+      Deep knowledge of DSDV, AODV, OLSR, DSR, RPL.
+      Has reviewed for Ad Hoc Networks (Elsevier) multiple times.
+      Expects contributions to generalize beyond one protocol stack.
+      Will immediately check if related work covers the canonical papers.
+    focus_areas:
+      - "Novelty vs existing ad hoc routing security work (SEAD, SAODV, ARIADNE)"
+      - "Generalizability of findings beyond LoRaMesher"
+      - "C1 (cross-layer finding): strength of claim, evidence quality"
+      - "Related work completeness — DSDV, authenticated OLSR, RPL RFC 7416"
+      - "77.4% PDR residual: is it meaningful or topology artifact?"
+    probe_risks: [RR4, RR5, RR6]
+    probe_limitations: [L1, L6]
+    known_weaknesses_to_check:
+      - "§7.4 generalization: 'design tension with two plausible candidates' — is this convincing?"
+      - "sec:related.mesh positioning vs. RPL RFC 7416 and IETF MANET work"
+      - "Why LoRaMesher and not BATMAN/OLSR-based LoRa mesh? Missing justification?"
+      - "6-hop C1 evidence: only 3-node and 6-node hardware. Generalize claim?"
+    questions:
+      - "Is C1 (silent black hole vs adversarial relay) a novel finding or an obvious consequence of dst encoding?"
+      - "Does sec:related.defense adequately position vs SEAD monotonic hash chains?"
+      - "Is 'to our knowledge first formal treatment of DV routing under LoRa constraints' defensible?"
+      - "Would the Ad Hoc Networks community care about this result, or does it belong in a narrower IoT venue?"
+
+  - expert_id: E2
+    role: "Formal Methods / Protocol Verification Specialist"
+    persona: >
+      Researcher specializing in Tamarin Prover and ProVerif.
+      Has published on TLS 1.3, 5G-AKA, and IoT protocol analysis.
+      Will critically examine the Tamarin model for correctness,
+      abstractions, scope claims, and reproducibility.
+      Suspicious of 2-node models being claimed sufficient for N-node guarantees.
+    focus_areas:
+      - "Tamarin model correctness and completeness (2-node sufficiency)"
+      - "Lemma formulations: are they the right security properties?"
+      - "L2 RouteFreshness requiring MetricVersion — is this non-obvious?"
+      - "Executability lemma: present in patched model (L8)?"
+      - "Reproducibility: can the .spthy file be independently verified?"
+    probe_risks: [RR1]
+    probe_limitations: [L1, L2]
+    known_weaknesses_to_check:
+      - "Are lemmas L1-L4 truly 'security goals' or just observable behavior?"
+      - "2-node model: Tamarin symbolic = unbounded — does paper argue this correctly?"
+      - "L8 Executability: is it in baseline model or only patched? Why asymmetry?"
+      - "Tamarin 'falsified' in 0.8 s — is this just because attacker trivially wins? Could mask model errors."
+      - "MetricVersion reboot window: is the NVS persistence correctly modeled in Tamarin?"
+    questions:
+      - "Is the claim 'equivalent to proving for any number of honest nodes' (L1, sec:limitations) correctly stated?"
+      - "Does the Tamarin model capture the NVS reboot scenario, or only hardware E4 does?"
+      - "Why 8 lemmas in patched vs 5 in baseline — what are the 3 new lemmas and why were they not in baseline?"
+      - "Is L2 RouteFreshness the correct Tamarin property for replay prevention? Alternative formulation?"
+
+  - expert_id: E3
+    role: "Embedded Systems / LoRa Hardware Expert"
+    persona: >
+      Engineer with deep knowledge of ESP32, SX1262, and LoRa deployments.
+      Has built production LoRa mesh sensor networks.
+      Will scrutinize hardware methodology, signal quality, duty cycle claims,
+      and real-world deployability of the patch.
+      Concerned about co-located 6-board bench vs. real field conditions.
+    focus_areas:
+      - "Hardware methodology: co-located bench (<1 m) validity"
+      - "PDR 87% / 85% residual — channel loss or firmware bug?"
+      - "HMAC 98 µs overhead: realistic under ESP32 task scheduling?"
+      - "NVS write latency: how long does NVS write take under wear leveling?"
+      - "LoRaMesher firmware version compatibility: which version was patched?"
+      - "AS923 duty cycle implications for HMAC overhead claim (0.06%)"
+    probe_risks: [RR3]
+    probe_limitations: [L3, L4]
+    known_weaknesses_to_check:
+      - "Co-located boards: what is actual inter-board distance? Is RF path multi-hop realistic?"
+      - "E6 topology: relay_delay_ms=500 — is this an artificial delay or firmware behavior?"
+      - "What firmware version of LoRaMesher was used? Is it the current main branch?"
+      - "HMAC overhead 0.06%: assumes ideal airtime. Does CSMA/collision affect this?"
+      - "NVS write cost (flash erase cycle): measured or assumed free?"
+      - "Patch backward compatibility: what happens if patched node receives unpatched Hello?"
+    questions:
+      - "Is 87% hardware PDR a success or a concern? Bench-distance explanation convincing?"
+      - "Is the LoRaMesher version used representative of current deployments?"
+      - "Does the patch break compatibility with production LoRaMesher firmware?"
+      - "What is the NVS write overhead per route table update?"
+
+  - expert_id: E4
+    role: "Applied Security / Cryptography Expert"
+    persona: >
+      Security researcher with IoT and lightweight cryptography background.
+      Published on embedded MAC authentication, key provisioning, and IoT threat models.
+      Will check for security gaps: replay windows, key exhaustion, collision attacks,
+      ASCON comparison claims, and completeness of the threat model.
+    focus_areas:
+      - "HMAC-SHA256 security properties: is it the right primitive for this use case?"
+      - "PSK provisioning: paper defers to 'manufacture-time'. Is this realistic?"
+      - "Replay window: MetricVersion post-reboot — NVS handles reboot but what about power loss?"
+      - "Key exhaustion / compromise: what happens when PSK is leaked?"
+      - "Comparison to ASCON-AEAD128 (mentioned in sec:related.lightweight)"
+      - "Attacker model completeness: Dolev-Yao on broadcast channel — is this the right model?"
+    probe_risks: [RR2]
+    probe_limitations: [L5, L6]
+    known_weaknesses_to_check:
+      - "HMAC with fixed PSK: no key rotation on Hello messages. Long-term key exposure?"
+      - "ASCON mention in related work (sec:related.lightweight) without comparison — is this a missed baseline?"
+      - "Colluding attacker: paper claims Dolev-Yao equivalent. Is this true for broadcast medium?"
+      - "MetricVersion counter: 8-bit or 16-bit? What is the wrap-around scenario?"
+      - "MAC truncation: HMAC output length not specified. Full 32 bytes? Truncated?"
+    questions:
+      - "Is HMAC-SHA256 with a fixed PSK sufficient, or does the paper need to address key rotation?"
+      - "Does 'ASCON-AEAD128 provides authenticated encryption competitive with HMAC-SHA256' require a comparison experiment?"
+      - "MetricVersion counter: what size? What happens at overflow?"
+      - "HMAC-only (Mode 1) accepts replay after reboot. Is this a paper weakness or intentional design?"
+
+  - expert_id: E5
+    role: "Associate Editor / Scope & Writing Evaluator"
+    persona: >
+      Associate Editor for Ad Hoc Networks (Elsevier).
+      Evaluates fit for the journal's scope, writing quality, structure,
+      and novelty positioning. Will desk-reject if: scope too narrow/IoT-centric,
+      novelty claim unsubstantiated, related work incomplete.
+      Ad Hoc Networks scope: ad hoc and sensor networks, routing, energy, QoS.
+    focus_areas:
+      - "Journal scope fit: is this 'ad hoc networks' or 'IoT security'?"
+      - "Abstract quality: does it communicate the C1 finding in 150 words?"
+      - "Introduction clarity: is the contribution hierarchy (C1 > C2 > C3) clear?"
+      - "Length: 38 pages — is this appropriate for the journal?"
+      - "Figure 1 (hero figure): redesigned 2026-05-12. Does it serve C1?"
+      - "Writing quality: English fluency, passive voice overuse?"
+    probe_risks: []
+    probe_limitations: []
+    known_weaknesses_to_check:
+      - "Abstract para 2: patch metrics removed (CH13). Is the remaining content balanced?"
+      - "Keywords: contains 'silent traffic black hole' — is this standard terminology?"
+      - "38 pages: Ad Hoc Networks typical length 10-15 pages. Is this too long?"
+      - "Section §7 (cross-layer finding): added 4 subsections (CH16). Does this disrupt flow?"
+      - "Hardware subsections (§6.1-§6.4) interrupt evaluation flow — should hardware be unified?"
+      - "Limitations section: after related work (§8). Standard placement or unusual?"
+    questions:
+      - "Is the paper length (38 pages) appropriate for Ad Hoc Networks? Risk of reject-for-length?"
+      - "Does the abstract lead with C1 (finding) or C2 (methodology)? Which is more compelling for this journal?"
+      - "Is 'cross-layer semantic mismatch' clearly explained for a routing audience unfamiliar with formal methods?"
+      - "Would a non-security Ad Hoc Networks reviewer understand the Tamarin contribution?"
+
+# ─────────────────────────────────────────────────────────────
+# PRIORITY EVALUATION TARGETS
+# Sections / claims identified as highest risk pre-submission
+# ─────────────────────────────────────────────────────────────
+priority_targets:
+
+  - priority: CRITICAL
+    target: "Abstract paragraph 1 (cross-layer finding)"
+    concern: >
+      'dst=next-hop' finding introduced in abstract without setup.
+      Non-expert reader may not understand why this is surprising.
+    tex_line: 48
+    evaluators: [E1, E5]
+
+  - priority: CRITICAL
+    target: "§7.4 generalization claim (RPL, Meshtastic candidates)"
+    concern: >
+      After CH16/CH17 fixes, claims lowered to 'design tension'.
+      But still claims 'two plausible candidates'. Is this supported?
+      Risk: E1 will ask for evidence that RPL/Meshtastic share same encoding.
+    tex_line: ~1680
+    evaluators: [E1]
+
+  - priority: HIGH
+    target: "Tab:tamarin — 5 lemmas baseline vs 8 lemmas patched"
+    concern: >
+      Asymmetry never explained: why are L6-L8 only in patched model?
+      E2 will ask: were these properties not relevant for baseline?
+    tex_line: 859
+    evaluators: [E2]
+
+  - priority: HIGH
+    target: "§6.4 correctness validation philosophy"
+    concern: >
+      Added in CH17 to address RR3 (6-node testbed).
+      Need to verify the argument is coherent: correctness (hardware) vs scale (ns-3).
+    tex_line: ~1380
+    evaluators: [E3, E5]
+
+  - priority: HIGH
+    target: "ASCON mention in §8.5 without comparison"
+    concern: >
+      'ASCON-AEAD128 provides authenticated encryption competitive with HMAC-SHA256'
+      but no data. E4 may ask why ASCON was not evaluated as the patch primitive.
+    tex_line: ~1816
+    evaluators: [E4]
+
+  - priority: MEDIUM
+    target: "E6 hardware: relay_delay_ms=500 explanation"
+    concern: >
+      500 ms relay delay is artificial and not explained. E3 will ask about this.
+    evaluators: [E3]
+
+  - priority: MEDIUM
+    target: "MetricVersion counter width and overflow"
+    concern: >
+      Paper mentions MetricVersion counter but does not specify bit width or overflow behavior.
+    evaluators: [E4, E2]
+
+  - priority: MEDIUM
+    target: "Paper length (38 pages) vs Ad Hoc Networks norms"
+    concern: >
+      Ad Hoc Networks typical paper: 10-15 pages (double column, 10pt).
+      38 pages preprint format may signal overlength submission.
+      Check journal page limit before submission.
+    evaluators: [E5]
+
+# ─────────────────────────────────────────────────────────────
+# DELPHI ROUND STRUCTURE
+# ─────────────────────────────────────────────────────────────
+rounds:
+
+  - round_id: R1
+    name: "Independent Expert Evaluation"
+    method: >
+      Each expert evaluates independently. No cross-expert visibility.
+      Each issues: ACCEPT / MINOR / MAJOR / REJECT verdict + top 3 issues.
+    outputs_per_expert:
+      - overall_verdict: "[ACCEPT | MINOR | MAJOR | REJECT]"
+      - blocking_issues: "list of issues that would cause MAJOR/REJECT"
+      - addressable_issues: "issues fixable before submission"
+      - confidence: "0.0–1.0 on their domain coverage"
+    target_completion: "delphi_r1.yaml"
+
+  - round_id: R2
+    name: "Synthesis and Convergence"
+    method: >
+      Synthesize R1 outputs. Identify consensus blocking issues (≥3/5 experts flag).
+      Identify domain-specific blocking issues (single expert, high severity).
+      Produce ranked fix list.
+    target_completion: "delphi_r2_synthesis.yaml"
+
+  - round_id: R3
+    name: "Fix Verification (Optional)"
+    method: >
+      After fixes applied, re-evaluate only the flagged sections.
+      Confirm blocking issues resolved.
+    target_completion: "delphi_r3_verify.yaml"
+
+# ─────────────────────────────────────────────────────────────
+# PRE-EVALUATION CHECKLIST
+# Verify before launching R1
+# ─────────────────────────────────────────────────────────────
+pre_evaluation_checklist:
+  - item: "PDF compiles without errors"
+    status: verified  # 2026-05-12
+  - item: "All locked numbers match paper text"
+    status: verified  # N1-N13 cross-checked 2026-05-17
+  - item: "RR6 fix (DSDV/SAODV/AuthOLSR citations) in text"
+    status: verified  # lines 1779, 1783-1784 present
+  - item: "MetricVersion uint16 width disclosed"
+    status: verified  # lines 504, 827, 1063 — 'uint16', 2 bytes/entry
+  - item: "HMAC tag = 16 bytes (128-bit truncated) disclosed"
+    status: verified  # line 520, 1044
+  - item: "ASCON mentioned in related work / limitations"
+    status: verified  # lines 1815, 1927
+  - item: "MetricVersion overflow / wrap-around addressed"
+    status: MISSING   # uint16 = 65535 max; no overflow discussion in paper
+  - item: "E6 software whitelist for topology simulation disclosed"
+    status: MISSING   # CRITICAL: paper never states all 6 boards are co-located,
+                      # all-hear-all, with software whitelist enforcing linear topology.
+                      # e6_common.h comment: 'Software-enforced neighbor whitelist simulates
+                      # linear topology on bench hardware where all nodes can hear each other.'
+                      # Reviewer E3 will ask: how is linear topology enforced physically?
+  - item: "E6 relay_delay_ms=500 justified in paper"
+    status: MISSING   # experiment YAML has relay_delay_ms=500 but paper never explains it
+  - item: "Journal page limit checked against 38-page draft"
+    status: OPEN      # 2034 lines / 51 section commands. Ad Hoc Networks: no hard limit
+                      # but typical published papers 15-20 pages (double-column 10pt)
+                      # Preprint format (preprint,12pt) adds ~2x page inflation vs published.
+                      # Estimated published length: ~18-20 pages — acceptable.
+
+# ─────────────────────────────────────────────────────────────
+# PRE-EVALUATION FINDINGS (2026-05-17)
+# Issues discovered during pre-evaluation that must be fed to
+# the Delphi panel as known context
+# ─────────────────────────────────────────────────────────────
+pre_evaluation_findings:
+
+  - finding_id: PF1
+    severity: CRITICAL
+    title: "E6 topology simulation method not disclosed"
+    description: >
+      Hardware experiment E6 (6-node linear topology) is conducted with all 6 boards
+      co-located on a bench (<1 m RF range), using a software-enforced neighbor
+      whitelist in firmware (e6_common.h) to simulate linear topology.
+      The paper states only 'six EoRa-PI boards in a five-hop forwarding topology'
+      and never explains how the linear topology constraint is enforced when all nodes
+      are within radio range of each other.
+    evidence: "e6_common.h: 'Software-enforced neighbor whitelist simulates linear topology on bench hardware where all nodes can hear each other'"
+    tex_line: 1438
+    impact: >
+      E3 (hardware expert) will immediately ask: 'If all nodes can hear each other,
+      how does the linear routing behavior arise?' The answer (whitelist) is a legitimate
+      and common technique, but not disclosing it looks like a methodology gap or omission.
+    fix_required: >
+      Add one sentence in sec:hardware-e6 setup: 'To enforce the linear topology on
+      co-located bench hardware, each node's firmware applies a neighbor whitelist
+      accepting only its designated predecessor and successor; nodes outside the
+      linear chain are filtered at the MAC acceptance layer, reproducing the
+      connectivity graph of a physically separated linear deployment.'
+
+  - finding_id: PF2
+    severity: HIGH
+    title: "MetricVersion uint16 overflow not addressed"
+    description: >
+      MetricVersion is defined as uint16 (max 65535). No discussion of overflow behavior
+      when counter wraps around. A long-lived node could exhaust the counter space in
+      theory. Also: NVS persistence means the counter never resets — is 65535 max
+      sufficient for a multi-year deployment? (LoRaMesher Hello interval ~30s →
+      65535 * 30s = ~22.8 days before wrap)
+    evidence: "line 504: 'uint16 MV'; 30s Hello interval → 65535 / (86400/30) = 22.7 days"
+    impact: >
+      E4 (security expert) and E2 (formal methods) may flag: MetricVersion wraps in
+      ~23 days under normal operation. After wrap, stale metrics from before the last
+      wrap become 'fresh'. The Tamarin model may not capture this.
+    fix_required: >
+      Either: (a) explain why 16 bits is sufficient (e.g., counter is per-destination
+      AND increments only on route changes, not every Hello → much slower exhaust);
+      OR (b) add a sentence in sec:patch.mv noting the wrap-around limitation and
+      that 32-bit upgrade is trivially possible at 4 bytes/entry cost;
+      OR (c) add to limitations section.
+
+  - finding_id: PF3
+    severity: MEDIUM
+    title: "E6 relay_delay_ms=500 not explained in paper"
+    description: >
+      Experiment YAML (2_experiment.yaml) records relay_delay_ms=500 for E6.
+      The paper never mentions this parameter. 500ms relay forwarding delay is
+      unusually high and may affect PDR measurements.
+    evidence: "2_experiment.yaml: relay_delay_ms: 500"
+    impact: >
+      E3 will ask about relay delay. If 500ms is a software-imposed delay (to ensure
+      sequential logging), it should be disclosed. If it's natural firmware behavior,
+      that should be stated.
+    fix_required: >
+      Add in sec:hardware-e6 setup: explain what relay_delay_ms represents and why
+      500ms was chosen (likely: firmware inter-message scheduling gap to prevent
+      radio collision in co-located bench setup).
+
+  - finding_id: PF4
+    severity: LOW
+    title: "PSK in e6_common.h is AES-128 NIST test vector"
+    description: >
+      The NETWORK_PSK in e6_common.h is 0x2b7e151628aed2a6abf7158809cf4f3c,
+      which is the well-known NIST AES-128 key expansion test vector.
+      Using a known test vector as PSK in demonstration firmware is acceptable,
+      but should be noted to avoid the appearance of using a weak/predictable PSK.
+    evidence: "e6_common.h line 53-56"
+    impact: >
+      Low risk. Paper says 'assumes PSK provisioned at manufacture'. Demo using
+      a known test vector is acceptable IF the paper clarifies this is a demo key.
+      E4 may note this in review but it's unlikely blocking.
+    fix_required: >
+      Optional: add note in artifact README that the PSK in demo firmware is
+      a test vector; production deployments must use cryptographically random keys.

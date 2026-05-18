@@ -1,0 +1,409 @@
+delphi_round: R2
+title: "Synthesis and Convergence"
+created: "2026-05-17"
+paper: "AdHocNet-Aug.tex"
+
+# ─────────────────────────────────────────────────────────────
+# PANEL VERDICTS SUMMARY
+# ─────────────────────────────────────────────────────────────
+verdicts:
+  E1_adhoc:    {verdict: MINOR,  blocking: 0, addressable: 5}
+  E2_formal:   {verdict: MAJOR,  blocking: 3, addressable: 5}  # ← 唯一 CRITICAL
+  E3_hardware: {verdict: MAJOR,  blocking: 2, addressable: 4}
+  E4_security: {verdict: MINOR,  blocking: 2, addressable: 5}
+  E5_editorial:{verdict: MINOR,  blocking: 0, addressable: 4}
+
+consensus_verdict: MAJOR  # ≥2/5 experts rated MAJOR; one CRITICAL issue exists
+submission_recommendation: >
+  Hold submission. Fix issues F1–F4 (CRITICAL/HIGH, require model or text changes)
+  before sending. F5–F8 (HIGH addressable) should also be resolved.
+  F9+ (MEDIUM/LOW) can be addressed in reviewer-response round.
+estimated_fix_effort:
+  F1: "4–8 hours (Tamarin model rewrite + re-verify)"
+  F2: "30 min (2 sentences in paper + 1 firmware line)"
+  F3: "1 hour (1 paragraph in paper)"
+  F4: "2 hours (key-architecture prose + Tamarin model cleanup)"
+  F5: "30 min (prose fix)"
+  F6: "2 hours (prose + optional firmware fix)"
+  F7: "30 min (prose)"
+  F8: "1 hour (abstract rewrite)"
+  total_estimated: "~12–16 hours"
+
+# ─────────────────────────────────────────────────────────────
+# BLOCKING ISSUES — RANKED (consensus ≥2 experts OR severity CRITICAL)
+# ─────────────────────────────────────────────────────────────
+blocking_issues:
+
+  - fix_id: F1
+    severity: CRITICAL
+    consensus_count: 2  # E2_B1 + E4_A4 (same root cause)
+    title: "Tamarin MetricVersion model is a no-op — central formal claim unsupported"
+    description: >
+      patched_lora_dv_2node.spthy: MetricVersion_Increment rule maps
+      !MetricVersion(n,n,'v0') → !MetricVersion(n,n,'v0') — identity function.
+      The symbol 'v0' never changes. L2_RouteFreshness_Patched therefore proves a
+      tautology: 'v0' = 'v0'. Route_Update_Verify also has !Honest(src) as a
+      premise, meaning the attacker is EXCLUDED from the rule by construction
+      rather than by HMAC verification.
+
+      Consequence: the paper's central formal claim —
+      "HMAC alone is insufficient; MetricVersion counter is required for L2" —
+      is NOT supported by the Tamarin model as written. The MetricVersion
+      counter is nominal, not functional, in the proof.
+
+      This claim is the paper's most-cited novel contribution (abstract para 2,
+      §4.2, §6.2, conclusion). If unaddressed, any formal-methods reviewer
+      will reject immediately.
+    source_issues: [E2_B1, E4_A4]
+    tex_lines: [860]
+    model_file: "phase2_tamarin_models/patched/patched_lora_dv_2node.spthy"
+    fix: >
+      (A) In Tamarin model:
+        1. Replace hard-coded 'v0' with a genuine successor encoding.
+           Option: use succ(x) style or a Fr() nonce-based version counter.
+        2. Route_Update_Verify must check that incoming version > stored version
+           before firing RouteAccepted — not just check HMAC.
+        3. Remove !Honest(src) premise from Route_Update_Verify; security must
+           follow from HMAC unforgeability, not from excluding attacker messages.
+        4. Re-run Tamarin verification; expect 8/8 to still hold (now meaningfully).
+      (B) In paper §4.2:
+        Update the prose to accurately describe the actual model encoding.
+        The claim "HMAC alone insufficient" must now be supported by a genuine
+        Tamarin trace showing a replay succeeds under HMAC-only model.
+    priority: "FIX BEFORE SUBMISSION — CRITICAL"
+
+  - fix_id: F2
+    severity: CRITICAL
+    consensus_count: 2  # E3_B1 (Critical), pre-evaluation PF1
+    title: "E6 topology simulation method undisclosed (all-hear-all bench, no actual whitelist in firmware)"
+    description: >
+      Paper presents E6 as "six-node linear topology" but:
+      1. All 6 boards are co-located (<1 m), all can hear each other.
+      2. e6_common.h comments mention "software-enforced neighbor whitelist"
+         BUT the actual relay firmware has NO whitelist logic — no source filtering.
+      3. The "linear topology" emerges from metric arithmetic, not RF range.
+      4. Paper never discloses any of this.
+
+      E3 confirms: relay node .ino files have no source-filtering code;
+      every relay accepts Hellos from any sender.
+      The paper's phrase "five-hop forwarding topology" implies physical
+      spatial separation that does not exist.
+    source_issues: [E3_B1, PF1]
+    tex_lines: [1438, 1443]
+    fix: >
+      Add one paragraph immediately after the E6 topology description (line 1447):
+      "All six boards were co-located at bench distance (<1~m).
+      The linear routing behavior emerges from hop-count metric arithmetic:
+      each relay re-broadcasts received Hellos with metric\,+\,1,
+      so Node~B's Hello (metric\,=\,0) reaches Node~A as metric\,=\,4
+      through the chain.
+      No source-based packet filtering was applied; all nodes are within RF
+      range and accept Hellos from any sender.
+      This bench setup validates HMAC authentication logic and multi-relay
+      poisoning behavior under realistic firmware scheduling;
+      spatial PDR characterization across multi-hop physical distances is
+      provided by the ns-3 evaluation (Section~\ref{sec:eval})."
+    priority: "FIX BEFORE SUBMISSION — CRITICAL"
+
+  - fix_id: F3
+    severity: HIGH
+    consensus_count: 2  # E4_B1, pre-evaluation PF2
+    title: "MetricVersion uint16 overflow creates ~22-day replay window"
+    description: >
+      MetricVersion is uint16 (max 65535). At Hello interval 10s:
+        65535 × 10s = 7.6 days to exhaust.
+      At 30s Hello interval: ~22.8 days.
+      After wrap-around, stale counters from previous cycle become "fresh."
+      Paper never mentions this. Tamarin model cannot reason about it (v0 is constant).
+    source_issues: [E4_B1, PF2]
+    tex_lines: [504, 1063]
+    fix: >
+      Option A (recommended, minimal code change):
+        Change uint16_t → uint32_t in firmware (2 bytes extra per route entry = negligible).
+        Add one sentence in §6.2: "MetricVersion is declared uint32_t, providing
+        4.3×10^9 distinct values — at 10s Hello interval, exhaustion requires
+        ~1,360 years, making wrap-around a negligible concern."
+
+      Option B (if uint16 is kept for RAM reasons):
+        Add to §6.2 limitations: acknowledge ~7-day exhaust under worst-case,
+        recommend operator-configurable reset tied to session rekeying epoch.
+
+      Either way: add a note in §4 (Tamarin scope): "The formal model treats
+      MetricVersion as an opaque ordered token; wrap-around under fixed-width
+      integer arithmetic is outside the model's scope and addressed in §9."
+    priority: "FIX BEFORE SUBMISSION — HIGH"
+
+  - fix_id: F4
+    severity: HIGH
+    consensus_count: 1  # E4_B2 (single expert but architecturally significant)
+    title: "Key architecture mismatch: formal model assumes per-node PSK; firmware uses one group key"
+    description: >
+      Tamarin model: K = {k_v}_{v ∈ H} — one key per honest node (pairwise interpretation).
+      Deployed firmware (e6_common.h): all nodes share identical NETWORK_PSK.
+      Paper's k < n/2 compromise bound therefore provides no security margin:
+      compromising any single node reveals the group key for all nodes.
+    source_issues: [E4_B2]
+    tex_lines: [529, 588]
+    fix: >
+      Explicitly state which architecture the paper assumes:
+      (A) If group key is intended (reasonable for LoRa resource constraints):
+        Update §2.3 to say "single pre-shared group key k_v shared by all nodes."
+        Remove or replace the k < n/2 bound with: "The network remains
+        secure against external adversaries until the group key is rotated;
+        any node compromise requires network-wide key update."
+        Update Tamarin Compromise_Node rule to reflect that compromising
+        one node leaks the global psk.
+      (B) If pairwise keys are intended:
+        Update firmware to use per-node keys and re-run hardware experiments.
+    priority: "FIX BEFORE SUBMISSION — HIGH"
+
+# ─────────────────────────────────────────────────────────────
+# HIGH-ADDRESSABLE (fix before submission if possible)
+# ─────────────────────────────────────────────────────────────
+high_addressable_issues:
+
+  - fix_id: F5
+    severity: HIGH
+    title: "Tamarin lemma count inconsistency (paper says 8/8 but structure doesn't match)"
+    description: >
+      E2_B3: Paper text references L6 MetricVersionMonotonicity, L7 ReplayRejection,
+      L8 Executability as patched-only lemmas. But patched_lora_dv_2node.spthy
+      has 5 security lemmas + 3 sanity lemmas = 8 total — not labeled L6-L8.
+      Lemma names and counts are inconsistent between paper, paper_trace YAMLs,
+      and actual .spthy files.
+    source_issues: [E2_B3]
+    fix: >
+      After F1 (model rewrite), reconcile all lemma names between:
+      - patched_lora_dv_2node.spthy lemma declarations
+      - Table 1 in §4 (tab:tamarin)
+      - paper_trace/v4/9_dataset_baseline_protocol.yaml TM2.lemmas
+      Assign consistent L1-L8 labels that map 1:1 between model file and paper.
+    priority: "FIX WITH F1"
+
+  - fix_id: F6
+    severity: HIGH
+    title: "E6 relay_delay_ms=500 not explained or justified in paper"
+    description: >
+      E3_B2: node_relay.ino has a blocking delay(500) inside relay_hello()
+      before every Hello re-broadcast. This 500ms blocking window means
+      radio ISR cannot process packets during the delay, contributing to
+      residual PDR loss. Paper attributes all PDR loss to "near-field channel
+      reflections" without mentioning this confound.
+    source_issues: [E3_B2, PF3]
+    fix: >
+      Option A (preferred): Replace blocking delay(500) with non-blocking timer,
+      re-run E6 experiment. If PDR improves, report the corrected result.
+
+      Option B (disclosure only): Add to §6.4: "Relay nodes introduce a
+      500~ms backoff before re-broadcasting Hellos to reduce collision
+      probability on the shared channel. This blocking delay may contribute
+      to the 13–15\% residual PDR gap in addition to near-field RF effects."
+    priority: "HIGH — resolve with Option A or B before submission"
+
+  - fix_id: F7
+    severity: HIGH
+    title: "Two-node Tamarin sufficiency argument informal for L3/L4"
+    description: >
+      E2_B2: The claim "two honest nodes is sufficient for all lemmas" holds
+      for L1/L2 but is informal for L3 (RouteConsistency, requires two distinct
+      receivers) and L4 (AuthorizedRoutes). The argument is asserted at line 772
+      without a bisimulation or monotonicity proof.
+    source_issues: [E2_B2]
+    fix: >
+      Option A: Add 3-node variant of patched model (~20 additional Tamarin lines),
+      show L3/L4 still hold. Include as supplementary artifact.
+      Option B: Add formal monotonicity argument to §4 explaining why any L3/L4
+      counterexample in n-node model projects to the 2-node model.
+      Either option strengthens the formal claim significantly.
+    priority: "HIGH — attempt before submission"
+
+  - fix_id: F8
+    severity: HIGH
+    title: "Abstract ~320 words (2× journal norm); contribution hierarchy unclear on first read"
+    description: >
+      E5_A2: Ad Hoc Networks published abstracts average 150–180 words.
+      Current abstract (lines 48-95) has three thesis statements competing for
+      primacy: cross-layer finding, authentication claim, validation summary.
+      A reader cannot immediately identify which is the primary contribution.
+    source_issues: [E5_A2]
+    fix: >
+      Rewrite abstract to 160–180 words following hierarchy:
+      1. Problem (unauthenticated LoRa DV mesh routing)
+      2. Finding (route injection = silent black hole, not relay, due to dst-as-next-hop,
+         invisible to Tamarin and ns-3, visible only via hardware)
+      3. Method (Tamarin + ns-3 + 6 EoRa-PI boards)
+      4. Result (HMAC-SHA256 + MetricVersion, 0% residual PDR, artifacts public)
+      Drop: deployment-domain enumeration, IDS-design implications, metric enumeration.
+    priority: "HIGH — do before submission"
+
+# ─────────────────────────────────────────────────────────────
+# MEDIUM ISSUES (address before submission if time allows,
+#                or address in reviewer-response round)
+# ─────────────────────────────────────────────────────────────
+medium_issues:
+
+  - fix_id: M1
+    title: "Meshtastic Tamarin analysis in §7.4 presented as completed without artifact"
+    source: E1_A2
+    description: >
+      §7.4 describes a Tamarin analysis of Meshtastic routing ("L1–L3 falsified,
+      L4 identifies admin-command replay") as if it has equal evidentiary weight
+      to the core LoRaMesher result. No Meshtastic Tamarin model is in the artifact.
+    fix: >
+      Either move Meshtastic analysis to validated supplementary artifact,
+      OR reframe as "preliminary informal observation... full treatment future work."
+
+  - fix_id: M2
+    title: "SRP / Rushing attacks not cited in §8.3"
+    source: E1_A1
+    description: >
+      Missing canonical MANET security citations: Papadimitratos & Haas 2002 (SRP)
+      and Hu, Perrig & Johnson 2003 (rushing attacks). Ad Hoc Networks reviewer will expect these.
+    fix: >
+      Add 2–3 sentences in §8.3 citing both, noting PKI/source-routing assumptions
+      make them inapplicable to LoRaMesher's broadcast DV + ESP32 constraints.
+
+  - fix_id: M3
+    title: "Route-table watchdog (§7.3) should cite Watchdog/Pathrater (Marti 2000)"
+    source: E1_A4
+    description: >
+      §7.3 proposes a "route-table watchdog" without citing Marti et al. 2000
+      (canonical MANET misbehavior detection paper). Not citing it looks like
+      a knowledge gap.
+    fix: >
+      Add one sentence in §7.3: "This strategy is conceptually related to
+      Watchdog/Pathrater~\cite{marti2000-watchdog} but requires no promiscuous
+      mode listening — infeasible under LoRa's half-duplex duty-cycle constraints."
+
+  - fix_id: M4
+    title: "L2 RouteFreshness in baseline is logically equivalent to L1"
+    source: E2_A2
+    description: >
+      L2 baseline is strictly weaker version of L1 — cannot distinguish replay
+      (old seq replayed) from injection (new seq never sent). The "HMAC insufficient"
+      claim relies on L2 being a genuine freshness property, but the baseline L2
+      cannot be falsified by replay in the intended sense.
+    fix: >
+      After F1 (model rewrite): ensure L2 baseline includes an ordering or
+      freshness premise that can be falsified by timestamp replay.
+      OR clarify in paper: "L2 in baseline captures origin-authentication only,
+      not anti-replay; replay is demonstrated by hardware experiment E4."
+    depends_on: F1
+
+  - fix_id: M5
+    title: "Prose fact names (§4) do not match actual Tamarin model fact names"
+    source: E2_A1
+    description: >
+      Paper at lines 804-808 uses fact names (!JoinedMesh, !RouteActive, !RekeyPending)
+      that do not appear in either .spthy file. Actual model uses !RouteTable, !MetricVersion.
+    fix: >
+      Update paper prose to use actual .spthy fact names, OR provide a mapping table.
+
+  - fix_id: M6
+    title: "memcmp() timing side-channel in verify_hmac()"
+    source: E4_A1
+    description: >
+      e6_common.h verify_hmac() uses memcmp() (not constant-time) for HMAC tag comparison.
+      Exploitable over LoRa is impractical but inconsistent with the paper's attacker model.
+    fix: >
+      Replace memcmp() with mbedtls_ct_memcmp() in firmware.
+      Add one sentence in §6.1 noting constant-time comparison is used.
+
+  - fix_id: M7
+    title: "ASCON mention without experimental comparison or design rationale"
+    source: E4_A3
+    description: >
+      §8.5 and §9 mention ASCON (~0.08ms) but provide no source/measurement
+      and confate AEAD vs MAC primitives. Reviewer may ask why ASCON was not evaluated.
+    fix: >
+      Add justification in §6.1: prefer HMAC-SHA256 because
+      (a) mbedTLS available by default in ESP-IDF, (b) no confidentiality
+      requirement for routing control messages (MAC sufficient), (c) existing
+      deployment base. OR run ASCON benchmark and add to Table 1.
+
+  - fix_id: M8
+    title: "Hardware subsection placement disrupts narrative arc"
+    source: E5_A1
+    description: >
+      §6.4 (hardware) sits inside §6 (simulation evaluation) but contains C1 finding,
+      then §7 expands on it at 193 lines. Reader encounters C1 before its framing.
+    fix: >
+      Option A: Promote hardware to standalone §6.5 or separate §7, shift cross-layer
+      finding to §8. Option B: Reduce §6.4 to 1 page with pointer "see §7 for implications."
+
+  - fix_id: M9
+    title: "77.4% PDR gradient lacks graph-theoretic quantification"
+    source: E1_A3
+    description: >
+      The topology-dependent PDR explanation ("structural consequence of next-hop entry count")
+      is qualitative. 3×3 grid and tree both show 22.6% degradation but are different topologies.
+    fix: >
+      Add one paragraph connecting PDR gradient to fraction of routing-table entries
+      that include the attacker's position as next-hop. State attacker placement rule
+      explicitly (center vs random vs worst-case).
+
+  - fix_id: M10
+    title: "ARIADNE comparison incorrectly describes incompatibility reason"
+    source: E1_A5
+    description: >
+      Line 176 says ARIADNE uses "symmetric key pre-distribution schemes incompatible
+      with LoRaMesher's join model." Actually ARIADNE uses TESLA (time-based one-way
+      function chains) which requires clock synchronization — not available on
+      duty-cycled LoRa nodes.
+    fix: >
+      Replace "symmetric key pre-distribution schemes" with "time-based one-way
+      function chains (TESLA) requiring clock synchronization infeasible under
+      LoRa's duty-cycle and sleep-cycle constraints."
+
+# ─────────────────────────────────────────────────────────────
+# LOW ISSUES (optional pre-submission, else address in revision)
+# ─────────────────────────────────────────────────────────────
+low_issues:
+  - {id: L1, source: "E1_A4", title: "Missing Watchdog/Pathrater citation in §7.3 (see M3)"}
+  - {id: L2, source: "E2_A4", title: "Tamarin artifact: replace 'proof scripts' with '.spthy files'; add Zenodo DOI"}
+  - {id: L3, source: "E2_A5", title: "!Honest(src) premise excludes attacker from Route_Update_Verify; remove after F1"}
+  - {id: L4, source: "E3_A2", title: "Distinguish custom RadioLib demo firmware from LoRaMesher v0.8.x patch in artifact"}
+  - {id: L5, source: "E4_A2", title: "Flag NETWORK_PSK as NIST test vector in firmware artifact README"}
+  - {id: L6, source: "E4_A5", title: "ACK spoofing limitation: add one sentence on silent availability attack"}
+  - {id: L7, source: "E5_A3", title: "Add citation for TinyECC 500ms claim (line 176)"}
+  - {id: L8, source: "E5_A4", title: "Move DV mechanism details from §1.1 to §4; keep only consequence in introduction"}
+
+# ─────────────────────────────────────────────────────────────
+# PRIORITIZED FIX ORDER
+# ─────────────────────────────────────────────────────────────
+fix_sequence:
+  phase_1_must_do:
+    label: "Fix before ANY submission"
+    issues: [F1, F2, F3, F4, F5, F6, F7, F8]
+    rationale: >
+      F1 invalidates the central formal claim — most important.
+      F2 is a methodology disclosure gap that looks deceptive.
+      F3 is a time-bounded security hole not addressed anywhere.
+      F4 breaks the formal model's attacker assumptions.
+      F5 should be fixed simultaneously with F1.
+      F6/F7 are HIGH and straightforward.
+      F8 (abstract) takes 30 min and affects first impression.
+    estimated_hours: 12-16
+
+  phase_2_pre_submission:
+    label: "Complete before submission if time allows"
+    issues: [M1, M2, M3, M5, M6, M7, M10]
+    estimated_hours: 4-6
+
+  phase_3_revision_round:
+    label: "Address in reviewer response if not done pre-submission"
+    issues: [M4, M8, M9, L1, L2, L3, L4, L5, L6, L7, L8]
+
+# ─────────────────────────────────────────────────────────────
+# WHAT IS SOLID (do not change)
+# ─────────────────────────────────────────────────────────────
+keep_unchanged:
+  - "C1 finding: dst-as-next-hop encoding → silent black hole. Genuine, hardware-confirmed."
+  - "Locked numbers N1–N13: all verified in paper text. Do not change."
+  - "HMAC timing: 98.17 µs, 10,000 iterations. Well-supported."
+  - "ns-3 PDR: 0% linear / 77.4% tree-grid baseline, 100% patched. Consistent and clean."
+  - "§8 related work positioning: SEAD, SAODV, AuthOLSR differentiation is strong."
+  - "§9 Limitations: candid and specific about unaddressed vectors."
+  - "Three-tier methodology framing (Tamarin bounds / ns-3 scales / hardware reveals)."
+  - "Journal scope fit: genuine ad hoc networking research, no desk-reject risk."
+  - "Writing quality: high, no fluency issues."
