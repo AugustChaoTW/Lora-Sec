@@ -51,26 +51,25 @@ stack for ESP32-class LoRa nodes, carries no cryptographic
 authentication on its control plane, exposing it to route injection
 by any attacker with a commodity \$20 LoRa transceiver.
 
-We show that successful route injection produces a \emph{silent
+Successful route injection is shown to produce a \emph{silent
 traffic black hole}, not an adversarial relay.
 The root cause is a cross-layer semantic mismatch: the deployed
 firmware encodes next-hop forwarding state in the destination
 field rather than the final-gateway identity assumed by symbolic
 and packet-level analyses.
 This mismatch is invisible to both Tamarin formal models and ns-3
-packet-level simulation; it becomes visible only through physical
-hardware serial-log inspection.
+packet-level simulation; it becomes observable only through
+physical hardware serial-log inspection.
 
-We address this gap with a three-tier methodology: Tamarin
-machine-checked proofs confirming four attack lemmas on the
-unpatched protocol, ns-3 simulation across 135 scenarios and
+This paper addresses the gap through a three-tier methodology:
+Tamarin machine-checked proofs confirming four attack lemmas on
+the unpatched protocol, ns-3 simulation across 135 scenarios and
 up to 49 nodes, and validation on six physical EoRa-PI boards.
-We design a lightweight patch—HMAC-SHA256 per-message
+A lightweight patch is proposed—HMAC-SHA256 per-message
 authentication combined with a per-destination MetricVersion
-counter—that requires no PKI infrastructure.
-The patched protocol achieves no attack-induced PDR degradation
-under all tested conditions.
-All artifacts are publicly released.
+counter—requiring no PKI infrastructure.
+No attack-induced PDR degradation is observed under any tested
+condition, and all artifacts are publicly released.
 \end{abstract}
 
 \begin{keyword}
@@ -89,19 +88,17 @@ LoRa \sep ad hoc mesh routing \sep distance-vector routing security
 % ==================================================================
 
 LoRa-based ad~hoc mesh networks have achieved remarkable
-deployment scale: individual installations now span hundreds of
-self-organizing sensor nodes across farmland, mountain ranges, and
-urban districts, relying on multi-hop distance-vector (DV) routing
-to relay data across areas where fixed infrastructure is absent or
-cost-prohibitive~\cite{ieee2025-lora-hierarchy-routing}.
+deployment scale.
+Individual installations now span hundreds of self-organizing
+sensor nodes across farmland, mountain ranges, and urban districts,
+relying on multi-hop distance-vector (DV) routing to relay data
+where fixed infrastructure is absent or cost-prohibitive~\cite{ieee2025-lora-hierarchy-routing}.
 At the core of many such deployments is
-LoRaMesher~\cite{sole2022-loramesher,sole2024-loramesher-dv,sole2026-loramesher-swx,repetto2022-lorawan-demo},
-an open-source DV mesh routing stack running on ESP32-class
-microcontrollers (240~MHz, 512~KB RAM).
-LoRaMesher provides dynamic route discovery, neighbor management,
-and periodic session rekeying, enabling fully self-organizing
-networks without fixed gateway infrastructure—a canonical ad~hoc
-networking scenario.
+LoRaMesher~\cite{sole2022-loramesher,sole2024-loramesher-dv,sole2026-loramesher-swx,repetto2022-lorawan-demo}:
+an open-source DV mesh routing stack for ESP32-class
+microcontrollers (240~MHz, 512~KB RAM) that provides dynamic
+route discovery, neighbor management, and periodic session
+rekeying without requiring fixed gateway infrastructure.
 Yet, despite the protocol's growing adoption, \emph{the security
 of its control-plane messages has never been formally analyzed}:
 to our knowledge, no prior published work has produced
@@ -147,9 +144,10 @@ well-timed control message. The two attack classes are therefore
 not independent defects but two manifestations of the same missing
 property: authenticated state transitions in a broadcast medium.
 
-Both attacks require no node compromise or cryptographic break—only
-a commodity LoRa radio. We demonstrate them in ns-3 with 100\%
-success rate on linear topologies.
+Neither attack requires node compromise or cryptographic break—only
+a commodity LoRa radio.
+Both are reproduced in ns-3 with 100\% success rate on linear
+topologies.
 
 \subsection{Why Existing Solutions Do Not Apply}
 
@@ -198,7 +196,7 @@ This paper makes three contributions:
 \begin{enumerate}
 
   \item \textbf{Cross-Layer Routing Semantics Finding.}
-    We identify that route injection in LoRaMesher creates a
+    Route injection in LoRaMesher is identified to create a
     \emph{silent traffic black hole}—not an adversarial relay—because
     the deployed firmware encodes next-hop forwarding state in the
     \texttt{dst} field rather than the final gateway identity assumed
@@ -247,22 +245,23 @@ Our study follows a four-phase, mutually corroborating methodology:
 
 \begin{enumerate}[label=\textbf{Phase \arabic*.}]
   \item \textbf{Formal Disclosure} (Section~\ref{sec:formal}):
-    We build a Tamarin Prover model of LoRaMesher's control plane
-    and derive machine-checked attack traces. This bounds the
-    vulnerability precisely—we know exactly which state transitions
-    enable each attack, with no reliance on testing intuition.
+    A Tamarin Prover model of LoRaMesher's control plane is
+    constructed and machine-checked attack traces are derived.
+    This bounds the vulnerability precisely: the exact state
+    transitions enabling each attack are identified without reliance
+    on testing intuition.
 
   \item \textbf{Verified Patch} (Section~\ref{sec:patch}):
-    We extend the Tamarin model with the proposed patch rules and
-    re-verify all security lemmas. The patch is accepted only when
+    The Tamarin model is extended with proposed patch rules and all
+    security lemmas are re-verified. The patch is accepted only when
     Tamarin proves all 8 goals, guaranteeing it eliminates the
     formally identified root causes—not just the observed symptoms.
 
   \item \textbf{Multi-Topology Simulation} (Section~\ref{sec:eval}):
-    We implement the protocol, both attacks, and three security modes
-    in ns-3.40 with a C++17 Dolev-Yao attacker. This translates
-    Tamarin's symbolic guarantees into packet-level PDR measurements
-    across linear, tree, and grid ad hoc network topologies.
+    The protocol, both attacks, and three security modes are
+    implemented in ns-3.40 with a C++17 Dolev-Yao attacker,
+    translating Tamarin's symbolic guarantees into packet-level
+    PDR measurements across linear, tree, and grid topologies.
 
   \item \textbf{Physical Hardware Validation}
     (Section~\ref{sec:hardware-validation}):
@@ -1033,9 +1032,9 @@ is required to achieve 0\% success universally.
 \label{sec:patch}
 % ==================================================================
 
-We design the patch with three ESP32 deployment constraints:
+The patch is designed around three ESP32 deployment constraints:
 (a)~minimal flash footprint, (b)~sub-millisecond CPU overhead,
-(c)~no PKI or trusted-third-party dependency.
+and (c)~no PKI or trusted-third-party dependency.
 
 \subsection{Patch~1: HMAC-SHA256 Message Authentication}
 
@@ -1095,8 +1094,8 @@ recommended via OTA update).
 
 \subsection{Simulation Setup}
 
-We implement the LoRaMesher protocol, both attacks, and all three
-security modes in ns-3.40 with a C++17 Dolev-Yao attacker module.
+The LoRaMesher protocol, both attacks, and all three security modes
+are implemented in ns-3.40 with a C++17 Dolev-Yao attacker module.
 Three representative ad hoc network topologies are evaluated:
 
 \begin{itemize}
@@ -1108,8 +1107,8 @@ Three representative ad hoc network topologies are evaluated:
     infrastructure monitoring with path redundancy.
 \end{itemize}
 
-We evaluate all combinations of topology, protocol state, and
-attack type across five independent seeds (300~s each).
+All combinations of topology, protocol state, and attack type
+are evaluated across five independent seeds (300~s each).
 Attack outcomes are deterministic because HMAC correctness is
 cryptographic, not probabilistic; PDR variation across topologies
 reflects routing-path diversity, not measurement noise.
@@ -1320,7 +1319,7 @@ Hardware is the \emph{only} tier that makes the \texttt{dst}-as-next-hop
 encoding observable: no formal model or simulator inspects
 physical board serial logs.
 
-We conducted three core experiments on six Ebyte EoRa-PI boards
+Three core experiments were conducted on six Ebyte EoRa-PI boards
 (ESP32-S3FH4R2 + SX1262, AS923/923~MHz, 10~dBm):
 (i)~a three-node route injection and HMAC defense demo (E5b,
 Section~\ref{sec:hardware-validation});
@@ -1938,8 +1937,8 @@ combining all three for any LoRa mesh routing protocol.
 \label{sec:conclusion}
 % ==================================================================
 
-We have shown that the LoRaMesher control plane—deployed on
-commodity ESP32 hardware in unattended ad hoc mesh fields—accepts
+The LoRaMesher control plane—deployed on commodity ESP32 hardware
+in unattended ad hoc mesh fields—has been shown to accept
 unauthenticated routing updates, enabling any actor with a
 \$20 radio to hijack traffic or confuse session epochs across
 an entire sensor field.
@@ -1965,7 +1964,7 @@ be secured against the actual threat—availability loss via
 silent misdirection—with a minimal, PKI-free patch that
 is deployable on commodity ESP32 hardware.
 
-We release all artifacts under MIT license as a reproducible
+All artifacts are released under MIT license as a reproducible
 baseline for future LoRa mesh routing security research.
 
 \section*{Code and Data Availability}
